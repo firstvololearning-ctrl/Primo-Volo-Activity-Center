@@ -415,3 +415,105 @@ const body = [
     image: "images/body/body-17.png"
   }
 ];
+const time = [
+  {
+    italian: "È l'una.",
+    english: "It is one o’clock.",
+    image: "images/time/time-01.png"
+  },
+  {
+    italian: "È l'una e un quarto.",
+    english: "It is quarter past one.",
+    image: "images/time/time-02.png"
+  },
+  {
+    italian: "È l'una e mezza.",
+    english: "It is half past one.",
+    image: "images/time/time-03.png"
+  },
+  {
+    italian: "Sono le due meno un quarto.",
+    english: "It is quarter to two.",
+    image: "images/time/time-04.png"
+  },
+  {
+    italian: "Sono le undici.",
+    english: "It is eleven o’clock.",
+    image: "images/time/time-05.png"
+  },
+  {
+    italian: "Sono le undici e un quarto.",
+    english: "It is quarter past eleven.",
+    image: "images/time/time-06.png"
+  },
+  {
+    italian: "Sono le undici e mezza.",
+    english: "It is half past eleven.",
+    image: "images/time/time-07.png"
+  },
+  {
+    italian: "Sono le dodici meno un quarto.",
+    english: "It is quarter to twelve.",
+    image: "images/time/time-08.png"
+  },
+  {
+    italian: "Sono le due e un quarto.",
+    english: "It is quarter past two.",
+    image: "images/time/time-09.png"
+  },
+  {
+    italian: "Sono le nove e mezza.",
+    english: "It is half past nine.",
+    image: "images/time/time-10.png"
+  },
+  {
+    italian: "Sono le dieci.",
+    english: "It is ten o’clock.",
+    image: "images/time/time-11.png"
+  },
+  {
+    italian: "Sono le otto e un quarto.",
+    english: "It is quarter past eight.",
+    image: "images/time/time-12.png"
+  },
+  {
+    italian: "Sono le otto meno un quarto.",
+    english: "It is quarter to eight.",
+    image: "images/time/time-13.png"
+  },
+  {
+    italian: "Sono le sei.",
+    english: "It is six o’clock.",
+    image: "images/time/time-14.png"
+  },
+  {
+    italian: "Sono le cinque e mezza.",
+    english: "It is half past five.",
+    image: "images/time/time-15.png"
+  },
+  {
+    italian: "Sono le cinque meno un quarto.",
+    english: "It is quarter to five.",
+    image: "images/time/time-16.png"
+  },
+  {
+    italian: "Sono le tre.",
+    english: "It is three o’clock.",
+    image: "images/time/time-17.png"
+  },
+  {
+    italian: "Sono le dodici e un quarto.",
+    english: "It is quarter past twelve.",
+    image: "images/time/time-18.png"
+  },
+  {
+    italian: "È l'una meno un quarto.",
+    english: "It is quarter to one.",
+    image: "images/time/time-19.png"
+  },
+  {
+    italian: "Sono le tre e mezza.",
+    english: "It is half past three.",
+    image: "images/time/time-20.png"
+  }
+];

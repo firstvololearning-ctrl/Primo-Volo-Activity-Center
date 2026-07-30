@@ -116,13 +116,13 @@ animals: {
   available: true
 },
 
-  time: {
-    icon: "🕒",
-    italian: "L’ora",
-    english: "Time",
-    vocabulary: [],
-    available: false
-  },
+time: {
+  icon: "🕒",
+  italian: "L’ora",
+  english: "Telling Time",
+  vocabulary: time,
+  available: true
+},
 
   weather: {
     icon: "🌦️",
