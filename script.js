@@ -9,6 +9,8 @@ const chooseActivity =
   document.querySelector("#chooseActivity");
 const matchActivity =
   document.querySelector("#matchActivity");
+  const listenActivity =
+  document.querySelector("#listenActivity");
 const englishToggle =
   document.querySelector("#englishToggle");
 const englishToggleControl =
@@ -174,7 +176,7 @@ function speakItalian(text) {
     new SpeechSynthesisUtterance(text);
 
   utterance.lang = "it-IT";
-  utterance.rate = 0.82;
+  utterance.rate = 0.70;
   utterance.pitch = 1;
 
   const italianVoice = getItalianVoice();
@@ -281,6 +283,7 @@ function showLearnMode() {
 
   learnActivity.hidden = false;
   matchActivity.hidden = true;
+  listenActivity.hidden = true;
   chooseActivity.hidden = true;
 
   englishToggleControl.hidden = false;
@@ -288,9 +291,6 @@ function showLearnMode() {
 
   renderVocabulary();
 }
-/* ========================================
-   MATCH MODE
-   ======================================== */
 /* ========================================
    MATCH MODE
    ======================================== */
@@ -683,6 +683,7 @@ function showMatchMode() {
 
   learnActivity.hidden = true;
   matchActivity.hidden = false;
+  listenActivity.hidden = true;
   chooseActivity.hidden = true;
 
   englishToggleControl.hidden = true;
@@ -690,7 +691,281 @@ function showMatchMode() {
 
   createMatchRound();
 }
+/* ========================================
+   LISTEN MODE
+   ======================================== */
 
+let currentListenItem = null;
+let listenAnswered = false;
+
+function buildListenChoices(correctItem) {
+  const incorrectChoices = shuffle(
+    currentVocabulary.filter(
+      item => item !== correctItem
+    )
+  ).slice(0, 3);
+
+  return shuffle([
+    correctItem,
+    ...incorrectChoices
+  ]);
+}
+
+function playCurrentListenWord() {
+  if (!currentListenItem) {
+    return;
+  }
+
+  speakItalian(currentListenItem.italian);
+}
+
+function showListenQuestion() {
+  if (!currentVocabulary.length) {
+    listenActivity.innerHTML = `
+      <p class="listen-empty">
+        Nessun vocabolario disponibile.
+        <span>No vocabulary is available.</span>
+      </p>
+    `;
+
+    return;
+  }
+
+  currentListenItem =
+    currentVocabulary[
+      Math.floor(
+        Math.random() *
+        currentVocabulary.length
+      )
+    ];
+
+  listenAnswered = false;
+
+  const choices =
+    buildListenChoices(currentListenItem);
+
+  listenActivity.innerHTML = `
+    <div class="listen-card">
+
+      <div class="listen-heading">
+        <h4>
+          Ascolta e scegli l'immagine corretta.
+        </h4>
+
+        <p>
+          Listen and choose the correct picture.
+        </p>
+      </div>
+
+      <button
+        type="button"
+        id="listenPlayButton"
+        class="listen-play-button"
+        aria-label="Listen to the Italian word"
+      >
+        <span
+          class="listen-play-icon"
+          aria-hidden="true"
+        >
+          🔊
+        </span>
+
+        <span>
+          Ascolta
+          <small>Listen</small>
+        </span>
+      </button>
+
+      <p class="listen-replay-message">
+        Puoi ascoltare la parola più volte.
+        <span>
+          You may replay the word as many times
+          as you need.
+        </span>
+      </p>
+
+      <div
+        class="listen-choice-grid"
+        aria-label="Picture choices"
+      >
+        ${choices.map(item => `
+          <button
+            type="button"
+            class="listen-choice"
+            data-answer="${item.italian}"
+            aria-label="${item.english}"
+          >
+            <div class="listen-image-frame">
+              <img
+                src="${item.image}"
+                alt="${item.english}"
+              >
+            </div>
+          </button>
+        `).join("")}
+      </div>
+
+      <p
+        id="listenFeedback"
+        class="listen-feedback"
+        aria-live="polite"
+      ></p>
+
+      <button
+        type="button"
+        id="nextListenButton"
+        class="next-question-button"
+        hidden
+      >
+        Prossima domanda · Next Question
+      </button>
+
+    </div>
+  `;
+
+  const playButton =
+    listenActivity.querySelector(
+      "#listenPlayButton"
+    );
+
+  const choiceButtons =
+    listenActivity.querySelectorAll(
+      ".listen-choice"
+    );
+
+  const feedback =
+    listenActivity.querySelector(
+      "#listenFeedback"
+    );
+
+  const nextButton =
+    listenActivity.querySelector(
+      "#nextListenButton"
+    );
+
+  playButton.addEventListener(
+    "click",
+    () => {
+      playCurrentListenWord();
+
+      playButton.classList.remove(
+        "is-playing"
+      );
+
+      void playButton.offsetWidth;
+
+      playButton.classList.add(
+        "is-playing"
+      );
+    }
+  );
+
+  playButton.addEventListener(
+    "animationend",
+    () => {
+      playButton.classList.remove(
+        "is-playing"
+      );
+    }
+  );
+
+  choiceButtons.forEach(button => {
+    button.addEventListener(
+      "click",
+      () => {
+        if (listenAnswered) {
+          return;
+        }
+
+        const isCorrect =
+          button.dataset.answer ===
+          currentListenItem.italian;
+
+        if (isCorrect) {
+          listenAnswered = true;
+
+          button.classList.add("correct");
+
+          feedback.innerHTML = `
+            Corretto! Hai sentito
+            <strong>
+              ${currentListenItem.italian}
+            </strong>.
+
+            <span>
+              Correct! You heard
+              <strong>
+                ${currentListenItem.italian}
+              </strong>.
+            </span>
+          `;
+
+          feedback.className =
+            "listen-feedback correct-feedback";
+
+          choiceButtons.forEach(choice => {
+            choice.disabled = true;
+          });
+
+          speakItalian(
+            currentListenItem.italian
+          );
+
+          nextButton.hidden = false;
+        } else {
+          button.classList.add(
+            "incorrect"
+          );
+
+          feedback.innerHTML = `
+            Riprova. Ascolta ancora.
+
+            <span>
+              Try again. Listen once more.
+            </span>
+          `;
+
+          feedback.className =
+            "listen-feedback incorrect-feedback";
+
+          window.setTimeout(() => {
+            button.classList.remove(
+              "incorrect"
+            );
+          }, 600);
+        }
+      }
+    );
+  });
+
+  nextButton.addEventListener(
+    "click",
+    showListenQuestion
+  );
+
+  /*
+    Play automatically after the new
+    question appears.
+  */
+  window.setTimeout(
+    playCurrentListenWord,
+    350
+  );
+}
+
+function showListenMode() {
+  setActiveButton("match-sound");
+
+  learnActivity.hidden = true;
+  matchActivity.hidden = true;
+  listenActivity.hidden = false;
+  chooseActivity.hidden = true;
+
+  englishToggleControl.hidden = true;
+  learnInstructions.hidden = true;
+
+  showListenQuestion();
+}
 /* ========================================
    CHOOSE MODE
    ======================================== */
@@ -832,6 +1107,7 @@ function showChooseMode() {
 
   learnActivity.hidden = true;
   matchActivity.hidden = true;
+  listenActivity.hidden = true;
   chooseActivity.hidden = false;
 
   englishToggleControl.hidden = true;
@@ -961,15 +1237,20 @@ activityButtons.forEach(button => {
       return;
     }
 
-    if (mode === "match-word") {
-      showMatchMode();
-      return;
-    }
+   if (mode === "match-word") {
+  showMatchMode();
+  return;
+}
 
-    if (mode === "choose") {
-      showChooseMode();
-      return;
-    }
+if (mode === "match-sound") {
+  showListenMode();
+  return;
+}
+
+if (mode === "choose") {
+  showChooseMode();
+  return;
+}
 
     window.alert(
       "Questa attività sarà disponibile presto."
