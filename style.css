@@ -1239,6 +1239,240 @@ button {
   .listen-image-frame {
     height: 150px;
   }
+  } 
+/* ========================================
+   COMPLETE MODE
+   ======================================== */
+
+.complete-activity {
+  width: min(720px, 100%);
+  margin: 0 auto;
+}
+
+.complete-card {
+  width: 100%;
+  margin: 0 auto;
+  padding: 20px 24px 24px;
+
+  border-radius: 24px;
+  background: white;
+  box-shadow: var(--shadow);
+
+  text-align: center;
+}
+
+.complete-heading {
+  margin-bottom: 16px;
+}
+
+.complete-heading h4 {
+  margin: 0;
+
+  color: var(--blue-dark);
+  font-size: 1.1rem;
+  line-height: 1.35;
+}
+
+.complete-heading p {
+  margin: 4px 0 0;
+
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+.complete-prompt-row {
+  display: grid;
+  grid-template-columns: 160px minmax(0, 1fr);
+  align-items: center;
+  gap: 24px;
+
+  width: min(580px, 100%);
+  margin: 0 auto 16px;
+}
+
+.complete-image-frame {
+  display: grid;
+  place-items: center;
+
+  width: 160px;
+  height: 145px;
+  margin: 0;
+  padding: 8px;
+
+  overflow: hidden;
+
+  border-radius: 18px;
+  background: var(--cream);
+}
+
+.complete-image-frame img {
+  display: block;
+
+  width: 100%;
+  height: 100%;
+
+  object-fit: contain;
+}
+
+.complete-word {
+  min-width: 0;
+  margin: 0;
+
+  color: var(--blue-dark);
+  font-size: clamp(1.8rem, 4vw, 2.65rem);
+  font-weight: 900;
+  line-height: 1.25;
+
+  letter-spacing: 0.02em;
+  word-spacing: 0.28em;
+  text-align: center;
+
+  overflow-wrap: anywhere;
+}
+
+.complete-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.complete-label {
+  color: var(--blue-dark);
+  font-size: 0.95rem;
+  font-weight: 800;
+  line-height: 1.45;
+}
+
+.complete-label span {
+  display: block;
+
+  color: var(--muted);
+  font-size: 0.86rem;
+  font-weight: 500;
+}
+
+.complete-input {
+  width: min(320px, 100%);
+  margin-top: 9px;
+  padding: 11px 14px;
+
+  border: 2px solid var(--border);
+  border-radius: 14px;
+
+  color: var(--blue-dark);
+  background: white;
+
+  font-size: 1.15rem;
+  font-weight: 900;
+  letter-spacing: 0.03em;
+  text-align: center;
+
+  transition:
+    border-color 0.17s ease,
+    background 0.17s ease,
+    box-shadow 0.17s ease;
+}
+
+.complete-input:focus {
+  border-color: var(--blue);
+  outline: 0;
+
+  box-shadow:
+    0 0 0 4px rgba(39, 75, 132, 0.14);
+}
+
+.complete-input.incorrect {
+  border-color: #c94f4f;
+  background: #fff0f0;
+
+  animation: match-shake 0.32s ease;
+}
+
+.complete-check-button {
+  margin-top: 10px;
+  padding: 11px 20px;
+
+  border: 0;
+  border-radius: 999px;
+
+  color: white;
+  background: var(--blue);
+
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.complete-check-button:hover:not(:disabled) {
+  background: var(--blue-dark);
+}
+
+.complete-check-button:disabled {
+  opacity: 0.6;
+  cursor: default;
+}
+
+.complete-feedback {
+  min-height: 0;
+  margin: 14px 0 0;
+
+  font-weight: 900;
+  line-height: 1.45;
+}
+
+.complete-feedback:empty {
+  display: none;
+}
+
+.complete-feedback span {
+  display: block;
+  margin-top: 2px;
+
+  font-size: 0.88rem;
+  font-weight: 500;
+}
+
+.complete-empty span {
+  display: block;
+  margin-top: 3px;
+
+  color: var(--muted);
+}
+
+.complete-card .next-question-button {
+  margin-top: 12px;
+}
+
+/* Stack the image and word on small screens. */
+@media (max-width: 600px) {
+  .complete-card {
+    padding: 18px;
+  }
+
+  .complete-prompt-row {
+    grid-template-columns: 1fr;
+    gap: 12px;
+
+    width: 100%;
+    margin-bottom: 16px;
+  }
+
+  .complete-image-frame {
+    width: 160px;
+    height: 145px;
+    margin: 0 auto;
+  }
+
+  .complete-word {
+    font-size: 1.7rem;
+    letter-spacing: 0.01em;
+    word-spacing: 0.24em;
+    text-align: center;
+  }
+
+  .complete-input,
+  .complete-check-button {
+    width: 100%;
+  }
 }
 /* ========================================
    CHOOSE THE WORD

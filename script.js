@@ -11,6 +11,8 @@ const matchActivity =
   document.querySelector("#matchActivity");
   const listenActivity =
   document.querySelector("#listenActivity");
+  const completeActivity =
+  document.querySelector("#completeActivity");
 const englishToggle =
   document.querySelector("#englishToggle");
 const englishToggleControl =
@@ -285,6 +287,7 @@ function showLearnMode() {
   matchActivity.hidden = true;
   listenActivity.hidden = true;
   chooseActivity.hidden = true;
+  completeActivity.hidden = true;
 
   englishToggleControl.hidden = false;
   learnInstructions.hidden = false;
@@ -685,6 +688,7 @@ function showMatchMode() {
   matchActivity.hidden = false;
   listenActivity.hidden = true;
   chooseActivity.hidden = true;
+  completeActivity.hidden = true;
 
   englishToggleControl.hidden = true;
   learnInstructions.hidden = true;
@@ -960,11 +964,308 @@ function showListenMode() {
   matchActivity.hidden = true;
   listenActivity.hidden = false;
   chooseActivity.hidden = true;
+  completeActivity.hidden = true;
 
   englishToggleControl.hidden = true;
   learnInstructions.hidden = true;
 
   showListenQuestion();
+}
+/* ========================================
+   COMPLETE MODE
+   ======================================== */
+
+let currentCompleteItem = null;
+let currentMissingIndexes = [];
+
+function normalizeAnswer(text) {
+  return text
+    .trim()
+    .toLowerCase()
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "");
+}
+
+function chooseMissingIndexes(word) {
+  const letterIndexes = [...word]
+    .map((character, index) => ({
+      character,
+      index
+    }))
+    .filter(item =>
+      /[a-zA-ZÀ-ÿ]/.test(item.character)
+    )
+    .map(item => item.index);
+
+  const missingCount =
+    word.length <= 5 ? 1 : 2;
+
+  return shuffle(letterIndexes)
+    .slice(0, missingCount)
+    .sort((a, b) => a - b);
+}
+
+function createIncompleteWord(
+  word,
+  missingIndexes
+) {
+  return [...word]
+    .map((character, index) => {
+      if (character === " ") {
+        return "\u00A0";
+      }
+
+      if (missingIndexes.includes(index)) {
+        return "_";
+      }
+
+      return character;
+    })
+    .join("");
+}
+
+function showCompleteQuestion() {
+  if (!currentVocabulary.length) {
+    completeActivity.innerHTML = `
+      <p class="complete-empty">
+        Nessun vocabolario disponibile.
+
+        <span>
+          No vocabulary is available.
+        </span>
+      </p>
+    `;
+
+    return;
+  }
+
+  currentCompleteItem =
+    currentVocabulary[
+      Math.floor(
+        Math.random() *
+        currentVocabulary.length
+      )
+    ];
+
+  currentMissingIndexes =
+    chooseMissingIndexes(
+      currentCompleteItem.italian
+    );
+
+  const incompleteWord =
+    createIncompleteWord(
+      currentCompleteItem.italian,
+      currentMissingIndexes
+    );
+
+  completeActivity.innerHTML = `
+    <div class="complete-card">
+
+      <div class="complete-heading">
+        <h4>
+          Scrivi la parola completa.
+        </h4>
+
+        <p>
+          Complete the word.
+        </p>
+      </div>
+
+      <div class="complete-prompt-row">
+
+        <div class="complete-image-frame">
+          <img
+            src="${currentCompleteItem.image}"
+            alt="${currentCompleteItem.english}"
+          >
+        </div>
+
+        <p
+          class="complete-word"
+          aria-label="Incomplete Italian word"
+        >
+          ${incompleteWord}
+        </p>
+
+      </div>
+
+      <form
+        id="completeForm"
+        class="complete-form"
+      >
+        <label
+          for="completeInput"
+          class="complete-label"
+        >
+          Scrivi la parola completa.
+
+          <span>
+            Type the complete word.
+          </span>
+        </label>
+
+        <input
+          type="text"
+          id="completeInput"
+          class="complete-input"
+          autocomplete="off"
+          autocapitalize="none"
+          spellcheck="false"
+          aria-describedby="completeFeedback"
+        >
+
+        <button
+          type="submit"
+          class="complete-check-button"
+        >
+          Controlla · Check
+        </button>
+      </form>
+
+      <p
+        id="completeFeedback"
+        class="complete-feedback"
+        aria-live="polite"
+      ></p>
+
+      <button
+        type="button"
+        id="nextCompleteButton"
+        class="next-question-button"
+        hidden
+      >
+        Prossima domanda · Next Question
+      </button>
+
+    </div>
+  `;
+
+  const form =
+    completeActivity.querySelector(
+      "#completeForm"
+    );
+
+  const input =
+    completeActivity.querySelector(
+      "#completeInput"
+    );
+
+  const feedback =
+    completeActivity.querySelector(
+      "#completeFeedback"
+    );
+
+  const nextButton =
+    completeActivity.querySelector(
+      "#nextCompleteButton"
+    );
+
+  const checkButton =
+    completeActivity.querySelector(
+      ".complete-check-button"
+    );
+
+  form.addEventListener(
+    "submit",
+    event => {
+      event.preventDefault();
+
+      const studentAnswer =
+        normalizeAnswer(input.value);
+
+      const correctAnswer =
+        normalizeAnswer(
+          currentCompleteItem.italian
+        );
+
+      if (!studentAnswer) {
+        feedback.innerHTML = `
+          Scrivi la parola completa.
+
+          <span>
+            Type the complete word.
+          </span>
+        `;
+
+        feedback.className =
+          "complete-feedback incorrect-feedback";
+
+        input.focus();
+        return;
+      }
+
+      if (studentAnswer === correctAnswer) {
+        input.disabled = true;
+        checkButton.disabled = true;
+
+        feedback.innerHTML = `
+          Corretto! La parola è
+          <strong>
+            ${currentCompleteItem.italian}
+          </strong>.
+
+          <span>
+            Correct! The word is
+            <strong>
+              ${currentCompleteItem.italian}
+            </strong>.
+          </span>
+        `;
+
+        feedback.className =
+          "complete-feedback correct-feedback";
+
+        speakItalian(
+          currentCompleteItem.italian
+        );
+
+        nextButton.hidden = false;
+      } else {
+        input.classList.add("incorrect");
+
+        feedback.innerHTML = `
+          Riprova.
+
+          <span>
+            Try again.
+          </span>
+        `;
+
+        feedback.className =
+          "complete-feedback incorrect-feedback";
+
+        window.setTimeout(() => {
+          input.classList.remove(
+            "incorrect"
+          );
+        }, 500);
+
+        input.select();
+      }
+    }
+  );
+
+  nextButton.addEventListener(
+    "click",
+    showCompleteQuestion
+  );
+
+  input.focus();
+}
+
+function showCompleteMode() {
+  setActiveButton("complete");
+
+  learnActivity.hidden = true;
+  matchActivity.hidden = true;
+  listenActivity.hidden = true;
+  chooseActivity.hidden = true;
+  completeActivity.hidden = false;
+
+  englishToggleControl.hidden = true;
+  learnInstructions.hidden = true;
+
+  showCompleteQuestion();
 }
 /* ========================================
    CHOOSE MODE
@@ -1109,7 +1410,7 @@ function showChooseMode() {
   matchActivity.hidden = true;
   listenActivity.hidden = true;
   chooseActivity.hidden = false;
-
+completeActivity.hidden = true;
   englishToggleControl.hidden = true;
   learnInstructions.hidden = true;
 
@@ -1251,7 +1552,10 @@ if (mode === "choose") {
   showChooseMode();
   return;
 }
-
+if (mode === "complete") {
+  showCompleteMode();
+  return;
+}
     window.alert(
       "Questa attività sarà disponibile presto."
     );
