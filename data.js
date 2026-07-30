@@ -72,3 +72,55 @@ const supplies = [
     image: "images/classroom/supplies/supplies-14.png"
   }
 ];
+const food = [
+  {
+    italian: "la mela",
+    english: "apple",
+    image: "images/food/food-01.png"
+  },
+  {
+    italian: "l'arancia",
+    english: "orange",
+   image: "images/food/food-02.png"
+  },
+  {
+    italian: "la banana",
+    english: "banana",
+    image: "images/food/food-03.png"
+  },
+  {
+    italian: "il pane",
+    english: "bread",
+    image: "images/food/food-04.png"
+  },
+  {
+    italian: "il formaggio",
+    english: "cheese",
+    image: "images/food/food-05.png"
+  },
+  {
+    italian: "l'uovo",
+    english: "egg",
+    image: "images/food/food-06.png"
+  },
+  {
+    italian: "l'uva",
+    english: "grapes",
+    image: "images/food/food-07.png"
+  },
+  {
+    italian: "il succo d'arancia",
+    english: "orange juice",
+    image: "images/food/food-08.png"
+  },
+  {
+    italian: "il latte",
+    english: "milk",
+    image: "images/food/food-09.png"
+  },
+  {
+    italian: "l'acqua",
+    english: "water",
+    image: "images/food/food-10.png"
+  }
+];

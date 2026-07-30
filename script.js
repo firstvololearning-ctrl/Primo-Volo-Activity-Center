@@ -55,12 +55,12 @@ const topics = {
   },
 
   food: {
-    icon: "🍎",
-    italian: "Il cibo",
-    english: "Food",
-    vocabulary: [],
-    available: false
-  },
+  icon: "🍎",
+  italian: "Il cibo e le bevande",
+  english: "Food & Drinks",
+  vocabulary: food,
+  available: true
+},
 
   clothing: {
     icon: "👕",
