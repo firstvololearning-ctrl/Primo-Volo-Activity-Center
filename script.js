@@ -7,6 +7,8 @@ const vocabularyGrid =
 
 const chooseActivity =
   document.querySelector("#chooseActivity");
+  const writeActivity =
+  document.querySelector("#writeActivity");
 const matchActivity =
   document.querySelector("#matchActivity");
   const listenActivity =
@@ -288,6 +290,7 @@ function showLearnMode() {
   listenActivity.hidden = true;
   chooseActivity.hidden = true;
   completeActivity.hidden = true;
+  writeActivity.hidden = true;
 
   englishToggleControl.hidden = false;
   learnInstructions.hidden = false;
@@ -689,6 +692,7 @@ function showMatchMode() {
   listenActivity.hidden = true;
   chooseActivity.hidden = true;
   completeActivity.hidden = true;
+  writeActivity.hidden = true;
 
   englishToggleControl.hidden = true;
   learnInstructions.hidden = true;
@@ -965,6 +969,7 @@ function showListenMode() {
   listenActivity.hidden = false;
   chooseActivity.hidden = true;
   completeActivity.hidden = true;
+  writeActivity.hidden = true;
 
   englishToggleControl.hidden = true;
   learnInstructions.hidden = true;
@@ -978,6 +983,10 @@ function showListenMode() {
 let currentCompleteItem = null;
 let currentMissingIndexes = [];
 
+/*
+  Normalize answers so capitalization and
+  accent marks do not affect correctness.
+*/
 function normalizeAnswer(text) {
   return text
     .trim()
@@ -1261,11 +1270,239 @@ function showCompleteMode() {
   listenActivity.hidden = true;
   chooseActivity.hidden = true;
   completeActivity.hidden = false;
+  writeActivity.hidden = true;
 
   englishToggleControl.hidden = true;
   learnInstructions.hidden = true;
 
   showCompleteQuestion();
+}
+
+/* ========================================
+   WRITE MODE
+   ======================================== */
+
+let currentWriteItem = null;
+
+function showWriteQuestion() {
+  if (!currentVocabulary.length) {
+    writeActivity.innerHTML = `
+      <p class="complete-empty">
+        Nessun vocabolario disponibile.
+
+        <span>
+          No vocabulary is available.
+        </span>
+      </p>
+    `;
+
+    return;
+  }
+
+  currentWriteItem =
+    currentVocabulary[
+      Math.floor(
+        Math.random() *
+        currentVocabulary.length
+      )
+    ];
+
+  writeActivity.innerHTML = `
+    <div class="complete-card">
+
+      <div class="complete-heading">
+        <h4>
+          Scrivi la parola.
+        </h4>
+
+        <p>
+          Write the Italian word.
+        </p>
+      </div>
+
+      <div class="write-image-row">
+
+        <div class="complete-image-frame">
+          <img
+            src="${currentWriteItem.image}"
+            alt="${currentWriteItem.english}"
+          >
+        </div>
+
+      </div>
+
+      <form
+        id="writeForm"
+        class="complete-form"
+      >
+       <label
+  for="writeInput"
+  class="sr-only"
+>
+  Scrivi la parola
+</label>
+
+        <input
+          type="text"
+          id="writeInput"
+          class="complete-input"
+          autocomplete="off"
+          autocapitalize="none"
+          spellcheck="false"
+          aria-describedby="writeFeedback"
+        >
+
+        <button
+          type="submit"
+          class="complete-check-button"
+        >
+          Controlla · Check
+        </button>
+      </form>
+
+      <p
+        id="writeFeedback"
+        class="complete-feedback"
+        aria-live="polite"
+      ></p>
+
+      <button
+        type="button"
+        id="nextWriteButton"
+        class="next-question-button"
+        hidden
+      >
+        Prossima domanda · Next Question
+      </button>
+
+    </div>
+  `;
+
+  const form =
+    writeActivity.querySelector(
+      "#writeForm"
+    );
+
+  const input =
+    writeActivity.querySelector(
+      "#writeInput"
+    );
+
+  const feedback =
+    writeActivity.querySelector(
+      "#writeFeedback"
+    );
+
+  const nextButton =
+    writeActivity.querySelector(
+      "#nextWriteButton"
+    );
+
+  const checkButton =
+    writeActivity.querySelector(
+      ".complete-check-button"
+    );
+
+  form.addEventListener(
+    "submit",
+    event => {
+      event.preventDefault();
+
+      const studentAnswer =
+        normalizeAnswer(input.value);
+
+      const correctAnswer =
+        normalizeAnswer(
+          currentWriteItem.italian
+        );
+
+      if (!studentAnswer) {
+        feedback.innerHTML = `
+          Scrivi la parola.
+
+          <span>
+            Type the word.
+          </span>
+        `;
+
+        feedback.className =
+          "complete-feedback incorrect-feedback";
+
+        input.focus();
+        return;
+      }
+
+      if (studentAnswer === correctAnswer) {
+        input.disabled = true;
+        checkButton.disabled = true;
+
+        feedback.innerHTML = `
+          Corretto!
+
+          <strong>
+            ${currentWriteItem.italian}
+          </strong>
+
+          <span>
+            Correct!
+          </span>
+        `;
+
+        feedback.className =
+          "complete-feedback correct-feedback";
+
+        speakItalian(
+          currentWriteItem.italian
+        );
+
+        nextButton.hidden = false;
+      } else {
+        input.classList.add("incorrect");
+
+        feedback.innerHTML = `
+          Riprova.
+
+          <span>
+            Try again.
+          </span>
+        `;
+
+        feedback.className =
+          "complete-feedback incorrect-feedback";
+
+        window.setTimeout(() => {
+          input.classList.remove(
+            "incorrect"
+          );
+        }, 500);
+
+        input.select();
+      }
+    }
+  );
+
+  nextButton.addEventListener(
+    "click",
+    showWriteQuestion
+  );
+
+  input.focus();
+}
+
+function showWriteMode() {
+  setActiveButton("write");
+
+  learnActivity.hidden = true;
+  matchActivity.hidden = true;
+  listenActivity.hidden = true;
+  chooseActivity.hidden = true;
+  completeActivity.hidden = true;
+  writeActivity.hidden = false;
+
+  englishToggleControl.hidden = true;
+  learnInstructions.hidden = true;
+
+  showWriteQuestion();
 }
 /* ========================================
    CHOOSE MODE
@@ -1411,8 +1648,10 @@ function showChooseMode() {
   listenActivity.hidden = true;
   chooseActivity.hidden = false;
 completeActivity.hidden = true;
+writeActivity.hidden = true;
   englishToggleControl.hidden = true;
   learnInstructions.hidden = true;
+  
 
   showChooseQuestion();
 }
@@ -1554,6 +1793,10 @@ if (mode === "choose") {
 }
 if (mode === "complete") {
   showCompleteMode();
+  return;
+}
+if (mode === "write") {
+  showWriteMode();
   return;
 }
     window.alert(
