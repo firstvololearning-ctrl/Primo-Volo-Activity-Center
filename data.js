@@ -226,3 +226,105 @@ const animals = [
     image: "images/animals/animals-20.png"
   }
 ];
+const clothing = [
+  {
+    italian: "il pigiama",
+    english: "pajamas",
+    image: "images/clothing/clothes-01.png"
+  },
+  {
+    italian: "la maglietta",
+    english: "T-shirt",
+    image: "images/clothing/clothes-02.png"
+  },
+  {
+    italian: "la camicia",
+    english: "shirt",
+    image: "images/clothing/clothes-03.png"
+  },
+  {
+    italian: "la felpa",
+    english: "hoodie",
+    image: "images/clothing/clothes-04.png"
+  },
+  {
+    italian: "il maglione",
+    english: "sweater",
+    image: "images/clothing/clothes-05.png"
+  },
+  {
+    italian: "il cappotto",
+    english: "coat",
+    image: "images/clothing/clothes-06.png"
+  },
+  {
+    italian: "la giacca",
+    english: "jacket",
+    image: "images/clothing/clothes-07.png"
+  },
+  {
+    italian: "i pantaloncini",
+    english: "shorts",
+    image: "images/clothing/clothes-08.png"
+  },
+  {
+    italian: "la gonna",
+    english: "skirt",
+    image: "images/clothing/clothes-09.png"
+  },
+  {
+    italian: "i calzini",
+    english: "socks",
+    image: "images/clothing/clothes-10.png"
+  },
+  {
+    italian: "la sciarpa",
+    english: "scarf",
+    image: "images/clothing/clothes-11.png"
+  },
+  {
+    italian: "i guanti",
+    english: "gloves",
+    image: "images/clothing/clothes-12.png"
+  },
+  {
+    italian: "il cappello",
+    english: "hat",
+    image: "images/clothing/clothes-13.png"
+  },
+  {
+    italian: "gli occhiali",
+    english: "glasses",
+    image: "images/clothing/clothes-14.png"
+  },
+  {
+    italian: "le scarpe",
+    english: "shoes",
+    image: "images/clothing/clothes-15.png"
+  },
+  {
+    italian: "gli stivali",
+    english: "boots",
+    image: "images/clothing/clothes-16.png"
+  },
+  {
+    italian: "il costume da bagno",
+    english: "swimsuit",
+    image: "images/clothing/clothes-17.png"
+  },
+  {
+    italian: "la cintura",
+    english: "belt",
+    image: "images/clothing/clothes-18.png"
+  },
+  {
+    italian: "il vestito",
+    english: "dress",
+    image: "images/clothing/clothes-19.png"
+  },
+  {
+    italian: "i pantaloni",
+    english: "pants",
+    image: "images/clothing/clothes-20.png"
+  }
+];

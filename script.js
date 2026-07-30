@@ -62,13 +62,13 @@ const topics = {
   available: true
 },
 
-  clothing: {
-    icon: "👕",
-    italian: "L’abbigliamento",
-    english: "Clothing",
-    vocabulary: [],
-    available: false
-  },
+clothing: {
+  icon: "👕",
+  italian: "I vestiti",
+  english: "Clothing",
+  vocabulary: clothing,
+  available: true
+},
 
   home: {
     icon: "🏠",
