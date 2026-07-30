@@ -64,12 +64,18 @@ const topics = {
 
 clothing: {
   icon: "👕",
-  italian: "I vestiti",
+  italian: "L'abbigliamento",
   english: "Clothing",
   vocabulary: clothing,
   available: true
 },
-
+bodyParts: {
+  icon: "🧍",
+  italian: "Le parti del corpo",
+  english: "Body Parts",
+  vocabulary: body,
+  available: true
+},
   home: {
     icon: "🏠",
     italian: "La casa",
@@ -142,6 +148,7 @@ animals: {
     available: false
   }
 };
+
 
 let currentTopicKey = "supplies";
 let currentVocabulary =

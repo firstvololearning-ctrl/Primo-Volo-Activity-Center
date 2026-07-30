@@ -328,3 +328,90 @@ const clothing = [
     image: "images/clothing/clothes-20.png"
   }
 ];
+const body = [
+  {
+    italian: "il braccio",
+    english: "arm",
+    image: "images/body/body-01.png"
+  },
+  {
+    italian: "la gamba",
+    english: "leg",
+    image: "images/body/body-02.png"
+  },
+  {
+    italian: "la mano",
+    english: "hand",
+    image: "images/body/body-03.png"
+  },
+  {
+    italian: "il piede",
+    english: "foot",
+    image: "images/body/body-04.png"
+  },
+  {
+    italian: "il ginocchio",
+    english: "knee",
+    image: "images/body/body-05.png"
+  },
+  {
+    italian: "l'occhio",
+    english: "eye",
+    image: "images/body/body-06.png"
+  },
+  {
+    italian: "l'orecchio",
+    english: "ear",
+    image: "images/body/body-07.png"
+  },
+  {
+    italian: "il naso",
+    english: "nose",
+    image: "images/body/body-08.png"
+  },
+  {
+    italian: "il gomito",
+    english: "elbow",
+    image: "images/body/body-09.png"
+  },
+  {
+    italian: "la bocca",
+    english: "mouth",
+    image: "images/body/body-10.png"
+  },
+  {
+    italian: "il collo",
+    english: "neck",
+    image: "images/body/body-11.png"
+  },
+  {
+    italian: "la spalla",
+    english: "shoulder",
+    image: "images/body/body-12.png"
+  },
+  {
+    italian: "la testa",
+    english: "head",
+    image: "images/body/body-13.png"
+  },
+  {
+    italian: "la lingua",
+    english: "tongue",
+    image: "images/body/body-14.png"
+  },
+  {
+    italian: "le labbra",
+    english: "lips",
+    image: "images/body/body-15.png"
+  },
+  {
+    italian: "la pancia",
+    english: "belly",
+    image: "images/body/body-16.png"
+  },
+  {
+    italian: "la schiena",
+    english: "back",
+    image: "images/body/body-17.png"
+  }
+];
