@@ -124,3 +124,105 @@ const food = [
     image: "images/food/food-10.png"
   }
 ];
+const animals = [
+  {
+    italian: "il cane",
+    english: "dog",
+    image: "images/animals/animals-01.png"
+  },
+  {
+    italian: "il gatto",
+    english: "cat",
+    image: "images/animals/animals-02.png"
+  },
+  {
+    italian: "la mucca",
+    english: "cow",
+    image: "images/animals/animals-03.png"
+  },
+  {
+    italian: "l'uccello",
+    english: "bird",
+    image: "images/animals/animals-04.png"
+  },
+  {
+    italian: "la gallina",
+    english: "chicken",
+    image: "images/animals/animals-05.png"
+  },
+  {
+    italian: "il maiale",
+    english: "pig",
+    image: "images/animals/animals-06.png"
+  },
+  {
+    italian: "il cavallo",
+    english: "horse",
+    image: "images/animals/animals-07.png"
+  },
+  {
+    italian: "la capra",
+    english: "goat",
+    image: "images/animals/animals-08.png"
+  },
+  {
+    italian: "il lupo",
+    english: "wolf",
+    image: "images/animals/animals-09.png"
+  },
+  {
+    italian: "la volpe",
+    english: "fox",
+    image: "images/animals/animals-10.png"
+  },
+  {
+    italian: "il serpente",
+    english: "snake",
+    image: "images/animals/animals-11.png"
+  },
+  {
+    italian: "il coniglio",
+    english: "rabbit",
+    image: "images/animals/animals-12.png"
+  },
+  {
+    italian: "la pecora",
+    english: "sheep",
+    image: "images/animals/animals-13.png"
+  },
+  {
+    italian: "l'anatra",
+    english: "duck",
+    image: "images/animals/animals-14.png"
+  },
+  {
+    italian: "il tacchino",
+    english: "turkey",
+    image: "images/animals/animals-15.png"
+  },
+  {
+    italian: "l'asino",
+    english: "donkey",
+    image: "images/animals/animals-16.png"
+  },
+  {
+    italian: "il cervo",
+    english: "deer",
+    image: "images/animals/animals-17.png"
+  },
+  {
+    italian: "il riccio",
+    english: "hedgehog",
+    image: "images/animals/animals-18.png"
+  },
+  {
+    italian: "la rana",
+    english: "frog",
+    image: "images/animals/animals-19.png"
+  },
+  {
+    italian: "il pesce",
+    english: "fish",
+    image: "images/animals/animals-20.png"
+  }
+];

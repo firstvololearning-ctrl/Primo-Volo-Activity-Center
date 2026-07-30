@@ -102,13 +102,13 @@ const topics = {
     available: false
   },
 
-  animals: {
-    icon: "🐶",
-    italian: "Gli animali",
-    english: "Animals",
-    vocabulary: [],
-    available: false
-  },
+animals: {
+  icon: "🐶",
+  italian: "Gli animali",
+  english: "Animals",
+  vocabulary: animals,
+  available: true
+},
 
   time: {
     icon: "🕒",
