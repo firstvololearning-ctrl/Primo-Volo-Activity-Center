@@ -124,13 +124,13 @@ time: {
   available: true
 },
 
-  weather: {
-    icon: "🌦️",
-    italian: "Il tempo",
-    english: "Weather",
-    vocabulary: [],
-    available: false
-  },
+weather: {
+  icon: "🌦️",
+  italian: "Il tempo",
+  english: "Weather",
+  vocabulary: weather,
+  available: true
+},
 
   classroom: {
     icon: "🏫",

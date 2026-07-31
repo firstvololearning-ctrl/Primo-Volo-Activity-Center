@@ -517,3 +517,45 @@ const time = [
     image: "images/time/time-20.png"
   }
 ];
+const weather = [
+  {
+    italian: "Fa caldo",
+    english: "It's hot",
+    image: "images/weather/weather-01.png"
+  },
+  {
+    italian: "Fa freddo",
+    english: "It's cold",
+    image: "images/weather/weather-02.png"
+  },
+  {
+    italian: "C'è il sole",
+    english: "It's sunny",
+    image: "images/weather/weather-03.png"
+  },
+  {
+    italian: "È nuvoloso",
+    english: "It's cloudy",
+    image: "images/weather/weather-04.png"
+  },
+  {
+    italian: "Piove",
+    english: "It's raining",
+    image: "images/weather/weather-05.png"
+  },
+  {
+    italian: "Nevica",
+    english: "It's snowing",
+    image: "images/weather/weather-06.png"
+  },
+  {
+    italian: "C'è vento",
+    english: "It's windy",
+    image: "images/weather/weather-07.png"
+  },
+  {
+    italian: "C'è un temporale",
+    english: "It's stormy",
+    image: "images/weather/weather-08.png"
+  }
+];
