@@ -100,13 +100,13 @@ colors: {
   available: true
 },
 
-  numbers: {
-    icon: "🔢",
-    italian: "I numeri",
-    english: "Numbers",
-    vocabulary: [],
-    available: false
-  },
+numbers: {
+  icon: "🔢",
+  italian: "I numeri",
+  english: "Numbers",
+  vocabulary: numbers,
+  available: true
+},
 
 animals: {
   icon: "🐶",

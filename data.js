@@ -616,3 +616,105 @@ const colors = [
     image: "images/colors/colors-11.png"
   }
 ];
+const numbers = [
+  {
+    italian: "uno",
+    english: "one",
+    image: "images/numbers/numbers-01.png"
+  },
+  {
+    italian: "due",
+    english: "two",
+    image: "images/numbers/numbers-02.png"
+  },
+  {
+    italian: "tre",
+    english: "three",
+    image: "images/numbers/numbers-03.png"
+  },
+  {
+    italian: "quattro",
+    english: "four",
+    image: "images/numbers/numbers-04.png"
+  },
+  {
+    italian: "cinque",
+    english: "five",
+    image: "images/numbers/numbers-05.png"
+  },
+  {
+    italian: "sei",
+    english: "six",
+    image: "images/numbers/numbers-06.png"
+  },
+  {
+    italian: "sette",
+    english: "seven",
+    image: "images/numbers/numbers-07.png"
+  },
+  {
+    italian: "otto",
+    english: "eight",
+    image: "images/numbers/numbers-08.png"
+  },
+  {
+    italian: "nove",
+    english: "nine",
+    image: "images/numbers/numbers-09.png"
+  },
+  {
+    italian: "dieci",
+    english: "ten",
+    image: "images/numbers/numbers-10.png"
+  },
+  {
+    italian: "undici",
+    english: "eleven",
+    image: "images/numbers/numbers-11.png"
+  },
+  {
+    italian: "dodici",
+    english: "twelve",
+    image: "images/numbers/numbers-12.png"
+  },
+  {
+    italian: "tredici",
+    english: "thirteen",
+    image: "images/numbers/numbers-13.png"
+  },
+  {
+    italian: "quattordici",
+    english: "fourteen",
+    image: "images/numbers/numbers-14.png"
+  },
+  {
+    italian: "quindici",
+    english: "fifteen",
+    image: "images/numbers/numbers-15.png"
+  },
+  {
+    italian: "sedici",
+    english: "sixteen",
+    image: "images/numbers/numbers-16.png"
+  },
+  {
+    italian: "diciassette",
+    english: "seventeen",
+    image: "images/numbers/numbers-17.png"
+  },
+  {
+    italian: "diciotto",
+    english: "eighteen",
+    image: "images/numbers/numbers-18.png"
+  },
+  {
+    italian: "diciannove",
+    english: "nineteen",
+    image: "images/numbers/numbers-19.png"
+  },
+  {
+    italian: "venti",
+    english: "twenty",
+    image: "images/numbers/numbers-20.png"
+  }
+];
