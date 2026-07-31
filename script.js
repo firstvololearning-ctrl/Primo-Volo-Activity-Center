@@ -92,13 +92,13 @@ bodyParts: {
     available: false
   },
 
-  colors: {
-    icon: "🎨",
-    italian: "I colori",
-    english: "Colors",
-    vocabulary: [],
-    available: false
-  },
+colors: {
+  icon: "🎨",
+  italian: "I colori",
+  english: "Colors",
+  vocabulary: colors,
+  available: true
+},
 
   numbers: {
     icon: "🔢",

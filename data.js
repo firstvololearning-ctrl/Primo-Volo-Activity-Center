@@ -559,3 +559,60 @@ const weather = [
     image: "images/weather/weather-08.png"
   }
 ];
+const colors = [
+  {
+    italian: "rosso",
+    english: "red",
+    image: "images/colors/colors-01.png"
+  },
+  {
+    italian: "arancione",
+    english: "orange",
+    image: "images/colors/colors-02.png"
+  },
+  {
+    italian: "giallo",
+    english: "yellow",
+    image: "images/colors/colors-03.png"
+  },
+  {
+    italian: "verde",
+    english: "green",
+    image: "images/colors/colors-04.png"
+  },
+  {
+    italian: "blu",
+    english: "blue",
+    image: "images/colors/colors-05.png"
+  },
+  {
+    italian: "viola",
+    english: "purple",
+    image: "images/colors/colors-06.png"
+  },
+  {
+    italian: "rosa",
+    english: "pink",
+    image: "images/colors/colors-07.png"
+  },
+  {
+    italian: "nero",
+    english: "black",
+    image: "images/colors/colors-08.png"
+  },
+  {
+    italian: "bianco",
+    english: "white",
+    image: "images/colors/colors-09.png"
+  },
+  {
+    italian: "marrone",
+    english: "brown",
+    image: "images/colors/colors-10.png"
+  },
+  {
+    italian: "grigio",
+    english: "gray",
+    image: "images/colors/colors-11.png"
+  }
+];
