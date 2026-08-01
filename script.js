@@ -5854,11 +5854,27 @@ if (mode === "memory") {
 
 }
 
-    window.alert(
+if (mode === "write") {
+  showWriteMode();
+  return;
+}
 
-      "Questa attività sarà disponibile presto."
+if (mode === "sentences") {
 
-    );
+  window.alert(
+`📝 Frasi · Sentences
+
+Coming Soon!
+
+Students will write complete Italian sentences using the vocabulary they have learned.`
+  );
+
+  return;
+}
+
+window.alert(
+  "Questa attività sarà disponibile presto."
+);
 
   });
 

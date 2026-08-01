@@ -292,7 +292,7 @@ button {
    ======================================== */
 
 .page {
-  width: min(1500px, 96%);
+ width: min(1800px, 98%);
   margin: 0 auto;
   padding: 24px 0 60px;
 }
@@ -302,12 +302,11 @@ button {
 
 .activity-menu {
   display: grid;
-  grid-template-columns:
-    repeat(7, minmax(0, 1fr));
+  grid-template-columns: repeat(10, minmax(0, 1fr));
+  gap: 4px;
 
-  gap: 12px;
-
-  max-width: 1050px;
+  width: 100%;
+  max-width: 1800px;
   margin: 0 auto 24px;
 }
 
@@ -1733,10 +1732,12 @@ button {
 .website-link:hover{
   color:var(--coral);
 }
-  .page {
-    width: min(94%, 560px);
-    padding: 18px 0 40px;
-  }
+.page {
+  width: 98%;
+  max-width: 1800px;
+  margin: 0 auto;
+  padding: 24px 0 60px;
+}
 
   .topic-header {
     margin-bottom: 18px;
