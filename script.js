@@ -76,13 +76,13 @@ bodyParts: {
   vocabulary: body,
   available: true
 },
-  home: {
-    icon: "🏠",
-    italian: "La casa",
-    english: "Home",
-    vocabulary: [],
-    available: false
-  },
+home: {
+  icon: "🏠",
+  italian: "La casa",
+  english: "Home",
+  vocabulary: home,
+  available: true
+},
 
   family: {
     icon: "👨‍👩‍👧",
@@ -1547,12 +1547,12 @@ currentQuestion =
         <span>Choose the correct word.</span>
       </p>
 
-      <div class="quiz-image-frame">
-        <img
-          src="${currentQuestion.image}"
-          alt="School supply"
-        >
-      </div>
+<div class="quiz-image-frame">
+  <img
+    src="${currentQuestion.image}"
+    alt="${currentQuestion.english}"
+  >
+</div>
 
       <div class="choice-grid">
 

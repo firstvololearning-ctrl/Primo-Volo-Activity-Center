@@ -415,6 +415,113 @@ const body = [
     image: "images/body/body-17.png"
   }
 ];
+const home = [
+  {
+    italian: "la casa",
+    english: "house",
+    image: "images/house/house-01.png"
+  },
+  {
+    italian: "la porta",
+    english: "door",
+    image: "images/house/house-02.png"
+  },
+  {
+    italian: "la finestra",
+    english: "window",
+    image: "images/house/house-03.png"
+  },
+  {
+    italian: "il letto",
+    english: "bed",
+    image: "images/house/house-04.png"
+  },
+  {
+    italian: "il divano",
+    english: "sofa",
+    image: "images/house/house-05.png"
+  },
+  {
+    italian: "la sedia",
+    english: "chair",
+    image: "images/house/house-06.png"
+  },
+  {
+    italian: "il tavolo",
+    english: "table",
+    image: "images/house/house-07.png"
+  },
+  {
+    italian: "il comò",
+    english: "dresser",
+    image: "images/house/house-08.png"
+  },
+  {
+    italian: "la libreria",
+    english: "bookcase",
+    image: "images/house/house-09.png"
+  },
+  {
+    italian: "l'armadietto",
+    english: "cabinet",
+    image: "images/house/house-10.png"
+  },
+  {
+    italian: "il tappeto",
+    english: "rug",
+    image: "images/house/house-11.png"
+  },
+  {
+    italian: "lo specchio",
+    english: "mirror",
+    image: "images/house/house-12.png"
+  },
+  {
+    italian: "la lampada",
+    english: "lamp",
+    image: "images/house/house-13.png"
+  },
+  {
+    italian: "la televisione",
+    english: "television",
+    image: "images/house/house-14.png"
+  },
+  {
+    italian: "il frigorifero",
+    english: "refrigerator",
+    image: "images/house/house-15.png"
+  },
+  {
+    italian: "la cucina",
+    english: "stove",
+    image: "images/house/house-16.png"
+  },
+  {
+    italian: "la lavatrice",
+    english: "washing machine",
+    image: "images/house/house-17.png"
+  },
+  {
+    italian: "il lavandino",
+    english: "sink",
+    image: "images/house/house-18.png"
+  },
+  {
+    italian: "la vasca da bagno",
+    english: "bathtub",
+    image: "images/house/house-19.png"
+  },
+  {
+    italian: "la doccia",
+    english: "shower",
+    image: "images/house/house-20.png"
+  },
+  {
+    italian: "il gabinetto",
+    english: "toilet",
+    image: "images/house/house-21.png"
+  }
+];
 const time = [
   {
     italian: "È l'una.",
