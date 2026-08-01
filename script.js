@@ -1,4 +1,3 @@
-
 "use strict";
 
 const learnActivity =
@@ -44,7 +43,9 @@ const completeActivity =
 const memoryActivity =
 
   document.querySelector("#memoryActivity");
-
+const conversationActivity =
+  document.querySelector("#conversationActivity");
+  
 const englishToggle =
 
   document.querySelector("#englishToggle");
@@ -5782,105 +5783,79 @@ document.addEventListener(
 
    ======================================== */
 
- 
-
 activityButtons.forEach(button => {
 
   button.addEventListener("click", () => {
 
     const mode = button.dataset.mode;
 
- 
-
     if (mode === "learn") {
-
       showLearnMode();
-
       return;
-
     }
 
- 
+    if (mode === "match-word") {
+      showMatchMode();
+      return;
+    }
 
-   if (mode === "match-word") {
+    if (mode === "match-sound") {
+      showListenMode();
+      return;
+    }
 
-  showMatchMode();
+    if (mode === "choose") {
+      showChooseMode();
+      return;
+    }
 
-  return;
+    if (mode === "complete") {
+      showCompleteMode();
+      return;
+    }
 
-}
+    if (mode === "write") {
+      showWriteMode();
+      return;
+    }
 
- 
+    if (mode === "memory") {
+      showMemoryMode();
+      return;
+    }
 
-if (mode === "match-sound") {
+    /*
+      These activities are handled by their
+      own JavaScript files. Do not show the
+      generic "coming soon" alert.
+    */
+    if (
+      mode === "words-in-action" ||
+      mode === "assemble-sentences" ||
+      mode === "conversation-practice"
+    ) {
+      return;
+    }
 
-  showListenMode();
-
-  return;
-
-}
-
- 
-
-if (mode === "choose") {
-
-  showChooseMode();
-
-  return;
-
-}
-
-if (mode === "complete") {
-
-  showCompleteMode();
-
-  return;
-
-}
-
-if (mode === "write") {
-
-  showWriteMode();
-
-  return;
-
-}
-
-if (mode === "memory") {
-
-  showMemoryMode();
-
-  return;
-
-}
-
-if (mode === "write") {
-  showWriteMode();
-  return;
-}
-
-if (mode === "sentences") {
-
-  window.alert(
+    if (mode === "sentences") {
+      window.alert(
 `📝 Frasi · Sentences
 
 Coming Soon!
 
 Students will write complete Italian sentences using the vocabulary they have learned.`
-  );
+      );
 
-  return;
-}
+      return;
+    }
 
-window.alert(
-  "Questa attività sarà disponibile presto."
-);
+    window.alert(
+      "Questa attività sarà disponibile presto."
+    );
 
   });
 
 });
-
- 
 
 /* ========================================
 
