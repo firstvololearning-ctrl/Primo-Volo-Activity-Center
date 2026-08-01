@@ -140,6 +140,15 @@
         <span class="activity-italian">Scrivi</span>
         <small>Write</small>
       </button>
+      <button
+  type="button"
+  class="activity-button"
+  data-mode="memory"
+>
+  <span class="activity-icon">🧠</span>
+  <span class="activity-italian">Memoria</span>
+  <small>Memory</small>
+</button>
 
     </nav>
 <section
@@ -311,7 +320,12 @@
   hidden
 >
 </section>
-
+<section
+  id="memoryActivity"
+  class="memory-activity activity-panel"
+  hidden
+>
+</section>
   </main>
   <div
   id="referenceModal"
@@ -423,8 +437,7 @@
 
   <p class="about-english">
     <strong>Primo Volo d'Italiano – Centro Attività</strong>
-    provides interactive activities for building Italian vocabulary
-    through pictures, listening, reading, and writing.
+    provides interactive activities that help students build Italian vocabulary through pictures, listening, reading, and writing.
   </p>
 </section>
 
@@ -435,8 +448,7 @@
   </h3>
 
   <p class="about-english">
-    The six activities are intentionally sequenced to move students
-    from learning through recognition to independent retrieval.
+  The seven activities are intentionally sequenced to move students from initial learning through recognition and supported retrieval to independent retrieval.
   </p>
 
  <div class="progression-flow">
@@ -458,6 +470,13 @@
   <div class="progression-step">
     <strong>🔊 Ascolta</strong>
     <div>Auditory Recognition</div>
+  </div>
+
+  <div class="progression-arrow">↓</div>
+
+  <div class="progression-step">
+    <strong>🧠 Memoria</strong>
+    <div>Multisensory Reinforcement</div>
   </div>
 
   <div class="progression-arrow">↓</div>
@@ -497,7 +516,7 @@
         </small>
 
         <small class="about-english">
-          See, hear, and learn the word.
+          See, hear, and learn each new word.
         </small>
       </p>
     </div>
@@ -545,11 +564,23 @@
         </small>
 
         <small class="about-english">
-          Listen and choose the correct picture.
+          Listen to the word and choose the correct picture.
         </small>
       </p>
     </div>
+<div class="about-activity">
+  <span aria-hidden="true">🧠</span>
 
+  <p>
+    <strong>Memoria · Memory</strong>
+
+    <small>
+Abbina ogni parola italiana all'immagine e ascolta la pronuncia.  </small>
+
+    <small class="about-english">
+Match each Italian word to its picture and hear the pronunciation.  </small>
+  </p>
+</div>
     <div class="about-activity">
       <span aria-hidden="true">✏️</span>
 
@@ -557,11 +588,11 @@
         <strong>Completa · Complete</strong>
 
         <small>
-          Completa la parola.
+          Completa la parola inserendo le lettere mancanti.
         </small>
 
         <small class="about-english">
-          Complete the word.
+         Complete the missing letters to finish the word.
         </small>
       </p>
     </div>
@@ -573,11 +604,11 @@
         <strong>Scrivi · Write</strong>
 
         <small>
-          Scrivi la parola.
+          Scrivi la parola italiana completa.
         </small>
 
         <small class="about-english">
-          Write the word.
+          Write the complete Italian word.
         </small>
       </p>
     </div>

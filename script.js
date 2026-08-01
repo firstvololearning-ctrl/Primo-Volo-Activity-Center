@@ -15,6 +15,8 @@ const matchActivity =
   document.querySelector("#listenActivity");
   const completeActivity =
   document.querySelector("#completeActivity");
+  const memoryActivity =
+  document.querySelector("#memoryActivity");
 const englishToggle =
   document.querySelector("#englishToggle");
 const englishToggleControl =
@@ -306,6 +308,7 @@ function showLearnMode() {
   chooseActivity.hidden = true;
   completeActivity.hidden = true;
   writeActivity.hidden = true;
+  memoryActivity.hidden = true;
 
   englishToggleControl.hidden = false;
   learnInstructions.hidden = false;
@@ -1520,6 +1523,355 @@ function showWriteMode() {
   showWriteQuestion();
 }
 /* ========================================
+   MEMORY MODE
+   ======================================== */
+
+let firstMemoryCard = null;
+let secondMemoryCard = null;
+let memoryLocked = false;
+let memoryMoves = 0;
+let memoryMatches = 0;
+
+function createMemoryDeck(items) {
+  const cards = [];
+
+  items.forEach((item, index) => {
+    cards.push({
+      matchId: index,
+      type: "picture",
+      item
+    });
+
+    cards.push({
+      matchId: index,
+      type: "word",
+      item
+    });
+  });
+
+  return shuffle(cards);
+}
+
+function createMemoryGame() {
+  if (!currentVocabulary.length) {
+    memoryActivity.innerHTML = `
+      <p class="memory-empty">
+        Nessun vocabolario disponibile.
+
+        <span>
+          No vocabulary is available.
+        </span>
+      </p>
+    `;
+
+    return;
+  }
+
+  const pairCount =
+    Math.min(6, currentVocabulary.length);
+
+  const gameItems =
+    shuffle(currentVocabulary).slice(
+      0,
+      pairCount
+    );
+
+  const memoryDeck =
+    createMemoryDeck(gameItems);
+
+  firstMemoryCard = null;
+  secondMemoryCard = null;
+  memoryLocked = false;
+  memoryMoves = 0;
+  memoryMatches = 0;
+
+  memoryActivity.innerHTML = `
+    <div class="memory-game-card">
+
+      <div class="memory-heading">
+        <h4>
+          Trova le coppie.
+        </h4>
+
+        <p>
+          Match each picture with its Italian word.
+        </p>
+      </div>
+
+      <div class="memory-status">
+
+        <span>
+          Mosse · Moves:
+          <strong id="memoryMoveCount">
+            0
+          </strong>
+        </span>
+
+        <span>
+          Coppie · Matches:
+          <strong id="memoryMatchCount">
+            0
+          </strong>
+          /
+          <strong>
+            ${pairCount}
+          </strong>
+        </span>
+
+      </div>
+
+      <div
+        class="memory-grid"
+        aria-label="Memory matching cards"
+      >
+        ${memoryDeck.map((card, index) => `
+          <button
+            type="button"
+            class="memory-card"
+            data-card-index="${index}"
+            data-match-id="${card.matchId}"
+            aria-label="Hidden memory card"
+          >
+            <span class="memory-card-inner">
+
+              <span class="memory-card-back">
+                <span aria-hidden="true">
+                  ?
+                </span>
+              </span>
+
+              <span class="memory-card-front">
+
+                ${
+                  card.type === "picture"
+                    ? `
+                      <img
+                        src="${card.item.image}"
+                        alt="${card.item.english}"
+                      >
+                    `
+                    : `
+                      <span class="memory-word">
+                        ${card.item.italian}
+                      </span>
+                    `
+                }
+
+              </span>
+
+            </span>
+          </button>
+        `).join("")}
+      </div>
+
+      <p
+        id="memoryFeedback"
+        class="memory-feedback"
+        aria-live="polite"
+      >
+        Seleziona due carte.
+
+        <span>
+          Select two cards.
+        </span>
+      </p>
+
+      <button
+        type="button"
+        id="newMemoryGame"
+        class="next-question-button"
+        hidden
+      >
+        Gioca ancora · Play Again
+      </button>
+
+    </div>
+  `;
+
+  const memoryCards =
+    memoryActivity.querySelectorAll(
+      ".memory-card"
+    );
+
+  const moveCount =
+    memoryActivity.querySelector(
+      "#memoryMoveCount"
+    );
+
+  const matchCount =
+    memoryActivity.querySelector(
+      "#memoryMatchCount"
+    );
+
+  const feedback =
+    memoryActivity.querySelector(
+      "#memoryFeedback"
+    );
+
+  const newGameButton =
+    memoryActivity.querySelector(
+      "#newMemoryGame"
+    );
+
+  function resetSelectedCards() {
+    firstMemoryCard = null;
+    secondMemoryCard = null;
+    memoryLocked = false;
+  }
+
+  function completeMemoryMatch() {
+    firstMemoryCard.classList.add(
+      "matched"
+    );
+
+    secondMemoryCard.classList.add(
+      "matched"
+    );
+
+    firstMemoryCard.disabled = true;
+    secondMemoryCard.disabled = true;
+
+    const matchedItem =
+      memoryDeck[
+        Number(
+          firstMemoryCard.dataset.cardIndex
+        )
+      ].item;
+
+    memoryMatches += 1;
+    matchCount.textContent =
+      memoryMatches;
+
+    feedback.innerHTML = `
+      Corretto!
+      <strong>
+        ${matchedItem.italian}
+      </strong>
+
+      <span>
+        Correct!
+      </span>
+    `;
+
+    speakItalian(matchedItem.italian);
+
+    window.setTimeout(() => {
+      resetSelectedCards();
+
+      if (memoryMatches === pairCount) {
+        feedback.innerHTML = `
+          🎉 Ottimo lavoro!
+
+          <span>
+            You found all the pairs
+            in ${memoryMoves} moves.
+          </span>
+        `;
+
+        newGameButton.hidden = false;
+      }
+    }, 500);
+  }
+
+  function hideIncorrectCards() {
+    memoryLocked = true;
+
+    feedback.innerHTML = `
+      Riprova.
+
+      <span>
+        Try again.
+      </span>
+    `;
+
+    window.setTimeout(() => {
+      firstMemoryCard.classList.remove(
+        "flipped"
+      );
+
+      secondMemoryCard.classList.remove(
+        "flipped"
+      );
+
+      resetSelectedCards();
+    }, 850);
+  }
+
+  function selectMemoryCard(card) {
+    if (
+      memoryLocked ||
+      card.disabled ||
+      card === firstMemoryCard
+    ) {
+      return;
+    }
+
+    card.classList.add("flipped");
+
+    card.setAttribute(
+      "aria-label",
+      "Revealed memory card"
+    );
+
+    if (!firstMemoryCard) {
+      firstMemoryCard = card;
+
+      feedback.innerHTML = `
+        Seleziona un'altra carta.
+
+        <span>
+          Select another card.
+        </span>
+      `;
+
+      return;
+    }
+
+    secondMemoryCard = card;
+    memoryMoves += 1;
+    moveCount.textContent = memoryMoves;
+
+    const isMatch =
+      firstMemoryCard.dataset.matchId ===
+      secondMemoryCard.dataset.matchId;
+
+    if (isMatch) {
+      memoryLocked = true;
+      completeMemoryMatch();
+    } else {
+      hideIncorrectCards();
+    }
+  }
+
+  memoryCards.forEach(card => {
+    card.addEventListener("click", () => {
+      selectMemoryCard(card);
+    });
+  });
+
+  newGameButton.addEventListener(
+    "click",
+    createMemoryGame
+  );
+}
+
+function showMemoryMode() {
+  setActiveButton("memory");
+
+  learnActivity.hidden = true;
+  matchActivity.hidden = true;
+  listenActivity.hidden = true;
+  chooseActivity.hidden = true;
+  completeActivity.hidden = true;
+  writeActivity.hidden = true;
+  memoryActivity.hidden = false;
+
+  englishToggleControl.hidden = true;
+  learnInstructions.hidden = true;
+
+  createMemoryGame();
+}
+/* ========================================
    CHOOSE MODE
    ======================================== */
 
@@ -1860,6 +2212,10 @@ if (mode === "complete") {
 }
 if (mode === "write") {
   showWriteMode();
+  return;
+}
+if (mode === "memory") {
+  showMemoryMode();
   return;
 }
     window.alert(
