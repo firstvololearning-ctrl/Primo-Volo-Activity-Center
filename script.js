@@ -44,6 +44,14 @@ const aboutModal =
 
 const aboutClose =
   document.querySelector("#aboutClose");
+  const referenceButton =
+  document.querySelector("#referenceButton");
+
+const referenceModal =
+  document.querySelector("#referenceModal");
+
+const referenceClose =
+  document.querySelector("#referenceClose");
 let currentQuestion = null;
 const topics = {
   supplies: {
@@ -1716,6 +1724,7 @@ topicSelect.addEventListener(
     selectTopic(topicSelect.value);
   }
 );
+
 /* ========================================
    ABOUT MODAL
    ======================================== */
@@ -1759,14 +1768,61 @@ aboutModal.addEventListener(
     }
   }
 );
+/* ========================================
+   REFERENCE MODAL
+   ======================================== */
 
+let lastReferenceFocus = null;
+
+function openReferenceModal() {
+  lastReferenceFocus = document.activeElement;
+
+  referenceModal.hidden = false;
+  document.body.style.overflow = "hidden";
+
+  referenceClose.focus();
+}
+
+function closeReferenceModal() {
+  referenceModal.hidden = true;
+  document.body.style.overflow = "";
+
+  if (lastReferenceFocus) {
+    lastReferenceFocus.focus();
+  }
+}
+
+referenceButton.addEventListener(
+  "click",
+  openReferenceModal
+);
+
+referenceClose.addEventListener(
+  "click",
+  closeReferenceModal
+);
+
+referenceModal.addEventListener(
+  "click",
+  event => {
+    if (event.target === referenceModal) {
+      closeReferenceModal();
+    }
+  }
+);
 document.addEventListener(
   "keydown",
   event => {
-    if (
-      event.key === "Escape" &&
-      !aboutModal.hidden
-    ) {
+    if (event.key !== "Escape") {
+      return;
+    }
+
+    if (!referenceModal.hidden) {
+      closeReferenceModal();
+      return;
+    }
+
+    if (!aboutModal.hidden) {
       closeAboutModal();
     }
   }
