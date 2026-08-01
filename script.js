@@ -132,13 +132,13 @@ weather: {
   available: true
 },
 
-  classroom: {
-    icon: "🏫",
-    italian: "Espressioni in classe",
-    english: "Classroom Expressions",
-    vocabulary: [],
-    available: false
-  },
+classroom: {
+  icon: "🏫",
+  italian: "Espressioni in classe",
+  english: "Classroom Expressions",
+  vocabulary: classroomExpressions,
+  available: true
+},
 
   greetings: {
     icon: "👋",

@@ -72,6 +72,69 @@ const supplies = [
     image: "images/classroom/supplies/supplies-14.png"
   }
 ];
+const classroomExpressions = [
+
+  {
+    italian: "Posso andare in bagno?",
+    english: "May I go to the bathroom?",
+    image: "images/classroom/expressions/expressions-01.png"
+  },
+
+  {
+    italian: "Quando è la merenda?",
+    english: "When is snack time?",
+    image: "images/classroom/expressions/expressions-02.png"
+  },
+
+  {
+    italian: "Posso andare a prendere dell'acqua?",
+    english: "May I get some water?",
+    image: "images/classroom/expressions/expressions-03.png"
+  },
+
+  {
+    italian: "Siediti!",
+    english: "Sit down!",
+    image: "images/classroom/expressions/expressions-04.png"
+  },
+
+  {
+    italian: "Sedetevi!",
+    english: "Sit down! (plural)",
+    image: "images/classroom/expressions/expressions-05.png"
+  },
+
+  {
+    italian: "Alzati!",
+    english: "Stand up!",
+    image: "images/classroom/expressions/expressions-06.png"
+  },
+
+  {
+    italian: "Alzatevi!",
+    english: "Stand up! (plural)",
+    image: "images/classroom/expressions/expressions-07.png"
+  },
+
+  {
+    italian: "Che cosa vedi?",
+    english: "What do you see?",
+    image: "images/classroom/expressions/expressions-08.png"
+  },
+
+  {
+    italian: "Non so.",
+    english: "I don't know.",
+    image: "images/classroom/expressions/expressions-09.png"
+  },
+
+  {
+    italian: "Non capisco.",
+    english: "I don't understand.",
+    image: "images/classroom/expressions/expressions-10.png"
+  }
+
+];
 const food = [
   {
     italian: "la mela",
