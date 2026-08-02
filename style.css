@@ -2341,3 +2341,130 @@ body.hide-english .gender-choice-note span {
     width: 100%;
   }
 }
+/* ========================================
+   FIRST VOLO BRANDING
+   ======================================== */
+
+/* Larger circular logo in the main header */
+.brand-block {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex: 0 0 auto;
+  text-align: center;
+}
+
+.logo {
+  width: 160px;
+  height: 160px;
+  object-fit: contain;
+}
+
+.brand-name {
+  margin-top: 7px;
+  color: var(--blue);
+  font-size: 1.2rem;
+  font-weight: 900;
+}
+
+.website-link {
+  margin-top: 3px;
+  color: var(--blue);
+  font-size: 0.95rem;
+  font-weight: 800;
+  text-decoration: underline;
+}
+
+.website-link:hover {
+  color: var(--coral);
+}
+
+/* New banner at the top of the About modal */
+.about-brand-banner {
+  display: block;
+  width: 100%;
+  max-height: 240px;
+  object-fit: contain;
+  margin: 0 auto 18px;
+  border-radius: 18px;
+  box-shadow: 0 3px 10px rgba(36, 57, 87, 0.06);
+}
+
+/* Give the About modal more space for the banner */
+.about-card {
+  width: min(920px, 95vw);
+  background: #fcf7ed;
+}
+
+/* Creator section */
+.about-creator-section{
+    padding:26px;
+    border-radius:24px;
+    background:#fffdf9;
+    border:1px solid rgba(39,75,132,.12);
+}
+
+.about-creator-layout {
+  display: grid;
+  grid-template-columns: 165px minmax(0, 1fr);
+  align-items: center;
+  gap: 24px;
+}
+
+.about-creator-logo {
+  display: block;
+  width: 190px;
+  height: 190px;
+  object-fit: contain;
+}
+.about-brand-subheading{
+  margin: -6px 0 24px;
+  color: var(--blue);
+  font-size: 1rem;
+  font-weight: 700;
+  opacity: .8;
+}
+
+.about-creator-text p:first-child {
+  margin-top: 0;
+}
+
+.about-creator-text p:last-child {
+  margin-bottom: 0;
+}
+
+.about-creator-closing {
+  margin: 20px 0 0;
+  padding-top: 18px;
+  border-top: 1px solid var(--border);
+  color: var(--blue-dark);
+  text-align: center;
+}
+
+.about-creator-closing span {
+  display: block;
+  margin-top: 4px;
+}
+
+/* Phones and small tablets */
+@media (max-width: 700px) {
+  .logo {
+    width: 120px;
+    height: 120px;
+  }
+
+  .about-brand-banner {
+    margin-bottom: 20px;
+    border-radius: 14px;
+  }
+
+  .about-creator-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .about-creator-logo {
+    width: 145px;
+    height: 145px;
+    margin: 0 auto;
+  }
+}
