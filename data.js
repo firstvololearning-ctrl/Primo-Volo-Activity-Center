@@ -888,3 +888,40 @@ const numbers = [
     image: "images/numbers/numbers-20.png"
   }
 ];
+const feelings = [
+  {
+    italian: "felice",
+    english: "happy",
+    image: "images/feelings/feelings-01.png"
+  },
+  {
+    italian: "arrabbiato",
+    english: "angry",
+    image: "images/feelings/feelings-02.png"
+  },
+  {
+    italian: "malato",
+    english: "sick",
+    image: "images/feelings/feelings-03.png"
+  },
+  {
+    italian: "spaventato",
+    english: "scared",
+    image: "images/feelings/feelings-04.png"
+  },
+  {
+    italian: "triste",
+    english: "sad",
+    image: "images/feelings/feelings-05.png"
+  },
+  {
+    italian: "confuso",
+    english: "confused",
+    image: "images/feelings/feelings-06.png"
+  },
+  {
+    italian: "sorpreso",
+    english: "surprised",
+    image: "images/feelings/feelings-07.png"
+  }
+];

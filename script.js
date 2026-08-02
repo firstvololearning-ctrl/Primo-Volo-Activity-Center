@@ -1555,7 +1555,13 @@ colors: {
   available: true
 
 },
-
+feelings: {
+  icon: "😊",
+  italian: "Le emozioni",
+  english: "Feelings",
+  vocabulary: feelings,
+  available: true
+},
  
 
 numbers: {

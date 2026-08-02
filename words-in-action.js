@@ -392,7 +392,30 @@
       ...incorrectChoices
     ]);
   }
+function getCarrierPhrase() {
 
+  if (
+    typeof carrierPhrases === "undefined"
+  ) {
+    return null;
+  }
+
+  const phrases =
+    carrierPhrases[currentTopicKey];
+
+  if (
+    !phrases ||
+    !phrases.length
+  ) {
+    return null;
+  }
+
+  return phrases[
+    Math.floor(
+      Math.random() * phrases.length
+    )
+  ];
+}
   function speakSentence(sentence) {
     if (
       typeof speakItalian === "function"
@@ -435,14 +458,33 @@
     }
 
     currentWordsItem =
-      vocabulary[
-        Math.floor(
-          Math.random() *
-          vocabulary.length
-        )
-      ];
+  vocabulary[
+    Math.floor(
+      Math.random() *
+      vocabulary.length
+    )
+  ];
 
-    wordsAnswered = false;
+const carrier =
+  getCarrierPhrase();
+
+if (!carrier) {
+  wordsActivity.innerHTML = `
+    <div class="words-action-empty">
+      Questa attività non è ancora disponibile
+      per questo argomento.
+
+      <span>
+        This activity is not yet available
+        for this topic.
+      </span>
+    </div>
+  `;
+
+  return;
+}
+
+wordsAnswered = false;
 
     const choices =
       buildWordsChoices(
@@ -465,13 +507,13 @@
         <div class="words-action-frame">
 
 <img
-  id="ioVedoImage"
-  src="images/carrier-phrases/io-vedo.png"
-  alt="Io vedo"
+  id="carrierPhraseImage"
+  src="${carrier.image.replace("-no-text", "")}"
+  alt="${carrier.italian}"
   class="carrier-phrase-image"
   tabindex="0"
   role="button"
-  aria-label="Listen to Io vedo"
+  aria-label="Listen to ${carrier.italian}"
 >
 
 </div>
@@ -543,14 +585,20 @@
       );
 const carrierImage =
   wordsActivity.querySelector(
-    "#ioVedoImage"
+    "#carrierPhraseImage"
   );
+
+function playCarrierPhrase() {
+  speakSentence(
+    carrier.italian
+      .replace("...", "")
+      .trim()
+  );
+}
 
 carrierImage.addEventListener(
   "click",
-  () => {
-    speakSentence("Io vedo");
-  }
+  playCarrierPhrase
 );
 
 carrierImage.addEventListener(
@@ -564,8 +612,7 @@ carrierImage.addEventListener(
     }
 
     event.preventDefault();
-
-    speakSentence("Io vedo");
+    playCarrierPhrase();
   }
 );
     choiceButtons.forEach(button => {
@@ -597,8 +644,14 @@ carrierImage.addEventListener(
             }
           });
 
-          const sentence =
-            `Io vedo ${currentWordsItem.italian}.`;
+const carrierText =
+  carrier.italian
+    .replace("...", "")
+    .trim();
+
+const sentence =
+  `${carrierText} ${currentWordsItem.italian}.`;
+  
 
           if (isCorrect) {
             feedback.innerHTML = `
