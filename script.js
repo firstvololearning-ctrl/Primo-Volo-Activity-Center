@@ -1,5 +1,11 @@
 "use strict";
+const genderChoice =
+  document.querySelector("#genderChoice");
 
+const genderChoiceButtons =
+  document.querySelectorAll(
+    ".gender-choice-button"
+  );
 const learnActivity =
 
   document.querySelector("#learnActivity");
@@ -1663,12 +1669,30 @@ classroom: {
  
 
  
-
+let selectedGender = "masculine";
 let currentTopicKey = "supplies";
+function getTopicVocabulary(topicKey) {
+  const topic = topics[topicKey];
 
+  if (!topic || !Array.isArray(topic.vocabulary)) {
+    return [];
+  }
+
+  if (topicKey !== "feelings") {
+    return topic.vocabulary;
+  }
+
+  return topic.vocabulary.map(item => ({
+    ...item,
+
+    italian:
+      selectedGender === "feminine"
+        ? item.feminine
+        : item.masculine
+  }));
+}
 let currentVocabulary =
-
-  topics[currentTopicKey].vocabulary;
+  getTopicVocabulary(currentTopicKey);
 
 /* ========================================
 
@@ -5546,10 +5570,14 @@ function selectTopic(topicKey) {
 
  
 
-  currentTopicKey = topicKey;
+currentTopicKey = topicKey;
 
-  currentVocabulary = topic.vocabulary;
-
+currentVocabulary =
+  getTopicVocabulary(currentTopicKey);
+if (genderChoice) {
+  genderChoice.hidden =
+    currentTopicKey !== "feelings";
+}
  
 
   topicAvailability.textContent = "";
@@ -5576,7 +5604,40 @@ topicSelect.addEventListener(
   }
 
 );
+genderChoiceButtons.forEach(button => {
+  button.addEventListener("click", () => {
+    selectedGender =
+      button.dataset.gender;
 
+    genderChoiceButtons.forEach(
+      choiceButton => {
+        const isActive =
+          choiceButton === button;
+
+        choiceButton.classList.toggle(
+          "active",
+          isActive
+        );
+
+        choiceButton.setAttribute(
+          "aria-pressed",
+          String(isActive)
+        );
+      }
+    );
+
+    if (currentTopicKey !== "feelings") {
+      return;
+    }
+
+    currentVocabulary =
+      getTopicVocabulary(
+        currentTopicKey
+      );
+
+    showLearnMode();
+  });
+});
  
 
 /* ========================================

@@ -2251,3 +2251,93 @@ button {
       repeat(2, minmax(0, 1fr));
   }
 }
+/* ========================================
+   FEELINGS GENDER CHOICE
+   ======================================== */
+
+.gender-choice {
+  width: min(620px, 100%);
+  margin: 18px auto 0;
+  padding: 16px;
+  border: 1px solid #d9e2ef;
+  border-radius: 18px;
+  background: #ffffff;
+  text-align: center;
+}
+
+.gender-choice[hidden] {
+  display: none;
+}
+
+.gender-choice-label {
+  display: block;
+  margin-bottom: 10px;
+  color: #274b84;
+  font-weight: 850;
+}
+
+.gender-choice-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+
+.gender-choice-button {
+  min-width: 150px;
+  padding: 10px 16px;
+  border: 2px solid #d9e2ef;
+  border-radius: 14px;
+  color: #274b84;
+  background: white;
+  font: inherit;
+  font-weight: 850;
+  cursor: pointer;
+}
+
+.gender-choice-button small {
+  display: block;
+  margin-top: 2px;
+  color: #66758d;
+  font-size: 0.78rem;
+  font-weight: 600;
+}
+
+.gender-choice-button:hover,
+.gender-choice-button:focus-visible {
+  border-color: #274b84;
+  outline: none;
+}
+
+.gender-choice-button.active {
+  border-color: #d46c5c;
+  background: #fff7f3;
+}
+
+.gender-choice-note {
+  margin: 10px 0 0;
+  color: #274b84;
+  font-size: 0.88rem;
+  font-weight: 700;
+}
+
+.gender-choice-note span {
+  display: block;
+  margin-top: 2px;
+  color: #66758d;
+  font-weight: 550;
+}
+
+body.hide-english .gender-choice-button small,
+body.hide-english .gender-choice-note span {
+  display: none;
+}
+
+@media (max-width: 520px) {
+  .gender-choice-buttons {
+    flex-direction: column;
+  }
+
+  .gender-choice-button {
+    width: 100%;
+  }
+}

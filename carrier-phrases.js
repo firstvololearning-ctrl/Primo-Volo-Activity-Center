@@ -124,7 +124,14 @@ const carrierPhrases = {
       image: "images/carrier-phrases/mi-piace-no-text.png"
     }
   ],
-
+  feelings: [
+    {
+      id: "sento",
+      italian: "Mi sento...",
+      english: "I feel...",
+      image: "images/carrier-phrases/mi-sento-no-text.png"
+    }
+  ],
   numbers: [
     {
       id: "vedo",

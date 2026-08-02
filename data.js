@@ -891,36 +891,50 @@ const numbers = [
 const feelings = [
   {
     italian: "felice",
+    masculine: "felice",
+    feminine: "felice",
     english: "happy",
     image: "images/feelings/feelings-01.png"
   },
   {
     italian: "arrabbiato",
+    masculine: "arrabbiato",
+    feminine: "arrabbiata",
     english: "angry",
     image: "images/feelings/feelings-02.png"
   },
   {
     italian: "malato",
+    masculine: "malato",
+    feminine: "malata",
     english: "sick",
     image: "images/feelings/feelings-03.png"
   },
   {
     italian: "spaventato",
+    masculine: "spaventato",
+    feminine: "spaventata",
     english: "scared",
     image: "images/feelings/feelings-04.png"
   },
   {
     italian: "triste",
+    masculine: "triste",
+    feminine: "triste",
     english: "sad",
     image: "images/feelings/feelings-05.png"
   },
   {
     italian: "confuso",
+    masculine: "confuso",
+    feminine: "confusa",
     english: "confused",
     image: "images/feelings/feelings-06.png"
   },
   {
     italian: "sorpreso",
+    masculine: "sorpreso",
+    feminine: "sorpresa",
     english: "surprised",
     image: "images/feelings/feelings-07.png"
   }

@@ -650,7 +650,7 @@ const carrierText =
     .trim();
 
 const sentence =
-  `${carrierText} ${currentWordsItem.italian}.`;
+  `${carrierText} ${currentWordsItem.italian}`;
   
 
           if (isCorrect) {
