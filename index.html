@@ -1,527 +1,412 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-
-  <meta
-    name="viewport"
-    content="width=device-width, initial-scale=1.0"
-  >
-
- <title>Primo Volo d'Italiano — Centro Attività</title>
-
-  <link rel="stylesheet" href="style.css">
-</head>
-
-<body>
-
+ <head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <title>
+   Primo Volo d'Italiano — Centro Attività
+  </title>
+  <link href="style.css" rel="stylesheet"/>
+ </head>
+ <body>
   <header class="site-header">
-
-<div class="brand-block">
-
-  <img
-    src="images/logo/logo.png"
-    alt="First Volo Learning"
-    class="logo"
-  >
-
-  <div class="brand-name">
-    First Volo Learning
-  </div>
-
-  <a
-    href="https://firstvololearning.com"
-    target="_blank"
-    rel="noopener noreferrer"
-    class="website-link"
-  >
-    firstvololearning.com
-  </a>
-
-</div>
-
-  <div class="title-group">
-
+   <div class="brand-block">
+    <img alt="First Volo Learning" class="logo" src="images/logo/logo.png"/>
+    <div class="brand-name">
+     First Volo Learning
+    </div>
+    <a class="website-link" href="https://firstvololearning.com" rel="noopener noreferrer" target="_blank">
+     firstvololearning.com
+    </a>
+   </div>
+   <div class="title-group">
     <h1>
-      ✈️ Primo Volo d'Italiano
+     ✈️ Primo Volo d'Italiano
     </h1>
-
     <h2>
-      Centro Attività
+     Centro Attività
     </h2>
-
     <p>
-      Interactive Italian Practice
+     Interactive Italian Practice
     </p>
-
-  </div>
-
-<button
-    type="button"
-    id="aboutButton"
-    class="header-link"
-  >
+   </div>
+   <button class="header-link" id="aboutButton" type="button">
     🔵 About this Site
-  </button>
-
-  <button
-    type="button"
-    id="referenceButton"
-    class="header-link"
-  >
+   </button>
+   <button class="header-link" id="referenceButton" type="button">
     📚 Reference Sheets
-  </button>
-
-</header>
-
+   </button>
+  </header>
   <main class="page">
-
-    <nav
-      class="activity-menu"
-      aria-label="Choose an activity"
-    >
-
-      <button
-        type="button"
-        class="activity-button active"
-        data-mode="learn"
-      >
-        <span class="activity-icon">📖</span>
-        <span class="activity-italian">Impara</span>
-        <small>Learn</small>
-      </button>
-
-      <button
-        type="button"
-        class="activity-button"
-        data-mode="choose"
-      >
-        <span class="activity-icon">✅</span>
-        <span class="activity-italian">Scegli</span>
-        <small>Choose</small>
-      </button>
-
-      <button
-        type="button"
-        class="activity-button"
-        data-mode="match-word"
-      >
-        <span class="activity-icon">🎯</span>
-        <span class="activity-italian">Abbina</span>
-        <small>Match</small>
-      </button>
-
-      <button
-        type="button"
-        class="activity-button"
-        data-mode="match-sound"
-      >
-        <span class="activity-icon">🔊</span>
-        <span class="activity-italian">Ascolta</span>
-        <small>Listen</small>
-      </button>
-<button
-  type="button"
-  class="activity-button"
-  data-mode="memory"
->
-  <span class="activity-icon">🧠</span>
-  <span class="activity-italian">Memoria</span>
-  <small>Memory</small>
-</button>
-<button
-  type="button"
-  class="activity-button"
-  data-mode="words-in-action"
->
-  <span class="activity-icon">💬</span>
-  <span class="activity-italian">Parole in azione</span>
-  <small>Words in Action</small>
-</button>
-
-<button
-  type="button"
-  class="activity-button"
-  data-mode="assemble-sentences"
->
-  <span class="activity-icon">🧩</span>
-  <span class="activity-italian">Assembla</span>
-  <small>Assemble</small>
-</button>
-<button
-  type="button"
-  class="activity-button"
-  data-mode="complete"
->
-  <span class="activity-icon">✏️</span>
-  <span class="activity-italian">Completa</span>
-  <small>Complete</small>
-</button>
-
-<button
-  type="button"
-  class="activity-button"
-  data-mode="write"
->
-  <span class="activity-icon">⌨️</span>
-  <span class="activity-italian">Scrivi</span>
-  <small>Write</small>
-</button>
-  
-<button
-  type="button"
-  class="activity-button"
-  data-mode="sentences"
->
-  <span class="activity-icon">📝</span>
-
-  <span class="activity-italian">
-    Frasi
-  </span>
-
-  <small>
-    Sentences
-  </small>
-</button>
-    </nav>
-<section
-  class="topic-selector-section"
-  aria-labelledby="topicSelectorLabel"
->
-  <label
-    id="topicSelectorLabel"
-    class="topic-select-label"
-    for="topicSelect"
-  >
-    <span aria-hidden="true">📚</span>
-
-    <span>
+   <section aria-labelledby="topicSelectorLabel" class="topic-selector-section">
+    <label class="topic-select-label" for="topicSelect" id="topicSelectorLabel">
+     <span aria-hidden="true">
+      📚
+     </span>
+     <span>
       Argomento
-      <small>Topic</small>
-    </span>
-  </label>
-
-  <div class="topic-select-wrap">
-
-    <select
-      id="topicSelect"
-      class="topic-select"
-    >
+      <small>
+       Topic
+      </small>
+     </span>
+    </label>
+    <div class="topic-select-wrap">
+     <select class="topic-select" id="topicSelect">
+      <option selected="" value="greetings">
+       👋 Saluti e presentazioni · Greetings &amp; Introductions
+      </option>
       <option value="supplies">
-        📚 Materiale scolastico · School Supplies
+       📚 Materiale scolastico · School Supplies
       </option>
-
       <option value="food">
-         🍎 Il cibo e le bevande · Food & Drinks
+       🍎 Il cibo e le bevande · Food &amp; Drinks
       </option>
-
       <option value="clothing">
-        👕 L’abbigliamento · Clothing
+       👕 L’abbigliamento · Clothing
       </option>
       <option value="bodyParts">
-  🧍 Le parti del corpo · Body Parts
-</option>
-
+       🧍 Le parti del corpo · Body Parts
+      </option>
       <option value="home">
-        🏠 La casa · Home
+       🏠 La casa · Home
       </option>
-
       <option value="family">
-        👨‍👩‍👧 La famiglia · Family
+       👨‍👩‍👧 La famiglia · Family
       </option>
-
       <option value="colors">
-        🎨 I colori · Colors
+       🎨 I colori · Colors
       </option>
-<option value="feelings">
-  😊 Le emozioni · Feelings
-</option>
+      <option value="feelings">
+       😊 Le emozioni · Feelings
+      </option>
       <option value="numbers">
-        🔢 I numeri · Numbers
+       🔢 I numeri · Numbers
       </option>
-
       <option value="animals">
-        🐶 Gli animali · Animals
+       🐶 Gli animali · Animals
       </option>
-
       <option value="time">
-        🕒 L’ora · Time
+       🕒 L’ora · Time
       </option>
-
       <option value="weather">
-        🌦️ Il tempo · Weather
+       🌦️ Il tempo · Weather
       </option>
-
       <option value="classroom">
-        🏫 Espressioni in classe · Classroom Expressions
+       🏫 Espressioni in classe · Classroom Expressions
       </option>
+     </select>
+    </div>
+    <p aria-live="polite" class="topic-availability" id="topicAvailability">
+    </p>
+   </section>
+   <!-- Volo's age appears only for Greetings & Introductions -->
 
-      <option value="greetings">
-        👋 Saluti e presentazioni · Greetings & Introductions
-      </option>
-    </select>
-
-  </div>
-
-  <p
-    id="topicAvailability"
-    class="topic-availability"
-    aria-live="polite"
-  ></p>
-</section>
-<div
-  id="genderChoice"
-  class="gender-choice"
+<section
+  id="voloAgeSetup"
+  class="volo-age-setup"
   hidden
 >
-  <span class="gender-choice-label">
-    Forma dell'aggettivo · Adjective Form
-  </span>
-
-  <div
-    class="gender-choice-buttons"
-    role="group"
-    aria-label="Choose adjective gender"
+  <form
+    id="voloAgeForm"
+    class="volo-age-form"
   >
-    <button
-      type="button"
-      class="gender-choice-button active"
-      data-gender="masculine"
-      aria-pressed="true"
+    <label
+      for="voloAgeInput"
+      class="volo-age-label"
     >
-      Maschile
-      <small>Masculine</small>
-    </button>
+      Quanti anni vuoi che abbia Volo?
 
-    <button
-      type="button"
-      class="gender-choice-button"
-      data-gender="feminine"
-      aria-pressed="false"
-    >
-      Femminile
-      <small>Feminine</small>
-    </button>
-  </div>
+      <span>
+        How old do you want Volo to be?
+      </span>
+    </label>
 
-  <p class="gender-choice-note">
-    Scegli la forma che vuoi praticare.
-
-    <span>
-      Choose the form you want to practice.
-    </span>
-  </p>
-</div>
-<section class="topic-header">
-
-  <h3 id="topicItalian">
-    📚 Materiale scolastico
-  </h3>
-
-  <p
-    id="topicEnglish"
-    class="topic-english"
-  >
-    School Supplies
-  </p>
-
-<label
-  class="english-toggle"
-  id="englishToggleControl"
->
-
-  <input
-    type="checkbox"
-    id="englishToggle"
-    checked
-  >
-
-  <span>
-    Mostra l'inglese · Show English
-  </span>
-
-</label>
-
-<p
-  class="instructions"
-  id="learnInstructions"
->
-  Seleziona una carta per ascoltare la parola.
-
-  <span>
-    Select a card to hear the word.
-  </span>
-</p>
-
-
-    </section>
-<section
-  id="learnActivity"
-  class="activity-panel"
->
-  <section
-    id="vocabularyGrid"
-    class="vocabulary-grid"
-    aria-label="School supply vocabulary"
-  >
-  </section>
-</section>
-<section
-  id="matchActivity"
-  class="match-activity activity-panel"
-  hidden
->
-</section>
-<section
-  id="listenActivity"
-  class="listen-activity activity-panel"
-  hidden
->
-</section>
-<section
-  id="completeActivity"
-  class="complete-activity activity-panel"
-  hidden
->
-</section>
-<section
-  id="chooseActivity"
-  class="choose-activity activity-panel"
-  hidden
->
-</section>
-
-<section
-  id="writeActivity"
-  class="write-activity activity-panel"
-  hidden
->
-</section>
-<section
-  id="memoryActivity"
-  class="memory-activity activity-panel"
-  hidden
->
-</section>
-<section
-  id="conversationActivity"
-  class="activity-panel"
-  hidden
-></section>
-  </main>
-  <div
-  id="referenceModal"
-  class="reference-modal"
-  role="dialog"
-  aria-modal="true"
-  aria-labelledby="referenceTitle"
-  hidden
->
-  <div class="reference-card">
-
-    <button
-      type="button"
-      id="referenceClose"
-      class="reference-close"
-      aria-label="Close reference sheets"
-    >
-      ×
-    </button>
-
-    <h2 id="referenceTitle">
-      Reference Sheets
-    </h2>
-
-    <div class="reference-grid">
-
-      <a
-        href="images/reference/pronouns/pronouns-01.png"
-        target="_blank"
-        rel="noopener noreferrer"
-        class="reference-sheet-card"
+    <div class="volo-age-controls">
+      <input
+        id="voloAgeInput"
+        class="volo-age-input"
+        type="number"
+        min="1"
+        max="99"
+        inputmode="numeric"
+        autocomplete="off"
+        required
       >
-        <img
-          src="images/reference/pronouns/pronouns-01.png"
-          alt="Italian subject pronouns reference sheet"
-        >
 
-        <strong>
-          I pronomi soggetto
-        </strong>
-
-        <span>
-          Subject Pronouns
-        </span>
-      </a>
-
-      <a
-        href="images/reference/question-words/question-words-01.png"
-        target="_blank"
-        rel="noopener noreferrer"
-        class="reference-sheet-card"
+      <button
+        type="submit"
+        class="volo-age-submit"
       >
-        <img
-          src="images/reference/question-words/question-words-01.png"
-          alt="Italian question words reference sheet"
-        >
-
-        <strong>
-          Le 5 W + Come
-        </strong>
-
-        <span>
-          Question Words
-        </span>
-      </a>
-
+        Usa questa età · Use This Age
+      </button>
     </div>
 
-  </div>
-</div>
+    <p
+      id="voloAgeFeedback"
+      class="volo-age-feedback"
+      aria-live="polite"
+    ></p>
+  </form>
 
-<div
-  id="aboutModal"
-  class="about-modal"
-  role="dialog"
-  aria-modal="true"
-  aria-labelledby="aboutTitle"
-  hidden
->
-  <div class="about-card">
+  <div
+    id="voloAgeSaved"
+    class="volo-age-saved"
+    hidden
+  >
+    <span>
+      🎂 Volo ha
+      <strong id="voloAgeNumber"></strong>
+      anni.
+    </span>
 
     <button
       type="button"
-      id="aboutClose"
-      class="about-close"
-      aria-label="Close"
+      id="changeVoloAgeButton"
+      class="volo-age-change"
     >
-      ×
+      Cambia l’età · Change Age
     </button>
-<img
-  src="images/logo/banner.png"
-  alt="First Volo Learning — Making Language Learning Visible, Teachable, and Achievable"
-  class="about-brand-banner"
->
-    <h2 id="aboutTitle">
-      Primo Volo d'Italiano
-    </h2>
-
-    <p class="about-subtitle">
-      Centro Attività · Interactive Italian Practice
+  </div>
+</section>
+   <div class="gender-choice" hidden="" id="genderChoice">
+    <span class="gender-choice-label">
+     Forma dell'aggettivo · Adjective Form
+    </span>
+    <div aria-label="Choose adjective gender" class="gender-choice-buttons" role="group">
+     <button aria-pressed="true" class="gender-choice-button active" data-gender="masculine" type="button">
+      Maschile
+      <small>
+       Masculine
+      </small>
+     </button>
+     <button aria-pressed="false" class="gender-choice-button" data-gender="feminine" type="button">
+      Femminile
+      <small>
+       Feminine
+      </small>
+     </button>
+    </div>
+    <p class="gender-choice-note">
+     Scegli la forma che vuoi praticare.
+     <span>
+      Choose the form you want to practice.
+     </span>
     </p>
-
+   </div>
+   <nav aria-label="Choose an activity" class="activity-menu">
+    <button class="activity-button" data-mode="introductions-practice" hidden="" type="button">
+     <span class="activity-icon">
+      👋
+     </span>
+     <span class="activity-italian">
+      Presentiamoci!
+     </span>
+     <small>
+      Let's Introduce Ourselves!
+     </small>
+    </button>
+    <button class="activity-button active" data-mode="learn" type="button">
+     <span class="activity-icon">
+      📖
+     </span>
+     <span class="activity-italian">
+      Impara
+     </span>
+     <small>
+      Learn
+     </small>
+    </button>
+    <button class="activity-button" data-mode="choose" type="button">
+     <span class="activity-icon">
+      ✅
+     </span>
+     <span class="activity-italian">
+      Scegli
+     </span>
+     <small>
+      Choose
+     </small>
+    </button>
+    <button class="activity-button" data-mode="match-word" type="button">
+     <span class="activity-icon">
+      🎯
+     </span>
+     <span class="activity-italian">
+      Abbina
+     </span>
+     <small>
+      Match
+     </small>
+    </button>
+    <button class="activity-button" data-mode="match-sound" type="button">
+     <span class="activity-icon">
+      🔊
+     </span>
+     <span class="activity-italian">
+      Ascolta
+     </span>
+     <small>
+      Listen
+     </small>
+    </button>
+    <button class="activity-button" data-mode="memory" type="button">
+     <span class="activity-icon">
+      🧠
+     </span>
+     <span class="activity-italian">
+      Memoria
+     </span>
+     <small>
+      Memory
+     </small>
+    </button>
+    <button class="activity-button" data-mode="words-in-action" type="button">
+     <span class="activity-icon">
+      💬
+     </span>
+     <span class="activity-italian">
+      Parole in azione
+     </span>
+     <small>
+      Words in Action
+     </small>
+    </button>
+    <button class="activity-button" data-mode="assemble-sentences" type="button">
+     <span class="activity-icon">
+      🧩
+     </span>
+     <span class="activity-italian">
+      Assembla
+     </span>
+     <small>
+      Assemble
+     </small>
+    </button>
+    <button class="activity-button" data-mode="complete" type="button">
+     <span class="activity-icon">
+      ✏️
+     </span>
+     <span class="activity-italian">
+      Completa
+     </span>
+     <small>
+      Complete
+     </small>
+    </button>
+    <button class="activity-button" data-mode="write" type="button">
+     <span class="activity-icon">
+      ⌨️
+     </span>
+     <span class="activity-italian">
+      Scrivi
+     </span>
+     <small>
+      Write
+     </small>
+    </button>
+    <button class="activity-button" data-mode="sentences" type="button">
+     <span class="activity-icon">
+      📝
+     </span>
+     <span class="activity-italian">
+      Frasi
+     </span>
+     <small>
+      Sentences
+     </small>
+    </button>
+   </nav>
+   <section class="topic-header">
+    <h3 id="topicItalian">
+     👋 Saluti e presentazioni
+    </h3>
+    <p class="topic-english" id="topicEnglish">
+     Greetings &amp; Introductions
+    </p>
+    <label class="english-toggle" id="englishToggleControl">
+     <input checked="" id="englishToggle" type="checkbox"/>
+     <span>
+      Mostra l'inglese · Show English
+     </span>
+    </label>
+    <p class="instructions" id="learnInstructions">
+     Seleziona una carta per ascoltare la parola.
+     <span>
+      Select a card to hear the word.
+     </span>
+    </p>
+   </section>
+   <section class="activity-panel" id="learnActivity">
+    <section aria-label="School supply vocabulary" class="vocabulary-grid" id="vocabularyGrid">
+    </section>
+   </section>
+   <section class="match-activity activity-panel" hidden="" id="matchActivity">
+   </section>
+   <section class="listen-activity activity-panel" hidden="" id="listenActivity">
+   </section>
+   <section class="complete-activity activity-panel" hidden="" id="completeActivity">
+   </section>
+   <section class="choose-activity activity-panel" hidden="" id="chooseActivity">
+   </section>
+   <section class="write-activity activity-panel" hidden="" id="writeActivity">
+   </section>
+   <section class="memory-activity activity-panel" hidden="" id="memoryActivity">
+   </section>
+   <section class="activity-panel" hidden="" id="conversationActivity">
+   </section>
+  </main>
+  <div aria-labelledby="referenceTitle" aria-modal="true" class="reference-modal" hidden="" id="referenceModal" role="dialog">
+   <div class="reference-card">
+    <button aria-label="Close reference sheets" class="reference-close" id="referenceClose" type="button">
+     ×
+    </button>
+    <h2 id="referenceTitle">
+     Reference Sheets
+    </h2>
+    <div class="reference-grid">
+     <a class="reference-sheet-card" href="images/reference/pronouns/pronouns-01.png" rel="noopener noreferrer" target="_blank">
+      <img alt="Italian subject pronouns reference sheet" src="images/reference/pronouns/pronouns-01.png"/>
+      <strong>
+       I pronomi soggetto
+      </strong>
+      <span>
+       Subject Pronouns
+      </span>
+     </a>
+     <a class="reference-sheet-card" href="images/reference/question-words/question-words-01.png" rel="noopener noreferrer" target="_blank">
+      <img alt="Italian question words reference sheet" src="images/reference/question-words/question-words-01.png"/>
+      <strong>
+       Le 5 W + Come
+      </strong>
+      <span>
+       Question Words
+      </span>
+     </a>
+    </div>
+   </div>
+  </div>
+  <div aria-labelledby="aboutTitle" aria-modal="true" class="about-modal" hidden="" id="aboutModal" role="dialog">
+   <div class="about-card">
+    <button aria-label="Close" class="about-close" id="aboutClose" type="button">
+     ×
+    </button>
+    <img alt="First Volo Learning — Making Language Learning Visible, Teachable, and Achievable" class="about-brand-banner" src="images/logo/banner.png"/>
+    <h2 id="aboutTitle">
+     Primo Volo d'Italiano
+    </h2>
+    <p class="about-subtitle">
+     Centro Attività · Interactive Italian Practice
+    </p>
     <!-- ABOUT -->
     <section class="about-section">
-
-      <h3>
-        Informazioni · About
-      </h3>
-
-      <p>
-        <strong>
-          Primo Volo d'Italiano – Centro Attività
-        </strong>
-        offre attività interattive accuratamente progettate
+     <h3>
+      Informazioni · About
+     </h3>
+     <p>
+      <strong>
+       Primo Volo d'Italiano – Centro Attività
+      </strong>
+      offre attività interattive accuratamente progettate
         che rendono l'apprendimento della lingua italiana
         visibile, graduale e significativo. Attraverso
         immagini, ascolto, lettura, conversazione e
@@ -529,848 +414,794 @@
         passando dal riconoscimento delle singole parole
         all'uso di frasi complete e semplici scambi
         comunicativi.
-      </p>
-
-      <p class="about-english">
-        <strong>
-          Primo Volo d'Italiano – Centro Attività
-        </strong>
-        provides carefully designed interactive activities
+     </p>
+     <p class="about-english">
+      <strong>
+       Primo Volo d'Italiano – Centro Attività
+      </strong>
+      provides carefully designed interactive activities
         that make Italian language learning visible,
         progressive, and meaningful. Through pictures,
         listening, reading, conversation, and writing,
         students build confidence as they move from
         recognizing individual words to using complete
         sentences and simple communicative exchanges.
-      </p>
-
+     </p>
     </section>
-
     <!-- LEARNING PROGRESSION -->
     <section class="about-section">
-
-      <h3>
-        Progressione dell'apprendimento · Learning Progression
-      </h3>
-
-      <p>
-        Le attività sono organizzate in una sequenza
+     <h3>
+      Progressione dell'apprendimento · Learning Progression
+     </h3>
+     <p>
+      Le attività sono organizzate in una sequenza
         intenzionale, in modo che ciascuna prepari gli
         studenti per quella successiva. Gli studenti
         passano gradualmente dal riconoscimento del
         vocabolario al suo utilizzo sicuro nella
         comunicazione.
-      </p>
-
-      <p class="about-english">
-        The activities are intentionally sequenced so that
+     </p>
+     <p class="about-english">
+      The activities are intentionally sequenced so that
         each one builds upon the previous activity.
         Students gradually move from recognizing vocabulary
         to confidently using it in meaningful
         communication.
-      </p>
-
-      <div class="progression-flow">
-
-        <div class="progression-step">
-          <strong>
-            📖 Impara
-          </strong>
-
-          <div>
-            Learn New Vocabulary
-          </div>
-        </div>
-
-        <div class="progression-arrow">
-          ↓
-        </div>
-
-        <div class="progression-step">
-          <strong>
-            ✅ Scegli + 🎯 Abbina
-          </strong>
-
-          <div>
-            Visual Vocabulary Recognition
-          </div>
-        </div>
-
-        <div class="progression-arrow">
-          ↓
-        </div>
-
-        <div class="progression-step">
-          <strong>
-            🔊 Ascolta
-          </strong>
-
-          <div>
-            Auditory Vocabulary Recognition
-          </div>
-        </div>
-
-        <div class="progression-arrow">
-          ↓
-        </div>
-
-        <div class="progression-step">
-          <strong>
-            🧠 Memoria
-          </strong>
-
-          <div>
-            Vocabulary Reinforcement &amp; Pronunciation
-          </div>
-        </div>
-
-        <div class="progression-arrow">
-          ↓
-        </div>
-
-        <div class="progression-step">
-          <strong>
-            💬 Parole in azione
-          </strong>
-
-          <div>
-            Guided Sentence Practice
-          </div>
-        </div>
-
-        <div class="progression-arrow">
-          ↓
-        </div>
-
-        <div class="progression-step">
-          <strong>
-            🗣️ Conversiamo
-          </strong>
-
-          <div>
-            Guided Conversation Practice
-          </div>
-        </div>
-
-        <div class="progression-arrow">
-          ↓
-        </div>
-
-        <div class="progression-step">
-          <strong>
-            🧩 Assembla
-          </strong>
-
-          <div>
-            Sentence Building
-          </div>
-        </div>
-
-        <div class="progression-arrow">
-          ↓
-        </div>
-
-        <div class="progression-step">
-          <strong>
-            ✏️ Completa
-          </strong>
-
-          <div>
-            Supported Word Recall
-          </div>
-        </div>
-
-        <div class="progression-arrow">
-          ↓
-        </div>
-
-        <div class="progression-step">
-          <strong>
-            ⌨️ Scrivi
-          </strong>
-
-          <div>
-            Independent Word Recall
-          </div>
-        </div>
-
-        <div class="progression-arrow">
-          ↓
-        </div>
-
-        <div class="progression-step">
-          <strong>
-            📝 Frasi
-          </strong>
-
-          <div>
-            Independent Sentence Writing
-          </div>
-        </div>
-
+     </p>
+     <div class="progression-flow">
+      <div class="progression-step">
+       <strong>
+        📖 Impara
+       </strong>
+       <div>
+        Learn New Vocabulary
+       </div>
       </div>
-
+      <div class="progression-arrow">
+       ↓
+      </div>
+      <div class="progression-step">
+       <strong>
+        ✅ Scegli + 🎯 Abbina
+       </strong>
+       <div>
+        Visual Vocabulary Recognition
+       </div>
+      </div>
+      <div class="progression-arrow">
+       ↓
+      </div>
+      <div class="progression-step">
+       <strong>
+        🔊 Ascolta
+       </strong>
+       <div>
+        Auditory Vocabulary Recognition
+       </div>
+      </div>
+      <div class="progression-arrow">
+       ↓
+      </div>
+      <div class="progression-step">
+       <strong>
+        🧠 Memoria
+       </strong>
+       <div>
+        Vocabulary Reinforcement &amp; Pronunciation
+       </div>
+      </div>
+      <div class="progression-arrow">
+       ↓
+      </div>
+      <div class="progression-step">
+       <strong>
+        💬 Parole in azione
+       </strong>
+       <div>
+        Guided Sentence Practice
+       </div>
+      </div>
+      <div class="progression-arrow">
+       ↓
+      </div>
+      <div class="progression-step">
+       <strong>
+        🗣️ Conversiamo
+       </strong>
+       <div>
+        Guided Conversation Practice
+       </div>
+      </div>
+      <div class="progression-arrow">
+       ↓
+      </div>
+      <div class="progression-step">
+       <strong>
+        🧩 Assembla
+       </strong>
+       <div>
+        Sentence Building
+       </div>
+      </div>
+      <div class="progression-arrow">
+       ↓
+      </div>
+      <div class="progression-step">
+       <strong>
+        ✏️ Completa
+       </strong>
+       <div>
+        Supported Word Recall
+       </div>
+      </div>
+      <div class="progression-arrow">
+       ↓
+      </div>
+      <div class="progression-step">
+       <strong>
+        ⌨️ Scrivi
+       </strong>
+       <div>
+        Independent Word Recall
+       </div>
+      </div>
+      <div class="progression-arrow">
+       ↓
+      </div>
+      <div class="progression-step">
+       <strong>
+        📝 Frasi
+       </strong>
+       <div>
+        Independent Sentence Writing
+       </div>
+      </div>
+     </div>
     </section>
-
     <!-- LANGUAGE IN CONTEXT -->
     <section class="about-section">
-
-      <h3>
-        🧠 La lingua nel contesto · Language in Context
-      </h3>
-
-      <p>
-        Invece di imparare parole isolate, gli studenti
+     <h3>
+      🧠 La lingua nel contesto · Language in Context
+     </h3>
+     <p>
+      Invece di imparare parole isolate, gli studenti
         incontrano il vocabolario all'interno delle
         strutture linguistiche che accompagnano
         naturalmente ogni argomento. In questo modo le
         parole diventano significative e immediatamente
         utilizzabili nella comunicazione.
-      </p>
-
-      <p class="about-english">
-        Rather than learning isolated vocabulary, students
+     </p>
+     <p class="about-english">
+      Rather than learning isolated vocabulary, students
         learn words within the language structures that
         naturally accompany each topic. This makes
         vocabulary meaningful and immediately usable in
         communication.
-      </p>
-
-      <div class="about-language-table-wrap">
-
-        <table class="about-language-table">
-
-          <thead>
-            <tr>
-              <th>
-                Argomento
-                <span>Topic</span>
-              </th>
-
-              <th>
-                Attività
-                <span>Activity</span>
-              </th>
-
-              <th>
-                Struttura linguistica
-                <span>Language Focus</span>
-              </th>
-            </tr>
-          </thead>
-
-          <tbody>
-
-            <tr>
-              <td>
-                📚 Materiale scolastico
-                <span>School Supplies</span>
-              </td>
-
-              <td>
-                💬 Parole in azione
-              </td>
-
-              <td>
-                <strong>
-                  Io vedo... · Io ho...
-                </strong>
-              </td>
-            </tr>
-
-            <tr>
-              <td>
-                🍎 Il cibo e le bevande
-                <span>Food &amp; Drinks</span>
-              </td>
-
-              <td>
-                💬 Parole in azione
-              </td>
-
-              <td>
-                <strong>
-                  Mangio... · Mi piace...
-                </strong>
-              </td>
-            </tr>
-
-            <tr>
-              <td>
-                👕 L'abbigliamento
-                <span>Clothing</span>
-              </td>
-
-              <td>
-                💬 Parole in azione
-              </td>
-
-              <td>
-                <strong>
-                  Indosso... · Mi piace...
-                </strong>
-              </td>
-            </tr>
-
-            <tr>
-              <td>
-                🐶 Gli animali
-                <span>Animals</span>
-              </td>
-
-              <td>
-                💬 Parole in azione
-              </td>
-
-              <td>
-                <strong>
-                  Io vedo... · Mi piace...
-                </strong>
-              </td>
-            </tr>
-
-            <tr>
-              <td>
-                🏠 La casa
-                <span>Home</span>
-              </td>
-
-              <td>
-                💬 Parole in azione
-              </td>
-
-              <td>
-                <strong>
-                  Io vedo... · Io ho...
-                </strong>
-              </td>
-            </tr>
-
-            <tr>
-              <td>
-                🧍 Le parti del corpo
-                <span>Body Parts</span>
-              </td>
-
-              <td>
-                💬 Parole in azione
-              </td>
-
-              <td>
-                <strong>
-                  Io vedo... · Io ho...
-                </strong>
-              </td>
-            </tr>
-
-            <tr>
-              <td>
-                🎨 I colori
-                <span>Colors</span>
-              </td>
-
-              <td>
-                💬 Parole in azione
-              </td>
-
-              <td>
-                <strong>
-                  Io vedo... · Mi piace...
-                </strong>
-              </td>
-            </tr>
-
-            <tr>
-              <td>
-                😊 Le emozioni
-                <span>Feelings</span>
-              </td>
-
-              <td>
-                💬 Parole in azione
-              </td>
-
-              <td>
-                <strong>
-                  Mi sento...
-                </strong>
-              </td>
-            </tr>
-
-            <tr>
-              <td>
-                🏫 Espressioni in classe
-                <span>Classroom Expressions</span>
-              </td>
-
-              <td>
-                💬 Parole in azione
-              </td>
-
-              <td>
-                <strong>
-                  Io dico...
-                </strong>
-              </td>
-            </tr>
-
-            <tr>
-              <td>
-                🕒 L'ora
-                <span>Time</span>
-              </td>
-
-              <td>
-                🗣️ Conversiamo
-              </td>
-
-              <td>
-                <strong>
-                  Che ora è? → Sono le sei.
-                </strong>
-              </td>
-            </tr>
-
-            <tr>
-              <td>
-                🌦️ Il tempo
-                <span>Weather</span>
-              </td>
-
-              <td>
-                🗣️ Conversiamo
-              </td>
-
-              <td>
-                <strong>
-                  Che tempo fa? → Fa caldo.
-                </strong>
-              </td>
-            </tr>
-
-          </tbody>
-
-        </table>
-
-      </div>
-
-      <p>
-        Alcuni argomenti si prestano meglio all'uso di
-        <strong>frasi modello</strong>, mentre altri vengono
+     </p>
+     <div class="about-language-table-wrap">
+      <table class="about-language-table">
+       <thead>
+        <tr>
+         <th>
+          Argomento
+          <span>
+           Topic
+          </span>
+         </th>
+         <th>
+          Attività
+          <span>
+           Activity
+          </span>
+         </th>
+         <th>
+          Struttura linguistica
+          <span>
+           Language Focus
+          </span>
+         </th>
+        </tr>
+       </thead>
+       <tbody>
+        <tr>
+         <td>
+          📚 Materiale scolastico
+          <span>
+           School Supplies
+          </span>
+         </td>
+         <td>
+          💬 Parole in azione
+         </td>
+         <td>
+          <strong>
+           Io vedo... · Io ho...
+          </strong>
+         </td>
+        </tr>
+        <tr>
+         <td>
+          🍎 Il cibo e le bevande
+          <span>
+           Food &amp; Drinks
+          </span>
+         </td>
+         <td>
+          💬 Parole in azione
+         </td>
+         <td>
+          <strong>
+           Mangio... · Mi piace...
+          </strong>
+         </td>
+        </tr>
+        <tr>
+         <td>
+          👕 L'abbigliamento
+          <span>
+           Clothing
+          </span>
+         </td>
+         <td>
+          💬 Parole in azione
+         </td>
+         <td>
+          <strong>
+           Indosso... · Mi piace...
+          </strong>
+         </td>
+        </tr>
+        <tr>
+         <td>
+          🐶 Gli animali
+          <span>
+           Animals
+          </span>
+         </td>
+         <td>
+          💬 Parole in azione
+         </td>
+         <td>
+          <strong>
+           Io vedo... · Mi piace...
+          </strong>
+         </td>
+        </tr>
+        <tr>
+         <td>
+          🏠 La casa
+          <span>
+           Home
+          </span>
+         </td>
+         <td>
+          💬 Parole in azione
+         </td>
+         <td>
+          <strong>
+           Io vedo... · Io ho...
+          </strong>
+         </td>
+        </tr>
+        <tr>
+         <td>
+          🧍 Le parti del corpo
+          <span>
+           Body Parts
+          </span>
+         </td>
+         <td>
+          💬 Parole in azione
+         </td>
+         <td>
+          <strong>
+           Io vedo... · Io ho...
+          </strong>
+         </td>
+        </tr>
+        <tr>
+         <td>
+          🎨 I colori
+          <span>
+           Colors
+          </span>
+         </td>
+         <td>
+          💬 Parole in azione
+         </td>
+         <td>
+          <strong>
+           Io vedo... · Mi piace...
+          </strong>
+         </td>
+        </tr>
+        <tr>
+         <td>
+          😊 Le emozioni
+          <span>
+           Feelings
+          </span>
+         </td>
+         <td>
+          💬 Parole in azione
+         </td>
+         <td>
+          <strong>
+           Mi sento...
+          </strong>
+         </td>
+        </tr>
+        <tr>
+         <td>
+          🏫 Espressioni in classe
+          <span>
+           Classroom Expressions
+          </span>
+         </td>
+         <td>
+          💬 Parole in azione
+         </td>
+         <td>
+          <strong>
+           Io dico...
+          </strong>
+         </td>
+        </tr>
+        <tr>
+         <td>
+          🕒 L'ora
+          <span>
+           Time
+          </span>
+         </td>
+         <td>
+          🗣️ Conversiamo
+         </td>
+         <td>
+          <strong>
+           Che ora è? → Sono le sei.
+          </strong>
+         </td>
+        </tr>
+        <tr>
+         <td>
+          🌦️ Il tempo
+          <span>
+           Weather
+          </span>
+         </td>
+         <td>
+          🗣️ Conversiamo
+         </td>
+         <td>
+          <strong>
+           Che tempo fa? → Fa caldo.
+          </strong>
+         </td>
+        </tr>
+       </tbody>
+      </table>
+     </div>
+     <p>
+      Alcuni argomenti si prestano meglio all'uso di
+      <strong>
+       frasi modello
+      </strong>
+      , mentre altri vengono
         praticati attraverso autentici
-        <strong>scambi domanda-risposta</strong>. In questo
+      <strong>
+       scambi domanda-risposta
+      </strong>
+      . In questo
         modo gli studenti usano la struttura linguistica più
         naturale per ogni argomento.
-      </p>
-
-      <p class="about-english">
-        Some topics are best practiced through
-        <strong>carrier phrases</strong>, while others are
+     </p>
+     <p class="about-english">
+      Some topics are best practiced through
+      <strong>
+       carrier phrases
+      </strong>
+      , while others are
         better learned through authentic
-        <strong>question-and-answer exchanges</strong>.
+      <strong>
+       question-and-answer exchanges
+      </strong>
+      .
         This allows students to practice the language that
         is most natural for each topic.
-      </p>
-
+     </p>
     </section>
-
     <!-- ACTIVITIES -->
     <section class="about-section">
-
-      <h3>
-        Attività · Activities
-      </h3>
-
-      <div class="about-activity-grid">
-
-        <div class="about-activity">
-          <span aria-hidden="true">📖</span>
-
-          <p>
-            <strong>
-              Impara · Learn
-            </strong>
-
-            <small>
-              Guarda, ascolta e impara ogni nuova parola o
+     <h3>
+      Attività · Activities
+     </h3>
+     <div class="about-activity-grid">
+      <div class="about-activity">
+       <span aria-hidden="true">
+        📖
+       </span>
+       <p>
+        <strong>
+         Impara · Learn
+        </strong>
+        <small>
+         Guarda, ascolta e impara ogni nuova parola o
               espressione.
-            </small>
-
-            <small class="about-english">
-              See, hear, and learn each new word or
+        </small>
+        <small class="about-english">
+         See, hear, and learn each new word or
               expression.
-            </small>
-          </p>
-        </div>
-
-        <div class="about-activity">
-          <span aria-hidden="true">✅</span>
-
-          <p>
-            <strong>
-              Scegli · Choose
-            </strong>
-
-            <small>
-              Guarda un'immagine e scegli la parola o
+        </small>
+       </p>
+      </div>
+      <div class="about-activity">
+       <span aria-hidden="true">
+        ✅
+       </span>
+       <p>
+        <strong>
+         Scegli · Choose
+        </strong>
+        <small>
+         Guarda un'immagine e scegli la parola o
               l'espressione corretta.
-            </small>
-
-            <small class="about-english">
-              Look at a picture and choose the correct word
+        </small>
+        <small class="about-english">
+         Look at a picture and choose the correct word
               or expression.
-            </small>
-          </p>
-        </div>
-
-        <div class="about-activity">
-          <span aria-hidden="true">🎯</span>
-
-          <p>
-            <strong>
-              Abbina · Match
-            </strong>
-
-            <small>
-              Abbina ogni immagine alla parola o
+        </small>
+       </p>
+      </div>
+      <div class="about-activity">
+       <span aria-hidden="true">
+        🎯
+       </span>
+       <p>
+        <strong>
+         Abbina · Match
+        </strong>
+        <small>
+         Abbina ogni immagine alla parola o
               all'espressione corretta.
-            </small>
-
-            <small class="about-english">
-              Match each picture to the correct written word
+        </small>
+        <small class="about-english">
+         Match each picture to the correct written word
               or expression.
-            </small>
-          </p>
-        </div>
-
-        <div class="about-activity">
-          <span aria-hidden="true">🔊</span>
-
-          <p>
-            <strong>
-              Ascolta · Listen
-            </strong>
-
-            <small>
-              Ascolta una parola o un'espressione e scegli
+        </small>
+       </p>
+      </div>
+      <div class="about-activity">
+       <span aria-hidden="true">
+        🔊
+       </span>
+       <p>
+        <strong>
+         Ascolta · Listen
+        </strong>
+        <small>
+         Ascolta una parola o un'espressione e scegli
               l'immagine corretta.
-            </small>
-
-            <small class="about-english">
-              Hear a word or expression and match it to the
+        </small>
+        <small class="about-english">
+         Hear a word or expression and match it to the
               correct picture.
-            </small>
-          </p>
-        </div>
-
-        <div class="about-activity">
-          <span aria-hidden="true">🧠</span>
-
-          <p>
-            <strong>
-              Memoria · Memory
-            </strong>
-
-            <small>
-              Abbina parole ed espressioni italiane alle
+        </small>
+       </p>
+      </div>
+      <div class="about-activity">
+       <span aria-hidden="true">
+        🧠
+       </span>
+       <p>
+        <strong>
+         Memoria · Memory
+        </strong>
+        <small>
+         Abbina parole ed espressioni italiane alle
               immagini per rinforzare il recupero del
               vocabolario e la pronuncia.
-            </small>
-
-            <small class="about-english">
-              Match Italian words and expressions to their
+        </small>
+        <small class="about-english">
+         Match Italian words and expressions to their
               pictures while strengthening vocabulary
               recall and pronunciation.
-            </small>
-          </p>
-        </div>
-
-        <div class="about-activity">
-          <span aria-hidden="true">💬</span>
-
-          <p>
-            <strong>
-              Parole in azione · Words in Action
-            </strong>
-
-            <small>
-              Guarda e ascolta una frase modello insieme a
+        </small>
+       </p>
+      </div>
+      <div class="about-activity">
+       <span aria-hidden="true">
+        💬
+       </span>
+       <p>
+        <strong>
+         Parole in azione · Words in Action
+        </strong>
+        <small>
+         Guarda e ascolta una frase modello insieme a
               un'immagine che rappresenta la parola o
               l'espressione da imparare. Poi scegli la
               parola che completa correttamente la frase.
               Infine, ascolta la frase completa per
               consolidare sia il vocabolario sia la
               struttura della frase.
-            </small>
-
-            <small class="about-english">
-              See and hear a familiar carrier phrase
+        </small>
+        <small class="about-english">
+         See and hear a familiar carrier phrase
               alongside an image representing the target
               word or expression. Then choose the word that
               correctly completes the sentence. Finally,
               hear the complete sentence aloud to reinforce
               both vocabulary and sentence structure.
-            </small>
-          </p>
-        </div>
-
-        <div class="about-activity">
-          <span aria-hidden="true">🗣️</span>
-
-          <p>
-            <strong>
-              Conversiamo · Conversation
-            </strong>
-
-            <small>
-              Guarda un'immagine, ascolta o leggi una
+        </small>
+       </p>
+      </div>
+      <div class="about-activity">
+       <span aria-hidden="true">
+        🗣️
+       </span>
+       <p>
+        <strong>
+         Conversiamo · Conversation
+        </strong>
+        <small>
+         Guarda un'immagine, ascolta o leggi una
               domanda e scegli o scrivi la risposta
               appropriata.
-            </small>
-
-            <small class="about-english">
-              See a picture, hear or read a question, and
+        </small>
+        <small class="about-english">
+         See a picture, hear or read a question, and
               choose or write the appropriate response.
-            </small>
-          </p>
-        </div>
-
-        <div class="about-activity">
-          <span aria-hidden="true">🧩</span>
-
-          <p>
-            <strong>
-              Assembla · Assemble
-            </strong>
-
-            <small>
-              Metti parole e gruppi di parole nell'ordine
+        </small>
+       </p>
+      </div>
+      <div class="about-activity">
+       <span aria-hidden="true">
+        🧩
+       </span>
+       <p>
+        <strong>
+         Assembla · Assemble
+        </strong>
+        <small>
+         Metti parole e gruppi di parole nell'ordine
               corretto per costruire una frase completa
               usando la parola o l'espressione studiata.
-            </small>
-
-            <small class="about-english">
-              Arrange words and phrases in the correct order
+        </small>
+        <small class="about-english">
+         Arrange words and phrases in the correct order
               to build a complete sentence using the target
               word or expression.
-            </small>
-          </p>
-        </div>
-
-        <div class="about-activity">
-          <span aria-hidden="true">✏️</span>
-
-          <p>
-            <strong>
-              Completa · Complete
-            </strong>
-
-            <small>
-              Completa la parola o l'espressione con il
+        </small>
+       </p>
+      </div>
+      <div class="about-activity">
+       <span aria-hidden="true">
+        ✏️
+       </span>
+       <p>
+        <strong>
+         Completa · Complete
+        </strong>
+        <small>
+         Completa la parola o l'espressione con il
               supporto di alcune lettere.
-            </small>
-
-            <small class="about-english">
-              Spell the target word or expression with
+        </small>
+        <small class="about-english">
+         Spell the target word or expression with
               letter support.
-            </small>
-          </p>
-        </div>
-
-        <div class="about-activity">
-          <span aria-hidden="true">⌨️</span>
-
-          <p>
-            <strong>
-              Scrivi · Write
-            </strong>
-
-            <small>
-              Scrivi la parola o l'espressione senza
+        </small>
+       </p>
+      </div>
+      <div class="about-activity">
+       <span aria-hidden="true">
+        ⌨️
+       </span>
+       <p>
+        <strong>
+         Scrivi · Write
+        </strong>
+        <small>
+         Scrivi la parola o l'espressione senza
               suggerimenti.
-            </small>
-
-            <small class="about-english">
-              Spell the target word or expression
+        </small>
+        <small class="about-english">
+         Spell the target word or expression
               independently.
-            </small>
-          </p>
-        </div>
-
-        <div class="about-activity">
-          <span aria-hidden="true">📝</span>
-
-          <p>
-            <strong>
-              Frasi · Sentences
-            </strong>
-
-            <small>
-              Scrivi una frase completa utilizzando il
+        </small>
+       </p>
+      </div>
+      <div class="about-activity">
+       <span aria-hidden="true">
+        📝
+       </span>
+       <p>
+        <strong>
+         Frasi · Sentences
+        </strong>
+        <small>
+         Scrivi una frase completa utilizzando il
               vocabolario e le strutture linguistiche
               apprese.
-            </small>
-
-            <small class="about-english">
-              Write complete, meaningful sentences using
+        </small>
+        <small class="about-english">
+         Write complete, meaningful sentences using
               the vocabulary and language structures you
               have learned.
-            </small>
-          </p>
-        </div>
-
+        </small>
+       </p>
       </div>
-
+     </div>
     </section>
-
     <!-- GROWING PATH -->
     <section class="about-section">
-
-      <h3>
-        🚀 Un percorso in continua crescita ·
+     <h3>
+      🚀 Un percorso in continua crescita ·
         A Growing Learning Path
-      </h3>
-
-      <p>
-        Nuovi argomenti, frasi modello, attività di
+     </h3>
+     <p>
+      Nuovi argomenti, frasi modello, attività di
         conversazione, strutture linguistiche e opportunità
         di scrittura saranno aggiunti progressivamente. Con
         il tempo, gli studenti incontreranno modi sempre più
         vari per comprendere, esercitare e usare il
         vocabolario in contesti comunicativi autentici.
-      </p>
-
-      <p class="about-english">
-        New topics, carrier phrases, conversation
+     </p>
+     <p class="about-english">
+      New topics, carrier phrases, conversation
         activities, sentence patterns, and writing
         opportunities will continue to be added over time.
         As students progress, they will encounter
         increasingly varied ways to understand, practice,
         and communicate in Italian using the vocabulary
         they have learned.
-      </p>
-
+     </p>
     </section>
-<!-- ABOUT FIRST VOLO LEARNING  -->
-<section class="about-section about-creator-section">
-
-<h3>
-  🌿 First Volo Learning
-</h3>
-
-<p class="about-brand-subheading">
-  <strong>Chi siamo</strong> · About Us
-</p>
-
-  <div class="about-creator-layout">
-
-    <img
-      src="images/logo/logo.png"
-      alt="First Volo Learning logo"
-      class="about-creator-logo"
-    >
-
-    <div class="about-creator-text">
-
-      <p>
-        Ciao! Sono Alexis, fondatrice di
-        <strong>First Volo Learning</strong> e logopedista
-        certificata con oltre 21 anni di esperienza nelle
+    <section class="about-section about-beta">
+     <h3>
+      🚧 🚧 In continua crescita  · Continually Growing
+     </h3>
+     <p>
+      <strong>
+       Primo Volo d'Italiano
+      </strong>
+      continua a crescere.
+    Nuovi argomenti, attività e funzionalità vengono aggiunti regolarmente.
+    I suggerimenti di insegnanti, studenti e famiglie sono sempre benvenuti e
+    contribuiscono a migliorare il programma.
+     </p>
+     <p class="about-english">
+      <strong>
+       Primo Volo d'Italiano
+      </strong>
+      is continually growing.
+    New topics, activities, and features are added regularly.
+    Feedback from teachers, students, and families is always welcome and helps
+    shape future development.
+     </p>
+    </section>
+    <!-- ABOUT FIRST VOLO LEARNING  -->
+    <section class="about-section about-creator-section">
+     <h3>
+      🌿 First Volo Learning
+     </h3>
+     <p class="about-brand-subheading">
+      <strong>
+       Chi siamo
+      </strong>
+      · About First Volo Learning
+     </p>
+     <div class="about-creator-layout">
+      <img alt="First Volo Learning logo" class="about-creator-logo" src="images/logo/logo.png"/>
+      <div class="about-creator-text">
+       <p>
+        Ciao! Sono Alexis Sacco, fondatrice di
+        <strong>
+         First Volo Learning
+        </strong>
+        e logopedista
+        certificata (CCC-SLP) con oltre 21 anni di esperienza nelle
         scuole pubbliche.
-      </p>
-
-      <p class="about-english">
-        Hi, I'm Alexis, founder of
-        <strong>First Volo Learning</strong> and a certified
+       </p>
+       <p class="about-english">
+        Hi, I'm Alexis Sacco, founder of
+        <strong>
+         First Volo Learning
+        </strong>
+        and a certified
         Speech-Language Pathologist (CCC-SLP) with over
         21 years of experience supporting students in
         public schools.
-      </p>
-
-      <p>
+       </p>
+       <p>
         Attraverso First Volo Learning, creo risorse
         educative progettate con cura per rendere
         l'apprendimento linguistico
-        <strong>visibile, insegnabile e raggiungibile</strong>.
-      </p>
-
-      <p class="about-english">
+        <strong>
+         visibile, insegnabile e raggiungibile
+        </strong>
+        .
+       </p>
+       <p class="about-english">
         Through First Volo Learning, I create thoughtfully
         designed educational resources that make language
         learning
-        <strong>visible, teachable, and achievable</strong>.
-      </p>
-
-      <p>
+        <strong>
+         visible, teachable, and achievable
+        </strong>
+        .
+       </p>
+       <p>
         Molte delle mie risorse aiutano studenti anglofoni
         a sviluppare il linguaggio e la comunicazione.
         Creo anche materiali interattivi per l'apprendimento
         dell'italiano basati sulla stessa filosofia
         didattica.
-      </p>
-
-      <p class="about-english">
+       </p>
+       <p class="about-english">
         While many of my resources support English-speaking
         students with speech and language development, I
         also create interactive Italian language materials
         built on the same instructional philosophy.
-      </p>
-
-      <p>
+       </p>
+       <p>
         Le attività di
-        <strong>Primo Volo d'Italiano</strong>
+        <strong>
+         Primo Volo d'Italiano
+        </strong>
         aiutano gli studenti a passare dal riconoscimento
         delle singole parole all'uso di frasi complete e
         alla comunicazione significativa.
-      </p>
-
-      <p class="about-english">
+       </p>
+       <p class="about-english">
         Rather than simply teaching vocabulary,
-        <strong>Primo Volo d'Italiano</strong>
+        <strong>
+         Primo Volo d'Italiano
+        </strong>
         helps learners progress from recognizing individual
         words to using complete sentences and engaging in
         meaningful communication.
-      </p>
-
-    </div>
-
-  </div>
-
-  <p class="about-creator-closing">
-    <strong>
-      Grazie per imparare con First Volo Learning!
-    </strong>
-
-    <span class="about-english">
-      Thank you for learning with First Volo Learning!
-    </span>
-  </p>
-
-</section>
-    <footer class="about-footer">
-
+       </p>
+      </div>
+     </div>
+     <p class="about-creator-closing">
       <strong>
-        First Volo Learning
+       Grazie per imparare con First Volo Learning!
       </strong>
-
-      <a
-        href="https://firstvololearning.com"
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        firstvololearning.com
-      </a>
-
+      <span class="about-english">
+       Thank you for learning with First Volo Learning!
+      </span>
+     </p>
+    </section>
+    <footer class="about-footer">
+     <strong>
+      First Volo Learning
+     </strong>
+     <a href="https://firstvololearning.com" rel="noopener noreferrer" target="_blank">
+      firstvololearning.com
+     </a>
     </footer>
-
+   </div>
   </div>
-</div>
-<script src="data.js"></script>
-<script src="script.js"></script>
-<script src="carrier-phrases.js"></script>
-<script src="words-in-action.js"></script>
-<script src="assemble-sentences.js"></script>
-<script src="conversation-practice.js"></script>
-
-</body>
+  <footer class="site-footer">
+  <p>
+    © 2026 Alexis Sacco / First Volo Learning.
+    All rights reserved.
+  </p>
+</footer>
+  <script src="data.js">
+  </script>
+  <script src="script.js">
+  </script>
+  <script src="carrier-phrases.js">
+  </script>
+  <script src="words-in-action.js">
+  </script>
+  <script src="assemble-sentences.js">
+  </script>
+  <script src="conversation-practice.js">
+  </script>
+  <script src="introductions-practice.js">
+  </script>
+ </body>
 </html>

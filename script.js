@@ -91,7 +91,28 @@ const topicEnglish =
 const topicAvailability =
 
   document.querySelector("#topicAvailability");
+const voloAgeSetup =
+  document.querySelector("#voloAgeSetup");
 
+const voloAgeForm =
+  document.querySelector("#voloAgeForm");
+
+const voloAgeInput =
+  document.querySelector("#voloAgeInput");
+
+const voloAgeFeedback =
+  document.querySelector("#voloAgeFeedback");
+
+const voloAgeSaved =
+  document.querySelector("#voloAgeSaved");
+
+const voloAgeNumber =
+  document.querySelector("#voloAgeNumber");
+
+const changeVoloAgeButton =
+  document.querySelector(
+    "#changeVoloAgeButton"
+  );
  
 
 const aboutButton =
@@ -1650,19 +1671,13 @@ classroom: {
 
  
 
-  greetings: {
-
-    icon: "👋",
-
-    italian: "Saluti e presentazioni",
-
-    english: "Greetings & Introductions",
-
-    vocabulary: [],
-
-    available: false
-
-  }
+greetings: {
+  icon: "👋",
+  italian: "Saluti e presentazioni",
+  english: "Greetings & Introductions",
+  vocabulary: introductions,
+  available: true
+}
 
 };
 
@@ -1670,30 +1685,212 @@ classroom: {
 
  
 let selectedGender = "masculine";
-let currentTopicKey = "supplies";
+let voloAge = null;
+let currentTopicKey = "greetings";
+
 function getTopicVocabulary(topicKey) {
   const topic = topics[topicKey];
 
-  if (!topic || !Array.isArray(topic.vocabulary)) {
+  if (
+    !topic ||
+    !Array.isArray(topic.vocabulary)
+  ) {
     return [];
   }
 
-  if (topicKey !== "feelings") {
-    return topic.vocabulary;
+  if (topicKey === "feelings") {
+    return topic.vocabulary.map(item => ({
+      ...item,
+
+      italian:
+        selectedGender === "feminine"
+          ? item.feminine
+          : item.masculine
+    }));
+  }
+
+  if (topicKey === "greetings") {
+    return topic.vocabulary.map(item => {
+      if (item.dynamic !== "age") {
+        return { ...item };
+      }
+
+      return {
+        ...item,
+
+        italian:
+          Number.isInteger(voloAge)
+            ? `Ho ${voloAge} anni.`
+            : "Ho ___ anni.",
+
+        english:
+          Number.isInteger(voloAge)
+            ? `I am ${voloAge} years old.`
+            : "I am ___ years old."
+      };
+    });
   }
 
   return topic.vocabulary.map(item => ({
-    ...item,
-
-    italian:
-      selectedGender === "feminine"
-        ? item.feminine
-        : item.masculine
+    ...item
   }));
 }
+
 let currentVocabulary =
   getTopicVocabulary(currentTopicKey);
+function hideAllActivityPanels() {
+  document
+    .querySelectorAll(
+      `
+        .activity-panel,
+        #wordsInActionActivity,
+        #assembleSentencesActivity,
+        #conversationPracticeActivity,
+        #introductionsPracticeActivity
+      `
+    )
+    .forEach(panel => {
+      panel.hidden = true;
+    });
+}
 
+function setActivityButtonsDisabled(
+  disabled
+) {
+  document
+    .querySelectorAll(".activity-button")
+    .forEach(button => {
+      button.disabled = disabled;
+    });
+}
+
+function updateVoloAgeSetup() {
+  if (!voloAgeSetup) {
+    return;
+  }
+
+  const isGreetings =
+    currentTopicKey === "greetings";
+
+  voloAgeSetup.hidden = !isGreetings;
+
+  if (!isGreetings) {
+    setActivityButtonsDisabled(false);
+    return;
+  }
+
+  const hasAge =
+    Number.isInteger(voloAge);
+
+  voloAgeForm.hidden = hasAge;
+  voloAgeSaved.hidden = !hasAge;
+
+  if (hasAge) {
+    voloAgeNumber.textContent = voloAge;
+    setActivityButtonsDisabled(false);
+  } else {
+    setActivityButtonsDisabled(true);
+    hideAllActivityPanels();
+
+    window.setTimeout(() => {
+      voloAgeInput.focus();
+    }, 50);
+  }
+}
+
+function announceVoloAgeChange() {
+  document.dispatchEvent(
+    new CustomEvent("voloagechange", {
+      detail: {
+        age: voloAge
+      }
+    })
+  );
+}
+
+function saveVoloAge(age) {
+  voloAge = age;
+
+  currentVocabulary =
+    getTopicVocabulary(currentTopicKey);
+
+  updateVoloAgeSetup();
+  announceVoloAgeChange();
+
+  showLearnMode();
+}
+
+function requestVoloAgeChange() {
+  voloAge = null;
+
+  currentVocabulary =
+    getTopicVocabulary(currentTopicKey);
+
+  updateVoloAgeSetup();
+  announceVoloAgeChange();
+
+  voloAgeInput.value = "";
+  voloAgeFeedback.textContent = "";
+
+  voloAgeSetup.scrollIntoView({
+    behavior: "smooth",
+    block: "center"
+  });
+
+  window.setTimeout(() => {
+    voloAgeInput.focus();
+  }, 300);
+}
+
+/*
+  These functions allow
+  introductions-practice.js to use the
+  same age as every other activity.
+*/
+
+window.getVoloAge = function getVoloAge() {
+  return voloAge;
+};
+
+window.requestVoloAgeChange =
+  requestVoloAgeChange;
+if (voloAgeForm) {
+  voloAgeForm.addEventListener(
+    "submit",
+    event => {
+      event.preventDefault();
+
+      const age =
+        Number.parseInt(
+          voloAgeInput.value,
+          10
+        );
+
+      if (
+        !Number.isInteger(age) ||
+        age < 1 ||
+        age > 99
+      ) {
+        voloAgeFeedback.textContent =
+          "Inserisci un numero da 1 a 99. · Enter a number from 1 to 99.";
+
+        voloAgeInput.focus();
+        return;
+      }
+
+      voloAgeFeedback.textContent = "";
+
+      saveVoloAge(age);
+    }
+  );
+}
+
+if (changeVoloAgeButton) {
+  changeVoloAgeButton.addEventListener(
+    "click",
+    requestVoloAgeChange
+  );
+}
 /* ========================================
 
    AUDIO
@@ -5587,8 +5784,16 @@ if (genderChoice) {
  
 
 updateTopicHeading(topic);
-showLearnMode();
+updateVoloAgeSetup();
 
+if (
+  currentTopicKey === "greetings" &&
+  !Number.isInteger(voloAge)
+) {
+  return;
+}
+
+showLearnMode();
 }
 
  
@@ -5963,4 +6168,6 @@ window.speechSynthesis.addEventListener(
  
 
 createProgressInterface();
-showLearnMode();
+
+topicSelect.value = currentTopicKey;
+selectTopic(currentTopicKey);

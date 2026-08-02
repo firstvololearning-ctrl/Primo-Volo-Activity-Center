@@ -939,3 +939,44 @@ const feelings = [
     image: "images/feelings/feelings-07.png"
   }
 ];
+/* ========================================
+   GREETINGS AND INTRODUCTIONS
+   ======================================== */
+
+const introductions = [
+  {
+    italian: "Ciao!",
+    english: "Hello!",
+    image:
+      "images/introductions/introductions-01.png"
+  },
+
+  {
+    italian: "Mi chiamo Volo.",
+    english: "My name is Volo.",
+    image:
+      "images/introductions/introductions-02.png"
+  },
+
+  {
+    italian: "Sono di Roma.",
+    english: "I am from Rome.",
+    image:
+      "images/introductions/introductions-03.png"
+  },
+
+  {
+    italian: "Ho ___ anni.",
+    english: "I am ___ years old.",
+    image:
+      "images/introductions/introductions-04.png",
+    dynamic: "age"
+  },
+
+  {
+    italian: "Sto bene, grazie.",
+    english: "I am well, thank you.",
+    image:
+      "images/introductions/introductions-05.png"
+  }
+];

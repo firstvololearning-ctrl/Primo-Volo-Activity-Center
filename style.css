@@ -2468,3 +2468,132 @@ body.hide-english .gender-choice-note span {
     margin: 0 auto;
   }
 }
+/* ========================================
+   VOLO AGE SETUP
+   ======================================== */
+
+.volo-age-setup {
+  width: min(760px, calc(100% - 32px));
+  margin: 0 auto 24px;
+  padding: 20px;
+  border: 2px solid rgba(39, 75, 132, 0.14);
+  border-radius: 20px;
+  background: #fffaf3;
+  box-shadow: 0 6px 18px rgba(36, 57, 87, 0.08);
+  text-align: center;
+}
+
+.volo-age-setup[hidden] {
+  display: none;
+}
+
+.volo-age-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+}
+
+.volo-age-label {
+  color: var(--blue, #274b84);
+  font-size: 1.15rem;
+  font-weight: 850;
+}
+
+.volo-age-label span {
+  display: block;
+  margin-top: 4px;
+  color: var(--muted, #66758d);
+  font-size: 0.88rem;
+  font-weight: 550;
+}
+
+.volo-age-controls {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.volo-age-input {
+  width: 105px;
+  padding: 11px;
+  border: 2px solid var(--border, #d9e2ef);
+  border-radius: 14px;
+  color: var(--blue, #274b84);
+  background: white;
+  font: inherit;
+  font-size: 1.25rem;
+  font-weight: 900;
+  text-align: center;
+}
+
+.volo-age-input:focus {
+  border-color: var(--blue, #274b84);
+  outline: none;
+  box-shadow: 0 0 0 4px rgba(39, 75, 132, 0.13);
+}
+
+.volo-age-submit,
+.volo-age-change {
+  padding: 11px 18px;
+  border-radius: 999px;
+  font: inherit;
+  font-weight: 850;
+  cursor: pointer;
+}
+
+.volo-age-submit {
+  border: 0;
+  color: white;
+  background: var(--blue, #274b84);
+}
+
+.volo-age-change {
+  border: 2px solid var(--border, #d9e2ef);
+  color: var(--blue, #274b84);
+  background: white;
+}
+
+.volo-age-feedback {
+  min-height: 22px;
+  margin: 0;
+  color: #a34438;
+  font-weight: 750;
+}
+
+.volo-age-saved {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 14px;
+  color: var(--blue, #274b84);
+  font-size: 1.05rem;
+  font-weight: 750;
+}
+
+.volo-age-saved[hidden] {
+  display: none;
+}
+
+@media (max-width: 520px) {
+  .volo-age-controls {
+    flex-direction: column;
+  }
+
+  .volo-age-submit {
+    width: 100%;
+  }
+}
+.site-footer {
+  padding: 24px 18px;
+  color: #66758d;
+  font-size: 0.88rem;
+  text-align: center;
+}
+
+.site-footer p {
+  margin: 0;
+}
