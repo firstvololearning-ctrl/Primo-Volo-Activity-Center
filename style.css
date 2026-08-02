@@ -2597,3 +2597,43 @@ body.hide-english .gender-choice-note span {
 .site-footer p {
   margin: 0;
 }
+/* About table spacing */
+
+.about-language-table {
+  width: 100%;
+  table-layout: fixed;
+}
+
+.about-language-table th,
+.about-language-table td {
+  vertical-align: top;
+  padding: 10px 12px;
+}
+
+.about-language-table th:nth-child(1),
+.about-language-table td:nth-child(1) {
+  width: 34%;
+}
+
+.about-language-table th:nth-child(2),
+.about-language-table td:nth-child(2) {
+  width: 20%;
+}
+
+.about-language-table th:nth-child(3),
+.about-language-table td:nth-child(3) {
+  width: 46%;
+}
+
+.about-language-table td span,
+.about-language-table th span {
+  display: block;
+  margin-top: 2px;
+  color: #66758d;
+  font-size: 0.82em;
+  font-weight: 500;
+}
+
+.about-language-table td strong {
+  line-height: 1.35;
+}
