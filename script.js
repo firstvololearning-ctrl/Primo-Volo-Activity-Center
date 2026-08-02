@@ -618,18 +618,17 @@ function createProgressInterface() {
         ></div>
 
  
+<div
+  id="progressTopicTable"
+  class="progress-table-wrap"
+></div>
 
-        <div
+<div
+  id="progressAttemptTable"
+  class="progress-table-wrap"
+></div>
 
-          id="progressTopicTable"
-
-          class="progress-table-wrap"
-
-        ></div>
-
- 
-
-        <p class="progress-note">
+<p class="progress-note">
 
           Saved only in this browser on
 
@@ -1289,189 +1288,197 @@ function buildProgressRows(collection, labelLookup) {
 
 }
 
- 
+ function formatAttemptDate(dateString) {
+  const date = new Date(dateString);
+
+  if (Number.isNaN(date.getTime())) {
+    return "Date unavailable";
+  }
+
+  return date.toLocaleString("en-US", {
+    month: "short",
+    day: "numeric",
+    year: "numeric",
+    hour: "numeric",
+    minute: "2-digit"
+  });
+}
+
+function buildAttemptHistoryRows() {
+  if (!progressData.sessions.length) {
+    return `
+      <tr>
+        <td colspan="5">
+          No saved attempts yet.
+        </td>
+      </tr>
+    `;
+  }
+
+  const topicLabels = Object.fromEntries(
+    Object.entries(topics).map(
+      ([key, topic]) => [
+        key,
+        `${topic.icon} ${topic.italian}`
+      ]
+    )
+  );
+
+  return [...progressData.sessions]
+    .reverse()
+    .map((attempt, index) => {
+      const activity =
+        activityLabels[attempt.activity] ||
+        attempt.activity;
+
+      const topic =
+        topicLabels[attempt.topic] ||
+        attempt.topic;
+
+      const result = attempt.correct
+        ? "✓ Correct"
+        : "✗ Incorrect";
+
+      return `
+        <tr>
+          <td>
+            ${progressData.sessions.length - index}
+          </td>
+          <td>${formatAttemptDate(attempt.date)}</td>
+          <td>${topic}</td>
+          <td>${activity}</td>
+          <td>${result}</td>
+        </tr>
+      `;
+    })
+    .join("");
+}
 
 function renderProgressReport() {
-
   const summary = document.querySelector(
-
     "#progressSummary"
-
   );
 
   const activityTable = document.querySelector(
-
     "#progressActivityTable"
-
   );
 
   const topicTable = document.querySelector(
-
     "#progressTopicTable"
-
   );
 
- 
+  const attemptTable = document.querySelector(
+    "#progressAttemptTable"
+  );
 
-  if (!summary || !activityTable || !topicTable) {
-
+  if (
+    !summary ||
+    !activityTable ||
+    !topicTable ||
+    !attemptTable
+  ) {
     return;
-
   }
 
- 
-
   const accuracy = calculateAccuracy(
-
     progressData.correct,
-
     progressData.attempts
-
   );
-
- 
 
   summary.innerHTML = `
-
     <div class="progress-stat">
-
       <strong>${progressData.attempts}</strong>
-
       <span>Attempts</span>
-
     </div>
 
- 
-
     <div class="progress-stat">
-
       <strong>${progressData.correct}</strong>
-
       <span>Correct</span>
-
     </div>
-
- 
 
     <div class="progress-stat">
-
       <strong>${accuracy}%</strong>
-
       <span>Accuracy</span>
-
     </div>
-
   `;
-
- 
 
   activityTable.innerHTML = `
-
     <h3>By Activity</h3>
 
- 
-
     <table class="progress-table">
-
       <thead>
-
         <tr>
-
           <th>Activity</th>
-
           <th>Attempts</th>
-
           <th>Correct</th>
-
           <th>Accuracy</th>
-
         </tr>
-
       </thead>
 
- 
-
       <tbody>
-
         ${buildProgressRows(
-
           progressData.byActivity,
-
           activityLabels
-
         )}
-
       </tbody>
-
     </table>
-
   `;
-
- 
 
   const topicLabels = Object.fromEntries(
-
     Object.entries(topics).map(
-
       ([key, topic]) => [
-
         key,
-
         `${topic.icon} ${topic.italian} · ${topic.english}`
-
       ]
-
     )
-
   );
 
- 
-
   topicTable.innerHTML = `
-
     <h3>By Topic</h3>
 
- 
-
     <table class="progress-table">
-
       <thead>
-
         <tr>
-
           <th>Topic</th>
-
           <th>Attempts</th>
-
           <th>Correct</th>
-
           <th>Accuracy</th>
-
         </tr>
-
       </thead>
 
- 
-
       <tbody>
-
         ${buildProgressRows(
-
           progressData.byTopic,
-
           topicLabels
-
         )}
-
       </tbody>
-
     </table>
-
   `;
 
-}
+  attemptTable.innerHTML = `
+    <h3>Attempt History</h3>
 
- 
+    <p class="progress-note">
+      Date and time are shown in this device’s local time.
+    </p>
+
+    <table class="progress-table">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Date and Time</th>
+          <th>Topic</th>
+          <th>Activity</th>
+          <th>Result</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        ${buildAttemptHistoryRows()}
+      </tbody>
+    </table>
+  `;
+}
 
 let currentQuestion = null;
 
