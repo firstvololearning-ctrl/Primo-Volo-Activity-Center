@@ -289,6 +289,29 @@ const animals = [
     image: "images/animals/animals-20.png"
   }
 ];
+const seasons = [
+  {
+    italian: "inverno",
+    english: "winter",
+    image: "images/seasons/seasons-01.png"
+  },
+  {
+    italian: "primavera",
+    english: "spring",
+    image: "images/seasons/seasons-02.png"
+  },
+  {
+    italian: "estate",
+    english: "summer",
+    image: "images/seasons/seasons-03.png"
+  },
+  {
+    italian: "autunno",
+    english: "autumn",
+    image: "images/seasons/seasons-04.png"
+  }
+];
+
 const clothing = [
   {
     italian: "il pigiama",

@@ -1659,6 +1659,13 @@ weather: {
   available: true
 
 },
+seasons: {
+  icon: "🌦️",
+  italian: "Le stagioni",
+  english: "Seasons",
+  vocabulary: seasons,
+  available: true
+},
 
  
 
