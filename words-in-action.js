@@ -439,10 +439,282 @@ function getCarrierPhrase() {
       );
     }
   }
+function showGreetingsWordsQuestion() {
+  const age =
+    Number(window.getVoloAge?.()) || 1;
 
+  const responses = [
+    {
+      id: "name",
+      italian: "Mi chiamo Volo.",
+      image:
+        "images/introductions/introductions-02.png"
+    },
+    {
+      id: "place",
+      italian: "Sono di Roma.",
+      image:
+        "images/introductions/introductions-03.png"
+    },
+    {
+      id: "age",
+      italian: `Ho ${age} anni.`,
+      image:
+        "images/introductions/introductions-04.png"
+    },
+    {
+      id: "feeling",
+      italian: "Sto bene, grazie.",
+      image:
+        "images/introductions/introductions-05.png"
+    }
+  ];
+
+  const questions = [
+    {
+      question: "Come ti chiami?",
+      correctId: "name",
+      image:
+        "images/introductions/introductions-02.png"
+    },
+    {
+      question: "Di dove sei?",
+      correctId: "place",
+      image:
+        "images/introductions/introductions-03.png"
+    },
+    {
+      question: "Quanti anni hai?",
+      correctId: "age",
+      image:
+        "images/introductions/introductions-04.png"
+    },
+    {
+      question: "Come stai?",
+      correctId: "feeling",
+      image:
+        "images/introductions/introductions-05.png"
+    }
+  ];
+
+  const currentQuestion =
+    questions[
+      Math.floor(
+        Math.random() * questions.length
+      )
+    ];
+
+  const choices =
+    shuffleWordsAction(responses);
+
+  wordsAnswered = false;
+
+  wordsActivity.innerHTML = `
+    <div class="words-action-card">
+
+      <div class="words-action-heading">
+        <h4>
+          💬 Parole in azione
+        </h4>
+
+        <p>
+          Scegli la risposta di Volo.
+          · Choose Volo's response.
+        </p>
+      </div>
+
+      <div class="words-action-frame">
+        <button
+          type="button"
+          id="greetingsQuestionAudio"
+          class="introductions-question-audio"
+        >
+          🔊 ${currentQuestion.question}
+        </button>
+      </div>
+
+      <div class="words-action-image-frame">
+        <img
+          src="${currentQuestion.image}"
+          alt=""
+        >
+      </div>
+
+      <div
+        class="words-action-choice-grid"
+        aria-label="Italian response choices"
+      >
+        ${choices.map(response => `
+          <button
+            type="button"
+            class="words-action-choice"
+            data-response-id="${response.id}"
+          >
+            ${response.italian}
+          </button>
+        `).join("")}
+      </div>
+
+      <p
+        id="wordsActionFeedback"
+        class="words-action-feedback"
+        aria-live="polite"
+      >
+        Ascolta la domanda e scegli
+        la risposta corretta.
+
+        <span>
+          Listen to the question and
+          choose the correct response.
+        </span>
+      </p>
+
+      <button
+        type="button"
+        id="nextWordsAction"
+        class="
+          next-question-button
+          words-action-next
+        "
+        hidden
+      >
+        Prossima domanda · Next Question
+      </button>
+
+    </div>
+  `;
+
+  const audioButton =
+    wordsActivity.querySelector(
+      "#greetingsQuestionAudio"
+    );
+
+  const choiceButtons =
+    wordsActivity.querySelectorAll(
+      ".words-action-choice"
+    );
+
+  const feedback =
+    wordsActivity.querySelector(
+      "#wordsActionFeedback"
+    );
+
+  const nextButton =
+    wordsActivity.querySelector(
+      "#nextWordsAction"
+    );
+
+  audioButton.addEventListener(
+    "click",
+    () => {
+      speakSentence(
+        currentQuestion.question
+      );
+    }
+  );
+
+  choiceButtons.forEach(button => {
+    button.addEventListener(
+      "click",
+      () => {
+        if (wordsAnswered) {
+          return;
+        }
+
+        const selectedId =
+          button.dataset.responseId;
+
+        const selectedResponse =
+          responses.find(
+            response =>
+              response.id === selectedId
+          );
+
+        const isCorrect =
+          selectedId ===
+          currentQuestion.correctId;
+
+        saveWordsAttempt(isCorrect);
+
+        if (!isCorrect) {
+          button.classList.add(
+            "incorrect"
+          );
+
+          button.disabled = true;
+
+          feedback.innerHTML = `
+            Riprova.
+
+            <span>
+              Try another response.
+            </span>
+          `;
+
+          speakSentence(
+            selectedResponse.italian
+          );
+
+          return;
+        }
+
+        wordsAnswered = true;
+
+        button.classList.add("correct");
+
+        choiceButtons.forEach(choice => {
+          choice.disabled = true;
+        });
+
+        const completeExchange =
+          `${currentQuestion.question} ` +
+          `${selectedResponse.italian}`;
+
+        feedback.innerHTML = `
+          Corretto!
+
+          <strong>
+            ${currentQuestion.question}<br>
+            ${selectedResponse.italian}
+          </strong>
+
+          <span>
+            Correct! Listen to the
+            complete exchange.
+          </span>
+        `;
+
+        nextButton.hidden = false;
+
+        speakSentence(
+          completeExchange
+        );
+      }
+    );
+  });
+
+  nextButton.addEventListener(
+    "click",
+    showGreetingsWordsQuestion
+  );
+
+  window.setTimeout(
+    () => {
+      speakSentence(
+        currentQuestion.question
+      );
+    },
+    350
+  );
+}
   function showWordsQuestion() {
-    const vocabulary =
-      getVocabulary();
+  if (currentTopicKey === "greetings") {
+    showGreetingsWordsQuestion();
+    return;
+  }
+
+  const vocabulary =
+    getVocabulary();
 
     if (!vocabulary.length) {
       wordsActivity.innerHTML = `
