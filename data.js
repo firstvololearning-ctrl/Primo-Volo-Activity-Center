@@ -401,6 +401,48 @@ const animals = [
     image: "images/animals/animals-20.png"
   }
 ];
+const adjectives = [
+  {
+    italian: "buono",
+    english: "good",
+    image: "images/adjectives/adjectives-01.png"
+  },
+  {
+    italian: "cattivo",
+    english: "bad",
+    image: "images/adjectives/adjectives-02.png"
+  },
+  {
+    italian: "piccolo",
+    english: "small",
+    image: "images/adjectives/adjectives-03.png"
+  },
+  {
+    italian: "grande",
+    english: "big",
+    image: "images/adjectives/adjectives-04.png"
+  },
+  {
+    italian: "caldo",
+    english: "hot",
+    image: "images/adjectives/adjectives-05.png"
+  },
+  {
+    italian: "freddo",
+    english: "cold",
+    image: "images/adjectives/adjectives-06.png"
+  },
+  {
+    italian: "lento",
+    english: "slow",
+    image: "images/adjectives/adjectives-07.png"
+  },
+  {
+    italian: "veloce",
+    english: "fast",
+    image: "images/adjectives/adjectives-08.png"
+  }
+];
 const seasons = [
   {
     italian: "inverno",

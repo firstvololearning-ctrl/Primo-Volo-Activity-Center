@@ -15,6 +15,14 @@ places: [
       "images/carrier-phrases/e.png"
   }
 ],
+adjectives: [
+  {
+    id: "e",
+    italian: "È...",
+    english: "It is...",
+    image: "images/carrier-phrases/e-no-text.png"
+  }
+],
   supplies: [
     {
       id: "vedo",

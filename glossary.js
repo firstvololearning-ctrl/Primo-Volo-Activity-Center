@@ -179,6 +179,16 @@ if (
           : []
     },
     {
+  id: "adjectives",
+  icon: "🔎",
+  italian: "Gli aggettivi",
+  english: "Adjectives",
+  vocabulary:
+    typeof adjectives !== "undefined"
+      ? adjectives
+      : []
+},
+    {
       id: "feelings",
       icon: "😊",
       italian: "Le emozioni",

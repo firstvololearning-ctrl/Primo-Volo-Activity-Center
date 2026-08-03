@@ -1631,7 +1631,13 @@ const topics = {
 
 },
 
- 
+ adjectives: {
+  icon: "🔎",
+  italian: "Gli aggettivi",
+  english: "Adjectives",
+  vocabulary: adjectives,
+  available: true
+},
 
 clothing: {
 
