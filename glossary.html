@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <title>
+    Glossario · Primo Volo d'Italiano
+  </title>
+
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="glossary.css">
+</head>
+
+<body>
+
+  <header class="site-header">
+
+    <div class="brand-block">
+      <img
+        src="images/logo/logo.png"
+        alt="First Volo Learning"
+        class="logo"
+      >
+
+      <div class="brand-name">
+        First Volo Learning
+      </div>
+
+      <a
+        href="https://firstvololearning.com"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="website-link"
+      >
+        firstvololearning.com
+      </a>
+    </div>
+
+    <div class="title-group">
+      <h1>
+        📖 Glossario
+      </h1>
+
+      <h2>
+        Primo Volo d'Italiano
+      </h2>
+
+      <p>
+        Illustrated Italian Vocabulary
+      </p>
+    </div>
+
+    <a
+      href="index.html"
+      class="header-link glossary-back-link"
+    >
+      ← Centro Attività
+    </a>
+
+  </header>
+
+  <main class="glossary-page">
+
+    <section class="glossary-introduction">
+      <h2>
+        Glossario illustrato
+      </h2>
+
+      <p>
+        Cerca una parola oppure scegli un argomento.
+      </p>
+
+      <p class="glossary-introduction-english">
+        Search for a word or choose a topic.
+      </p>
+    </section>
+
+    <section
+      class="glossary-controls"
+      aria-label="Glossary controls"
+    >
+
+      <label class="glossary-search-label">
+        <span>
+          🔎 Cerca
+        </span>
+
+        <small>
+          Search
+        </small>
+
+        <input
+          type="search"
+          id="glossarySearch"
+          class="glossary-search"
+          placeholder="Cerca in italiano o in inglese..."
+          autocomplete="off"
+        >
+      </label>
+
+      <label class="glossary-topic-label">
+        <span>
+          📚 Argomento
+        </span>
+
+        <small>
+          Topic
+        </small>
+
+        <select
+          id="glossaryTopicFilter"
+          class="glossary-topic-filter"
+        >
+          <option value="all">
+            Tutti gli argomenti · All Topics
+          </option>
+        </select>
+      </label>
+
+      <label class="glossary-english-toggle">
+        <input
+          type="checkbox"
+          id="glossaryEnglishToggle"
+          checked
+        >
+
+        <span>
+          Mostra l'inglese · Show English
+        </span>
+      </label>
+
+    </section>
+
+    <p
+      id="glossaryCount"
+      class="glossary-count"
+      aria-live="polite"
+    ></p>
+
+    <section
+      id="glossaryContent"
+      class="glossary-content"
+      aria-live="polite"
+    ></section>
+
+    <div
+      id="glossaryEmpty"
+      class="glossary-empty"
+      hidden
+    >
+      <strong>
+        Nessuna parola trovata.
+      </strong>
+
+      <span>
+        No vocabulary words were found.
+      </span>
+    </div>
+
+  </main>
+
+  <footer class="site-footer">
+    <p>
+      © 2026 Alexis Sacco / First Volo Learning.
+      All rights reserved.
+    </p>
+  </footer>
+
+ <script src="data.js"></script>
+<script src="carrier-phrases.js"></script>
+<script src="glossary.js"></script>
+
+</body>
+</html>

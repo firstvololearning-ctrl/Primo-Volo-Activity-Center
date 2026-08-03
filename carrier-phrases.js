@@ -120,6 +120,14 @@ const carrierPhrases = {
       image: "images/carrier-phrases/io-ho-no-text.png"
     }
   ],
+family: [
+  {
+    id: "vedo",
+    italian: "Io vedo...",
+    english: "I see...",
+    image: "images/carrier-phrases/io-vedo-no-text.png"
+   }
+],
 
   colors: [
     {

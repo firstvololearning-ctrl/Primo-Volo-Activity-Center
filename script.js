@@ -1560,19 +1560,13 @@ home: {
 
  
 
-  family: {
-
-    icon: "👨‍👩‍👧",
-
-    italian: "La famiglia",
-
-    english: "Family",
-
-    vocabulary: [],
-
-    available: false
-
-  },
+family: {
+  icon: "👨‍👩‍👧",
+  italian: "La famiglia",
+  english: "Family",
+  vocabulary: family,
+  available: true
+},
 
  
 

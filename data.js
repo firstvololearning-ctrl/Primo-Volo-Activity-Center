@@ -678,6 +678,38 @@ const home = [
     image: "images/house/house-21.png"
   }
 ];
+const family = [
+  {
+    italian: "la nonna",
+    english: "grandmother",
+    image: "images/family/family-01.png"
+  },
+  {
+    italian: "il nonno",
+    english: "grandfather",
+    image: "images/family/family-02.png"
+  },
+  {
+    italian: "la mamma",
+    english: "mother",
+    image: "images/family/family-03.png"
+  },
+  {
+    italian: "il papà",
+    english: "father",
+    image: "images/family/family-04.png"
+  },
+  {
+    italian: "il fratello",
+    english: "brother",
+    image: "images/family/family-05.png"
+  },
+  {
+    italian: "la sorella",
+    english: "sister",
+    image: "images/family/family-06.png"
+  }
+];
 const time = [
   {
     italian: "È l'una.",
