@@ -149,6 +149,16 @@ if (
           : []
     },
     {
+  id: "places",
+  icon: "📍",
+  italian: "I luoghi",
+  english: "Places",
+  vocabulary:
+    typeof places !== "undefined"
+      ? places
+      : []
+},
+    {
       id: "family",
       icon: "👨‍👩‍👧",
       italian: "La famiglia",
