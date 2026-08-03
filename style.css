@@ -2637,26 +2637,6 @@ body.hide-english .gender-choice-note span {
 .about-language-table td strong {
   line-height: 1.35;
 }
-.header-link[href="glossary.html"] {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-
-  min-height: 48px;
-  padding: 10px 16px;
-
-  border: 1px solid #777;
-  border-radius: 3px;
-
-  color: #111;
-  background: #f4f4f4;
-
-  font: inherit;
-  font-weight: 500;
-  line-height: 1.1;
-  text-align: center;
-  text-decoration: none;
-}
 
 .site-header .header-link {
   display: inline-flex;
@@ -2688,4 +2668,208 @@ body.hide-english .gender-choice-note span {
 .site-header .header-link:focus-visible {
   background: #e9e9e9;
   outline: none;
+}
+.product-family-subtitle {
+  margin: 6px 0 18px;
+  color: #52657f;
+  font-size: 1rem;
+  font-weight: 700;
+  line-height: 1.35;
+  text-align: center;
+}
+
+.product-family-subtitle span {
+  display: block;
+  margin-top: 2px;
+  font-size: 0.88rem;
+  font-weight: 600;
+}
+
+.activity-button:disabled {
+  opacity: 0.38;
+  cursor: not-allowed;
+  filter: grayscale(0.45);
+  transform: none;
+  box-shadow: none;
+}
+
+.activity-button:disabled:hover {
+  transform: none;
+  box-shadow: none;
+}
+.topic-start-label {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.topic-step-number {
+  display: grid;
+  place-items: center;
+  flex: 0 0 34px;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  color: white;
+  background: #d46c5c;
+  font-size: 1rem;
+  font-weight: 900;
+}
+
+.topic-start-label > span:last-child {
+  display: flex;
+  flex-direction: column;
+  color: #274b84;
+  font-weight: 900;
+}
+
+.topic-start-label small {
+  color: #66758d;
+  font-size: 0.78rem;
+  font-weight: 700;
+}
+/* ========================================
+   FINAL HEADER LAYOUT
+   ======================================== */
+
+.site-header {
+  display: grid;
+  grid-template-columns:
+    auto minmax(320px, 1fr) auto;
+  align-items: center;
+  gap: 30px;
+
+  padding: 24px 32px;
+}
+
+.header-actions {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+}
+
+.header-utilities {
+  display: grid;
+  grid-template-columns:
+    repeat(4, minmax(120px, 1fr));
+  gap: 10px;
+}
+
+/* All four utility buttons */
+.site-header .header-utilities .header-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 100%;
+  min-width: 0;
+  min-height: 90px;
+  padding: 10px 12px;
+
+  box-sizing: border-box;
+
+  border: 1px solid #777;
+  border-radius: 4px;
+
+  color: #111;
+  background: #f4f4f4;
+
+  font: inherit;
+  font-size: 0.95rem;
+  font-weight: 500;
+  line-height: 1.15;
+  text-align: center;
+  text-decoration: none;
+
+  cursor: pointer;
+  box-shadow: none;
+}
+
+.site-header .header-utilities .header-link:hover,
+.site-header .header-utilities .header-link:focus-visible {
+  border-color: var(--blue);
+  background: #e9eef6;
+  outline: none;
+}
+
+/* Companion site is a secondary text link */
+.site-header .companion-site-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  width: auto;
+  min-height: 0;
+  margin: 0;
+  padding: 0;
+
+  border: 0;
+  border-radius: 0;
+
+  color: var(--blue);
+  background: transparent;
+
+  font-size: 0.92rem;
+  font-weight: 800;
+  line-height: 1.3;
+  text-align: center;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+
+  box-shadow: none;
+  transform: none;
+}
+
+.site-header .companion-site-link:hover,
+.site-header .companion-site-link:focus-visible {
+  color: var(--blue-dark);
+  background: transparent;
+  box-shadow: none;
+  transform: none;
+  outline: none;
+}
+
+@media (max-width: 1250px) {
+  .site-header {
+    grid-template-columns:
+      auto minmax(280px, 1fr);
+  }
+
+  .header-actions {
+    grid-column: 1 / -1;
+    width: 100%;
+  }
+
+  .header-utilities {
+    width: min(760px, 100%);
+  }
+}
+
+@media (max-width: 700px) {
+  .site-header {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    padding: 20px 16px;
+  }
+
+  .header-actions {
+    width: 100%;
+  }
+
+  .header-utilities {
+    width: 100%;
+    grid-template-columns:
+      repeat(2, minmax(0, 1fr));
+  }
+
+  .site-header .header-utilities .header-link {
+    min-height: 76px;
+  }
+
+  .site-header .companion-site-link {
+    width: auto;
+  }
 }

@@ -10,54 +10,109 @@
  </head>
  <body>
   <header class="site-header">
-   <div class="brand-block">
-    <img alt="First Volo Learning" class="logo" src="images/logo/logo.png"/>
+
+  <div class="brand-block">
+    <img
+      src="images/logo/logo.png"
+      alt="First Volo Learning"
+      class="logo"
+    >
+
     <div class="brand-name">
-     First Volo Learning
+      First Volo Learning
     </div>
-    <a class="website-link" href="https://firstvololearning.com" rel="noopener noreferrer" target="_blank">
-     firstvololearning.com
+
+    <a
+      class="website-link"
+      href="https://firstvololearning.com"
+      target="_blank"
+      rel="noopener noreferrer"
+    >
+      firstvololearning.com
     </a>
-   </div>
-   <div class="title-group">
+  </div>
+
+  <div class="title-group">
     <h1>
-     ✈️ Primo Volo d'Italiano
+      ✈️ Primo Volo d'Italiano
     </h1>
+
     <h2>
-     Centro Attività
+      Centro Attività
     </h2>
+
     <p>
-     Interactive Italian Practice
+      Interactive Italian Practice
     </p>
-   </div>
-   <button class="header-link" id="aboutButton" type="button">
-    🔵 About this Site
-   </button>
-   <button class="header-link" id="referenceButton" type="button">
-    📚 Reference Sheets
-   </button>
-   <a
-  class="header-link"
-  href="glossary.html"
->
-  📖 Glossario · Glossary
-</a>
-  </header>
+  </div>
+
+  <div class="header-actions">
+
+    <div class="header-utilities">
+
+      <button
+        class="header-link"
+        id="aboutButton"
+        type="button"
+      >
+        🔵 About this Site
+      </button>
+
+      <button
+        class="header-link"
+        id="referenceButton"
+        type="button"
+      >
+        📚 Reference Sheets
+      </button>
+
+      <a
+        class="header-link"
+        href="glossary.html"
+      >
+        📖 Glossario · Glossary
+      </a>
+
+    </div>
+
+    <a
+      class="companion-site-link"
+      href="https://firstvololearning-ctrl.github.io/Italy-Explorer/"
+    >
+      🗺️ Esplora la cultura italiana · Explore Italian Culture
+    </a>
+
+  </div>
+
+</header>
   <main class="page">
    <section aria-labelledby="topicSelectorLabel" class="topic-selector-section">
-    <label class="topic-select-label" for="topicSelect" id="topicSelectorLabel">
-     <span aria-hidden="true">
-      📚
-     </span>
-     <span>
-      Argomento
-      <small>
-       Topic
-      </small>
-     </span>
-    </label>
+    <label
+  class="topic-select-label topic-start-label"
+  for="topicSelect"
+  id="topicSelectorLabel"
+>
+  <span
+    class="topic-step-number"
+    aria-hidden="true"
+  >
+    1
+  </span>
+
+  <span>
+    Scegli un argomento
+
+    <small>
+      Choose a Topic
+    </small>
+  </span>
+</label>
     <div class="topic-select-wrap">
-     <select class="topic-select" id="topicSelect">
+<select
+  class="topic-select"
+  id="topicSelect"
+  required
+>
      <option value="" selected disabled>
   Scegli un argomento · Choose a Topic
 </option>

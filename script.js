@@ -1793,6 +1793,9 @@ function updateVoloAgeSetup() {
     setActivityButtonsDisabled(false);
   } else {
     setActivityButtonsDisabled(true);
+    activityButtons.forEach(button => {
+  button.classList.remove("active");
+});
     hideAllActivityPanels();
 
     window.setTimeout(() => {
