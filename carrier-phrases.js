@@ -1,7 +1,20 @@
 "use strict";
 
 const carrierPhrases = {
-
+places: [
+  {
+    italian: "Io vedo",
+    english: "I see",
+    image:
+      "images/carrier-phrases/io-vedo.png"
+  },
+  {
+    italian: "È",
+    english: "It is",
+    image:
+      "images/carrier-phrases/e.png"
+  }
+],
   supplies: [
     {
       id: "vedo",

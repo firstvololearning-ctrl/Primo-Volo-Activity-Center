@@ -915,6 +915,210 @@ function showSeasonsWordsQuestion() {
     350
   );
 }
+function showPlacesWordsQuestion() {
+  const vocabulary =
+    getVocabulary();
+
+  if (!vocabulary.length) {
+    return;
+  }
+
+  const currentPlace =
+    vocabulary[
+      Math.floor(
+        Math.random() *
+        vocabulary.length
+      )
+    ];
+
+  const choices =
+    buildWordsChoices(currentPlace);
+
+  wordsAnswered = false;
+
+  wordsActivity.innerHTML = `
+    <div class="words-action-card">
+
+      <div class="words-action-heading">
+        <h4>
+          💬 Parole in azione
+        </h4>
+
+        <p>
+          Che luogo è? · What place is it?
+        </p>
+      </div>
+
+      <div class="words-action-frame">
+        <button
+          type="button"
+          id="placeQuestionAudio"
+          class="introductions-question-audio"
+        >
+          🔊 Che luogo è?
+        </button>
+      </div>
+
+      <div class="words-action-image-frame">
+        <img
+          src="${currentPlace.image}"
+          alt="${currentPlace.english}"
+        >
+      </div>
+
+      <div
+        class="words-action-choice-grid"
+        aria-label="Place choices"
+      >
+        ${choices.map(item => `
+          <button
+            type="button"
+            class="words-action-choice"
+            data-answer="${item.italian}"
+          >
+            È ${item.italian}.
+          </button>
+        `).join("")}
+      </div>
+
+      <p
+        id="wordsActionFeedback"
+        class="words-action-feedback"
+        aria-live="polite"
+      >
+        Scegli la risposta corretta.
+
+        <span>
+          Choose the correct response.
+        </span>
+      </p>
+
+      <button
+        type="button"
+        id="nextWordsAction"
+        class="
+          next-question-button
+          words-action-next
+        "
+        hidden
+      >
+        Prossimo luogo · Next Place
+      </button>
+
+    </div>
+  `;
+
+  const audioButton =
+    wordsActivity.querySelector(
+      "#placeQuestionAudio"
+    );
+
+  const choiceButtons =
+    wordsActivity.querySelectorAll(
+      ".words-action-choice"
+    );
+
+  const feedback =
+    wordsActivity.querySelector(
+      "#wordsActionFeedback"
+    );
+
+  const nextButton =
+    wordsActivity.querySelector(
+      "#nextWordsAction"
+    );
+
+  audioButton.addEventListener(
+    "click",
+    () => {
+      speakSentence(
+        "Che luogo è?"
+      );
+    }
+  );
+
+  choiceButtons.forEach(button => {
+    button.addEventListener(
+      "click",
+      () => {
+        if (wordsAnswered) {
+          return;
+        }
+
+        const isCorrect =
+          button.dataset.answer ===
+          currentPlace.italian;
+
+        saveWordsAttempt(isCorrect);
+
+        if (!isCorrect) {
+          button.classList.add(
+            "incorrect"
+          );
+
+          button.disabled = true;
+
+          feedback.innerHTML = `
+            Riprova.
+
+            <span>
+              Try another response.
+            </span>
+          `;
+
+          return;
+        }
+
+        wordsAnswered = true;
+
+        button.classList.add(
+          "correct"
+        );
+
+        choiceButtons.forEach(choice => {
+          choice.disabled = true;
+        });
+
+        const answer =
+          `È ${currentPlace.italian}.`;
+
+        feedback.innerHTML = `
+          Corretto!
+
+          <strong>
+            Che luogo è?<br>
+            ${answer}
+          </strong>
+
+          <span>
+            Correct! Listen to the
+            complete exchange.
+          </span>
+        `;
+
+        nextButton.hidden = false;
+
+        speakSentence(
+          `Che luogo è? ${answer}`
+        );
+      }
+    );
+  });
+
+  nextButton.addEventListener(
+    "click",
+    showPlacesWordsQuestion
+  );
+
+  window.setTimeout(
+    () => {
+      speakSentence(
+        "Che luogo è?"
+      );
+    },
+    350
+  );
+}
 function showWordsQuestion() {
   if (currentTopicKey === "greetings") {
     showGreetingsWordsQuestion();
@@ -923,6 +1127,11 @@ function showWordsQuestion() {
 
   if (currentTopicKey === "seasons") {
     showSeasonsWordsQuestion();
+    return;
+  }
+
+  if (currentTopicKey === "places") {
+    showPlacesWordsQuestion();
     return;
   }
 

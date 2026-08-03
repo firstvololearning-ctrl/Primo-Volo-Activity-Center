@@ -257,6 +257,48 @@ const food = [
     type: "food"
   }
 ];
+const places = [
+  {
+    italian: "la scuola",
+    english: "school",
+    image: "images/places/places-01.png"
+  },
+  {
+    italian: "il parco",
+    english: "park",
+    image: "images/places/places-02.png"
+  },
+  {
+    italian: "l’ospedale",
+    english: "hospital",
+    image: "images/places/places-03.png"
+  },
+  {
+    italian: "il supermercato",
+    english: "supermarket",
+    image: "images/places/places-04.png"
+  },
+  {
+    italian: "il ristorante",
+    english: "restaurant",
+    image: "images/places/places-05.png"
+  },
+  {
+    italian: "la biblioteca",
+    english: "library",
+    image: "images/places/places-06.png"
+  },
+  {
+    italian: "la caserma dei pompieri",
+    english: "fire station",
+    image: "images/places/places-07.png"
+  },
+  {
+    italian: "la farmacia",
+    english: "pharmacy",
+    image: "images/places/places-08.png"
+  }
+];
 const animals = [
   {
     italian: "il cane",

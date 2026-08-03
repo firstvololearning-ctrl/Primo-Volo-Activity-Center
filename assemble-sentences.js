@@ -1016,41 +1016,85 @@ document.head.appendChild(style);
 
   }
 
- 
+ let currentCarrierPhrase = null;
 
-  function createSentenceTokens(item) {
+function cleanCarrierPhrase(text) {
+  return String(text || "")
+    .replace(/\.{3}$/g, "")
+    .trim();
+}
 
-    const vocabularyTokens =
-
-      item.italian
-
-        .trim()
-
-        .split(/\s+/)
-
-        .filter(Boolean);
-
- 
-
-    return [
-
-      "Io",
-
-      "vedo",
-
-      ...vocabularyTokens
-
-    ];
-
+function getTopicCarrierPhrases() {
+  if (
+    typeof window.carrierPhrases !== "object" ||
+    !window.carrierPhrases
+  ) {
+    return [];
   }
 
- 
+  const phrases =
+    window.carrierPhrases[currentTopicKey];
 
-  function createCompleteSentence(item) {
+  return Array.isArray(phrases)
+    ? phrases
+    : [];
+}
 
-    return `Io vedo ${item.italian}.`;
+function chooseCarrierPhrase() {
+  const phrases =
+    getTopicCarrierPhrases();
 
+  if (!phrases.length) {
+    return {
+      id: "vedo",
+      italian: "Io vedo...",
+      english: "I see...",
+      image:
+        "images/carrier-phrases/io-vedo-no-text.png"
+    };
   }
+
+  return phrases[
+    Math.floor(
+      Math.random() * phrases.length
+    )
+  ];
+}
+
+function createSentenceTokens(item) {
+  currentCarrierPhrase =
+    chooseCarrierPhrase();
+
+  const starter =
+    cleanCarrierPhrase(
+      currentCarrierPhrase.italian
+    );
+
+  const starterTokens =
+    starter
+      .split(/\s+/)
+      .filter(Boolean);
+
+  const vocabularyTokens =
+    item.italian
+      .trim()
+      .split(/\s+/)
+      .filter(Boolean);
+
+  return [
+    ...starterTokens,
+    ...vocabularyTokens
+  ];
+}
+
+function createCompleteSentence(item) {
+  const starter =
+    cleanCarrierPhrase(
+      currentCarrierPhrase?.italian
+    );
+
+  return `${starter} ${item.italian}.`;
+}
 
  
 
@@ -1226,8 +1270,13 @@ sentenceArea.innerHTML =
 
 <div class="assemble-carrier-visual">
   <img
-    src="images/carrier-phrases/io-vedo-no-text.png"
-    alt=""
+    src="${
+      currentCarrierPhrase?.image ||
+      "images/carrier-phrases/io-vedo-no-text.png"
+    }"
+    alt="${
+      currentCarrierPhrase?.english || ""
+    }"
     class="assemble-carrier-image"
   >
 </div>

@@ -1675,7 +1675,13 @@ home: {
 
 },
 
- 
+ places: {
+  icon: "📍",
+  italian: "I luoghi",
+  english: "Places",
+  vocabulary: places,
+  available: true
+},
 
 family: {
   icon: "👨‍👩‍👧",
