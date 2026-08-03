@@ -24,26 +24,37 @@ const carrierPhrases = {
   ],
 
   food: [
-    {
-      id: "vedo",
-      italian: "Io vedo...",
-      english: "I see...",
-      image: "images/carrier-phrases/io-vedo-no-text.png"
-    },
-    {
-      id: "mangio",
-      italian: "Io mangio...",
-      english: "I eat...",
-      image: "images/carrier-phrases/io-mangio-no-text.png"
-    },
-    {
-      id: "piace",
-      italian: "Mi piace...",
-      english: "I like...",
-      image: "images/carrier-phrases/mi-piace-no-text.png"
-    }
-  ],
-
+  {
+    id: "vedo",
+    italian: "Io vedo...",
+    english: "I see...",
+    image: "images/carrier-phrases/io-vedo-no-text.png"
+  },
+  {
+    id: "ho",
+    italian: "Io ho...",
+    english: "I have...",
+    image: "images/carrier-phrases/io-ho-no-text.png"
+  },
+  {
+    id: "mangio",
+    italian: "Io mangio...",
+    english: "I eat...",
+    image: "images/carrier-phrases/io-mangio-no-text.png"
+  },
+  {
+    id: "bevo",
+    italian: "Io bevo...",
+    english: "I drink...",
+    image: "images/carrier-phrases/io-bevo-no-text.png"
+  },
+  {
+    id: "piace",
+    italian: "Mi piace...",
+    english: "I like...",
+    image: "images/carrier-phrases/mi-piace-no-text.png"
+  }
+],
   clothing: [
     {
       id: "vedo",

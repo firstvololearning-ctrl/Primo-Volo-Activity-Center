@@ -139,52 +139,122 @@ const food = [
   {
     italian: "la mela",
     english: "apple",
-    image: "images/food/food-01.png"
+    image: "images/food/food-01.png",
+    type: "food"
   },
   {
     italian: "l'arancia",
     english: "orange",
-   image: "images/food/food-02.png"
+    image: "images/food/food-02.png",
+    type: "food"
   },
   {
     italian: "la banana",
     english: "banana",
-    image: "images/food/food-03.png"
+    image: "images/food/food-03.png",
+    type: "food"
   },
   {
     italian: "il pane",
     english: "bread",
-    image: "images/food/food-04.png"
+    image: "images/food/food-04.png",
+    type: "food"
   },
   {
     italian: "il formaggio",
     english: "cheese",
-    image: "images/food/food-05.png"
+    image: "images/food/food-05.png",
+    type: "food"
   },
   {
     italian: "l'uovo",
     english: "egg",
-    image: "images/food/food-06.png"
+    image: "images/food/food-06.png",
+    type: "food"
   },
   {
     italian: "l'uva",
     english: "grapes",
-    image: "images/food/food-07.png"
+    image: "images/food/food-07.png",
+    type: "food"
   },
   {
     italian: "il succo d'arancia",
     english: "orange juice",
-    image: "images/food/food-08.png"
+    image: "images/food/food-08.png",
+    type: "drink"
   },
   {
     italian: "il latte",
     english: "milk",
-    image: "images/food/food-09.png"
+    image: "images/food/food-09.png",
+    type: "drink"
   },
   {
     italian: "l'acqua",
     english: "water",
-    image: "images/food/food-10.png"
+    image: "images/food/food-10.png",
+    type: "drink"
+  },
+  {
+    italian: "il pollo",
+    english: "chicken",
+    image: "images/food/food-11.png",
+    type: "food"
+  },
+  {
+    italian: "il pesce",
+    english: "fish",
+    image: "images/food/food-12.png",
+    type: "food"
+  },
+  {
+    italian: "l'insalata",
+    english: "salad",
+    image: "images/food/food-13.png",
+    type: "food"
+  },
+  {
+    italian: "il pomodoro",
+    english: "tomato",
+    image: "images/food/food-14.png",
+    type: "food"
+  },
+  {
+    italian: "la fragola",
+    english: "strawberry",
+    image: "images/food/food-15.png",
+    type: "food"
+  },
+  {
+    italian: "la carota",
+    english: "carrot",
+    image: "images/food/food-16.png",
+    type: "food"
+  },
+  {
+    italian: "la patata",
+    english: "potato",
+    image: "images/food/food-17.png",
+    type: "food"
+  },
+  {
+    italian: "la zuppa",
+    english: "soup",
+    image: "images/food/food-18.png",
+    type: "food"
+  },
+  {
+    italian: "il biscotto",
+    english: "cookie",
+    image: "images/food/food-19.png",
+    type: "food"
+  },
+  {
+    italian: "il riso",
+    english: "rice",
+    image: "images/food/food-20.png",
+    type: "food"
   }
 ];
 const animals = [

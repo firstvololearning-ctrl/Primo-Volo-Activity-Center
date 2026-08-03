@@ -376,22 +376,22 @@
     return currentVocabulary;
   }
 
-  function buildWordsChoices(correctItem) {
-    const vocabulary =
-      getVocabulary();
+  function buildWordsChoices(
+  correctItem,
+  vocabularyPool = getVocabulary()
+) {
+  const incorrectChoices =
+    shuffleWordsAction(
+      vocabularyPool.filter(
+        item => item !== correctItem
+      )
+    ).slice(0, 3);
 
-    const incorrectChoices =
-      shuffleWordsAction(
-        vocabulary.filter(
-          item => item !== correctItem
-        )
-      ).slice(0, 3);
-
-    return shuffleWordsAction([
-      correctItem,
-      ...incorrectChoices
-    ]);
-  }
+  return shuffleWordsAction([
+    correctItem,
+    ...incorrectChoices
+  ]);
+}
 function getCarrierPhrase() {
 
   if (
@@ -942,15 +942,7 @@ function showWordsQuestion() {
       return;
     }
 
-    currentWordsItem =
-  vocabulary[
-    Math.floor(
-      Math.random() *
-      vocabulary.length
-    )
-  ];
-
-const carrier =
+    const carrier =
   getCarrierPhrase();
 
 if (!carrier) {
@@ -969,12 +961,62 @@ if (!carrier) {
   return;
 }
 
+/*
+  Food and drink compatibility:
+
+  Io mangio → food only
+  Io bevo → drinks only
+  Other carrier phrases → all items
+*/
+let compatibleVocabulary = [...vocabulary];
+
+if (currentTopicKey === "food") {
+  if (carrier.id === "bevo") {
+    compatibleVocabulary =
+      vocabulary.filter(
+        item => item.type === "drink"
+      );
+  }
+
+  if (carrier.id === "mangio") {
+    compatibleVocabulary =
+      vocabulary.filter(
+        item => item.type === "food"
+      );
+  }
+}
+
+if (!compatibleVocabulary.length) {
+  wordsActivity.innerHTML = `
+    <div class="words-action-empty">
+      Nessuna parola compatibile
+      con questa frase.
+
+      <span>
+        No vocabulary is compatible
+        with this sentence.
+      </span>
+    </div>
+  `;
+
+  return;
+}
+
+currentWordsItem =
+  compatibleVocabulary[
+    Math.floor(
+      Math.random() *
+      compatibleVocabulary.length
+    )
+  ];
+
 wordsAnswered = false;
 
-    const choices =
-      buildWordsChoices(
-        currentWordsItem
-      );
+const choices =
+  buildWordsChoices(
+    currentWordsItem,
+    compatibleVocabulary
+  );
 
     wordsActivity.innerHTML = `
       <div class="words-action-card">
