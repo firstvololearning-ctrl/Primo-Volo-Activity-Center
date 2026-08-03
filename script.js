@@ -1689,12 +1689,10 @@ greetings: {
 
 };
 
- 
-
- 
-let selectedGender = "masculine";
+ let selectedGender = "masculine";
 let voloAge = null;
-let currentTopicKey = "greetings";
+let currentTopicKey = "";
+let currentVocabulary = [];
 
 function getTopicVocabulary(topicKey) {
   const topic = topics[topicKey];
@@ -1743,9 +1741,6 @@ function getTopicVocabulary(topicKey) {
     ...item
   }));
 }
-
-let currentVocabulary =
-  getTopicVocabulary(currentTopicKey);
 function hideAllActivityPanels() {
   document
     .querySelectorAll(
@@ -5707,7 +5702,47 @@ memoryActivity.hidden = true;
 
    ======================================== */
 
- 
+ function showTopicWelcome() {
+  currentTopicKey = "";
+  currentVocabulary = [];
+
+  topicItalian.textContent =
+    "👋 Scegli un argomento";
+
+  topicEnglish.textContent =
+    "Choose a Topic";
+
+  topicAvailability.textContent = "";
+  topicAvailability.style.display = "none";
+
+  if (genderChoice) {
+    genderChoice.hidden = true;
+  }
+
+  if (voloAgeSetup) {
+    voloAgeSetup.hidden = true;
+  }
+
+  setActivityButtonsDisabled(true);
+  hideAllActivityPanels();
+
+  englishToggleControl.hidden = true;
+  learnInstructions.hidden = true;
+
+  vocabularyGrid.innerHTML = `
+    <div class="topic-welcome">
+      <h3>Benvenuto!</h3>
+
+      <p>
+        Scegli un argomento per iniziare.
+      </p>
+
+      <span>
+        Choose a topic to begin.
+      </span>
+    </div>
+  `;
+}
 
 function updateTopicHeading(topic) {
 
@@ -5736,7 +5771,10 @@ function updateTopicHeading(topic) {
  
 
 function selectTopic(topicKey) {
-
+  if (!topicKey) {
+    showTopicWelcome();
+    return;
+  }
   const topic = topics[topicKey];
 
  
@@ -5779,6 +5817,7 @@ currentTopicKey = topicKey;
 
 currentVocabulary =
   getTopicVocabulary(currentTopicKey);
+  setActivityButtonsDisabled(false);
 if (genderChoice) {
   genderChoice.hidden =
     currentTopicKey !== "feelings";
@@ -6177,5 +6216,5 @@ window.speechSynthesis.addEventListener(
 
 createProgressInterface();
 
-topicSelect.value = currentTopicKey;
-selectTopic(currentTopicKey);
+topicSelect.value = "";
+showTopicWelcome();
