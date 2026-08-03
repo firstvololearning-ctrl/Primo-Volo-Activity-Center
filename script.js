@@ -1367,43 +1367,125 @@ function renderProgressReport() {
     "#progressTopicTable"
   );
 
-  const attemptTable = document.querySelector(
-    "#progressAttemptTable"
+  const historyTable = document.querySelector(
+    "#progressHistoryTable"
   );
 
   if (
     !summary ||
     !activityTable ||
-    !topicTable ||
-    !attemptTable
+    !topicTable
   ) {
     return;
   }
 
-  const accuracy = calculateAccuracy(
-    progressData.correct,
-    progressData.attempts
-  );
+  const memoryData =
+    progressData.byActivity.memory || {
+      attempts: 0,
+      correct: 0
+    };
+
+  const assessedAttempts =
+    Math.max(
+      0,
+      progressData.attempts -
+      memoryData.attempts
+    );
+
+  const assessedCorrect =
+    Math.max(
+      0,
+      progressData.correct -
+      memoryData.correct
+    );
+
+  const assessedAccuracy =
+    calculateAccuracy(
+      assessedCorrect,
+      assessedAttempts
+    );
+
+  const memoryAccuracy =
+    calculateAccuracy(
+      memoryData.correct,
+      memoryData.attempts
+    );
+
+  const assessedActivities =
+    Object.fromEntries(
+      Object.entries(
+        progressData.byActivity
+      ).filter(
+        ([activity]) =>
+          activity !== "memory"
+      )
+    );
+
+  const topicTotalsWithoutMemory = {};
+
+  progressData.sessions.forEach(session => {
+    if (session.activity === "memory") {
+      return;
+    }
+
+    const topicData =
+      ensureProgressGroup(
+        topicTotalsWithoutMemory,
+        session.topic
+      );
+
+    topicData.attempts += 1;
+
+    if (session.correct) {
+      topicData.correct += 1;
+    }
+  });
+
+  const topicLabels =
+    Object.fromEntries(
+      Object.entries(topics).map(
+        ([key, topic]) => [
+          key,
+          `${topic.icon} ${topic.italian} · ${topic.english}`
+        ]
+      )
+    );
 
   summary.innerHTML = `
     <div class="progress-stat">
-      <strong>${progressData.attempts}</strong>
-      <span>Attempts</span>
+      <strong>${assessedAttempts}</strong>
+      <span>Scored Attempts</span>
     </div>
 
     <div class="progress-stat">
-      <strong>${progressData.correct}</strong>
+      <strong>${assessedCorrect}</strong>
       <span>Correct</span>
     </div>
 
     <div class="progress-stat">
-      <strong>${accuracy}%</strong>
-      <span>Accuracy</span>
+      <strong>${assessedAccuracy}%</strong>
+      <span>Overall Accuracy</span>
+    </div>
+
+    <div class="progress-stat">
+      <strong>${memoryData.attempts}</strong>
+      <span>Memoria Attempts</span>
+    </div>
+
+    <div class="progress-stat">
+      <strong>${memoryAccuracy}%</strong>
+      <span>Memoria Accuracy</span>
     </div>
   `;
 
   activityTable.innerHTML = `
-    <h3>By Activity</h3>
+    <h3>By Scored Activity</h3>
+
+<p class="progress-note">
+  Overall accuracy does not include
+  Memoria because success in the memory
+  game depends partly on chance.
+</p>
 
     <table class="progress-table">
       <thead>
@@ -1417,24 +1499,62 @@ function renderProgressReport() {
 
       <tbody>
         ${buildProgressRows(
-          progressData.byActivity,
+          assessedActivities,
           activityLabels
         )}
       </tbody>
     </table>
-  `;
 
-  const topicLabels = Object.fromEntries(
-    Object.entries(topics).map(
-      ([key, topic]) => [
-        key,
-        `${topic.icon} ${topic.italian} · ${topic.english}`
-      ]
-    )
-  );
+    <h3>Memoria</h3>
+
+<p class="progress-note">
+  Memoria results are shown separately
+  and are not included in the overall
+  percentage because performance depends
+  partly on which cards are revealed.
+</p>
+
+    <table class="progress-table">
+      <thead>
+        <tr>
+          <th>Activity</th>
+          <th>Attempts</th>
+          <th>Correct</th>
+          <th>Accuracy</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        ${
+          memoryData.attempts
+            ? `
+              <tr>
+                <td>Memoria · Memory</td>
+                <td>${memoryData.attempts}</td>
+                <td>${memoryData.correct}</td>
+                <td>${memoryAccuracy}%</td>
+              </tr>
+            `
+            : `
+              <tr>
+                <td colspan="4">
+                  No Memoria attempts yet.
+                </td>
+              </tr>
+            `
+        }
+      </tbody>
+    </table>
+  `;
 
   topicTable.innerHTML = `
     <h3>By Topic</h3>
+
+<p class="progress-note">
+  Topic percentages also exclude
+  Memoria attempts because the activity
+  is partly chance-based.
+</p>
 
     <table class="progress-table">
       <thead>
@@ -1448,36 +1568,33 @@ function renderProgressReport() {
 
       <tbody>
         ${buildProgressRows(
-          progressData.byTopic,
+          topicTotalsWithoutMemory,
           topicLabels
         )}
       </tbody>
     </table>
   `;
 
-  attemptTable.innerHTML = `
-    <h3>Attempt History</h3>
+  if (historyTable) {
+    historyTable.innerHTML = `
+      <h3>Attempt History</h3>
 
-    <p class="progress-note">
-      Date and time are shown in this device’s local time.
-    </p>
+      <table class="progress-table">
+        <thead>
+          <tr>
+            <th>Date</th>
+            <th>Topic</th>
+            <th>Activity</th>
+            <th>Result</th>
+          </tr>
+        </thead>
 
-    <table class="progress-table">
-      <thead>
-        <tr>
-          <th>#</th>
-          <th>Date and Time</th>
-          <th>Topic</th>
-          <th>Activity</th>
-          <th>Result</th>
-        </tr>
-      </thead>
-
-      <tbody>
-        ${buildAttemptHistoryRows()}
-      </tbody>
-    </table>
-  `;
+        <tbody>
+          ${buildAttemptHistoryRows()}
+        </tbody>
+      </table>
+    `;
+  }
 }
 
 let currentQuestion = null;
