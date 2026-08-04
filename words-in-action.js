@@ -1194,7 +1194,19 @@ if (currentTopicKey === "food") {
       );
   }
 }
+/*
+  We are not introducing Mi piacciono yet,
+  so Mi piace uses singular vocabulary only.
+*/
+if (carrier.id === "piace") {
+  compatibleVocabulary =
+    compatibleVocabulary.filter(item => {
+      const italian =
+        item.italian.trim().toLowerCase();
 
+      return !/^(i|gli|le)\s/.test(italian);
+    });
+}
 if (!compatibleVocabulary.length) {
   wordsActivity.innerHTML = `
     <div class="words-action-empty">
@@ -1379,14 +1391,22 @@ carrierImage.addEventListener(
               );
             }
           });
-
 const carrierText =
   carrier.italian
     .replace("...", "")
     .trim();
 
+const sentenceItem =
+  currentTopicKey === "colors" &&
+  (
+    carrier.id === "vedo" ||
+    carrier.id === "piace"
+  )
+    ? `il ${currentWordsItem.italian}`
+    : currentWordsItem.italian;
+
 const sentence =
-  `${carrierText} ${currentWordsItem.italian}`;
+  `${carrierText} ${sentenceItem}.`;
   
 
           if (isCorrect) {
