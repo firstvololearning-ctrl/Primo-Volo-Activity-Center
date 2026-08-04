@@ -1,0 +1,552 @@
+Library
+/
+First Volo Learning
+/
+worksheets.html
+
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <title>
+    Schede stampabili · Printable Worksheets
+  </title>
+
+  <link rel="stylesheet" href="style.css">
+
+  <style>
+    /* =====================================================
+       PRINTABLE WORKSHEETS PAGE
+       These selectors are limited to this page.
+       ===================================================== */
+
+    .worksheet-page {
+      min-height: 100vh;
+      margin: 0;
+      color: #243447;
+      background:
+        linear-gradient(
+          180deg,
+          #f6f9fd 0%,
+          #ffffff 44%,
+          #f8fafc 100%
+        );
+    }
+
+    .worksheet-page * {
+      box-sizing: border-box;
+    }
+
+    .worksheet-header {
+      display: grid;
+      grid-template-columns:
+        minmax(150px, 0.8fr)
+        minmax(260px, 1.4fr)
+        minmax(180px, 0.8fr);
+      align-items: center;
+      gap: 24px;
+
+      width: min(1180px, calc(100% - 32px));
+      margin: 0 auto;
+      padding: 24px 0 18px;
+    }
+
+    .worksheet-brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .worksheet-brand img {
+      width: 74px;
+      height: auto;
+    }
+
+    .worksheet-brand-text {
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+    }
+
+    .worksheet-brand-text strong {
+      color: #274b84;
+      font-size: 1rem;
+    }
+
+    .worksheet-brand-text a {
+      color: #5f6e82;
+      font-size: 0.82rem;
+      font-weight: 700;
+      text-decoration: none;
+    }
+
+    .worksheet-title-group {
+      text-align: center;
+    }
+
+    .worksheet-title-group h1 {
+      margin: 0;
+      color: #274b84;
+      font-size: clamp(1.85rem, 4vw, 2.8rem);
+      line-height: 1.05;
+    }
+
+    .worksheet-title-group p {
+      margin: 8px 0 0;
+      color: #607080;
+      font-size: 1rem;
+      font-weight: 700;
+    }
+
+    .worksheet-nav {
+      display: flex;
+      justify-content: flex-end;
+      flex-wrap: wrap;
+      gap: 9px;
+    }
+
+    .worksheet-nav a {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 42px;
+      padding: 9px 14px;
+      border: 1px solid #d8e1ed;
+      border-radius: 999px;
+      color: #274b84;
+      background: #ffffff;
+      box-shadow: 0 4px 12px rgba(39, 75, 132, 0.08);
+      font-size: 0.84rem;
+      font-weight: 800;
+      text-align: center;
+      text-decoration: none;
+      transition:
+        transform 0.18s ease,
+        box-shadow 0.18s ease,
+        border-color 0.18s ease;
+    }
+
+    .worksheet-nav a:hover,
+    .worksheet-nav a:focus-visible {
+      transform: translateY(-2px);
+      border-color: #9eb4d3;
+      box-shadow: 0 7px 16px rgba(39, 75, 132, 0.14);
+      outline: none;
+    }
+
+    .worksheet-main {
+      width: min(1100px, calc(100% - 32px));
+      margin: 0 auto;
+      padding: 24px 0 64px;
+    }
+
+    .worksheet-intro {
+      max-width: 790px;
+      margin: 0 auto 28px;
+      text-align: center;
+    }
+
+    .worksheet-intro h2 {
+      margin: 0;
+      color: #274b84;
+      font-size: clamp(1.45rem, 3vw, 2rem);
+    }
+
+    .worksheet-intro p {
+      margin: 10px auto 0;
+      color: #607080;
+      font-size: 1rem;
+      line-height: 1.6;
+    }
+
+    .worksheet-grid {
+      display: grid;
+      grid-template-columns:
+        repeat(auto-fit, minmax(280px, 1fr));
+      gap: 24px;
+    }
+
+    .worksheet-card {
+      display: grid;
+      grid-template-columns: minmax(230px, 0.82fr) 1.18fr;
+      gap: 28px;
+
+      grid-column: 1 / -1;
+      overflow: hidden;
+      padding: 24px;
+      border: 1px solid #d8e2ee;
+      border-radius: 24px;
+      background: #ffffff;
+      box-shadow:
+        0 14px 35px rgba(36, 52, 71, 0.11);
+    }
+
+    .worksheet-preview {
+      display: flex;
+      align-items: flex-start;
+      justify-content: center;
+      min-width: 0;
+    }
+
+    .worksheet-preview img {
+      display: block;
+      width: min(100%, 390px);
+      height: auto;
+      border: 1px solid #d7dfe9;
+      border-radius: 12px;
+      background: #ffffff;
+      box-shadow:
+        0 10px 24px rgba(36, 52, 71, 0.16);
+    }
+
+    .worksheet-content {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      min-width: 0;
+    }
+
+    .worksheet-eyebrow {
+      margin: 0 0 7px;
+      color: #4e8766;
+      font-size: 0.82rem;
+      font-weight: 900;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .worksheet-content h3 {
+      margin: 0;
+      color: #274b84;
+      font-size: clamp(1.55rem, 3vw, 2.15rem);
+      line-height: 1.1;
+    }
+
+    .worksheet-subtitle {
+      margin: 6px 0 0;
+      color: #607080;
+      font-size: 1rem;
+      font-weight: 700;
+    }
+
+    .worksheet-description {
+      margin: 18px 0 0;
+      color: #3f4e5e;
+      font-size: 1rem;
+      line-height: 1.65;
+    }
+
+    .worksheet-details {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 9px;
+      margin: 18px 0 0;
+    }
+
+    .worksheet-detail {
+      display: inline-flex;
+      align-items: center;
+      min-height: 34px;
+      padding: 7px 11px;
+      border-radius: 999px;
+      color: #43566d;
+      background: #eef4fb;
+      font-size: 0.82rem;
+      font-weight: 800;
+    }
+
+    .worksheet-skills {
+      margin: 18px 0 0;
+      padding: 16px 18px;
+      border-left: 5px solid #d9a93e;
+      border-radius: 10px;
+      color: #4c5360;
+      background: #fff8e2;
+      font-size: 0.94rem;
+      line-height: 1.55;
+    }
+
+    .worksheet-skills strong {
+      color: #274b84;
+    }
+
+    .worksheet-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 22px;
+    }
+
+    .worksheet-button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 48px;
+      padding: 12px 18px;
+      border: 2px solid #274b84;
+      border-radius: 13px;
+      color: #ffffff;
+      background: #274b84;
+      font-weight: 900;
+      text-decoration: none;
+      transition:
+        transform 0.18s ease,
+        box-shadow 0.18s ease,
+        background 0.18s ease;
+    }
+
+    .worksheet-button:hover,
+    .worksheet-button:focus-visible {
+      transform: translateY(-2px);
+      background: #1e3d6d;
+      box-shadow: 0 8px 18px rgba(39, 75, 132, 0.2);
+      outline: none;
+    }
+
+    .worksheet-button.secondary {
+      color: #274b84;
+      background: #ffffff;
+    }
+
+    .worksheet-button.secondary:hover,
+    .worksheet-button.secondary:focus-visible {
+      color: #1e3d6d;
+      background: #f2f6fb;
+    }
+
+    .worksheet-coming-soon {
+      grid-column: 1 / -1;
+      margin: 4px 0 0;
+      padding: 18px;
+      border: 1px dashed #bdcad9;
+      border-radius: 16px;
+      color: #607080;
+      background: rgba(255, 255, 255, 0.72);
+      text-align: center;
+      font-weight: 700;
+    }
+
+    .worksheet-footer {
+      width: min(1100px, calc(100% - 32px));
+      margin: 0 auto;
+      padding: 22px 0 30px;
+      border-top: 1px solid #dce4ed;
+      color: #697789;
+      font-size: 0.82rem;
+      text-align: center;
+    }
+
+    @media (max-width: 850px) {
+      .worksheet-header {
+        grid-template-columns: 1fr;
+        text-align: center;
+      }
+
+      .worksheet-brand,
+      .worksheet-nav {
+        justify-content: center;
+      }
+
+      .worksheet-card {
+        grid-template-columns: 1fr;
+      }
+
+      .worksheet-content {
+        text-align: center;
+      }
+
+      .worksheet-details,
+      .worksheet-actions {
+        justify-content: center;
+      }
+
+      .worksheet-skills {
+        text-align: left;
+      }
+    }
+
+    @media (max-width: 520px) {
+      .worksheet-header,
+      .worksheet-main,
+      .worksheet-footer {
+        width: min(100% - 20px, 1100px);
+      }
+
+      .worksheet-header {
+        padding-top: 16px;
+      }
+
+      .worksheet-card {
+        gap: 20px;
+        padding: 16px;
+        border-radius: 18px;
+      }
+
+      .worksheet-actions {
+        display: grid;
+        grid-template-columns: 1fr;
+      }
+
+      .worksheet-button {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+
+<body class="worksheet-page">
+  <header class="worksheet-header">
+    <div class="worksheet-brand">
+      <img
+        src="images/logo/logo.png"
+        alt="First Volo Learning"
+      >
+
+      <div class="worksheet-brand-text">
+        <strong>First Volo Learning</strong>
+
+        <a
+          href="https://firstvololearning.com"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          firstvololearning.com
+        </a>
+      </div>
+    </div>
+
+    <div class="worksheet-title-group">
+      <h1>
+        🖨️ Schede stampabili
+      </h1>
+
+      <p>
+        Printable Worksheets
+      </p>
+    </div>
+
+    <nav
+      class="worksheet-nav"
+      aria-label="Worksheet page navigation"
+    >
+      <a href="index.html">
+        ✈️ Centro Attività
+      </a>
+
+      <a href="books.html">
+        📚 Mini-libri
+      </a>
+    </nav>
+  </header>
+
+  <main class="worksheet-main">
+    <section class="worksheet-intro">
+      <h2>
+        Esercizio su carta dopo la pratica interattiva
+      </h2>
+
+      <p>
+        Printable practice designed to reinforce the vocabulary
+        and sentence patterns students use in the Activity Center.
+      </p>
+    </section>
+
+    <section
+      class="worksheet-grid"
+      aria-label="Available printable worksheets"
+    >
+      <article class="worksheet-card">
+        <div class="worksheet-preview">
+          <img
+            src="images/worksheets/colorworksheet/colori-worksheet-preview.png"
+            alt="Preview of the I colori printable worksheet"
+          >
+        </div>
+
+        <div class="worksheet-content">
+          <p class="worksheet-eyebrow">
+            Vocabolario di base · Beginner Vocabulary
+          </p>
+
+          <h3>
+            I colori
+          </h3>
+
+          <p class="worksheet-subtitle">
+            Colors
+          </p>
+
+          <p class="worksheet-description">
+            Una scheda di quattro pagine che guida gli studenti
+            dal riconoscimento dei colori alla costruzione e alla
+            scrittura di semplici frasi in italiano.
+          </p>
+
+          <p class="worksheet-description">
+            A four-page worksheet that moves students from color
+            recognition to supported sentence building and simple
+            independent writing.
+          </p>
+
+          <div class="worksheet-details">
+            <span class="worksheet-detail">
+              📄 4 pagine · 4 pages
+            </span>
+
+            <span class="worksheet-detail">
+              🎨 11 colori · 11 colors
+            </span>
+
+            <span class="worksheet-detail">
+              🌱 Principiante · Beginner
+            </span>
+          </div>
+
+          <p class="worksheet-skills">
+            <strong>Attività · Activities:</strong>
+            scegliere, abbinare, completare parole e frasi,
+            assemblare frasi e scrivere una frase con supporto.
+          </p>
+
+          <div class="worksheet-actions">
+            <a
+              class="worksheet-button"
+              href="images/worksheets/colorworksheet/Colori_Worksheet_All_Colors.pdf"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              👀 Apri il PDF · Open PDF
+            </a>
+
+            <a
+              class="worksheet-button secondary"
+              href="images/worksheets/colorworksheet/Colori_Worksheet_All_Colors.pdf"
+              download
+            >
+              ⬇️ Scarica · Download
+            </a>
+          </div>
+        </div>
+      </article>
+
+      <p class="worksheet-coming-soon">
+        Nuove schede saranno aggiunte qui.
+        · More printable worksheets will be added here.
+      </p>
+    </section>
+  </main>
+
+  <footer class="worksheet-footer">
+    © 2026 Alexis Sacco / First Volo Learning.
+    All rights reserved.
+  </footer>
+</body>
+</html>
