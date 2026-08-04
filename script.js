@@ -1373,9 +1373,9 @@ function renderProgressReport() {
     "#progressTopicTable"
   );
 
-  const historyTable = document.querySelector(
-    "#progressHistoryTable"
-  );
+const historyTable = document.querySelector(
+  "#progressAttemptTable"
+);
 
   if (
     !summary ||
@@ -1587,12 +1587,13 @@ function renderProgressReport() {
 
       <table class="progress-table">
         <thead>
-          <tr>
-            <th>Date</th>
-            <th>Topic</th>
-            <th>Activity</th>
-            <th>Result</th>
-          </tr>
+  <tr>
+  <th>#</th>
+  <th>Date</th>
+  <th>Topic</th>
+  <th>Activity</th>
+  <th>Result</th>
+</tr>
         </thead>
 
         <tbody>
