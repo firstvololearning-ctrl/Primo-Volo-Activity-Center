@@ -1783,16 +1783,12 @@ time: {
  
 
 weather: {
-
   icon: "🌦️",
-
   italian: "Il tempo",
-
   english: "Weather",
-
   vocabulary: weather,
-
   available: true
+},
 
 seasons: {
   icon: "🍂",
@@ -1802,23 +1798,13 @@ seasons: {
   available: true
 },
 
- 
-
 classroom: {
-
   icon: "🏫",
-
   italian: "Espressioni in classe",
-
   english: "Classroom Expressions",
-
   vocabulary: classroomExpressions,
-
   available: true
-
 },
-
- 
 
 greetings: {
   icon: "👋",
