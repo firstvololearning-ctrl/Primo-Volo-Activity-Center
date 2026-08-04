@@ -186,18 +186,58 @@ body {
   break-after: page;
 
   display: grid;
-  place-items: center;
+  grid-template-rows: auto 1fr auto;
 
   width: 100%;
-  min-height: 95vh;
+  min-height: 10.5in;
+  padding: 0.25in 0.35in;
 
   background: white;
 }
 
-.printable-page img {
-  max-width: 92%;
-  max-height: 92vh;
+.printable-branding {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  padding-bottom: 8px;
+  border-bottom: 1px solid #d8e2ef;
+
+  color: #274b84;
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.printable-logo {
+  width: 55px;
+  height: 55px;
   object-fit: contain;
+}
+
+.printable-image-wrap {
+  display: grid;
+  place-items: center;
+  min-height: 0;
+}
+
+.printable-image-wrap > img {
+  display: block;
+  max-width: 94%;
+  max-height: 8.8in;
+  object-fit: contain;
+}
+
+.printable-footer {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+
+  padding-top: 8px;
+  border-top: 1px solid #d8e2ef;
+
+  color: #66758d;
+  font-size: 8px;
+  font-weight: 700;
 }
 
 @media (max-width: 700px) {
@@ -237,9 +277,14 @@ body {
     width: 100%;
   }
 }
+@page {
+  size: letter portrait;
+  margin: 0;
+}
 
 @media print {
   body {
+    margin: 0;
     background: white;
   }
 
@@ -253,7 +298,54 @@ body {
     margin: 0;
   }
 
-  .printable-book {
-    display: block;
+  #printableBook {
+    display: block !important;
+  }
+
+  .printable-page {
+    display: grid !important;
+    grid-template-rows: auto 1fr auto;
+
+    width: 8.5in;
+    height: 11in;
+    padding: 0.25in 0.35in;
+
+    page-break-after: always;
+    break-after: page;
+
+    background: white;
+  }
+
+  .printable-page:last-child {
+    page-break-after: auto;
+    break-after: auto;
+  }
+
+  .printable-branding {
+    display: flex !important;
+  }
+
+  .printable-logo {
+    display: block !important;
+    width: 55px;
+    height: 55px;
+    object-fit: contain;
+  }
+
+  .printable-image-wrap {
+    display: grid !important;
+    place-items: center;
+    min-height: 0;
+  }
+
+  .printable-image-wrap img {
+    display: block !important;
+    max-width: 94%;
+    max-height: 9.25in;
+    object-fit: contain;
+  }
+
+  .printable-footer {
+    display: flex !important;
   }
 }

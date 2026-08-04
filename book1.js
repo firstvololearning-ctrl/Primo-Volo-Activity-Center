@@ -244,21 +244,84 @@ function speakBookPage() {
     utterance
   );
 }
-
 function buildPrintableBook() {
   printableBook.innerHTML =
     bookPages
       .map(
-        page => `
+        (page, index) => `
           <section class="printable-page">
-            <img
-              src="${page.image}"
-              alt="${page.alt}"
-            >
+
+            <header class="printable-branding">
+              <img
+                src="images/logo/logo.png"
+                alt="First Volo Learning"
+                class="printable-logo"
+              >
+
+              <span>
+                Primo Volo d'Italiano
+              </span>
+            </header>
+
+            <div class="printable-image-wrap">
+              <img
+                src="${page.image}"
+                alt="${page.alt}"
+              >
+            </div>
+
+            <footer class="printable-footer">
+              <span>
+                © 2026 Alexis Sacco /
+                First Volo Learning
+              </span>
+
+              <span>
+                firstvololearning.com
+              </span>
+
+              <span>
+                Pagina ${index + 1}
+              </span>
+            </footer>
+
           </section>
         `
       )
       .join("");
+}
+
+async function printBook() {
+  buildPrintableBook();
+
+  const printableImages =
+    printableBook.querySelectorAll("img");
+
+  await Promise.all(
+    Array.from(printableImages).map(
+      image => {
+        if (image.complete) {
+          return Promise.resolve();
+        }
+
+        return new Promise(resolve => {
+          image.addEventListener(
+            "load",
+            resolve,
+            { once: true }
+          );
+
+          image.addEventListener(
+            "error",
+            resolve,
+            { once: true }
+          );
+        });
+      }
+    )
+  );
+
+  window.print();
 }
 
 previousBookPage.addEventListener(
@@ -291,29 +354,20 @@ bookAudioButton.addEventListener(
 
 printBookButton.addEventListener(
   "click",
-  () => {
-    window.print();
-  }
+  printBook
 );
 
 document.addEventListener(
   "keydown",
   event => {
-    if (
-      event.key ===
-      "ArrowLeft"
-    ) {
+    if (event.key === "ArrowLeft") {
       previousBookPage.click();
     }
 
-    if (
-      event.key ===
-      "ArrowRight"
-    ) {
+    if (event.key === "ArrowRight") {
       nextBookPage.click();
     }
   }
 );
 
-buildPrintableBook();
 renderBookPage();
