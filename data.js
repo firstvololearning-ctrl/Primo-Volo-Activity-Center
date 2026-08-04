@@ -731,11 +731,11 @@ const home = [
     english: "refrigerator",
     image: "images/house/house-15.png"
   },
-  {
-    italian: "la cucina",
-    english: "stove",
-    image: "images/house/house-16.png"
-  },
+{
+  italian: "i fornelli e il forno",
+  english: "stove and oven",
+  image: "images/house/house-16.png"
+},
   {
     italian: "la lavatrice",
     english: "washing machine",
