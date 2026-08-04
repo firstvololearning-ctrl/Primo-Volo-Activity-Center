@@ -1794,9 +1794,8 @@ weather: {
 
   available: true
 
-},
 seasons: {
-  icon: "🌦️",
+  icon: "🍂",
   italian: "Le stagioni",
   english: "Seasons",
   vocabulary: seasons,
