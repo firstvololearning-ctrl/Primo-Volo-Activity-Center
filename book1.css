@@ -349,3 +349,47 @@ body {
     display: flex !important;
   }
 }
+/* ========================================
+   BOOK BRANDING
+   ======================================== */
+
+.book-brand-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 7px;
+  color: inherit;
+  font-size: 0.78rem;
+  font-weight: 750;
+  text-decoration: none;
+  opacity: 0.82;
+}
+
+.book-brand-link:hover,
+.book-brand-link:focus-visible {
+  text-decoration: underline;
+  opacity: 1;
+}
+
+.book-brand-logo {
+  display: block;
+  width: 28px;
+  height: 28px;
+  object-fit: contain;
+}
+
+.book-brand-footer {
+  padding: 12px 20px 24px;
+  color: #66758d;
+  font-size: 0.78rem;
+  text-align: center;
+}
+
+.book-brand-footer p {
+  margin: 0;
+}
+
+.book-brand-footer a {
+  color: #274b84;
+  font-weight: 750;
+}
