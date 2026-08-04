@@ -2990,3 +2990,82 @@ body.hide-english .gender-choice-note span {
     flex: 1 1 180px;
   }
 }
+.about-modal {
+  background: rgba(226, 237, 249, 0.72);
+}
+
+.about-card {
+  background: #fbfdff;
+  border: 2px solid #e1ebf6;
+  box-shadow: 0 16px 45px rgba(39, 75, 132, 0.14);
+}
+
+.about-section {
+  background: #ffffff;
+  border-color: #e3ebf4;
+}
+
+.about-close {
+  background: #edf5fc;
+  color: #557394;
+}
+/* ========================================
+   ABOUT LANGUAGE SELECTION
+   ======================================== */
+
+.about-modal.show-italian
+.about-english {
+  display: none !important;
+}
+
+.about-modal.show-english
+.about-italian {
+  display: none !important;
+}
+
+/* Learning progression */
+
+.about-modal.show-italian
+.progression-step > div {
+  display: none !important;
+}
+
+.about-modal.show-english
+.progression-step > strong {
+  display: none !important;
+}
+
+/* Keep table language labels separate */
+
+.about-language-table th
+.about-italian,
+.about-language-table th
+.about-english,
+.about-language-table td
+.about-italian,
+.about-language-table td
+.about-english {
+  display: block;
+}
+
+/* Preserve normal heading styles */
+
+.about-section h3
+.about-italian,
+.about-section h3
+.about-english,
+.about-activity strong
+.about-italian,
+.about-activity strong
+.about-english,
+.about-subtitle
+.about-italian,
+.about-subtitle
+.about-english,
+.about-brand-subheading
+.about-italian,
+.about-brand-subheading
+.about-english {
+  color: inherit;
+  font: inherit;
+}

@@ -149,22 +149,34 @@ const bookText =
   document.getElementById("bookText");
 
 const bookPageCounter =
-  document.getElementById("bookPageCounter");
+  document.getElementById(
+    "bookPageCounter"
+  );
 
 const previousBookPage =
-  document.getElementById("previousBookPage");
+  document.getElementById(
+    "previousBookPage"
+  );
 
 const nextBookPage =
-  document.getElementById("nextBookPage");
+  document.getElementById(
+    "nextBookPage"
+  );
 
 const bookAudioButton =
-  document.getElementById("bookAudioButton");
+  document.getElementById(
+    "bookAudioButton"
+  );
 
 const printBookButton =
-  document.getElementById("printBookButton");
+  document.getElementById(
+    "printBookButton"
+  );
 
 const printableBook =
-  document.getElementById("printableBook");
+  document.getElementById(
+    "printableBook"
+  );
 
 function renderBookPage() {
   const page =
@@ -244,6 +256,7 @@ function speakBookPage() {
     utterance
   );
 }
+
 function buildPrintableBook() {
   printableBook.innerHTML =
     bookPages
@@ -295,7 +308,9 @@ async function printBook() {
   buildPrintableBook();
 
   const printableImages =
-    printableBook.querySelectorAll("img");
+    printableBook.querySelectorAll(
+      "img"
+    );
 
   await Promise.all(
     Array.from(printableImages).map(

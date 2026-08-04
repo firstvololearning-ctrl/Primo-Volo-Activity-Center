@@ -115,9 +115,15 @@ const changeVoloAgeButton =
   );
  
 
-const aboutButton =
+const aboutItalianButton =
+  document.querySelector(
+    "#aboutItalianButton"
+  );
 
-  document.querySelector("#aboutButton");
+const aboutEnglishButton =
+  document.querySelector(
+    "#aboutEnglishButton"
+  );
 
  
 
@@ -6029,86 +6035,277 @@ genderChoiceButtons.forEach(button => {
    ABOUT MODAL
 
    ======================================== */
-
- 
-
 let lastFocusedElement = null;
 
- 
+function prepareAboutLanguages() {
+  /*
+    Italian paragraphs throughout
+    the About window.
+  */
+  aboutModal
+    .querySelectorAll(
+      `
+        .about-section > p:not(.about-english),
+        .about-creator-text > p:not(.about-english)
+      `
+    )
+    .forEach(element => {
+      element.classList.add(
+        "about-italian"
+      );
+    });
 
-function openAboutModal() {
+  /*
+    Italian activity descriptions.
+  */
+  aboutModal
+    .querySelectorAll(
+      ".about-activity small:not(.about-english)"
+    )
+    .forEach(element => {
+      element.classList.add(
+        "about-italian"
+      );
+    });
 
+  /*
+    Split headings and labels that use:
+    Italian · English
+  */
+  const bilingualElements =
+    aboutModal.querySelectorAll(
+      `
+        .about-subtitle,
+        .about-section h3,
+        .about-brand-subheading,
+        .about-activity strong
+      `
+    );
+
+  bilingualElements.forEach(element => {
+    const originalText =
+      element.textContent.trim();
+
+    if (!originalText.includes("·")) {
+      return;
+    }
+
+    const parts =
+      originalText.split("·");
+
+    const italianText =
+      parts[0].trim();
+
+    const englishText =
+      parts
+        .slice(1)
+        .join("·")
+        .trim();
+
+    element.innerHTML = `
+      <span class="about-italian">
+        ${italianText}
+      </span>
+
+      <span class="about-english">
+        ${englishText}
+      </span>
+    `;
+  });
+
+  /*
+    Separate Italian and English
+    labels in the table headings
+    and first column.
+  */
+  aboutModal
+    .querySelectorAll(
+      `
+        .about-language-table th,
+        .about-language-table td:first-child
+      `
+    )
+    .forEach(cell => {
+      const englishSpan =
+        cell.querySelector(":scope > span");
+
+      if (!englishSpan) {
+        return;
+      }
+
+      const italianParts = [];
+
+      Array.from(cell.childNodes)
+        .forEach(node => {
+          if (
+            node === englishSpan ||
+            node.nodeType !==
+              Node.TEXT_NODE
+          ) {
+            return;
+          }
+
+          const text =
+            node.textContent.trim();
+
+          if (text) {
+            italianParts.push(text);
+          }
+
+          node.remove();
+        });
+
+      const italianSpan =
+        document.createElement("span");
+
+      italianSpan.className =
+        "about-italian";
+
+      italianSpan.textContent =
+        italianParts.join(" ");
+
+      englishSpan.classList.add(
+        "about-english"
+      );
+
+      cell.insertBefore(
+        italianSpan,
+        englishSpan
+      );
+    });
+
+  /*
+    Give the activity column
+    separate Italian and English labels.
+  */
+  const activityTranslations = {
+    "💬 Parole in azione":
+      "💬 Words in Action",
+
+    "🗣️ Conversiamo":
+      "🗣️ Conversation"
+  };
+
+  aboutModal
+    .querySelectorAll(
+      ".about-language-table td:nth-child(2)"
+    )
+    .forEach(cell => {
+      const italianText =
+        cell.textContent.trim();
+
+      const englishText =
+        activityTranslations[
+          italianText
+        ];
+
+      if (!englishText) {
+        return;
+      }
+
+      cell.innerHTML = `
+        <span class="about-italian">
+          ${italianText}
+        </span>
+
+        <span class="about-english">
+          ${englishText}
+        </span>
+      `;
+    });
+
+  /*
+    Separate the creator closing.
+  */
+  const creatorClosing =
+    aboutModal.querySelector(
+      ".about-creator-closing"
+    );
+
+  if (creatorClosing) {
+    const italianClosing =
+      creatorClosing.querySelector(
+        ":scope > strong"
+      );
+
+    if (italianClosing) {
+      italianClosing.classList.add(
+        "about-italian"
+      );
+    }
+  }
+}
+
+function openAboutModal(language) {
   lastFocusedElement =
-
     document.activeElement;
 
- 
+  const showItalian =
+    language === "italian";
+
+  aboutModal.classList.toggle(
+    "show-italian",
+    showItalian
+  );
+
+  aboutModal.classList.toggle(
+    "show-english",
+    !showItalian
+  );
 
   aboutModal.hidden = false;
 
-  document.body.style.overflow = "hidden";
-
- 
+  document.body.style.overflow =
+    "hidden";
 
   aboutClose.focus();
-
 }
 
- 
-
 function closeAboutModal() {
-
   aboutModal.hidden = true;
 
   document.body.style.overflow = "";
 
- 
+  aboutModal.classList.remove(
+    "show-italian",
+    "show-english"
+  );
 
   if (lastFocusedElement) {
-
     lastFocusedElement.focus();
-
   }
-
 }
 
- 
-
-aboutButton.addEventListener(
-
+aboutItalianButton.addEventListener(
   "click",
-
-  openAboutModal
-
+  () => {
+    openAboutModal("italian");
+  }
 );
 
- 
+aboutEnglishButton.addEventListener(
+  "click",
+  () => {
+    openAboutModal("english");
+  }
+);
 
 aboutClose.addEventListener(
-
   "click",
-
   closeAboutModal
-
 );
-
- 
 
 aboutModal.addEventListener(
-
   "click",
-
   event => {
-
     if (event.target === aboutModal) {
-
       closeAboutModal();
-
     }
-
   }
-
 );
+
+prepareAboutLanguages();
+ 
 
 /* ========================================
 
