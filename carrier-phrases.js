@@ -3,16 +3,16 @@
 const carrierPhrases = {
 places: [
   {
-    italian: "Io vedo",
-    english: "I see",
-    image:
-      "images/carrier-phrases/io-vedo.png"
+    id: "vedo",
+    italian: "Io vedo...",
+    english: "I see...",
+    image: "images/carrier-phrases/io-vedo-no-text.png"
   },
   {
-    italian: "È",
-    english: "It is",
-    image:
-      "images/carrier-phrases/e.png"
+    id: "e",
+    italian: "È...",
+    english: "It is...",
+    image: "images/carrier-phrases/e-no-text.png"
   }
 ],
 adjectives: [
@@ -151,19 +151,25 @@ family: [
 ],
 
   colors: [
-    {
-      id: "vedo",
-      italian: "Io vedo...",
-      english: "I see...",
-      image: "images/carrier-phrases/io-vedo-no-text.png"
-    },
-    {
-      id: "piace",
-      italian: "Mi piace...",
-      english: "I like...",
-      image: "images/carrier-phrases/mi-piace-no-text.png"
-    }
-  ],
+  {
+    id: "vedo",
+    italian: "Io vedo...",
+    english: "I see...",
+    image: "images/carrier-phrases/io-vedo-no-text.png"
+  },
+  {
+    id: "piace",
+    italian: "Mi piace...",
+    english: "I like...",
+    image: "images/carrier-phrases/mi-piace-no-text.png"
+  },
+  {
+    id: "e",
+    italian: "È...",
+    english: "It is...",
+    image: "images/carrier-phrases/e-no-text.png"
+  }
+],
   feelings: [
     {
       id: "sento",
