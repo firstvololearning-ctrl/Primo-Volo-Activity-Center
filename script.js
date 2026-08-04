@@ -1694,6 +1694,13 @@ home: {
   vocabulary: places,
   available: true
 },
+prepositions: {
+  icon: "📦",
+  italian: "Le preposizioni",
+  english: "Prepositions",
+  vocabulary: prepositions,
+  available: true
+},
 
 family: {
   icon: "👨‍👩‍👧",

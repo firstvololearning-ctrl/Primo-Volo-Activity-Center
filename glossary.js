@@ -158,6 +158,16 @@ if (
       ? places
       : []
 },
+{
+  id: "prepositions",
+  icon: "📦",
+  italian: "Le preposizioni",
+  english: "Prepositions",
+  vocabulary:
+    typeof prepositions !== "undefined"
+      ? prepositions
+      : []
+},
     {
       id: "family",
       icon: "👨‍👩‍👧",

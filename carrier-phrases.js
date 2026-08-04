@@ -15,6 +15,15 @@ places: [
     image: "images/carrier-phrases/e-no-text.png"
   }
 ],
+prepositions: [
+  {
+    id: "e",
+    italian: "È...",
+    english: "It is...",
+    image:
+      "images/carrier-phrases/e-no-text.png"
+  }
+],
 adjectives: [
   {
     id: "e",

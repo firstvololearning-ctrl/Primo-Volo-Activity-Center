@@ -299,6 +299,62 @@ const places = [
     image: "images/places/places-08.png"
   }
 ];
+const prepositions = [
+  {
+    italian: "in",
+    english: "in",
+    sentenceTail: "nella scatola",
+    image: "images/prepositions/in.png"
+  },
+  {
+    italian: "su",
+    english: "on",
+    sentenceTail: "sulla scatola",
+    image: "images/prepositions/on.png"
+  },
+  {
+    italian: "sotto",
+    english: "under",
+    sentenceTail: "sotto la scatola",
+    image: "images/prepositions/under.png"
+  },
+  {
+    italian: "sopra",
+    english: "over",
+    sentenceTail: "sopra la scatola",
+    image: "images/prepositions/over.png"
+  },
+  {
+    italian: "davanti a",
+    english: "in front of",
+    sentenceTail: "davanti alla scatola",
+    image: "images/prepositions/in-front.png"
+  },
+  {
+    italian: "dietro",
+    english: "behind",
+    sentenceTail: "dietro la scatola",
+    image: "images/prepositions/behind.png"
+  },
+  {
+    italian: "accanto a",
+    english: "next to",
+    sentenceTail: "accanto alla scatola",
+    image: "images/prepositions/next-to.png"
+  },
+  {
+    italian: "vicino a",
+    english: "near",
+    sentenceTail: "vicino alla scatola",
+    image: "images/prepositions/near.png"
+  },
+  {
+    italian: "lontano da",
+    english: "far from",
+    sentenceTail: "lontano dalla scatola",
+    image: "images/prepositions/far.png"
+  }
+];
 const animals = [
   {
     italian: "il cane",

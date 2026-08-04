@@ -1397,13 +1397,18 @@ const carrierText =
     .trim();
 
 const sentenceItem =
-  currentTopicKey === "colors" &&
-  (
-    carrier.id === "vedo" ||
-    carrier.id === "piace"
-  )
-    ? `il ${currentWordsItem.italian}`
-    : currentWordsItem.italian;
+  currentTopicKey === "prepositions" &&
+  currentWordsItem.sentenceTail
+    ? currentWordsItem.sentenceTail
+
+    : currentTopicKey === "colors" &&
+      (
+        carrier.id === "vedo" ||
+        carrier.id === "piace"
+      )
+      ? `il ${currentWordsItem.italian}`
+
+      : currentWordsItem.italian;
 
 const sentence =
   `${carrierText} ${sentenceItem}.`;

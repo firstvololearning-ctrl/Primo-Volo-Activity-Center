@@ -1113,6 +1113,12 @@ function getCompatibleVocabulary(
 }
 
 function getSentenceItemText(item) {
+  if (
+  currentTopicKey === "prepositions" &&
+  item?.sentenceTail
+) {
+  return item.sentenceTail;
+}
   const italian =
     String(item?.italian || "").trim();
 
