@@ -1244,7 +1244,7 @@ const choices =
 
 <img
   id="carrierPhraseImage"
-  src="${carrier.image.replace("-no-text", "")}"
+  src="${carrier.image}"
   alt="${carrier.italian}"
   class="carrier-phrase-image"
   tabindex="0"
