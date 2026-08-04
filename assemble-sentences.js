@@ -1061,14 +1061,89 @@ function chooseCarrierPhrase() {
   ];
 }
 
-function createSentenceTokens(item) {
-  currentCarrierPhrase =
-    chooseCarrierPhrase();
+function isPluralVocabularyItem(item) {
+  const italian =
+    String(item?.italian || "")
+      .trim()
+      .toLowerCase();
 
+  return /^(i|gli|le)\s/.test(italian);
+}
+
+function getCompatibleVocabulary(
+  vocabulary,
+  carrier
+) {
+  let compatible = [...vocabulary];
+
+  /*
+    Food compatibility:
+    Io mangio → food
+    Io bevo → drinks
+  */
+  if (currentTopicKey === "food") {
+    if (carrier?.id === "bevo") {
+      compatible =
+        compatible.filter(
+          item => item.type === "drink"
+        );
+    }
+
+    if (carrier?.id === "mangio") {
+      compatible =
+        compatible.filter(
+          item => item.type === "food"
+        );
+    }
+  }
+
+  /*
+    We are not teaching Mi piacciono yet,
+    so Mi piace uses singular nouns only.
+  */
+  if (carrier?.id === "piace") {
+    compatible =
+      compatible.filter(
+        item =>
+          !isPluralVocabularyItem(item)
+      );
+  }
+
+  return compatible;
+}
+
+function getSentenceItemText(item) {
+  const italian =
+    String(item?.italian || "").trim();
+
+  /*
+    Color words used as nouns need
+    the article il after Io vedo
+    and Mi piace.
+  */
+  if (
+    currentTopicKey === "colors" &&
+    (
+      currentCarrierPhrase?.id ===
+        "vedo" ||
+      currentCarrierPhrase?.id ===
+        "piace"
+    )
+  ) {
+    return `il ${italian}`;
+  }
+
+  return italian;
+}
+
+function createSentenceTokens(item) {
   const starter =
     cleanCarrierPhrase(
-      currentCarrierPhrase.italian
+      currentCarrierPhrase?.italian
     );
+
+  const sentenceItem =
+    getSentenceItemText(item);
 
   const starterTokens =
     starter
@@ -1076,8 +1151,7 @@ function createSentenceTokens(item) {
       .filter(Boolean);
 
   const vocabularyTokens =
-    item.italian
-      .trim()
+    sentenceItem
       .split(/\s+/)
       .filter(Boolean);
 
@@ -1093,12 +1167,11 @@ function createCompleteSentence(item) {
       currentCarrierPhrase?.italian
     );
 
-  return `${starter} ${item.italian}.`;
+  const sentenceItem =
+    getSentenceItemText(item);
+
+  return `${starter} ${sentenceItem}.`;
 }
-
- 
-
-
   function renderPlacedTokens() {
 
     const sentenceArea =
@@ -1185,29 +1258,43 @@ sentenceArea.innerHTML =
 
  
 
-    currentItem =
+    currentCarrierPhrase =
+  chooseCarrierPhrase();
 
-      vocabulary[
+const compatibleVocabulary =
+  getCompatibleVocabulary(
+    vocabulary,
+    currentCarrierPhrase
+  );
 
-        Math.floor(
+if (!compatibleVocabulary.length) {
+  assembleActivity.innerHTML = `
+    <div class="assemble-empty">
+      Nessuna parola compatibile
+      con questa frase.
 
-          Math.random() *
+      <span>
+        No vocabulary is compatible
+        with this sentence.
+      </span>
+    </div>
+  `;
 
-          vocabulary.length
+  return;
+}
 
-        )
+currentItem =
+  compatibleVocabulary[
+    Math.floor(
+      Math.random() *
+      compatibleVocabulary.length
+    )
+  ];
 
-      ];
-
- 
-
-    correctTokens =
-
-      createSentenceTokens(
-
-        currentItem
-
-      );
+correctTokens =
+  createSentenceTokens(
+    currentItem
+  );
 
  
 
