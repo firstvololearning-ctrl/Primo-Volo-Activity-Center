@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <title>Ciao, sono Volo! · Mini-libro</title>
+
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="book1.css">
+</head>
+
+<body>
+
+  <header class="book-header">
+
+    <a
+      href="index.html"
+      class="book-back-link"
+    >
+      ← Centro Attività
+    </a>
+
+    <div>
+      <h1>
+        📘 Ciao, sono Volo!
+      </h1>
+
+      <p>
+        Mini-libro interattivo
+      </p>
+    </div>
+
+    <button
+      id="printBookButton"
+      class="book-header-button"
+      type="button"
+    >
+      🖨️ Stampa
+    </button>
+
+  </header>
+
+  <main class="book-page">
+
+    <section
+      class="book-reader"
+      aria-label="Interactive mini-book"
+    >
+
+      <div class="book-image-frame">
+
+        <img
+          id="bookImage"
+          src="images/book1/book1-01.png"
+          alt=""
+          class="book-image"
+        >
+
+      </div>
+
+      <div
+        id="bookText"
+        class="book-text"
+        aria-live="polite"
+      ></div>
+
+      <div class="book-audio-row">
+
+        <button
+          id="bookAudioButton"
+          class="book-audio-button"
+          type="button"
+        >
+          🔊 Ascolta
+        </button>
+
+      </div>
+
+      <div class="book-navigation">
+
+        <button
+          id="previousBookPage"
+          class="book-nav-button"
+          type="button"
+        >
+          ← Indietro
+        </button>
+
+        <span
+          id="bookPageCounter"
+          class="book-page-counter"
+        >
+          Pagina 1 di 13
+        </span>
+
+        <button
+          id="nextBookPage"
+          class="book-nav-button"
+          type="button"
+        >
+          Avanti →
+        </button>
+
+      </div>
+
+    </section>
+
+    <section
+      id="printableBook"
+      class="printable-book"
+      aria-hidden="true"
+    ></section>
+
+  </main>
+
+  <script src="book1.js"></script>
+
+</body>
+</html>
