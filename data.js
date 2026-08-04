@@ -425,12 +425,12 @@ const adjectives = [
   {
     italian: "caldo",
     english: "hot",
-    image: "images/adjectives/adjectives-05.png"
+    image: "images/adjectives/adjectives-06.png"
   },
   {
     italian: "freddo",
     english: "cold",
-    image: "images/adjectives/adjectives-06.png"
+    image: "images/adjectives/adjectives-05.png"
   },
   {
     italian: "lento",
