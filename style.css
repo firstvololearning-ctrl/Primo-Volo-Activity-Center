@@ -3069,3 +3069,12 @@ body.hide-english .gender-choice-note span {
   color: inherit;
   font: inherit;
 }
+.about-table-activity-list {
+  display: block;
+  white-space: nowrap;
+}
+
+.about-table-activity-list + 
+.about-table-activity-list {
+  margin-top: 4px;
+}

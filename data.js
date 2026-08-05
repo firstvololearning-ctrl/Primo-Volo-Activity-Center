@@ -952,6 +952,71 @@ const time = [
     image: "images/time/time-20.png"
   }
 ];
+const days = [
+  {
+    italian: "lunedì",
+    english: "Monday",
+    image: "images/days/lunedi.png",
+    sentenceForms: {
+      e: "lunedì",
+      piace: "il lunedì"
+    }
+  },
+  {
+    italian: "martedì",
+    english: "Tuesday",
+    image: "images/days/martedi.png",
+    sentenceForms: {
+      e: "martedì",
+      piace: "il martedì"
+    }
+  },
+  {
+    italian: "mercoledì",
+    english: "Wednesday",
+    image: "images/days/mercoledi.png",
+    sentenceForms: {
+      e: "mercoledì",
+      piace: "il mercoledì"
+    }
+  },
+  {
+    italian: "giovedì",
+    english: "Thursday",
+    image: "images/days/giovedi.png",
+    sentenceForms: {
+      e: "giovedì",
+      piace: "il giovedì"
+    }
+  },
+  {
+    italian: "venerdì",
+    english: "Friday",
+    image: "images/days/venerdi.png",
+    sentenceForms: {
+      e: "venerdì",
+      piace: "il venerdì"
+    }
+  },
+  {
+    italian: "sabato",
+    english: "Saturday",
+    image: "images/days/sabato.png",
+    sentenceForms: {
+      e: "sabato",
+      piace: "il sabato"
+    }
+  },
+  {
+    italian: "domenica",
+    english: "Sunday",
+    image: "images/days/domenica.png",
+    sentenceForms: {
+      e: "domenica",
+      piace: "la domenica"
+    }
+  }
+];
 const weather = [
   {
     italian: "Fa caldo",

@@ -1,7 +1,23 @@
 "use strict";
 
 const carrierPhrases = {
-places: [
+days: [
+  {
+    id: "e",
+    italian: "È...",
+    english: "It is...",
+    image:
+      "images/carrier-phrases/e-no-text.png"
+  },
+  {
+    id: "piace",
+    italian: "Mi piace...",
+    english: "I like...",
+    image:
+      "images/carrier-phrases/mi-piace-no-text.png"
+  }
+],
+  places: [
   {
     id: "vedo",
     italian: "Io vedo...",

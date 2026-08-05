@@ -1765,7 +1765,13 @@ animals: {
 
 },
 
- 
+ days: {
+  icon: "📅",
+  italian: "I giorni della settimana",
+  english: "Days of the Week",
+  vocabulary: days,
+  available: true
+},
 
 time: {
 

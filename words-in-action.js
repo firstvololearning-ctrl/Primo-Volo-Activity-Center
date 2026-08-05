@@ -1396,7 +1396,7 @@ const carrierText =
     .replace("...", "")
     .trim();
 
-const sentenceItem =
+    const sentenceItem =
   currentTopicKey === "prepositions" &&
   currentWordsItem.sentenceTail
     ? currentWordsItem.sentenceTail
@@ -1408,11 +1408,19 @@ const sentenceItem =
       )
       ? `il ${currentWordsItem.italian}`
 
-      : currentWordsItem.italian;
+    : currentTopicKey === "days" &&
+      carrier.id === "piace"
+      ? `${
+          currentWordsItem.italian ===
+          "domenica"
+            ? "la"
+            : "il"
+        } ${currentWordsItem.italian}`
+
+    : currentWordsItem.italian;
 
 const sentence =
   `${carrierText} ${sentenceItem}.`;
-  
 
           if (isCorrect) {
             feedback.innerHTML = `

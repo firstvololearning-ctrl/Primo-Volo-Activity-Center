@@ -229,6 +229,16 @@ if (
           : []
     },
     {
+  id: "days",
+  icon: "📅",
+  italian: "I giorni della settimana",
+  english: "Days of the Week",
+  vocabulary:
+    typeof days !== "undefined"
+      ? days
+      : []
+},
+    {
       id: "time",
       icon: "🕒",
       italian: "L'ora",
