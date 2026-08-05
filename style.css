@@ -3078,3 +3078,139 @@ body.hide-english .gender-choice-note span {
 .about-table-activity-list {
   margin-top: 4px;
 }
+/* ========================================
+   DAYS OF THE WEEK — COMPACT CARD LAYOUT
+   ======================================== */
+
+body.days-topic .vocabulary-grid {
+  grid-template-columns:
+    repeat(7, minmax(0, 1fr));
+
+  gap: 12px;
+}
+
+body.days-topic .vocabulary-card {
+  padding: 8px 8px 12px;
+  border-radius: 18px;
+}
+
+body.days-topic .image-frame {
+  border-radius: 13px;
+}
+
+body.days-topic .card-text {
+  margin-top: 7px;
+}
+
+body.days-topic .italian-word {
+  font-size: 1rem;
+}
+
+body.days-topic .english-word {
+  font-size: 0.8rem;
+}
+
+body.days-topic .audio-icon {
+  width: 30px;
+  height: 30px;
+  margin-top: 7px;
+  font-size: 0.8rem;
+}
+
+@media (max-width: 1200px) {
+  body.days-topic .vocabulary-grid {
+    grid-template-columns:
+      repeat(4, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 700px) {
+  body.days-topic .vocabulary-grid {
+    grid-template-columns:
+      repeat(2, minmax(0, 1fr));
+  }
+}
+/* Days — show the complete image in Words in Action */
+
+body.days-topic .words-action-image-frame {
+  display: block;
+  width: min(280px, 75vw);
+  height: auto;
+  aspect-ratio: auto;
+  margin: 0 auto 14px;
+  padding: 0;
+  overflow: visible;
+  border: 0;
+  background: transparent;
+}
+
+body.days-topic .words-action-image-frame img {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-width: 100%;
+  max-height: none;
+  object-fit: contain;
+}
+
+/* Days — show the complete card in Abbina */
+
+body.days-topic .match-image-frame {
+  aspect-ratio: 425 / 480;
+  padding: 8px;
+  overflow: hidden;
+}
+
+body.days-topic .match-image-frame img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  transform: none;
+}
+/* ========================================
+   DAYS — FULL PORTRAIT IMAGES
+   ======================================== */
+
+/* Scegli */
+body.days-topic .quiz-image-frame {
+  width: min(240px, 100%);
+  height: auto;
+  aspect-ratio: 425 / 480;
+  overflow: hidden;
+}
+
+body.days-topic .quiz-image-frame img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+/* Ascolta */
+body.days-topic .listen-image-frame {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 425 / 480;
+  padding: 6px;
+  overflow: hidden;
+}
+
+body.days-topic .listen-image-frame img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+/* Completa */
+body.days-topic .complete-image-frame {
+  width: 160px;
+  height: auto;
+  aspect-ratio: 425 / 480;
+  padding: 6px;
+  overflow: hidden;
+}
+
+body.days-topic .complete-image-frame img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}

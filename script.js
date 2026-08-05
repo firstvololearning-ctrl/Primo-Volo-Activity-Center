@@ -6546,3 +6546,17 @@ createProgressInterface();
 
 topicSelect.value = "";
 showTopicWelcome();
+
+function updateDaysTopicLayout() {
+  document.body.classList.toggle(
+    "days-topic",
+    topicSelect.value === "days"
+  );
+}
+
+topicSelect.addEventListener(
+  "change",
+  updateDaysTopicLayout
+);
+
+updateDaysTopicLayout();
