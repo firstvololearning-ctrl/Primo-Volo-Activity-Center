@@ -3167,8 +3167,34 @@ body.days-topic .match-image-frame img {
   object-fit: contain;
   transform: none;
 }
+
 /* ========================================
-   DAYS — FULL PORTRAIT IMAGES
+   DAYS — FULL IMAGE IN LEARN CARDS
+   ======================================== */
+
+body.days-topic .image-frame {
+  aspect-ratio: 425 / 480;
+  padding: 7px;
+  overflow: hidden;
+}
+
+body.days-topic .image-frame img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  transform: scale(0.94);
+  transform-origin: center;
+}
+
+/* Prevent the general card hover zoom from cropping day images. */
+body.days-topic .vocabulary-card:hover .image-frame img {
+  transform: scale(0.94);
+}
+
+/* ========================================
+   DAYS — FULL IMAGES IN SCEGLI, ASCOLTA,
+   AND COMPLETA
    ======================================== */
 
 /* Scegli */
@@ -3176,13 +3202,17 @@ body.days-topic .quiz-image-frame {
   width: min(240px, 100%);
   height: auto;
   aspect-ratio: 425 / 480;
+  padding: 7px;
   overflow: hidden;
 }
 
 body.days-topic .quiz-image-frame img {
+  display: block;
   width: 100%;
   height: 100%;
   object-fit: contain;
+  transform: scale(0.94);
+  transform-origin: center;
 }
 
 /* Ascolta */
@@ -3190,14 +3220,17 @@ body.days-topic .listen-image-frame {
   width: 100%;
   height: auto;
   aspect-ratio: 425 / 480;
-  padding: 6px;
+  padding: 7px;
   overflow: hidden;
 }
 
 body.days-topic .listen-image-frame img {
+  display: block;
   width: 100%;
   height: 100%;
   object-fit: contain;
+  transform: scale(0.94);
+  transform-origin: center;
 }
 
 /* Completa */
@@ -3205,12 +3238,15 @@ body.days-topic .complete-image-frame {
   width: 160px;
   height: auto;
   aspect-ratio: 425 / 480;
-  padding: 6px;
+  padding: 7px;
   overflow: hidden;
 }
 
 body.days-topic .complete-image-frame img {
+  display: block;
   width: 100%;
   height: 100%;
   object-fit: contain;
+  transform: scale(0.94);
+  transform-origin: center;
 }
