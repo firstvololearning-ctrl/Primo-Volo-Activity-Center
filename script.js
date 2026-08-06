@@ -1772,7 +1772,13 @@ animals: {
   vocabulary: days,
   available: true
 },
-
+months: {
+  icon: "🗓️",
+  italian: "I mesi dell'anno",
+  english: "Months of the Year",
+  vocabulary: months,
+  available: true
+},
 time: {
 
   icon: "🕒",
@@ -1875,6 +1881,34 @@ function getTopicVocabulary(topicKey) {
     ...item
   }));
 }
+
+/*
+  Optional English support for the months
+  topic. The existing Show English checkbox
+  hides these labels through the english-word
+  class.
+*/
+function createMonthEnglishLabel(
+  item,
+  elementName = "p"
+) {
+  if (
+    currentTopicKey !== "months" ||
+    !item ||
+    !item.english
+  ) {
+    return "";
+  }
+
+  return `
+    <${elementName}
+      class="english-word month-english-word"
+    >
+      ${item.english}
+    </${elementName}>
+  `;
+}
+
 function hideAllActivityPanels() {
   document
     .querySelectorAll(
@@ -2031,6 +2065,63 @@ if (changeVoloAgeButton) {
     requestVoloAgeChange
   );
 }
+
+function addMonthEnglishSupportStyles() {
+  if (
+    document.querySelector(
+      "#monthEnglishSupportStyles"
+    )
+  ) {
+    return;
+  }
+
+  const style =
+    document.createElement("style");
+
+  style.id = "monthEnglishSupportStyles";
+
+  style.textContent = `
+    body.months-topic
+    .month-english-word {
+      display: block;
+      margin: 6px 8px 8px;
+      color: #69788d;
+      font-size: 0.86rem;
+      font-weight: 700;
+      line-height: 1.2;
+      text-align: center;
+    }
+
+    body.months-topic.hide-english
+    .month-english-word {
+      display: none;
+    }
+
+    body.months-topic
+    .month-image-support {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-width: 0;
+    }
+
+    body.months-topic
+    .listen-choice
+    .month-english-word {
+      margin-bottom: 2px;
+    }
+
+    body.months-topic
+    .memory-card-front
+    .month-english-word {
+      margin: 4px 2px 0;
+      font-size: 0.72rem;
+    }
+  `;
+
+  document.head.appendChild(style);
+}
+
 /* ========================================
 
    AUDIO
@@ -2432,6 +2523,8 @@ function createMatchRound() {
               >
 
             </div>
+
+            ${createMonthEnglishLabel(item)}
 
  
 
@@ -3141,7 +3234,7 @@ function showMatchMode() {
 
  
 
-  englishToggleControl.hidden = true;
+  englishToggleControl.hidden = currentTopicKey !== "months";
 
   learnInstructions.hidden = true;
 
@@ -3370,6 +3463,8 @@ function showListenQuestion() {
               >
 
             </div>
+
+            ${createMonthEnglishLabel(item)}
 
           </button>
 
@@ -3707,7 +3802,7 @@ function showListenMode() {
 
  
 
-  englishToggleControl.hidden = true;
+  englishToggleControl.hidden = currentTopicKey !== "months";
 
   learnInstructions.hidden = true;
 
@@ -3929,15 +4024,23 @@ function showCompleteQuestion() {
 
  
 
-        <div class="complete-image-frame">
+        <div class="month-image-support">
 
-          <img
+          <div class="complete-image-frame">
 
-            src="${currentCompleteItem.image}"
+            <img
 
-            alt="${currentCompleteItem.english}"
+              src="${currentCompleteItem.image}"
 
-          >
+              alt="${currentCompleteItem.english}"
+
+            >
+
+          </div>
+
+          ${createMonthEnglishLabel(
+            currentCompleteItem
+          )}
 
         </div>
 
@@ -4327,7 +4430,7 @@ function showCompleteMode() {
 
  
 
-  englishToggleControl.hidden = true;
+  englishToggleControl.hidden = currentTopicKey !== "months";
 
   learnInstructions.hidden = true;
 
@@ -4427,15 +4530,23 @@ function showWriteQuestion() {
 
  
 
-        <div class="complete-image-frame">
+        <div class="month-image-support">
 
-          <img
+          <div class="complete-image-frame">
 
-            src="${currentWriteItem.image}"
+            <img
 
-            alt="${currentWriteItem.english}"
+              src="${currentWriteItem.image}"
 
-          >
+              alt="${currentWriteItem.english}"
+
+            >
+
+          </div>
+
+          ${createMonthEnglishLabel(
+            currentWriteItem
+          )}
 
         </div>
 
@@ -4799,7 +4910,7 @@ function showWriteMode() {
 
  
 
-  englishToggleControl.hidden = true;
+  englishToggleControl.hidden = currentTopicKey !== "months";
 
   learnInstructions.hidden = true;
 
@@ -5062,6 +5173,11 @@ function createMemoryGame() {
                         alt="${card.item.english}"
 
                       >
+
+                      ${createMonthEnglishLabel(
+                        card.item,
+                        "span"
+                      )}
 
                     `
 
@@ -5507,7 +5623,7 @@ function showMemoryMode() {
 
  
 
-  englishToggleControl.hidden = true;
+  englishToggleControl.hidden = currentTopicKey !== "months";
 
   learnInstructions.hidden = true;
 
@@ -5600,6 +5716,10 @@ currentQuestion =
   >
 
 </div>
+
+      ${createMonthEnglishLabel(
+        currentQuestion
+      )}
 
  
 
@@ -5819,7 +5939,7 @@ writeActivity.hidden = true;
 
 memoryActivity.hidden = true;
 
-  englishToggleControl.hidden = true;
+  englishToggleControl.hidden = currentTopicKey !== "months";
 
   learnInstructions.hidden = true;
 
@@ -6543,20 +6663,29 @@ window.speechSynthesis.addEventListener(
  
 
 createProgressInterface();
+addMonthEnglishSupportStyles();
 
 topicSelect.value = "";
 showTopicWelcome();
 
-function updateDaysTopicLayout() {
+function updateCalendarTopicLayout() {
+  const selectedTopic =
+    topicSelect.value;
+
   document.body.classList.toggle(
     "days-topic",
-    topicSelect.value === "days"
+    selectedTopic === "days"
+  );
+
+  document.body.classList.toggle(
+    "months-topic",
+    selectedTopic === "months"
   );
 }
 
 topicSelect.addEventListener(
   "change",
-  updateDaysTopicLayout
+  updateCalendarTopicLayout
 );
 
-updateDaysTopicLayout();
+updateCalendarTopicLayout();

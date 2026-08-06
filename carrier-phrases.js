@@ -1,6 +1,22 @@
 "use strict";
 
 const carrierPhrases = {
+  months: [
+  {
+    id: "e",
+    italian: "È...",
+    english: "It is...",
+    image:
+      "images/carrier-phrases/e-no-text.png"
+  },
+  {
+    id: "piace",
+    italian: "Mi piace...",
+    english: "I like...",
+    image:
+      "images/carrier-phrases/mi-piace-no-text.png"
+  }
+],
 days: [
   {
     id: "e",

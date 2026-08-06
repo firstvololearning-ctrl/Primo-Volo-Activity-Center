@@ -3250,3 +3250,247 @@ body.days-topic .complete-image-frame img {
   transform: scale(0.94);
   transform-origin: center;
 }
+/* ========================================
+   MONTHS OF THE YEAR
+   ======================================== */
+
+/* Six months across on large screens. */
+body.months-topic .vocabulary-grid {
+  grid-template-columns:
+    repeat(6, minmax(0, 1fr));
+
+  gap: 14px;
+}
+
+body.months-topic .vocabulary-card {
+  min-width: 0;
+  padding: 10px 10px 14px;
+}
+
+/* ========================================
+   MONTHS — LEARN
+   ======================================== */
+
+body.months-topic .image-frame {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 425 / 480;
+
+  padding: 7px;
+  overflow: hidden;
+}
+
+body.months-topic .image-frame img {
+  display: block;
+
+  width: 100%;
+  height: 100%;
+
+  object-fit: contain;
+
+  transform: scale(0.94);
+  transform-origin: center;
+}
+
+/* Do not enlarge the image on hover. */
+body.months-topic
+.vocabulary-card:hover
+.image-frame img {
+  transform: scale(0.94);
+}
+
+/* ========================================
+   MONTHS — CHOOSE
+   ======================================== */
+
+body.months-topic .quiz-image-frame {
+  width: min(240px, 100%);
+  height: auto;
+  aspect-ratio: 425 / 480;
+
+  padding: 7px;
+  overflow: hidden;
+}
+
+body.months-topic .quiz-image-frame img {
+  display: block;
+
+  width: 100%;
+  height: 100%;
+
+  object-fit: contain;
+
+  transform: scale(0.94);
+  transform-origin: center;
+}
+
+/* ========================================
+   MONTHS — LISTEN
+   ======================================== */
+
+body.months-topic .listen-image-frame {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 425 / 480;
+
+  padding: 7px;
+  overflow: hidden;
+}
+
+body.months-topic .listen-image-frame img {
+  display: block;
+
+  width: 100%;
+  height: 100%;
+
+  object-fit: contain;
+
+  transform: scale(0.94);
+  transform-origin: center;
+}
+
+/* ========================================
+   MONTHS — COMPLETE
+   ======================================== */
+
+body.months-topic .complete-image-frame {
+  width: 160px;
+  height: auto;
+  aspect-ratio: 425 / 480;
+
+  padding: 7px;
+  overflow: hidden;
+}
+
+body.months-topic .complete-image-frame img {
+  display: block;
+
+  width: 100%;
+  height: 100%;
+
+  object-fit: contain;
+
+  transform: scale(0.94);
+  transform-origin: center;
+}
+
+/* ========================================
+   MONTHS — MATCH
+   ======================================== */
+
+body.months-topic .match-image-frame {
+  height: auto;
+  aspect-ratio: 425 / 480;
+
+  padding: 6px;
+  overflow: hidden;
+}
+
+body.months-topic .match-image-frame img {
+  display: block;
+
+  width: 100%;
+  height: 100%;
+
+  object-fit: contain;
+  transform: none;
+}
+
+/* ========================================
+   MONTHS — MEMORY
+   ======================================== */
+
+body.months-topic .memory-card-front {
+  padding: 7px;
+}
+
+body.months-topic .memory-card-front img {
+  display: block;
+
+  width: 100%;
+  height: 100%;
+
+  object-fit: contain;
+
+  transform: scale(0.94);
+}
+
+/* ========================================
+   MONTHS — WORDS IN ACTION
+   ======================================== */
+
+body.months-topic .words-action-image-frame {
+  display: block;
+
+  width: min(260px, 72vw);
+  height: auto;
+  aspect-ratio: 425 / 480;
+
+  margin: 0 auto 16px;
+  padding: 7px;
+
+  overflow: hidden;
+}
+
+body.months-topic
+.words-action-image-frame img {
+  display: block;
+
+  width: 100%;
+  height: 100%;
+
+  object-fit: contain;
+
+  transform: scale(0.94);
+  transform-origin: center;
+}
+
+/* ========================================
+   MONTHS — ASSEMBLE
+   ======================================== */
+
+body.months-topic .assemble-picture-frame {
+  width: min(210px, 45vw);
+  height: auto;
+  aspect-ratio: 425 / 480;
+
+  padding: 7px;
+  overflow: hidden;
+}
+
+body.months-topic
+.assemble-picture-frame img {
+  display: block;
+
+  width: 100%;
+  height: 100%;
+
+  object-fit: contain;
+
+  transform: scale(0.94);
+  transform-origin: center;
+}
+
+/* ========================================
+   MONTHS — RESPONSIVE GRID
+   ======================================== */
+
+@media (max-width: 1200px) {
+  body.months-topic .vocabulary-grid {
+    grid-template-columns:
+      repeat(4, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 700px) {
+  body.months-topic .vocabulary-grid {
+    grid-template-columns:
+      repeat(2, minmax(0, 1fr));
+
+    gap: 11px;
+  }
+
+  body.months-topic .complete-image-frame {
+    width: 145px;
+  }
+}
