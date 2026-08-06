@@ -238,6 +238,16 @@ if (
       ? days
       : []
 },
+{
+  id: "months",
+  icon: "🗓️",
+  italian: "I mesi dell'anno",
+  english: "Months of the Year",
+  vocabulary:
+    typeof months !== "undefined"
+      ? months
+      : []
+},
     {
       id: "time",
       icon: "🕒",

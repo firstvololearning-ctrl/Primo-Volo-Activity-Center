@@ -1017,6 +1017,72 @@ const days = [
     }
   }
 ];
+/* ========================================
+   MONTHS OF THE YEAR
+   ======================================== */
+
+const months = [
+  {
+    italian: "gennaio",
+    english: "January",
+    image: "images/months/january.png"
+  },
+  {
+    italian: "febbraio",
+    english: "February",
+    image: "images/months/february.png"
+  },
+  {
+    italian: "marzo",
+    english: "March",
+    image: "images/months/march.png"
+  },
+  {
+    italian: "aprile",
+    english: "April",
+    image: "images/months/april.png"
+  },
+  {
+    italian: "maggio",
+    english: "May",
+    image: "images/months/may.png"
+  },
+  {
+    italian: "giugno",
+    english: "June",
+    image: "images/months/june.png"
+  },
+  {
+    italian: "luglio",
+    english: "July",
+    image: "images/months/july.png"
+  },
+  {
+    italian: "agosto",
+    english: "August",
+    image: "images/months/august.png"
+  },
+  {
+    italian: "settembre",
+    english: "September",
+    image: "images/months/september.png"
+  },
+  {
+    italian: "ottobre",
+    english: "October",
+    image: "images/months/october.png"
+  },
+  {
+    italian: "novembre",
+    english: "November",
+    image: "images/months/november.png"
+  },
+  {
+    italian: "dicembre",
+    english: "December",
+    image: "images/months/december.png"
+  }
+];
 const weather = [
   {
     italian: "Fa caldo",
