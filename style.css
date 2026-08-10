@@ -3494,3 +3494,136 @@ body.months-topic
     width: 145px;
   }
 }
+/* ========================================
+   SOFTER / ROUNDED INTERFACE
+   ======================================== */
+
+/* Top utility navigation */
+.header-utilities {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+}
+
+.header-link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  min-height: 58px;
+  padding: 10px 16px;
+
+  border: 1px solid #d7dee9;
+  border-radius: 16px;
+
+  background: #ffffff;
+  color: #223d67;
+
+  font-weight: 700;
+  line-height: 1.15;
+  text-align: center;
+  text-decoration: none;
+
+  box-shadow: 0 3px 10px rgba(35, 61, 103, 0.08);
+
+  transition:
+    transform 0.15s ease,
+    box-shadow 0.15s ease,
+    border-color 0.15s ease;
+}
+
+.header-link:hover {
+  transform: translateY(-2px);
+  border-color: #9eb2cf;
+  box-shadow: 0 6px 16px rgba(35, 61, 103, 0.13);
+}
+
+
+/* Italy Explorer link */
+.companion-site-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  margin-top: 12px;
+  padding: 9px 18px;
+
+  border-radius: 999px;
+  background: #f2f6fb;
+
+  color: #274f86;
+  font-weight: 800;
+  text-decoration: none;
+}
+
+
+/* Topic selector */
+.topic-select {
+  border: 1.5px solid #cad5e3;
+  border-radius: 14px;
+
+  padding: 10px 14px;
+
+  background: white;
+  box-shadow: 0 2px 8px rgba(35, 61, 103, 0.06);
+}
+
+
+/* Activity menu */
+.activity-menu {
+  gap: 10px;
+}
+
+
+/* Activity cards */
+.activity-button {
+  border: 1px solid #e0e6ee;
+  border-radius: 18px;
+
+  background: #ffffff;
+
+  box-shadow: 0 3px 10px rgba(35, 61, 103, 0.06);
+
+  transition:
+    transform 0.15s ease,
+    box-shadow 0.15s ease,
+    border-color 0.15s ease,
+    background 0.15s ease;
+}
+
+.activity-button:not(:disabled):hover {
+  transform: translateY(-2px);
+  border-color: #b8c7da;
+  box-shadow: 0 6px 16px rgba(35, 61, 103, 0.11);
+}
+
+
+/* Selected activity */
+.activity-button.active {
+  border: 2px solid #d97865;
+  background: #fffaf8;
+
+  box-shadow: 0 5px 14px rgba(217, 120, 101, 0.12);
+}
+
+
+/* Disabled activities */
+.activity-button:disabled {
+  background: #f7f9fc;
+  border-color: #edf0f4;
+  box-shadow: none;
+  opacity: 0.58;
+}
+
+
+/* Topic selection area */
+.topic-selector-section {
+  border-radius: 0 0 22px 22px;
+}
+
+
+/* Slightly soften the step circle */
+.topic-step-number {
+  box-shadow: 0 3px 8px rgba(211, 101, 83, 0.18);
+}
