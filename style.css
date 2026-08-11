@@ -5527,3 +5527,408 @@ body.months-topic
   text-align: center;
 }
 
+/* ===== EXPANDED IMPARA SCENE STYLES ===== */
+
+#vocabularyGrid.scene-learn-mode {
+  display: block;
+}
+
+.impara-scene-shell {
+  width: min(1100px, 100%);
+  margin: 0 auto;
+}
+
+.impara-language-focus {
+  display: flex;
+  justify-content: center;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 8px;
+
+  margin: 0 auto 18px;
+  padding: 10px 16px;
+
+  width: fit-content;
+
+  border: 1px solid #d8e3ef;
+  border-radius: 999px;
+
+  background: #ffffff;
+}
+
+.impara-language-focus strong {
+  color: #274b84;
+  font-weight: 900;
+}
+
+.impara-language-focus span {
+  color: #718096;
+  font-size: 0.84rem;
+  font-weight: 700;
+}
+
+.impara-scene-grid {
+  display: grid;
+  grid-template-columns:
+    repeat(
+      auto-fit,
+      minmax(180px, 1fr)
+    );
+
+  gap: 14px;
+}
+
+.impara-scene-card {
+  position: relative;
+
+  width: 100%;
+  min-width: 0;
+
+  padding: 10px 10px 12px;
+
+  border: 1px solid #d8e3ef;
+  border-radius: 18px;
+
+  color: #223a60;
+  background: #ffffff;
+
+  box-shadow:
+    0 5px 14px rgba(39, 75, 132, 0.08);
+
+  text-align: center;
+  cursor: pointer;
+}
+
+.impara-scene-card:hover,
+.impara-scene-card:focus-visible {
+  transform: translateY(-2px);
+
+  border-color: #9fb9d8;
+
+  box-shadow:
+    0 8px 18px rgba(39, 75, 132, 0.13);
+}
+
+.impara-scene-image {
+  position: relative;
+  overflow: hidden;
+
+  width: 100%;
+  aspect-ratio: 1 / 1;
+
+  margin-bottom: 10px;
+
+  border-radius: 14px;
+
+  background: #fffaf3;
+}
+
+.impara-scene-image img {
+  display: block;
+
+  width: 100%;
+  height: 100%;
+
+  object-fit: cover;
+}
+
+.impara-scene-question {
+  margin: 0 0 3px;
+
+  color: #687991;
+
+  font-size: 0.82rem;
+  font-weight: 800;
+}
+
+.impara-scene-card .italian-word {
+  margin: 3px 0;
+
+  color: #274b84;
+
+  font-size: 0.98rem;
+  font-weight: 900;
+}
+
+.impara-scene-card .english-word {
+  margin: 2px 0 7px;
+
+  color: #718096;
+
+  font-size: 0.78rem;
+  font-weight: 700;
+}
+
+.scene-state-badge {
+  position: absolute;
+  top: 9px;
+  left: 9px;
+
+  padding: 5px 8px;
+
+  border-radius: 999px;
+
+  color: #274b84;
+  background: rgba(255, 255, 255, 0.92);
+
+  font-size: 0.68rem;
+  font-weight: 900;
+
+  box-shadow:
+    0 2px 6px rgba(0,0,0,.10);
+}
+
+.command-scene-hint {
+  margin: 7px 0 2px;
+
+  color: #66758d;
+
+  font-size: 0.72rem;
+  font-weight: 800;
+  line-height: 1.25;
+}
+
+.command-scene-hint span {
+  display: block;
+
+  margin-top: 2px;
+
+  font-weight: 600;
+}
+
+.impara-scene-section-heading {
+  margin: 24px 0 10px;
+
+  text-align: center;
+}
+
+.impara-scene-section-heading strong {
+  display: block;
+
+  color: #274b84;
+
+  font-size: 1rem;
+  font-weight: 900;
+}
+
+.impara-scene-section-heading span {
+  display: block;
+
+  margin-top: 3px;
+
+  color: #718096;
+
+  font-size: 0.8rem;
+  font-weight: 700;
+}
+
+.impara-extra-vocabulary-grid {
+  display: grid;
+
+  grid-template-columns:
+    repeat(
+      auto-fit,
+      minmax(160px, 1fr)
+    );
+
+  gap: 12px;
+}
+
+.impara-extra-vocabulary-grid
+.vocabulary-card {
+  width: 100%;
+}
+
+@media (max-width: 700px) {
+  .impara-scene-grid {
+    grid-template-columns:
+      repeat(2, minmax(0, 1fr));
+
+    gap: 10px;
+  }
+}
+
+@media (max-width: 430px) {
+  .impara-scene-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .impara-scene-card {
+    padding: 7px;
+  }
+
+  .impara-scene-card .italian-word {
+    font-size: 0.86rem;
+  }
+}
+
+/* ===== END EXPANDED IMPARA SCENE STYLES ===== */
+
+/* ========================================
+   SLIMMER ACTIVITY BUTTONS
+   ======================================== */
+
+.activity-menu .activity-button {
+  min-height: 72px;
+  padding: 6px 6px;
+}
+
+.activity-menu .activity-icon {
+  font-size: 1.2rem;
+  line-height: 1;
+}
+
+.activity-menu .activity-italian {
+  margin-top: 3px;
+  font-size: 0.86rem;
+}
+
+.activity-menu .activity-button small {
+  margin-top: 1px;
+  font-size: 0.68rem;
+  line-height: 1.1;
+}
+
+/* Keep comfortable touch targets on phones */
+@media (max-width: 480px) {
+  .activity-menu .activity-button {
+    min-height: 72px;
+  }
+}
+
+/* ========================================
+   SMALLER CLASSROOM REQUEST SCENES
+   ======================================== */
+
+.classroom-request-grid {
+  grid-template-columns: repeat(2, minmax(0, 270px));
+  justify-content: center;
+  gap: 18px;
+}
+
+.classroom-request-grid .impara-scene-card {
+  width: 100%;
+  max-width: 270px;
+}
+
+@media (max-width: 620px) {
+  .classroom-request-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .classroom-request-grid .impara-scene-card {
+    max-width: none;
+  }
+}
+
+/* Expanded Impara content spans the full vocabulary grid */
+.impara-scene-shell {
+  grid-column: 1 / -1;
+  margin-top: 24px;
+}
+
+/* ========================================
+   EXPANDED IMPARA TABS
+   ======================================== */
+
+.impara-subtabs {
+  display: flex;
+  justify-content: center;
+  align-items: stretch;
+  flex-wrap: wrap;
+
+  gap: 10px;
+
+  margin: 18px auto 24px;
+}
+
+.impara-subtab {
+  min-width: 180px;
+
+  padding: 9px 18px;
+
+  border: 1px solid #cad9ea;
+  border-radius: 999px;
+
+  color: #274b84;
+  background: #ffffff;
+
+  box-shadow:
+    0 3px 8px rgba(39, 75, 132, 0.06);
+
+  text-align: center;
+  cursor: pointer;
+}
+
+.impara-subtab strong {
+  display: block;
+
+  font-size: 0.92rem;
+  font-weight: 900;
+  line-height: 1.15;
+}
+
+.impara-subtab span {
+  display: block;
+
+  margin-top: 2px;
+
+  color: #718096;
+
+  font-size: 0.72rem;
+  font-weight: 700;
+  line-height: 1.1;
+}
+
+.impara-subtab:hover,
+.impara-subtab:focus-visible {
+  border-color: #8eafd4;
+
+  background: #f8fbff;
+}
+
+.impara-subtab.is-active {
+  border-color: #7fa7d6;
+
+  background: #eef5fc;
+
+  box-shadow:
+    0 4px 10px rgba(39, 75, 132, 0.10);
+}
+
+.impara-tab-panel {
+  width: min(1100px, 100%);
+
+  margin: 0 auto;
+}
+
+.impara-tab-panel[hidden] {
+  display: none !important;
+}
+
+.impara-tab-panel
+.impara-scene-shell {
+  margin-top: 0;
+}
+
+@media (max-width: 620px) {
+  .impara-subtabs {
+    gap: 7px;
+  }
+
+  .impara-subtab {
+    flex: 1 1 145px;
+
+    min-width: 0;
+
+    padding: 8px 10px;
+  }
+
+  .impara-subtab strong {
+    font-size: 0.82rem;
+  }
+
+  .impara-subtab span {
+    font-size: 0.66rem;
+  }
+}

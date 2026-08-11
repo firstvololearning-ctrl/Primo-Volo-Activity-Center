@@ -6689,3 +6689,692 @@ topicSelect.addEventListener(
 );
 
 updateCalendarTopicLayout();
+
+/* ===== EXPANDED IMPARA: WEATHER + CLASSROOM SCENES ===== */
+
+const primoVoloDefaultRenderVocabulary =
+  renderVocabulary;
+
+const primoVoloDefaultLearnInstructions =
+  learnInstructions
+    ? learnInstructions.innerHTML
+    : "";
+
+const imparaWeatherScenes = [
+  {
+    italian: "Fa caldo",
+    english: "It's hot",
+    image:
+      "images/scene-images/weather/hot.png"
+  },
+  {
+    italian: "Fa freddo",
+    english: "It's cold",
+    image:
+      "images/scene-images/weather/cold.png"
+  },
+  {
+    italian: "C'è il sole",
+    english: "It's sunny",
+    image:
+      "images/scene-images/weather/sunny.png"
+  },
+  {
+    italian: "È nuvoloso",
+    english: "It's cloudy",
+    image:
+      "images/scene-images/weather/cloudy.png"
+  },
+  {
+    italian: "Piove",
+    english: "It's raining",
+    image:
+      "images/scene-images/weather/rainy.png"
+  },
+  {
+    italian: "Nevica",
+    english: "It's snowing",
+    image:
+      "images/scene-images/weather/snowy.png"
+  },
+  {
+    italian: "C'è vento",
+    english: "It's windy",
+    image:
+      "images/scene-images/weather/windy.png"
+  },
+  {
+    italian: "C'è un temporale",
+    english: "It's stormy",
+    image:
+      "images/scene-images/weather/stormy.png"
+  }
+];
+
+const imparaClassroomScenes = [
+  {
+    type: "command",
+    italian: "Siediti!",
+    english: "Sit down!",
+    before:
+      "images/scene-images/classroom/siediti-before.png",
+    after:
+      "images/scene-images/classroom/siediti-after.png"
+  },
+  {
+    type: "command",
+    italian: "Sedetevi!",
+    english: "Sit down! (plural)",
+    before:
+      "images/scene-images/classroom/sedetevi-before.png",
+    after:
+      "images/scene-images/classroom/sedetevi-after.png"
+  },
+  {
+    type: "command",
+    italian: "Alzati!",
+    english: "Stand up!",
+    before:
+      "images/scene-images/classroom/alzati-before.png",
+    after:
+      "images/scene-images/classroom/alzati-after.png"
+  },
+  {
+    type: "command",
+    italian: "Alzatevi!",
+    english: "Stand up! (plural)",
+    before:
+      "images/scene-images/classroom/alzatevi-before.png",
+    after:
+      "images/scene-images/classroom/alzatevi-after.png"
+  },
+  {
+    type: "single",
+    italian: "Posso andare in bagno?",
+    english: "May I go to the bathroom?",
+    image:
+      "images/scene-images/classroom/posso-andare-in-bagno.png"
+  },
+  {
+    type: "single",
+    italian:
+      "Posso andare a prendere dell'acqua?",
+    english: "May I get some water?",
+    image:
+      "images/scene-images/classroom/posso-prendere-acqua.png"
+  }
+];
+
+function createWeatherSceneCard(item) {
+  const card =
+    document.createElement("button");
+
+  card.type = "button";
+  card.className =
+    "impara-scene-card weather-scene-card";
+
+  card.setAttribute(
+    "aria-label",
+    `Che tempo fa? ${item.italian}`
+  );
+
+  card.innerHTML = `
+    <div class="impara-scene-image">
+      <img
+        src="${item.image}"
+        alt="${item.english}"
+      >
+    </div>
+
+    <p class="impara-scene-question">
+      Che tempo fa?
+    </p>
+
+    <p class="italian-word">
+      ${item.italian}
+    </p>
+
+    <p class="english-word">
+      ${item.english}
+    </p>
+
+    <span
+      class="audio-icon"
+      aria-hidden="true"
+    >
+      🔊
+    </span>
+  `;
+
+  card.addEventListener(
+    "click",
+    () => {
+      speakItalian(
+        `Che tempo fa? ${item.italian}.`
+      );
+    }
+  );
+
+  return card;
+}
+
+function createClassroomSingleSceneCard(
+  item
+) {
+  const card =
+    document.createElement("button");
+
+  card.type = "button";
+  card.className =
+    "impara-scene-card classroom-scene-card";
+
+  card.setAttribute(
+    "aria-label",
+    `Hear ${item.italian}`
+  );
+
+  card.innerHTML = `
+    <div class="impara-scene-image">
+      <img
+        src="${item.image}"
+        alt="${item.english}"
+      >
+    </div>
+
+    <p class="italian-word">
+      ${item.italian}
+    </p>
+
+    <p class="english-word">
+      ${item.english}
+    </p>
+
+    <span
+      class="audio-icon"
+      aria-hidden="true"
+    >
+      🔊
+    </span>
+  `;
+
+  card.addEventListener(
+    "click",
+    () => {
+      speakItalian(item.italian);
+    }
+  );
+
+  return card;
+}
+
+function createClassroomCommandSceneCard(
+  item
+) {
+  const card =
+    document.createElement("button");
+
+  card.type = "button";
+  card.className =
+    "impara-scene-card command-scene-card";
+
+  card.dataset.state = "before";
+
+  card.setAttribute(
+    "aria-label",
+    `${item.italian} Tap to see the action.`
+  );
+
+  card.innerHTML = `
+    <div class="impara-scene-image">
+      <img
+        src="${item.before}"
+        alt="${item.english}"
+        class="command-scene-image"
+      >
+
+      <span class="scene-state-badge">
+        Prima · Before
+      </span>
+    </div>
+
+    <p class="italian-word">
+      ${item.italian}
+    </p>
+
+    <p class="english-word">
+      ${item.english}
+    </p>
+
+    <p class="command-scene-hint">
+      Tocca per vedere cosa succede.
+      <span>
+        Tap to see what happens.
+      </span>
+    </p>
+
+    <span
+      class="audio-icon"
+      aria-hidden="true"
+    >
+      🔊
+    </span>
+  `;
+
+  const image =
+    card.querySelector(
+      ".command-scene-image"
+    );
+
+  const badge =
+    card.querySelector(
+      ".scene-state-badge"
+    );
+
+  card.addEventListener(
+    "click",
+    () => {
+      speakItalian(item.italian);
+
+      const isBefore =
+        card.dataset.state === "before";
+
+      if (isBefore) {
+        image.src = item.after;
+        badge.textContent =
+          "Dopo · After";
+        card.dataset.state = "after";
+      } else {
+        image.src = item.before;
+        badge.textContent =
+          "Prima · Before";
+        card.dataset.state = "before";
+      }
+    }
+  );
+
+  return card;
+}
+
+function clearExpandedImparaTabs() {
+  document
+    .querySelectorAll("[data-expanded-impara-tabs]")
+    .forEach(el => el.remove());
+
+  document
+    .querySelectorAll("[data-expanded-impara-panel]")
+    .forEach(el => el.remove());
+
+  vocabularyGrid.style.display = "";
+}
+
+function installExpandedImparaTabs(items) {
+  const parent = vocabularyGrid.parentElement;
+
+  const tabBar = document.createElement("div");
+  tabBar.className = "impara-subtabs";
+  tabBar.dataset.expandedImparaTabs = "true";
+
+  parent.insertBefore(
+    tabBar,
+    vocabularyGrid
+  );
+
+  let insertionPoint = vocabularyGrid;
+
+  items.forEach((item, index) => {
+    const button =
+      document.createElement("button");
+
+    button.type = "button";
+    button.className = "impara-subtab";
+
+    button.innerHTML = `
+      <strong>${item.label}</strong>
+      ${
+        item.english
+          ? `<span>${item.english}</span>`
+          : ""
+      }
+    `;
+
+    button.setAttribute(
+      "aria-selected",
+      index === 0 ? "true" : "false"
+    );
+
+    if (index === 0) {
+      button.classList.add("is-active");
+    }
+
+    item.button = button;
+    tabBar.appendChild(button);
+
+    if (item.panel) {
+      item.panel.dataset.expandedImparaPanel =
+        "true";
+
+      item.panel.classList.add(
+        "impara-tab-panel"
+      );
+
+      item.panel.hidden = index !== 0;
+
+      insertionPoint.insertAdjacentElement(
+        "afterend",
+        item.panel
+      );
+
+      insertionPoint = item.panel;
+    }
+  });
+
+  function activateTab(key) {
+    items.forEach(item => {
+      const active = item.key === key;
+
+      item.button.classList.toggle(
+        "is-active",
+        active
+      );
+
+      item.button.setAttribute(
+        "aria-selected",
+        active ? "true" : "false"
+      );
+
+      if (item.key === "explore") {
+        vocabularyGrid.style.display =
+          active ? "" : "none";
+      }
+
+      if (item.panel) {
+        item.panel.hidden = !active;
+      }
+
+      if (
+        active &&
+        learnInstructions &&
+        item.instructions
+      ) {
+        learnInstructions.innerHTML =
+          item.instructions;
+      }
+    });
+  }
+
+  items.forEach(item => {
+    item.button.addEventListener(
+      "click",
+      () => activateTab(item.key)
+    );
+  });
+
+  activateTab(items[0].key);
+}
+
+function renderWeatherSceneLearn() {
+  clearExpandedImparaTabs();
+
+  if (learnInstructions) {
+    learnInstructions.innerHTML =
+      primoVoloDefaultLearnInstructions;
+  }
+
+  primoVoloDefaultRenderVocabulary();
+
+  const weatherPanel =
+    document.createElement("section");
+
+  const shell =
+    document.createElement("div");
+
+  shell.className =
+    "impara-scene-shell";
+
+  shell.innerHTML = `
+    <div class="impara-scene-section-heading">
+      <strong>
+        Guarda e ascolta · Look and listen
+      </strong>
+      <span>
+        Guarda la scena e ascolta
+        la domanda e la risposta.
+        · Look at the scene and listen
+        to the question and answer.
+      </span>
+    </div>
+
+    <div class="impara-language-focus">
+      <strong>
+        Che tempo fa?
+      </strong>
+
+      <span>
+        What is the weather like?
+      </span>
+    </div>
+  `;
+
+  const grid =
+    document.createElement("div");
+
+  grid.className =
+    "impara-scene-grid weather-scene-grid";
+
+  imparaWeatherScenes.forEach(item => {
+    grid.appendChild(
+      createWeatherSceneCard(item)
+    );
+  });
+
+  shell.appendChild(grid);
+  weatherPanel.appendChild(shell);
+
+  installExpandedImparaTabs([
+    {
+      key: "explore",
+      label: "📖 Esplora",
+      english: "Explore",
+      instructions:
+        primoVoloDefaultLearnInstructions
+    },
+    {
+      key: "weather-scenes",
+      label: "👀 Guarda e ascolta",
+      english: "Look & Listen",
+      panel: weatherPanel,
+      instructions:
+        primoVoloDefaultLearnInstructions
+    }
+  ]);
+}
+
+function renderClassroomSceneLearn() {
+  clearExpandedImparaTabs();
+
+  if (learnInstructions) {
+    learnInstructions.innerHTML =
+      primoVoloDefaultLearnInstructions;
+  }
+
+  primoVoloDefaultRenderVocabulary();
+
+  /* -------------------------
+     COMMANDS PANEL
+     ------------------------- */
+
+  const commandPanel =
+    document.createElement("section");
+
+  const commandShell =
+    document.createElement("div");
+
+  commandShell.className =
+    "impara-scene-shell";
+
+  commandShell.innerHTML = `
+    <div class="impara-scene-section-heading">
+      <strong>
+        Ascolta e guarda · Listen and watch
+      </strong>
+
+      <span>
+        I comandi cambiano la scena.
+        · The commands change the scene.
+      </span>
+    </div>
+  `;
+
+  const commandGrid =
+    document.createElement("div");
+
+  commandGrid.className =
+    "impara-scene-grid classroom-command-grid";
+
+  imparaClassroomScenes
+    .filter(item => item.type === "command")
+    .forEach(item => {
+      commandGrid.appendChild(
+        createClassroomCommandSceneCard(
+          item
+        )
+      );
+    });
+
+  commandShell.appendChild(commandGrid);
+  commandPanel.appendChild(commandShell);
+
+
+  /* -------------------------
+     WHAT CAN I SAY PANEL
+     ------------------------- */
+
+  const requestPanel =
+    document.createElement("section");
+
+  const requestShell =
+    document.createElement("div");
+
+  requestShell.className =
+    "impara-scene-shell";
+
+  requestShell.innerHTML = `
+    <div class="impara-scene-section-heading">
+      <strong>
+        Cosa posso dire?
+        · What can I say?
+      </strong>
+
+      <span>
+        Guarda la situazione
+        e ascolta cosa puoi dire.
+        · Look at the situation
+        and listen to what you can say.
+      </span>
+    </div>
+  `;
+
+  const requestGrid =
+    document.createElement("div");
+
+  requestGrid.className =
+    "impara-scene-grid classroom-request-grid";
+
+  imparaClassroomScenes
+    .filter(item => item.type === "single")
+    .forEach(item => {
+      requestGrid.appendChild(
+        createClassroomSingleSceneCard(
+          item
+        )
+      );
+    });
+
+  requestShell.appendChild(requestGrid);
+  requestPanel.appendChild(requestShell);
+
+
+  /* -------------------------
+     INSTALL CLASSROOM TABS
+     ------------------------- */
+
+  installExpandedImparaTabs([
+    {
+      key: "explore",
+      label: "📖 Esplora",
+      english: "Explore",
+      instructions:
+        primoVoloDefaultLearnInstructions
+    },
+    {
+      key: "commands",
+      label: "👀 Ascolta e guarda",
+      english: "Listen & Watch",
+      panel: commandPanel,
+      instructions: `
+        Ascolta il comando
+        e tocca la scena
+        per vedere cosa succede.
+        <span>
+          Listen to the command
+          and tap the scene
+          to see what happens.
+        </span>
+      `
+    },
+    {
+      key: "what-can-i-say",
+      label: "💬 Cosa posso dire?",
+      english: "What Can I Say?",
+      panel: requestPanel,
+      instructions: `
+        Guarda la situazione
+        e ascolta cosa puoi dire.
+        <span>
+          Look at the situation
+          and listen to what you can say.
+        </span>
+      `
+    }
+  ]);
+}
+
+/*
+  Override only Impara rendering for
+  Weather and Classroom Expressions.
+  All other topics and all scored
+  activities continue using the
+  existing system.
+*/
+
+renderVocabulary =
+  function renderExpandedImpara() {
+    if (
+      currentTopicKey === "weather"
+    ) {
+      renderWeatherSceneLearn();
+      return;
+    }
+
+    if (
+      currentTopicKey === "classroom"
+    ) {
+      renderClassroomSceneLearn();
+      return;
+    }
+
+    clearExpandedImparaTabs();
+
+    vocabularyGrid.classList.remove(
+      "scene-learn-mode"
+    );
+
+    if (learnInstructions) {
+      learnInstructions.innerHTML =
+        primoVoloDefaultLearnInstructions;
+    }
+
+    primoVoloDefaultRenderVocabulary();
+  };
+
+/* ===== END EXPANDED IMPARA: WEATHER + CLASSROOM SCENES ===== */
