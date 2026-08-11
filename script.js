@@ -7004,6 +7004,7 @@ function clearExpandedImparaTabs() {
     .querySelectorAll("[data-expanded-impara-panel]")
     .forEach(el => el.remove());
 
+  vocabularyGrid.hidden = false;
   vocabularyGrid.style.display = "";
 }
 
@@ -7083,6 +7084,9 @@ function installExpandedImparaTabs(items) {
       );
 
       if (item.key === "explore") {
+        vocabularyGrid.hidden =
+          !active;
+
         vocabularyGrid.style.display =
           active ? "" : "none";
       }
