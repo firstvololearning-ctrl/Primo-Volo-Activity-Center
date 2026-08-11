@@ -3879,3 +3879,243 @@ body.months-topic
   row-gap: 6px;
 }
 
+
+/* ========================================
+   VOLO FLIGHT PATH
+   ======================================== */
+
+.volo-flight-path {
+  width: min(1180px, 96%);
+  margin: -4px auto 18px;
+  padding: 14px 18px 16px;
+
+  border: 1px solid #dce5f0;
+  border-radius: 20px;
+
+  background: #ffffff;
+
+  box-shadow:
+    0 4px 14px
+    rgba(39, 75, 132, 0.07);
+}
+
+.volo-flight-path[hidden] {
+  display: none;
+}
+
+.flight-path-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+
+  margin-bottom: 7px;
+}
+
+.flight-path-title {
+  display: block;
+
+  color: var(--blue);
+  font-size: 1.03rem;
+  font-weight: 900;
+}
+
+.flight-path-subtitle {
+  display: block;
+
+  margin-top: 2px;
+
+  color: var(--muted);
+  font-size: 0.76rem;
+  font-weight: 700;
+}
+
+.flight-path-topic {
+  color: var(--blue-dark);
+
+  font-size: 0.82rem;
+  font-weight: 800;
+
+  text-align: right;
+}
+
+.flight-path-track {
+  display: flex;
+  align-items: flex-start;
+
+  width: 100%;
+  padding: 18px 2px 2px;
+
+  overflow-x: auto;
+  overflow-y: visible;
+
+  scrollbar-width: thin;
+}
+
+.flight-stop {
+  position: relative;
+
+  flex: 1 0 82px;
+  min-width: 82px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  padding: 0 5px;
+
+  border: 0;
+  background: transparent;
+
+  color: var(--blue-dark);
+
+  font: inherit;
+  text-align: center;
+
+  cursor: pointer;
+}
+
+/* Connecting line */
+.flight-stop:not(:last-child)::after {
+  content: "";
+
+  position: absolute;
+  z-index: 0;
+
+  top: 21px;
+  left: calc(50% + 22px);
+  width: calc(100% - 44px);
+  height: 3px;
+
+  border-radius: 999px;
+
+  background: #dbe4ef;
+}
+
+.flight-stop-node {
+  position: relative;
+  z-index: 2;
+
+  display: grid;
+  place-items: center;
+
+  width: 44px;
+  height: 44px;
+
+  border: 2px solid #cbd7e6;
+  border-radius: 50%;
+
+  background: #f8fbff;
+
+  font-size: 1.1rem;
+
+  transition:
+    transform 0.15s ease,
+    border-color 0.15s ease,
+    background 0.15s ease,
+    box-shadow 0.15s ease;
+}
+
+.flight-stop-label {
+  display: block;
+
+  max-width: 100px;
+  margin-top: 7px;
+
+  color: #52657f;
+
+  font-size: 0.72rem;
+  font-weight: 800;
+  line-height: 1.15;
+}
+
+.flight-stop:hover:not(:disabled)
+.flight-stop-node {
+  transform: translateY(-2px);
+
+  border-color: var(--blue);
+  background: #eef4fb;
+
+  box-shadow:
+    0 4px 10px
+    rgba(39, 75, 132, 0.12);
+}
+
+
+/* Current activity */
+.flight-stop.active
+.flight-stop-node {
+  border-color: var(--coral);
+  background: #fff6f2;
+
+  box-shadow:
+    0 0 0 4px
+    rgba(212, 108, 92, 0.11);
+}
+
+.flight-stop.active
+.flight-stop-label {
+  color: var(--blue);
+  font-weight: 900;
+}
+
+.flight-stop-plane {
+  position: absolute;
+  z-index: 4;
+
+  top: -18px;
+  left: 50%;
+
+  transform:
+    translateX(-50%)
+    rotate(-6deg);
+
+  font-size: 1.15rem;
+
+  filter:
+    drop-shadow(
+      0 2px 2px
+      rgba(39, 75, 132, 0.15)
+    );
+}
+
+
+/* Coming soon */
+.flight-stop.coming-soon {
+  opacity: 0.48;
+}
+
+
+/* Disabled */
+.flight-stop:disabled {
+  cursor: default;
+}
+
+
+/* Smaller screens */
+@media (max-width: 700px) {
+  .volo-flight-path {
+    width: calc(100% - 20px);
+    padding: 13px 12px 14px;
+  }
+
+  .flight-path-heading {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .flight-path-topic {
+    text-align: left;
+  }
+
+  .flight-stop {
+    flex-basis: 74px;
+    min-width: 74px;
+  }
+
+  .flight-stop-label {
+    font-size: 0.68rem;
+  }
+}
+
