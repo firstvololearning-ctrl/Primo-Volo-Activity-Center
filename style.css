@@ -6550,3 +6550,243 @@ body.hide-english
     height: 36px;
   }
 }
+
+/* ========================================
+   FEELINGS — DROP ZONE REFINEMENT
+   ======================================== */
+
+.feeling-drop-zone {
+  width: 104px;
+  height: 48px;
+
+  border-radius: 14px;
+
+  background: rgba(255,255,255,.56);
+
+  box-shadow:
+    0 0 0 2px rgba(39,75,132,.30),
+    0 3px 8px rgba(0,0,0,.10);
+}
+
+.feeling-drop-zone.is-matched {
+  background: rgba(70,160,100,.72);
+}
+
+@media (max-width: 520px) {
+  .feeling-drop-zone {
+    width: 82px;
+    height: 42px;
+  }
+}
+
+/* Five-item feelings bank */
+.feeling-token-bank {
+  grid-template-columns:
+    repeat(5, minmax(0, 1fr));
+}
+
+@media (max-width: 760px) {
+  .feeling-token-bank {
+    grid-template-columns:
+      repeat(3, minmax(0, 1fr));
+  }
+}
+
+/* ========================================
+   BALLOON COLOR SORT — LAYOUT FIX
+   ======================================== */
+
+.balloon-color-bins {
+  display: grid !important;
+  grid-template-columns: repeat(6, minmax(0, 1fr)) !important;
+  gap: 10px !important;
+  width: min(1050px, 96%) !important;
+  margin: 0 auto 24px !important;
+}
+
+.balloon-color-bin {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: flex-start !important;
+
+  min-width: 0 !important;
+  min-height: 120px !important;
+
+  padding: 0 !important;
+
+  border: 3px solid currentColor !important;
+  border-radius: 16px !important;
+
+  background: #fff !important;
+  overflow: hidden !important;
+}
+
+.balloon-color-bin > strong {
+  display: block !important;
+  width: 100% !important;
+
+  padding: 7px 4px !important;
+
+  text-align: center !important;
+  font-size: .82rem !important;
+  font-weight: 900 !important;
+}
+
+.balloon-color-bin > .expanded-result-english {
+  display: block !important;
+  margin-top: 2px !important;
+
+  font-size: .65rem !important;
+  text-align: center !important;
+}
+
+.balloon-bin-drop-area {
+  display: grid !important;
+  place-items: center !important;
+
+  width: 100% !important;
+  min-height: 75px !important;
+  flex: 1 !important;
+}
+
+.balloon-sort-divider {
+  margin: 8px auto 10px !important;
+  text-align: center !important;
+}
+
+.balloon-sort-tray {
+  display: grid !important;
+  grid-template-columns: repeat(6, minmax(0, 115px)) !important;
+  justify-content: center !important;
+  gap: 10px !important;
+
+  width: min(850px, 96%) !important;
+  margin: 0 auto !important;
+}
+
+.balloon-drag-card {
+  display: block !important;
+  width: 100% !important;
+  max-width: 115px !important;
+
+  padding: 6px !important;
+
+  border: 1px solid #dce5ef !important;
+  border-radius: 14px !important;
+
+  background: #fff !important;
+
+  cursor: grab !important;
+  touch-action: none !important;
+}
+
+.balloon-drag-card img {
+  display: block !important;
+
+  width: 100% !important;
+  height: 105px !important;
+
+  object-fit: contain !important;
+  pointer-events: none !important;
+}
+
+.sorted-balloon {
+  width: 62px !important;
+  height: 62px !important;
+  object-fit: contain !important;
+}
+
+
+/* Actual color identities */
+
+.color-rosso {
+  color: #d83b32 !important;
+  background: #fff7f6 !important;
+}
+
+.color-arancione {
+  color: #e97820 !important;
+  background: #fff9f3 !important;
+}
+
+.color-giallo {
+  color: #d3a000 !important;
+  background: #fffdf2 !important;
+}
+
+.color-verde {
+  color: #439447 !important;
+  background: #f7fcf7 !important;
+}
+
+.color-blu {
+  color: #3978bd !important;
+  background: #f5f9fe !important;
+}
+
+.color-viola {
+  color: #7950ad !important;
+  background: #faf7fd !important;
+}
+
+.color-rosa {
+  color: #d9578d !important;
+  background: #fff7fa !important;
+}
+
+.color-bianco {
+  color: #8390a0 !important;
+  background: #fff !important;
+}
+
+.color-nero {
+  color: #242424 !important;
+  background: #f7f7f7 !important;
+}
+
+.color-grigio {
+  color: #777 !important;
+  background: #fafafa !important;
+}
+
+.color-marrone {
+  color: #87512e !important;
+  background: #fcf8f5 !important;
+}
+
+
+/* Tablet */
+
+@media (max-width: 850px) {
+  .balloon-color-bins {
+    grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
+  }
+
+  .balloon-sort-tray {
+    grid-template-columns: repeat(4, minmax(0, 110px)) !important;
+  }
+}
+
+
+/* Phone */
+
+@media (max-width: 520px) {
+  .balloon-color-bins {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  }
+
+  .balloon-sort-tray {
+    grid-template-columns: repeat(3, minmax(0, 95px)) !important;
+  }
+
+  .balloon-drag-card img {
+    height: 90px !important;
+  }
+}
+
+/* Remove balloons from the tray after they are sorted */
+.balloon-drag-card.is-sorted {
+  visibility: hidden !important;
+  pointer-events: none !important;
+}

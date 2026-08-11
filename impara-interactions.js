@@ -339,52 +339,39 @@
 
   const bedroomHotspots = [
     {
+      italian: "la lampada",
+      english: "lamp",
+      sentence: "Nella camera c'è una lampada.",
+      x: 8,
+      y: 42
+    },
+    {
       italian: "il letto",
       english: "bed",
-      sentence:
-        "Nella camera c'è un letto.",
-      x: 29,
+      sentence: "Nella camera c'è un letto.",
+      x: 32,
       y: 57
     },
     {
       italian: "la finestra",
       english: "window",
-      sentence:
-        "Nella camera c'è una finestra.",
-      x: 67,
-      y: 23
+      sentence: "Nella camera c'è una finestra.",
+      x: 56,
+      y: 24
     },
     {
-      italian: "la lampada",
-      english: "lamp",
-      sentence:
-        "Nella camera c'è una lampada.",
-      x: 43,
-      y: 43
-    },
-    {
-      italian: "la libreria",
-      english: "bookcase",
-      sentence:
-        "Nella camera c'è una libreria.",
-      x: 84,
-      y: 40
-    },
-    {
-      italian: "la sedia",
-      english: "chair",
-      sentence:
-        "Nella camera c'è una sedia.",
-      x: 73,
-      y: 69
+      italian: "il comò",
+      english: "dresser",
+      sentence: "Nella camera c'è un comò.",
+      x: 79,
+      y: 53
     },
     {
       italian: "il tappeto",
       english: "rug",
-      sentence:
-        "Nella camera c'è un tappeto.",
-      x: 49,
-      y: 82
+      sentence: "Nella camera c'è un tappeto.",
+      x: 60,
+      y: 85
     }
   ];
 
@@ -529,42 +516,61 @@
      COLORS · LOW-STAKES SORT
      ======================================== */
 
-  const colorSortExamples = [
+  const colorSortItems = [
     {
-      italian: "la fragola",
-      english: "strawberry",
-      image: "images/food/food-15.png",
-      color: "rosso"
+      color: "rosso",
+      english: "red",
+      image: "images/scene-images/colors/balloons_separate/balloon-rosso.png"
     },
     {
-      italian: "l'arancia",
+      color: "arancione",
       english: "orange",
-      image: "images/food/food-02.png",
-      color: "arancione"
+      image: "images/scene-images/colors/balloons_separate/balloon-arancione.png"
     },
     {
-      italian: "la banana",
-      english: "banana",
-      image: "images/food/food-03.png",
-      color: "giallo"
+      color: "giallo",
+      english: "yellow",
+      image: "images/scene-images/colors/balloons_separate/balloon-giallo.png"
     },
     {
-      italian: "l'insalata",
-      english: "salad",
-      image: "images/food/food-13.png",
-      color: "verde"
+      color: "verde",
+      english: "green",
+      image: "images/scene-images/colors/balloons_separate/balloon-verde.png"
     },
     {
-      italian: "l'uva",
-      english: "grapes",
-      image: "images/food/food-07.png",
-      color: "viola"
+      color: "blu",
+      english: "blue",
+      image: "images/scene-images/colors/balloons_separate/balloon-blu.png"
     },
     {
-      italian: "il latte",
-      english: "milk",
-      image: "images/food/food-09.png",
-      color: "bianco"
+      color: "viola",
+      english: "purple",
+      image: "images/scene-images/colors/balloons_separate/balloon-viola.png"
+    },
+    {
+      color: "rosa",
+      english: "pink",
+      image: "images/scene-images/colors/balloons_separate/balloon-rosa.png"
+    },
+    {
+      color: "bianco",
+      english: "white",
+      image: "images/scene-images/colors/balloons_separate/balloon-bianco.png"
+    },
+    {
+      color: "nero",
+      english: "black",
+      image: "images/scene-images/colors/balloons_separate/balloon-nero.png"
+    },
+    {
+      color: "grigio",
+      english: "gray",
+      image: "images/scene-images/colors/balloons_separate/balloon-grigio.png"
+    },
+    {
+      color: "marrone",
+      english: "brown",
+      image: "images/scene-images/colors/balloons_separate/balloon-marrone.png"
     }
   ];
 
@@ -578,223 +584,301 @@
         </h4>
 
         <p>
-          Guarda l'oggetto e scegli il colore.
+          Trascina ogni palloncino
+          nel riquadro del colore giusto.
           <span class="expanded-result-english">
-            Look at the object and choose its color.
+            Drag each balloon into the matching color box.
           </span>
         </p>
       </div>
 
-      <div class="color-noticing-scenes">
-        <img
-          src="images/scene-images/colors/color-dogs.png"
-          alt="Dogs in different colors"
-        >
+      <div
+        class="balloon-color-bins"
+        aria-label="Color sorting boxes"
+      ></div>
 
-        <img
-          src="images/scene-images/colors/color-objects1.png"
-          alt="Familiar objects in different colors"
-        >
+      <div class="balloon-sort-divider">
+        <strong>
+          🎈 I palloncini
+        </strong>
+
+        <span class="expanded-result-english">
+          Balloons
+        </span>
       </div>
 
-      <div class="color-sort-workspace">
-        <div class="color-sort-object-wrap">
-          <button
-            type="button"
-            class="color-sort-object"
-            draggable="true"
-          >
-          </button>
-        </div>
-
-        <div
-          class="color-sort-buckets"
-          aria-label="Color choices"
-        ></div>
-      </div>
+      <div
+        class="balloon-sort-tray"
+        aria-label="Balloons to sort"
+      ></div>
     `;
 
-    const objectButton =
+    const bins =
       panel.querySelector(
-        ".color-sort-object"
+        ".balloon-color-bins"
       );
 
-    const buckets =
+    const tray =
       panel.querySelector(
-        ".color-sort-buckets"
+        ".balloon-sort-tray"
       );
 
     const result =
       makeSceneResult(
-        "Qual è il colore?",
-        "What color is it?"
+        "Trascina un palloncino.",
+        "Drag a balloon."
       );
 
     panel.appendChild(result);
 
-    const colorChoices = [
-      "rosso",
-      "arancione",
-      "giallo",
-      "verde",
-      "viola",
-      "bianco"
-    ];
+    let sortedCount = 0;
 
-    let index = 0;
-    let selected = false;
 
-    function currentItem() {
-      return colorSortExamples[
-        index % colorSortExamples.length
-      ];
-    }
+    /* -------------------------------------
+       CREATE THE 11 COLOR BOXES
+       ------------------------------------- */
 
-    function renderObject() {
-      const item =
-        currentItem();
+    colorSortItems.forEach(item => {
+      const bin =
+        document.createElement("div");
 
-      objectButton.innerHTML = `
-        <img
-          src="${item.image}"
-          alt="${item.english}"
-        >
+      bin.className =
+        `balloon-color-bin color-${item.color}`;
 
+      bin.dataset.color =
+        item.color;
+
+      bin.innerHTML = `
         <strong>
-          ${item.italian}
+          ${item.color}
         </strong>
 
         <span class="expanded-result-english">
           ${item.english}
         </span>
+
+        <div class="balloon-bin-drop-area"></div>
       `;
 
-      objectButton.classList.remove(
-        "is-selected"
-      );
+      bins.appendChild(bin);
+    });
 
-      selected = false;
 
-      setSceneResult(
-        result,
-        "Qual è il colore?",
-        "What color is it?"
-      );
-    }
+    /* -------------------------------------
+       CREATE THE 11 BALLOONS
+       ------------------------------------- */
 
-    function chooseColor(color) {
-      const item =
-        currentItem();
-
-      if (color !== item.color) {
-        setSceneResult(
-          result,
-          "Guarda ancora.",
-          "Look again."
-        );
-
-        return;
-      }
-
-      setSceneResult(
-        result,
-        `Sì! Il colore è ${item.color}.`,
-        `Yes! The color is ${item.color}.`
-      );
-
-      speakItalian(
-        `Il colore è ${item.color}.`
-      );
-
-      window.setTimeout(
-        () => {
-          index += 1;
-          renderObject();
-        },
-        800
-      );
-    }
-
-    objectButton.addEventListener(
-      "click",
-      () => {
-        selected = true;
-
-        objectButton.classList.add(
-          "is-selected"
-        );
-      }
-    );
-
-    objectButton.addEventListener(
-      "dragstart",
-      event => {
-        selected = true;
-
-        event.dataTransfer.setData(
-          "text/plain",
-          currentItem().color
-        );
-      }
-    );
-
-    colorChoices.forEach(color => {
-      const bucket =
+    colorSortItems.forEach(item => {
+      const card =
         document.createElement("button");
 
-      bucket.type = "button";
-      bucket.className =
-        "color-sort-bucket";
+      card.type = "button";
 
-      bucket.dataset.color =
-        color;
+      card.className =
+        "balloon-drag-card";
 
-      bucket.textContent =
-        color;
+      card.dataset.color =
+        item.color;
 
-      bucket.addEventListener(
-        "click",
-        () => {
-          if (!selected) {
-            objectButton.classList.add(
-              "needs-attention"
+      card.setAttribute(
+        "aria-label",
+        `${item.color} balloon`
+      );
+
+      card.innerHTML = `
+        <img
+          src="${item.image}"
+          alt=""
+          draggable="false"
+        >
+      `;
+
+      let startX = 0;
+      let startY = 0;
+      let dragging = false;
+
+      card.addEventListener(
+        "pointerdown",
+        event => {
+          if (
+            card.classList.contains(
+              "is-sorted"
+            )
+          ) {
+            return;
+          }
+
+          dragging = true;
+
+          startX =
+            event.clientX;
+
+          startY =
+            event.clientY;
+
+          card.classList.add(
+            "is-dragging"
+          );
+
+          card.setPointerCapture(
+            event.pointerId
+          );
+
+          event.preventDefault();
+        }
+      );
+
+      card.addEventListener(
+        "pointermove",
+        event => {
+          if (!dragging) return;
+
+          const dx =
+            event.clientX - startX;
+
+          const dy =
+            event.clientY - startY;
+
+          card.style.transform =
+            `translate(${dx}px, ${dy}px) scale(1.06)`;
+        }
+      );
+
+      card.addEventListener(
+        "pointerup",
+        event => {
+          if (!dragging) return;
+
+          dragging = false;
+
+          card.classList.remove(
+            "is-dragging"
+          );
+
+          const dropBins =
+            [...bins.querySelectorAll(
+              ".balloon-color-bin"
+            )];
+
+          const targetBin =
+            dropBins.find(bin => {
+              const rect =
+                bin.getBoundingClientRect();
+
+              return (
+                event.clientX >= rect.left &&
+                event.clientX <= rect.right &&
+                event.clientY >= rect.top &&
+                event.clientY <= rect.bottom
+              );
+            });
+
+          card.style.transform = "";
+
+          if (!targetBin) {
+            return;
+          }
+
+          if (
+            targetBin.dataset.color !==
+            item.color
+          ) {
+            targetBin.classList.add(
+              "try-again"
+            );
+
+            setSceneResult(
+              result,
+              "Prova ancora.",
+              "Try again."
             );
 
             window.setTimeout(
               () => {
-                objectButton.classList.remove(
-                  "needs-attention"
+                targetBin.classList.remove(
+                  "try-again"
                 );
               },
-              400
+              450
             );
 
             return;
           }
 
-          chooseColor(color);
+          const dropArea =
+            targetBin.querySelector(
+              ".balloon-bin-drop-area"
+            );
+
+          const placedBalloon =
+            document.createElement("img");
+
+          placedBalloon.src =
+            item.image;
+
+          placedBalloon.alt = "";
+
+          placedBalloon.className =
+            "sorted-balloon";
+
+          dropArea.appendChild(
+            placedBalloon
+          );
+
+          targetBin.classList.add(
+            "is-complete"
+          );
+
+          card.classList.add(
+            "is-sorted"
+          );
+
+          sortedCount += 1;
+
+          const sentence =
+            `Il palloncino è ${item.color}.`;
+
+          setSceneResult(
+            result,
+            sentence,
+            `The balloon is ${item.english}.`
+          );
+
+          speakItalian(sentence);
+
+          if (
+            sortedCount ===
+            colorSortItems.length
+          ) {
+            window.setTimeout(
+              () => {
+                setSceneResult(
+                  result,
+                  "Bravissimo! Hai raggruppato tutti i colori.",
+                  "Great job! You sorted all the colors."
+                );
+              },
+              600
+            );
+          }
         }
       );
 
-      bucket.addEventListener(
-        "dragover",
-        event => {
-          event.preventDefault();
+      card.addEventListener(
+        "pointercancel",
+        () => {
+          dragging = false;
+
+          card.classList.remove(
+            "is-dragging"
+          );
+
+          card.style.transform = "";
         }
       );
 
-      bucket.addEventListener(
-        "drop",
-        event => {
-          event.preventDefault();
-          chooseColor(color);
-        }
-      );
-
-      buckets.appendChild(bucket);
+      tray.appendChild(card);
     });
-
-    renderObject();
 
     return panel;
   }
@@ -833,33 +917,28 @@
   const feelingTargets = [
     {
       english: "happy",
-      x: 10,
-      y: 66
+      x: 22,
+      y: 35
     },
     {
       english: "sad",
-      x: 27,
-      y: 66
+      x: 50,
+      y: 35
     },
     {
       english: "angry",
-      x: 44,
-      y: 66
-    },
-    {
-      english: "confused",
-      x: 61,
-      y: 66
-    },
-    {
-      english: "surprised",
       x: 78,
-      y: 66
+      y: 35
     },
     {
       english: "scared",
-      x: 91,
-      y: 66
+      x: 32,
+      y: 76
+    },
+    {
+      english: "confused",
+      x: 68,
+      y: 76
     }
   ];
 
