@@ -1217,6 +1217,15 @@
       currentMainMode =
         "explore";
 
+      /*
+        Restore the normal Impara area when
+        leaving Clothing/Animals scene mode.
+        This prevents topics such as Casa
+        from inheriting a hidden vocabulary grid.
+      */
+      vocabularyGrid.hidden =
+        false;
+
       return;
     }
 

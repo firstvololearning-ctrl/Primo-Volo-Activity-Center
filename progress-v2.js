@@ -383,10 +383,14 @@
   function getExpectedModes(topicKey) {
     let modes;
 
-    if (
-      topicKey === "weather" ||
-      topicKey === "classroom"
-    ) {
+    if (topicKey === "weather") {
+      modes = BASE_EXPECTED_MODES.filter(
+        mode =>
+          mode !== "words-in-action"
+      );
+
+      modes.push("conversation-practice");
+    } else if (topicKey === "classroom") {
       modes = BASE_EXPECTED_MODES.filter(
         mode =>
           mode !== "words-in-action" &&

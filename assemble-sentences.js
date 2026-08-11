@@ -1041,6 +1041,15 @@ function getTopicCarrierPhrases() {
 }
 
 function chooseCarrierPhrase() {
+  if (currentTopicKey === "weather") {
+    return {
+      id: "weather",
+      italian: "",
+      english: "",
+      image: ""
+    };
+  }
+
   const phrases =
     getTopicCarrierPhrases();
 
@@ -1176,7 +1185,11 @@ function createCompleteSentence(item) {
   const sentenceItem =
     getSentenceItemText(item);
 
-  return `${starter} ${sentenceItem}.`;
+  return `${
+    [starter, sentenceItem]
+      .filter(Boolean)
+      .join(" ")
+  }.`;
 }
   function renderPlacedTokens() {
 
@@ -1510,6 +1523,28 @@ correctTokens =
     `;
 
  
+
+    if (currentTopicKey === "weather") {
+      const carrierVisual =
+        assembleActivity.querySelector(
+          ".assemble-carrier-visual"
+        );
+
+      const promptRow =
+        assembleActivity.querySelector(
+          ".assemble-prompt-row"
+        );
+
+      if (carrierVisual) {
+        carrierVisual.remove();
+      }
+
+      if (promptRow) {
+        promptRow.style.gridTemplateColumns =
+          "300px";
+        promptRow.style.columnGap = "0";
+      }
+    }
 
     renderPlacedTokens();
 

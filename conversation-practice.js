@@ -1142,15 +1142,24 @@
 
     /*
       Weather and classroom expressions use
-      Conversiamo instead of noun-based
-      carrier-phrase activities.
+      Conversiamo instead of Parole in azione.
+
+      Weather now ALSO supports Assembla
+      using complete weather expressions.
+
+      Classroom continues to hide Assembla
+      for now.
     */
+    const topicKey =
+      getCurrentTopicKey();
+
     if (wordsButton) {
       wordsButton.hidden = supported;
     }
 
     if (assembleButton) {
-      assembleButton.hidden = supported;
+      assembleButton.hidden =
+        topicKey === "classroom";
     }
 
     if (!supported) {
