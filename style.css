@@ -7978,3 +7978,290 @@ body.hide-english
   clip-path: none !important;
 }
 
+
+/* ========================================
+   EXPANDED IMPARA — SCHOOL SUPPLIES
+   ======================================== */
+
+.supplies-expanded-impara {
+  width: min(1080px, 100%);
+  margin: 0 auto 18px;
+}
+
+.supplies-impara-tabs {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 10px;
+
+  margin: 0 auto 20px;
+}
+
+.supplies-impara-tab {
+  min-width: 190px;
+
+  padding: 9px 20px;
+
+  border: 1.5px solid #cbdced;
+  border-radius: 999px;
+
+  color: #274b84;
+  background: #fff;
+
+  font: inherit;
+
+  cursor: pointer;
+
+  box-shadow:
+    0 3px 10px
+    rgba(39,75,132,.05);
+}
+
+.supplies-impara-tab strong,
+.supplies-impara-tab span {
+  display: block;
+}
+
+.supplies-impara-tab strong {
+  font-size: .96rem;
+  font-weight: 900;
+}
+
+.supplies-impara-tab span {
+  margin-top: 2px;
+
+  color: #718096;
+
+  font-size: .72rem;
+  font-weight: 700;
+}
+
+.supplies-impara-tab.is-active {
+  border-color: #77a6d9;
+
+  background: #f2f7fd;
+
+  box-shadow:
+    0 0 0 2px
+    rgba(119,166,217,.12);
+}
+
+
+/* ----------------------------------------
+   CLASSROOM SCENE
+   ---------------------------------------- */
+
+.supplies-scene-panel {
+  width: min(900px, 100%);
+  margin: 0 auto;
+}
+
+.supplies-scene-panel[hidden] {
+  display: none !important;
+}
+
+.supplies-classroom-scene {
+  position: relative;
+
+  overflow: hidden;
+
+  width: min(850px, 100%);
+  margin: 0 auto;
+
+  border: 1px solid #d9e3ee;
+  border-radius: 22px;
+
+  background: #fff;
+
+  box-shadow:
+    0 7px 20px
+    rgba(39,75,132,.08);
+}
+
+.supplies-scene-image {
+  display: block;
+
+  width: 100%;
+  height: auto;
+}
+
+.supplies-hotspot-layer {
+  position: absolute;
+  inset: 0;
+
+  z-index: 4;
+}
+
+.supplies-scene-hotspot {
+  position: absolute;
+
+  width: 38px;
+  height: 38px;
+
+  transform:
+    translate(-50%, -50%);
+
+  border:
+    3px solid
+    rgba(255,255,255,.96);
+
+  border-radius: 50%;
+
+  background:
+    rgba(39,75,132,.24);
+
+  box-shadow:
+    0 0 0 2px
+    rgba(39,75,132,.5),
+    0 3px 8px
+    rgba(0,0,0,.14);
+
+  cursor: pointer;
+}
+
+.supplies-scene-hotspot::after {
+  content:
+    attr(data-label);
+
+  position: absolute;
+
+  left: 50%;
+  bottom: calc(100% + 7px);
+
+  transform:
+    translateX(-50%);
+
+  padding: 5px 9px;
+
+  border-radius: 999px;
+
+  color: #274b84;
+  background:
+    rgba(255,255,255,.97);
+
+  box-shadow:
+    0 3px 9px
+    rgba(0,0,0,.12);
+
+  font-size: .68rem;
+  font-weight: 900;
+
+  white-space: nowrap;
+
+  opacity: 0;
+  pointer-events: none;
+}
+
+.supplies-scene-hotspot:hover::after,
+.supplies-scene-hotspot:focus-visible::after,
+.supplies-scene-hotspot.is-active::after {
+  opacity: 1;
+}
+
+.supplies-scene-hotspot.is-active {
+  background:
+    rgba(255,211,87,.7);
+
+  box-shadow:
+    0 0 0 4px
+    rgba(255,211,87,.3),
+    0 3px 8px
+    rgba(0,0,0,.15);
+}
+
+
+/* ----------------------------------------
+   ERASER OVERLAY
+   The generated classroom omitted it.
+   ---------------------------------------- */
+
+.supplies-scene-overlay {
+  position: absolute;
+
+  z-index: 3;
+
+  width: 9%;
+
+  transform:
+    translate(-50%, -50%);
+
+  object-fit: contain;
+
+  filter:
+    drop-shadow(
+      0 3px 4px
+      rgba(0,0,0,.12)
+    );
+
+  pointer-events: none;
+}
+
+
+/* ----------------------------------------
+   RESULT
+   ---------------------------------------- */
+
+.supplies-scene-result {
+  width: min(620px, 94%);
+
+  margin: 14px auto 0;
+  padding: 11px 16px;
+
+  border: 1px solid #d7e2ee;
+  border-radius: 15px;
+
+  background: #f8fbfe;
+
+  text-align: center;
+}
+
+.supplies-scene-result strong {
+  display: block;
+
+  color: #274b84;
+
+  font-size: 1rem;
+  font-weight: 900;
+}
+
+.supplies-scene-result span {
+  display: block;
+
+  margin-top: 2px;
+
+  color: #718096;
+
+  font-size: .79rem;
+  font-weight: 700;
+}
+
+body.hide-english
+.supplies-result-english {
+  display: none !important;
+}
+
+
+/* ----------------------------------------
+   RESPONSIVE
+   ---------------------------------------- */
+
+@media (max-width: 620px) {
+
+  .supplies-impara-tab {
+    min-width: 0;
+    flex: 1 1 150px;
+
+    padding:
+      8px 12px;
+  }
+
+  .supplies-scene-hotspot {
+    width: 31px;
+    height: 31px;
+  }
+
+  .supplies-scene-overlay {
+    width: 11%;
+  }
+}
+
