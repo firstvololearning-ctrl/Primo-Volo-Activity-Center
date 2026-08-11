@@ -327,11 +327,34 @@
     );
   }
 
+  function clearSuppliesPanel() {
+    const wrapper =
+      document.getElementById(
+        "suppliesExpandedImpara"
+      );
+
+    if (wrapper) {
+      wrapper.remove();
+    }
+
+    const grid =
+      document.getElementById(
+        "vocabularyGrid"
+      );
+
+    if (grid) {
+      grid.style.display = "";
+    }
+  }
+
   function init() {
     const grid =
       getSuppliesGrid();
 
-    if (!grid) return;
+    if (!grid) {
+      clearSuppliesPanel();
+      return;
+    }
 
     buildPanel(grid);
   }
