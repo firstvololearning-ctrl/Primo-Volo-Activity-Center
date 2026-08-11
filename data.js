@@ -320,7 +320,7 @@ const prepositions = [
   },
   {
     italian: "sopra",
-    english: "over",
+    english: "above",
     sentenceTail: "sopra la scatola",
     image: "images/prepositions/over.png"
   },

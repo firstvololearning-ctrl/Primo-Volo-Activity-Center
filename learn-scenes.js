@@ -60,7 +60,7 @@
   const sceneConfigs = {
     clothing: {
       image:
-        "images/scene-images/clothing.png",
+        "images/scene-images/clothing/clothing.png",
 
       visibleItalian: [
         "la felpa",
@@ -878,7 +878,7 @@
           class="learn-scene-next"
           hidden
         >
-          Avanti · Next →
+          Avanti <span class="expanded-inline-english">· Next</span> →
         </button>
 
         <p

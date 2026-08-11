@@ -845,7 +845,7 @@
           class="learn-sort-next"
           hidden
         >
-          Avanti · Next →
+          Avanti <span class="expanded-inline-english">· Next</span> →
         </button>
 
       </div>

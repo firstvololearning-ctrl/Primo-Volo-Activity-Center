@@ -8265,3 +8265,100 @@ body.hide-english
   }
 }
 
+/* GLOBAL EXPANDED IMPARA ENGLISH TOGGLE */
+
+body.hide-english
+#learnInstructions span,
+
+body.hide-english
+.impara-subtab span,
+
+body.hide-english
+.impara-language-focus > span,
+
+body.hide-english
+.expanded-result-english,
+
+body.hide-english
+.expanded-scene-result > span,
+
+body.hide-english
+.expanded-inline-english,
+
+body.hide-english
+.quick-impara-tab small,
+
+body.hide-english
+.supplies-impara-tab span,
+
+body.hide-english
+.supplies-result-english,
+
+body.hide-english
+.learn-mode-button small,
+
+body.hide-english
+.learn-sort-heading > span,
+
+body.hide-english
+.learn-sort-directions > span,
+
+body.hide-english
+.learn-sort-category > span,
+
+body.hide-english
+.learn-sort-feedback > span,
+
+body.hide-english
+.learn-sort-complete > span,
+
+body.hide-english
+.learn-sort-next-round small,
+
+body.hide-english
+.learn-sort-practice-note > span,
+
+body.hide-english
+.learn-sort-message span,
+
+body.hide-english
+.learn-scene-main-button small,
+
+body.hide-english
+.learn-scene-heading > span,
+
+body.hide-english
+.learn-scene-level-button small,
+
+body.hide-english
+.learn-scene-select-note > span,
+
+body.hide-english
+.learn-scene-choice > span,
+
+body.hide-english
+.learn-scene-feedback > span,
+
+body.hide-english
+.learn-scene-english-model,
+
+body.hide-english
+.learn-scene-practice-note > span,
+
+body.hide-english
+.learn-scene-complete > span,
+
+body.hide-english
+.learn-scene-next-round small,
+
+body.hide-english
+.learn-scene-message span,
+
+body.hide-english
+.command-scene-hint span,
+
+body.hide-english
+.color-sort-object > span {
+  display: none !important;
+}
+

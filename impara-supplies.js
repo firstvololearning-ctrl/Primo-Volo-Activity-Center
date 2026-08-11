@@ -23,18 +23,13 @@
   const SCENE =
     "images/scene-images/supplies/supplies1.png";
 
-  function speakItalian(text) {
-    if (!("speechSynthesis" in window)) return;
-
-    speechSynthesis.cancel();
-
-    const utterance =
-      new SpeechSynthesisUtterance(text);
-
-    utterance.lang = "it-IT";
-    utterance.rate = 0.82;
-
-    speechSynthesis.speak(utterance);
+  function speak(text) {
+    if (
+      typeof speakItalian ===
+      "function"
+    ) {
+      speakItalian(text);
+    }
   }
 
   function getSuppliesGrid() {
@@ -118,7 +113,7 @@
           </span>
         `;
 
-        speakItalian(item.it);
+        speak(item.it);
       }
     );
 
