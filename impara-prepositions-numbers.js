@@ -138,21 +138,21 @@
       italian: "su",
       english: "on",
       sentence:
-        "La palla è sulla scatola."
+        "La palla è sul tavolo."
     },
     {
       id: "sotto",
       italian: "sotto",
       english: "under",
       sentence:
-        "La palla è sotto la scatola."
+        "La palla è sotto il tavolo."
     },
     {
       id: "sopra",
       italian: "sopra",
       english: "above",
       sentence:
-        "La palla è sopra la scatola."
+        "La palla è sopra il tavolo."
     },
     {
       id: "davanti",
@@ -266,11 +266,11 @@
         aria-live="polite"
       >
         <strong>
-          La palla è sulla scatola.
+          La palla è sul tavolo.
         </strong>
 
         <span>
-          The ball is on the box.
+          The ball is on the table.
         </span>
       </div>
     `;
@@ -332,11 +332,11 @@
             in:
               "The ball is in the box.",
             su:
-              "The ball is on the box.",
+              "The ball is on the table.",
             sotto:
-              "The ball is under the box.",
+              "The ball is under the table.",
             sopra:
-              "The ball is above the box.",
+              "The ball is above the table.",
             davanti:
               "The ball is in front of the box.",
             dietro:

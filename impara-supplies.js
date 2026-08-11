@@ -16,7 +16,6 @@
     { n: "09", it: "il righello", en: "ruler", x: 88.8, y: 83.0 },
     { n: "10", it: "la spillatrice", en: "stapler", x: 83.3, y: 42.7 },
     { n: "11", it: "il nastro adesivo", en: "tape", x: 93.9, y: 48.5 },
-    { n: "12", it: "la gomma", en: "eraser", x: 91, y: 70, overlay: true },
     { n: "13", it: "lo zaino", en: "backpack", x: 6.1, y: 81.8 },
     { n: "14", it: "il quaderno", en: "notebook", x: 14.0, y: 39.0 }
   ];
