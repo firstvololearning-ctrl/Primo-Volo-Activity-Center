@@ -4346,12 +4346,63 @@ body.months-topic
 }
 
 
-.flight-path-instruction::after {
-  content: "Blu = praticato · Blue = practiced   •   Corallo = attività attuale · Coral = current activity";
-  display: block;
-  margin-top: 4px;
-  color: #7a8799;
-  font-size: 0.68rem;
-  font-weight: 650;
+/* ========================================
+   FLIGHT PATH — PRACTICE, NOT COMPLETION
+   ======================================== */
+
+/* Practiced at least once = subtle trace */
+.flight-stop.practiced:not(.active)
+.flight-stop-node {
+  border-color: #b7cae3;
+  background: #f2f6fb;
+  box-shadow: none;
+}
+
+/* Small blue practice dot */
+.flight-stop.practiced:not(.active)
+.flight-stop-node::after {
+  content: "";
+  position: absolute;
+  right: -2px;
+  bottom: -2px;
+
+  width: 9px;
+  height: 9px;
+
+  border: 2px solid #ffffff;
+  border-radius: 50%;
+
+  background: #557cae;
+}
+
+/* Keep practiced label understated */
+.flight-stop.practiced:not(.active)
+.flight-stop-label {
+  color: #465f80;
+  font-weight: 800;
+}
+
+/* Connecting line shows experience, not completion */
+.flight-stop.segment-complete:not(:last-child)::after {
+  background: #b7cae3;
+}
+
+/* Current activity remains clearly coral */
+.flight-stop.active
+.flight-stop-node,
+.flight-stop.active.practiced
+.flight-stop-node {
+  border-color: var(--coral);
+  background: #fff7f3;
+
+  box-shadow:
+    0 0 0 4px
+    rgba(212, 108, 92, 0.11);
+}
+
+/* Don't show the practice dot on the current stop */
+.flight-stop.active
+.flight-stop-node::after {
+  display: none;
 }
 

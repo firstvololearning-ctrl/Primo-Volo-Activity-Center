@@ -239,10 +239,7 @@
         </span>
 
         <span class="flight-path-instruction">
-          Il tuo percorso di pratica
-          <small>
-            Your practice progress
-          </small>
+          Il tuo percorso di pratica · Your practice progress
         </span>
       </div>
 
