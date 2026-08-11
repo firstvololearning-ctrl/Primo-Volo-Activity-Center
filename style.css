@@ -4119,3 +4119,239 @@ body.months-topic
   }
 }
 
+
+/* ========================================
+   VOLO FLIGHT PATH — PRACTICED STATES
+   ======================================== */
+
+.flight-path-heading-right {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 3px;
+}
+
+.flight-path-legend {
+  color: #66758d;
+  font-size: 0.7rem;
+  font-weight: 700;
+}
+
+
+/* Practiced activity */
+.flight-stop.practiced
+.flight-stop-node {
+  border-color: #4f9365;
+  background: #eef8f1;
+}
+
+
+/* Small completion check */
+.flight-stop-check {
+  position: absolute;
+  right: -5px;
+  bottom: -4px;
+
+  display: grid;
+  place-items: center;
+
+  width: 19px;
+  height: 19px;
+
+  border: 2px solid white;
+  border-radius: 50%;
+
+  color: white;
+  background: #4f9365;
+
+  font-size: 0.68rem;
+  font-weight: 900;
+
+  box-shadow:
+    0 2px 5px
+    rgba(39, 75, 132, 0.16);
+}
+
+
+/* Fill the route between practiced stops */
+.flight-stop.segment-complete:not(:last-child)::after {
+  background: #8db8a0;
+}
+
+
+/*
+  Current + practiced can appear
+  together. Keep the coral current
+  outline so the learner can still
+  see where Volo is.
+*/
+.flight-stop.active.practiced
+.flight-stop-node {
+  border-color: var(--coral);
+  background: #fff7f3;
+
+  box-shadow:
+    0 0 0 4px
+    rgba(212, 108, 92, 0.11);
+}
+
+
+/* Coming-soon stop is not clickable */
+.flight-stop.coming-soon {
+  opacity: 0.42;
+  cursor: default;
+}
+
+
+@media (max-width: 700px) {
+  .flight-path-heading-right {
+    align-items: flex-start;
+  }
+}
+
+
+/* ========================================
+   FLIGHT PATH — CLEANER PRACTICE STATES
+   ======================================== */
+
+/* Match the width of the activity area more closely */
+.volo-flight-path {
+  width: 100%;
+  max-width: 1800px;
+}
+
+/* Remove the permanent practiced legend */
+.flight-path-legend {
+  display: none !important;
+}
+
+/* Do not use a check badge for practice */
+.flight-stop-check {
+  display: none !important;
+}
+
+/* Unpracticed = quiet/pale */
+.flight-stop:not(.practiced):not(.active)
+.flight-stop-node {
+  border-color: #cbd7e6;
+  background: #f8fbff;
+}
+
+/* Practiced = First Volo blue */
+.flight-stop.practiced:not(.active)
+.flight-stop-node {
+  border-color: var(--blue);
+  background: #edf3fb;
+
+  box-shadow:
+    0 3px 9px
+    rgba(39, 75, 132, 0.10);
+}
+
+.flight-stop.practiced:not(.active)
+.flight-stop-label {
+  color: var(--blue);
+  font-weight: 900;
+}
+
+/* Current activity always stays coral */
+.flight-stop.active
+.flight-stop-node,
+.flight-stop.active.practiced
+.flight-stop-node {
+  border-color: var(--coral);
+  background: #fff7f3;
+
+  box-shadow:
+    0 0 0 4px
+    rgba(212, 108, 92, 0.11);
+}
+
+/* Practiced route */
+.flight-stop.segment-complete:not(:last-child)::after {
+  background: #87a6ce;
+}
+
+
+/* ========================================
+   ACTIVITY FOCUS — MATCH FLIGHT PATH
+   ======================================== */
+
+.activity-button:focus-visible {
+  outline: 3px solid rgba(212, 108, 92, 0.28);
+  outline-offset: 2px;
+}
+
+.activity-button.active {
+  border-color: var(--coral);
+  background: #fff8f5;
+}
+
+
+/* ========================================
+   FLIGHT PATH — DISPLAY ONLY
+   ======================================== */
+
+.flight-path-instruction {
+  display: block;
+  margin-top: 5px;
+
+  color: #52657f;
+  font-size: 0.78rem;
+  font-weight: 800;
+  line-height: 1.25;
+}
+
+.flight-path-instruction small {
+  display: block;
+  margin-top: 1px;
+
+  color: var(--muted);
+  font-size: 0.72rem;
+  font-weight: 650;
+}
+
+/* Flight Path is a progress display, not navigation */
+.flight-stop {
+  cursor: default !important;
+}
+
+/* Remove the clickable-looking hover effect */
+.flight-stop:hover:not(:disabled)
+.flight-stop-node {
+  transform: none;
+  border-color: #cbd7e6;
+  background: #f8fbff;
+  box-shadow: none;
+}
+
+/* Preserve practiced appearance on hover */
+.flight-stop.practiced:hover
+.flight-stop-node {
+  border-color: var(--blue);
+  background: #edf3fb;
+}
+
+/* Preserve current location appearance on hover */
+.flight-stop.active:hover
+.flight-stop-node,
+.flight-stop.active.practiced:hover
+.flight-stop-node {
+  border-color: var(--coral);
+  background: #fff7f3;
+
+  box-shadow:
+    0 0 0 4px
+    rgba(212, 108, 92, 0.11);
+}
+
+
+.flight-path-instruction::after {
+  content: "Blu = praticato · Blue = practiced   •   Corallo = attività attuale · Coral = current activity";
+  display: block;
+  margin-top: 4px;
+  color: #7a8799;
+  font-size: 0.68rem;
+  font-weight: 650;
+}
+
