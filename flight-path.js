@@ -113,13 +113,34 @@
         topicKey
       ] = {
         practiced: [],
-        updatedAt: null
+        available: [],
+        updatedAt: null,
+        availabilityUpdatedAt: null
       };
     }
 
-    return practiceData.byTopic[
-      topicKey
-    ];
+    const topicData =
+      practiceData.byTopic[
+        topicKey
+      ];
+
+    if (
+      !Array.isArray(
+        topicData.practiced
+      )
+    ) {
+      topicData.practiced = [];
+    }
+
+    if (
+      !Array.isArray(
+        topicData.available
+      )
+    ) {
+      topicData.available = [];
+    }
+
+    return topicData;
   }
 
   function getPracticedModes(
@@ -298,6 +319,99 @@
     );
   }
 
+  function getEligibleActivityModes(
+    buttons = getVisibleActivityButtons()
+  ) {
+    return [
+      ...new Set(
+        buttons
+          .filter(button => {
+            const mode =
+              button.dataset.mode;
+
+            return (
+              mode &&
+              mode !== "sentences" &&
+              !button.disabled &&
+              button.getAttribute(
+                "aria-disabled"
+              ) !== "true" &&
+              !button.classList.contains(
+                "coming-soon"
+              )
+            );
+          })
+          .map(
+            button =>
+              button.dataset.mode
+          )
+      )
+    ];
+  }
+
+  function sameModeList(
+    first,
+    second
+  ) {
+    return (
+      JSON.stringify(
+        [...first].sort()
+      ) ===
+      JSON.stringify(
+        [...second].sort()
+      )
+    );
+  }
+
+  function saveAvailableModes(
+    topicKey,
+    buttons
+  ) {
+    const topicData =
+      ensureTopicPractice(
+        topicKey
+      );
+
+    const availableModes =
+      getEligibleActivityModes(
+        buttons
+      );
+
+    if (
+      !sameModeList(
+        topicData.available,
+        availableModes
+      )
+    ) {
+      topicData.available =
+        availableModes;
+
+      topicData.availabilityUpdatedAt =
+        new Date().toISOString();
+
+      savePracticeData();
+    }
+
+    return availableModes;
+  }
+
+  window.getVoloAvailableModesForTopic =
+    function getVoloAvailableModesForTopic(
+      topicKey
+    ) {
+      const topicData =
+        practiceData.byTopic[
+          topicKey
+        ];
+
+      return Array.isArray(
+        topicData?.available
+      )
+        ? [...topicData.available]
+        : [];
+    };
+
+
   function getButtonIcon(button) {
     return (
       button.querySelector(
@@ -346,6 +460,11 @@
 
     const buttons =
       getVisibleActivityButtons();
+
+    saveAvailableModes(
+      topicKey,
+      buttons
+    );
 
     const practicedModes =
       getPracticedModes(
