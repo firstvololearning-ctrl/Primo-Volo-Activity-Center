@@ -6790,3 +6790,1191 @@ body.hide-english
   visibility: hidden !important;
   pointer-events: none !important;
 }
+
+
+/* ========================================
+   EXPANDED IMPARA
+   PREPOSITIONS + NUMBERS
+   ======================================== */
+
+.quick-impara-tabs {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 10px;
+
+  margin: 12px auto 22px;
+}
+
+.quick-impara-tab {
+  min-width: 180px;
+
+  padding: 9px 18px;
+
+  border: 1px solid #cbd9ea;
+  border-radius: 999px;
+
+  color: #274b84;
+  background: white;
+
+  font: inherit;
+  font-weight: 900;
+
+  cursor: pointer;
+}
+
+.quick-impara-tab small {
+  display: block;
+
+  margin-top: 2px;
+
+  color: #718096;
+
+  font-size: .7rem;
+}
+
+.quick-impara-tab.active {
+  border-color: #78a4d5;
+
+  background: #f3f8fe;
+
+  box-shadow:
+    0 0 0 2px rgba(120,164,213,.12);
+}
+
+
+/* ========================================
+   PREPOSITIONS
+   ======================================== */
+
+.quick-prep-panel {
+  width: min(980px, 96%);
+
+  margin: 0 auto;
+}
+
+.quick-prep-buttons {
+  display: grid;
+
+  grid-template-columns:
+    repeat(5, minmax(0, 1fr));
+
+  gap: 8px;
+
+  width: min(900px, 100%);
+
+  margin: 0 auto 18px;
+}
+
+.quick-prep-button {
+  min-height: 58px;
+
+  padding: 7px 8px;
+
+  border: 1px solid #ccd9e8;
+  border-radius: 14px;
+
+  color: #274b84;
+  background: white;
+
+  font: inherit;
+
+  cursor: pointer;
+}
+
+.quick-prep-button strong,
+.quick-prep-button small {
+  display: block;
+}
+
+.quick-prep-button strong {
+  font-size: .9rem;
+  font-weight: 900;
+}
+
+.quick-prep-button small {
+  margin-top: 2px;
+
+  color: #718096;
+
+  font-size: .65rem;
+  font-weight: 700;
+}
+
+.quick-prep-button.active {
+  border-color: #6e9fd2;
+
+  background: #f1f7fd;
+
+  box-shadow:
+    0 0 0 3px rgba(110,159,210,.14);
+}
+
+.quick-prep-stage {
+  position: relative;
+
+  overflow: hidden;
+
+  width: min(680px, 100%);
+  height: 380px;
+
+  margin: 0 auto;
+
+  border: 1px solid #ded8cf;
+  border-radius: 22px;
+
+  background:
+    linear-gradient(
+      to bottom,
+      #fff9ef 0 67%,
+      #d5a06c 67% 100%
+    );
+
+  box-shadow:
+    0 7px 20px rgba(39,75,132,.08);
+}
+
+
+/*
+  Clay-like reference box.
+*/
+
+.quick-prep-box {
+  position: absolute;
+
+  left: 50%;
+  top: 56%;
+
+  z-index: 3;
+
+  width: 190px;
+  height: 130px;
+
+  transform:
+    translate(-50%, -50%);
+}
+
+.quick-prep-box-inside {
+  position: absolute;
+  inset: 0;
+
+  border: 14px solid #b97742;
+  border-radius: 16px;
+
+  background: #d99a62;
+
+  box-shadow:
+    inset 0 8px 10px rgba(80,42,18,.16),
+    0 12px 18px rgba(73,44,25,.16);
+}
+
+.quick-prep-box-front {
+  position: absolute;
+
+  left: 0;
+  right: 0;
+  bottom: 0;
+
+  z-index: 6;
+
+  height: 63%;
+
+  border-radius:
+    0 0 15px 15px;
+
+  background:
+    linear-gradient(
+      #cb864f,
+      #b96e38
+    );
+
+  box-shadow:
+    inset 0 5px 7px rgba(255,255,255,.12);
+}
+
+
+/*
+  Movable ball.
+*/
+
+.quick-prep-ball {
+  position: absolute;
+
+  left: 50%;
+  top: 30%;
+
+  z-index: 8;
+
+  width: 68px;
+  height: 68px;
+
+  transform:
+    translate(-50%, -50%);
+
+  border-radius: 50%;
+
+  background:
+    radial-gradient(
+      circle at 35% 28%,
+      #ff786e 0 10%,
+      #e9483e 38%,
+      #c52e28 100%
+    );
+
+  box-shadow:
+    inset -8px -8px 12px
+      rgba(120,20,20,.16),
+    0 8px 12px
+      rgba(50,30,20,.18);
+
+  transition:
+    left .34s ease,
+    top .34s ease,
+    transform .34s ease,
+    opacity .2s ease;
+}
+
+
+/* IN */
+
+.quick-prep-ball[data-position="in"] {
+  left: 50%;
+  top: 57%;
+
+  z-index: 5;
+}
+
+
+/* SU = touching the box */
+
+.quick-prep-ball[data-position="su"] {
+  left: 50%;
+  top: 32%;
+
+  z-index: 8;
+}
+
+
+/* SOTTO */
+
+.quick-prep-ball[data-position="sotto"] {
+  left: 50%;
+  top: 84%;
+
+  z-index: 8;
+}
+
+
+/* SOPRA = clear space */
+
+.quick-prep-ball[data-position="sopra"] {
+  left: 50%;
+  top: 14%;
+
+  z-index: 8;
+}
+
+
+/* DAVANTI */
+
+.quick-prep-ball[data-position="davanti"] {
+  left: 50%;
+  top: 66%;
+
+  z-index: 10;
+}
+
+
+/* DIETRO */
+
+.quick-prep-ball[data-position="dietro"] {
+  left: 48%;
+  top: 48%;
+
+  z-index: 2;
+}
+
+
+/* ACCANTO */
+
+.quick-prep-ball[data-position="accanto"] {
+  left: 69%;
+  top: 57%;
+
+  z-index: 8;
+}
+
+
+/* VICINO */
+
+.quick-prep-ball[data-position="vicino"] {
+  left: 77%;
+  top: 57%;
+
+  z-index: 8;
+}
+
+
+/* LONTANO */
+
+.quick-prep-ball[data-position="lontano"] {
+  left: 16%;
+  top: 57%;
+
+  z-index: 8;
+}
+
+
+/* ========================================
+   NUMBERS
+   ======================================== */
+
+.quick-numbers-panel {
+  width: min(1080px, 97%);
+
+  margin: 0 auto;
+}
+
+.quick-number-targets {
+  display: grid;
+
+  grid-template-columns:
+    repeat(10, minmax(0, 1fr));
+
+  gap: 7px;
+
+  width: min(1000px, 100%);
+
+  margin: 0 auto 24px;
+}
+
+.quick-number-target {
+  position: relative;
+
+  display: grid;
+  place-items: center;
+
+  min-height: 92px;
+
+  padding: 7px 3px;
+
+  border: 2px solid #cad8e8;
+  border-radius: 15px;
+
+  color: #274b84;
+  background: white;
+}
+
+.quick-number-target > strong {
+  font-size: 1.7rem;
+  line-height: 1;
+  font-weight: 900;
+}
+
+.quick-number-target > span {
+  margin-top: 3px;
+
+  font-size: .68rem;
+  font-weight: 800;
+}
+
+.quick-number-landed {
+  position: absolute;
+
+  right: 5px;
+  top: 4px;
+
+  color: #3b965b;
+
+  font-size: 1rem;
+  font-weight: 900;
+}
+
+.quick-number-target.is-complete {
+  border-color: #58a66d;
+
+  background: #f3fbf5;
+}
+
+.quick-number-target.try-again {
+  animation:
+    quickNumberShake .28s ease;
+}
+
+@keyframes quickNumberShake {
+  0%, 100% {
+    transform: translateX(0);
+  }
+
+  35% {
+    transform: translateX(-5px);
+  }
+
+  70% {
+    transform: translateX(5px);
+  }
+}
+
+.quick-number-group-bank {
+  display: grid;
+
+  grid-template-columns:
+    repeat(5, minmax(0, 1fr));
+
+  gap: 12px;
+
+  width: min(930px, 100%);
+
+  margin: 0 auto;
+}
+
+.quick-number-group {
+  position: relative;
+  z-index: 1;
+
+  min-width: 0;
+  min-height: 190px;
+
+  padding: 10px;
+
+  border: 1px solid #d8e2ed;
+  border-radius: 17px;
+
+  color: #274b84;
+  background: white;
+
+  font: inherit;
+
+  box-shadow:
+    0 4px 11px rgba(39,75,132,.08);
+
+  cursor: grab;
+  touch-action: none;
+}
+
+.quick-number-group > strong {
+  display: block;
+
+  margin-top: 8px;
+
+  font-size: .82rem;
+  font-weight: 900;
+}
+
+.quick-number-group.is-dragging {
+  z-index: 100;
+
+  cursor: grabbing;
+
+  box-shadow:
+    0 12px 24px
+      rgba(39,75,132,.22);
+}
+
+.quick-number-group.is-sorted {
+  visibility: hidden;
+
+  pointer-events: none;
+}
+
+.quick-number-object-grid {
+  display: grid;
+
+  grid-template-columns:
+    repeat(3, minmax(0, 1fr));
+
+  place-items: center;
+
+  gap: 4px;
+
+  min-height: 125px;
+}
+
+.quick-number-object-grid img {
+  display: block;
+
+  width: 100%;
+  max-width: 62px;
+  height: 58px;
+
+  object-fit: contain;
+
+  pointer-events: none;
+}
+
+.quick-number-emoji {
+  display: grid;
+  place-items: center;
+
+  width: 52px;
+  height: 52px;
+
+  font-size: 2rem;
+}
+
+
+/* ========================================
+   RESPONSIVE
+   ======================================== */
+
+@media (max-width: 850px) {
+  .quick-prep-buttons {
+    grid-template-columns:
+      repeat(3, minmax(0, 1fr));
+  }
+
+  .quick-number-targets {
+    grid-template-columns:
+      repeat(5, minmax(0, 1fr));
+  }
+
+  .quick-number-group-bank {
+    grid-template-columns:
+      repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 520px) {
+  .quick-impara-tab {
+    min-width: 145px;
+
+    padding:
+      8px 11px;
+  }
+
+  .quick-prep-buttons {
+    grid-template-columns:
+      repeat(2, minmax(0, 1fr));
+  }
+
+  .quick-prep-stage {
+    height: 300px;
+  }
+
+  .quick-prep-box {
+    width: 145px;
+    height: 105px;
+  }
+
+  .quick-prep-ball {
+    width: 54px;
+    height: 54px;
+  }
+
+  .quick-number-targets {
+    grid-template-columns:
+      repeat(5, minmax(0, 1fr));
+  }
+
+  .quick-number-target {
+    min-height: 72px;
+  }
+
+  .quick-number-target > strong {
+    font-size: 1.35rem;
+  }
+
+  .quick-number-target > span {
+    font-size: .58rem;
+  }
+
+  .quick-number-group-bank {
+    grid-template-columns:
+      repeat(2, minmax(0, 1fr));
+  }
+}
+
+/* ========================================
+   PREPOSITIONS — REAL CLAY BOX SCENE
+   ======================================== */
+
+.quick-prep-stage {
+  position: relative !important;
+
+  width: min(650px, 92vw) !important;
+  height: auto !important;
+  aspect-ratio: 1 / 1 !important;
+
+  overflow: hidden !important;
+
+  background-image:
+    url("images/scene-images/prepositions/box-background.png") !important;
+
+  background-size: cover !important;
+  background-position: center !important;
+  background-repeat: no-repeat !important;
+
+  border: 1px solid #ded8cf !important;
+  border-radius: 22px !important;
+}
+
+/* Hide the old CSS-drawn box */
+.quick-prep-box {
+  display: none !important;
+}
+
+
+/* ----------------------------------------
+   MOVABLE CLAY BALL
+   ---------------------------------------- */
+
+.quick-prep-ball {
+  position: absolute !important;
+
+  width: 72px !important;
+  height: 72px !important;
+
+  border-radius: 50% !important;
+
+  background:
+    radial-gradient(
+      circle at 34% 28%,
+      #83d35f 0 8%,
+      #55ad3e 38%,
+      #33822d 100%
+    ) !important;
+
+  box-shadow:
+    inset -8px -9px 11px rgba(29,83,25,.2),
+    0 7px 12px rgba(60,45,25,.2) !important;
+
+  transition:
+    left .32s ease,
+    top .32s ease,
+    transform .32s ease !important;
+}
+
+
+/*
+  The box in box-background.png
+  sits on the LEFT side of the scene.
+*/
+
+/* IN */
+.quick-prep-ball[data-position="in"] {
+  left: 22% !important;
+  top: 48% !important;
+
+  transform:
+    translate(-50%, -50%) scale(.82) !important;
+}
+
+/* SU */
+.quick-prep-ball[data-position="su"] {
+  left: 22% !important;
+  top: 34% !important;
+
+  transform:
+    translate(-50%, -50%) !important;
+}
+
+/* SOTTO */
+.quick-prep-ball[data-position="sotto"] {
+  left: 22% !important;
+  top: 70% !important;
+
+  transform:
+    translate(-50%, -50%) !important;
+}
+
+/* SOPRA — clearly separated */
+.quick-prep-ball[data-position="sopra"] {
+  left: 22% !important;
+  top: 18% !important;
+
+  transform:
+    translate(-50%, -50%) !important;
+}
+
+/* DAVANTI A */
+.quick-prep-ball[data-position="davanti"] {
+  left: 22% !important;
+  top: 60% !important;
+
+  transform:
+    translate(-50%, -50%) scale(1.08) !important;
+}
+
+/* DIETRO */
+.quick-prep-ball[data-position="dietro"] {
+  left: 22% !important;
+  top: 39% !important;
+
+  transform:
+    translate(-50%, -50%) scale(.76) !important;
+}
+
+/* ACCANTO A */
+.quick-prep-ball[data-position="accanto"] {
+  left: 41% !important;
+  top: 54% !important;
+
+  transform:
+    translate(-50%, -50%) !important;
+}
+
+/* VICINO A */
+.quick-prep-ball[data-position="vicino"] {
+  left: 49% !important;
+  top: 54% !important;
+
+  transform:
+    translate(-50%, -50%) !important;
+}
+
+/* LONTANO DA */
+.quick-prep-ball[data-position="lontano"] {
+  left: 82% !important;
+  top: 54% !important;
+
+  transform:
+    translate(-50%, -50%) !important;
+}
+
+
+@media (max-width: 520px) {
+  .quick-prep-ball {
+    width: 54px !important;
+    height: 54px !important;
+  }
+}
+
+
+/* ========================================
+   PREPOSITIONS — BOX POSITION TWEAKS
+   quick cleanup for the clay box scene
+   ======================================== */
+
+.quick-prep-ball {
+  z-index: 2 !important;
+}
+
+/* in */
+.quick-prep-ball[data-position="in"] {
+  left: 22% !important;
+  top: 62% !important;
+  transform: translate(-50%, -50%) scale(.74) !important;
+}
+
+/* on */
+.quick-prep-ball[data-position="su"] {
+  left: 22% !important;
+  top: 48% !important;
+  transform: translate(-50%, -50%) scale(.94) !important;
+}
+
+/* under */
+.quick-prep-ball[data-position="sotto"] {
+  left: 22% !important;
+  top: 84% !important;
+  transform: translate(-50%, -50%) scale(.96) !important;
+}
+
+/* above */
+.quick-prep-ball[data-position="sopra"] {
+  left: 22% !important;
+  top: 24% !important;
+  transform: translate(-50%, -50%) scale(.96) !important;
+}
+
+/* in front of */
+.quick-prep-ball[data-position="davanti"] {
+  left: 22% !important;
+  top: 71% !important;
+  transform: translate(-50%, -50%) scale(1.02) !important;
+}
+
+/* behind */
+.quick-prep-ball[data-position="dietro"] {
+  left: 22% !important;
+  top: 50% !important;
+  transform: translate(-50%, -50%) scale(.82) !important;
+  filter: brightness(.92) !important;
+}
+
+/* next to */
+.quick-prep-ball[data-position="accanto"] {
+  left: 33% !important;
+  top: 67% !important;
+  transform: translate(-50%, -50%) scale(.96) !important;
+}
+
+/* near */
+.quick-prep-ball[data-position="vicino"] {
+  left: 40% !important;
+  top: 67% !important;
+  transform: translate(-50%, -50%) scale(.96) !important;
+}
+
+/* far from */
+.quick-prep-ball[data-position="lontano"] {
+  left: 82% !important;
+  top: 67% !important;
+  transform: translate(-50%, -50%) scale(.96) !important;
+}
+
+
+/* ========================================
+   PREPOSITIONS — BOX + TABLE FINAL PASS
+   ======================================== */
+
+/* Scene switching */
+
+.quick-prep-stage[data-scene="box"] {
+  background-image:
+    url("images/scene-images/prepositions/box-background.png") !important;
+}
+
+.quick-prep-stage[data-scene="table"] {
+  background-image:
+    url("images/scene-images/prepositions/table-background.png") !important;
+}
+
+
+/* ----------------------------------------
+   TABLE
+   su · sotto · sopra
+   ---------------------------------------- */
+
+/* ON the table */
+.quick-prep-stage[data-scene="table"]
+.quick-prep-ball[data-position="su"] {
+  left: 50% !important;
+  top: 48% !important;
+
+  z-index: 5 !important;
+
+  clip-path: none !important;
+
+  transform:
+    translate(-50%, -50%) scale(.92) !important;
+
+  filter: none !important;
+}
+
+
+/* UNDER the table */
+.quick-prep-stage[data-scene="table"]
+.quick-prep-ball[data-position="sotto"] {
+  left: 50% !important;
+  top: 73% !important;
+
+  z-index: 5 !important;
+
+  clip-path: none !important;
+
+  transform:
+    translate(-50%, -50%) scale(.92) !important;
+
+  filter: none !important;
+}
+
+
+/* ABOVE the table — visibly separated */
+.quick-prep-stage[data-scene="table"]
+.quick-prep-ball[data-position="sopra"] {
+  left: 50% !important;
+  top: 25% !important;
+
+  z-index: 5 !important;
+
+  clip-path: none !important;
+
+  transform:
+    translate(-50%, -50%) scale(.92) !important;
+
+  filter: none !important;
+}
+
+
+/* ----------------------------------------
+   BOX
+   in · davanti · dietro
+   accanto · vicino · lontano
+   ---------------------------------------- */
+
+/* IN — lower portion disappears behind front wall */
+.quick-prep-stage[data-scene="box"]
+.quick-prep-ball[data-position="in"] {
+  left: 22% !important;
+  top: 55% !important;
+
+  z-index: 5 !important;
+
+  clip-path:
+    inset(0 0 42% 0) !important;
+
+  transform:
+    translate(-50%, -50%) scale(.78) !important;
+
+  filter: none !important;
+}
+
+
+/* IN FRONT OF — centered in front of the box */
+.quick-prep-stage[data-scene="box"]
+.quick-prep-ball[data-position="davanti"] {
+  left: 22% !important;
+  top: 72% !important;
+
+  z-index: 8 !important;
+
+  clip-path: none !important;
+
+  transform:
+    translate(-50%, -50%) scale(1) !important;
+
+  filter: none !important;
+}
+
+
+/* BEHIND — only top portion peeks over box */
+.quick-prep-stage[data-scene="box"]
+.quick-prep-ball[data-position="dietro"] {
+  left: 22% !important;
+  top: 51% !important;
+
+  z-index: 4 !important;
+
+  clip-path:
+    inset(0 0 52% 0) !important;
+
+  transform:
+    translate(-50%, -50%) scale(.82) !important;
+
+  filter:
+    brightness(.9) !important;
+}
+
+
+/* NEXT TO — immediately beside box */
+.quick-prep-stage[data-scene="box"]
+.quick-prep-ball[data-position="accanto"] {
+  left: 35% !important;
+  top: 68% !important;
+
+  z-index: 8 !important;
+
+  clip-path: none !important;
+
+  transform:
+    translate(-50%, -50%) scale(.94) !important;
+
+  filter: none !important;
+}
+
+
+/* NEAR — a little farther away */
+.quick-prep-stage[data-scene="box"]
+.quick-prep-ball[data-position="vicino"] {
+  left: 47% !important;
+  top: 68% !important;
+
+  z-index: 8 !important;
+
+  clip-path: none !important;
+
+  transform:
+    translate(-50%, -50%) scale(.94) !important;
+
+  filter: none !important;
+}
+
+
+/* FAR FROM */
+.quick-prep-stage[data-scene="box"]
+.quick-prep-ball[data-position="lontano"] {
+  left: 82% !important;
+  top: 68% !important;
+
+  z-index: 8 !important;
+
+  clip-path: none !important;
+
+  transform:
+    translate(-50%, -50%) scale(.94) !important;
+
+  filter: none !important;
+}
+
+
+/* ========================================
+   PREPOSITIONS — FINAL BOX ALIGNMENT
+   ======================================== */
+
+/* IN — centered in the opening */
+.quick-prep-stage[data-scene="box"]
+.quick-prep-ball[data-position="in"] {
+  left: 28% !important;
+  top: 55% !important;
+  clip-path: inset(0 0 42% 0) !important;
+}
+
+/* BEHIND — centered behind the box */
+.quick-prep-stage[data-scene="box"]
+.quick-prep-ball[data-position="dietro"] {
+  left: 28% !important;
+  top: 51% !important;
+  clip-path: inset(0 0 52% 0) !important;
+}
+
+/* IN FRONT OF — centered in front of the box */
+.quick-prep-stage[data-scene="box"]
+.quick-prep-ball[data-position="davanti"] {
+  left: 28% !important;
+  top: 72% !important;
+  clip-path: none !important;
+}
+
+
+/* ========================================
+   PREPOSITIONS — BOX FINAL POSITION TUNING
+   ======================================== */
+
+.quick-prep-stage[data-scene="box"] {
+  overflow: hidden;
+}
+
+/* centered reference positions for the box scene */
+.quick-prep-stage[data-scene="box"] .quick-prep-ball[data-position="in"] {
+  left: 24% !important;
+  top: 56% !important;
+  clip-path: inset(0 0 42% 0) !important;
+}
+
+.quick-prep-stage[data-scene="box"] .quick-prep-ball[data-position="su"] {
+  left: 24% !important;
+  top: 45% !important;
+  clip-path: none !important;
+}
+
+.quick-prep-stage[data-scene="box"] .quick-prep-ball[data-position="sotto"] {
+  left: 24% !important;
+  top: 82% !important;
+  clip-path: none !important;
+}
+
+.quick-prep-stage[data-scene="box"] .quick-prep-ball[data-position="sopra"] {
+  left: 24% !important;
+  top: 30% !important;
+  clip-path: none !important;
+}
+
+.quick-prep-stage[data-scene="box"] .quick-prep-ball[data-position="dietro"] {
+  left: 24% !important;
+  top: 50% !important;
+  clip-path: inset(0 0 52% 0) !important;
+}
+
+.quick-prep-stage[data-scene="box"] .quick-prep-ball[data-position="davanti"] {
+  left: 24% !important;
+  top: 74% !important;
+  clip-path: none !important;
+}
+
+.quick-prep-stage[data-scene="box"] .quick-prep-ball[data-position="accanto"] {
+  left: 38% !important;
+  top: 71% !important;
+  clip-path: none !important;
+}
+
+.quick-prep-stage[data-scene="box"] .quick-prep-ball[data-position="vicino"] {
+  left: 48% !important;
+  top: 71% !important;
+  clip-path: none !important;
+}
+
+.quick-prep-stage[data-scene="box"] .quick-prep-ball[data-position="lontano"] {
+  left: 76% !important;
+  top: 71% !important;
+  clip-path: none !important;
+}
+
+
+/* ========================================
+   PREPOSITIONS — FINAL USER POSITIONS
+   ======================================== */
+
+/* IN */
+.quick-prep-stage[data-scene="box"]
+.quick-prep-ball[data-position="in"] {
+  left: 27.4% !important;
+  top: 48.8% !important;
+
+  clip-path:
+    inset(0 0 42% 0) !important;
+}
+
+/* ON */
+.quick-prep-stage[data-scene="table"]
+.quick-prep-ball[data-position="su"] {
+  left: 49.9% !important;
+  top: 51.2% !important;
+
+  clip-path: none !important;
+}
+
+/* UNDER */
+.quick-prep-stage[data-scene="table"]
+.quick-prep-ball[data-position="sotto"] {
+  left: 50.1% !important;
+  top: 76.3% !important;
+
+  clip-path: none !important;
+}
+
+/* ABOVE */
+.quick-prep-stage[data-scene="table"]
+.quick-prep-ball[data-position="sopra"] {
+  left: 51.2% !important;
+  top: 20.1% !important;
+
+  clip-path: none !important;
+}
+
+/* IN FRONT OF */
+.quick-prep-stage[data-scene="box"]
+.quick-prep-ball[data-position="davanti"] {
+  left: 27.6% !important;
+  top: 64.7% !important;
+
+  clip-path: none !important;
+}
+
+/* BEHIND */
+.quick-prep-stage[data-scene="box"]
+.quick-prep-ball[data-position="dietro"] {
+  left: 27.7% !important;
+  top: 43.2% !important;
+
+  clip-path:
+    inset(0 0 52% 0) !important;
+}
+
+/* NEXT TO */
+.quick-prep-stage[data-scene="box"]
+.quick-prep-ball[data-position="accanto"] {
+  left: 45.1% !important;
+  top: 62.7% !important;
+
+  clip-path: none !important;
+}
+
+/* NEAR */
+.quick-prep-stage[data-scene="box"]
+.quick-prep-ball[data-position="vicino"] {
+  left: 48.6% !important;
+  top: 69.8% !important;
+
+  clip-path: none !important;
+}
+
+/* FAR FROM */
+.quick-prep-stage[data-scene="box"]
+.quick-prep-ball[data-position="lontano"] {
+  left: 90.1% !important;
+  top: 88.5% !important;
+
+  clip-path: none !important;
+}
+
