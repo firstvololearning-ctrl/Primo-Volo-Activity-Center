@@ -4510,7 +4510,7 @@ function showWriteQuestion() {
 
         <h4>
 
-          Scrivi la parola.
+          Scrivi la risposta.
 
         </h4>
 
@@ -4518,7 +4518,7 @@ function showWriteQuestion() {
 
         <p>
 
-          Write the Italian word.
+          Write the response.
 
         </p>
 
@@ -4572,7 +4572,7 @@ function showWriteQuestion() {
 
 >
 
-  Scrivi la parola
+  Scrivi la risposta
 
 </label>
 
@@ -4730,13 +4730,13 @@ function showWriteQuestion() {
 
         feedback.innerHTML = `
 
-          Scrivi la parola.
+          Scrivi la risposta.
 
  
 
           <span>
 
-            Type the word.
+            Write the response.
 
           </span>
 
@@ -6933,7 +6933,10 @@ function createClassroomCommandSceneCard(
       >
 
       <span class="scene-state-badge">
-        Prima · Before
+        Prima
+        <span class="expanded-inline-english">
+          · Before
+        </span>
       </span>
     </div>
 
@@ -6980,13 +6983,13 @@ function createClassroomCommandSceneCard(
 
       if (isBefore) {
         image.src = item.after;
-        badge.textContent =
-          "Dopo · After";
+        badge.innerHTML =
+          'Dopo <span class="expanded-inline-english">· After</span>';
         card.dataset.state = "after";
       } else {
         image.src = item.before;
-        badge.textContent =
-          "Prima · Before";
+        badge.innerHTML =
+          'Prima <span class="expanded-inline-english">· Before</span>';
         card.dataset.state = "before";
       }
     }
@@ -7138,13 +7141,18 @@ function renderWeatherSceneLearn() {
   shell.innerHTML = `
     <div class="impara-scene-section-heading">
       <strong>
-        Guarda e ascolta · Look and listen
+        Guarda e ascolta
+        <span class="expanded-inline-english">
+          · Look and listen
+        </span>
       </strong>
       <span>
         Guarda la scena e ascolta
         la domanda e la risposta.
-        · Look at the scene and listen
-        to the question and answer.
+        <span class="expanded-inline-english">
+          · Look at the scene and listen
+          to the question and answer.
+        </span>
       </span>
     </div>
 
@@ -7219,12 +7227,17 @@ function renderClassroomSceneLearn() {
   commandShell.innerHTML = `
     <div class="impara-scene-section-heading">
       <strong>
-        Ascolta e guarda · Listen and watch
+        Ascolta e guarda
+        <span class="expanded-inline-english">
+          · Listen and watch
+        </span>
       </strong>
 
       <span>
         I comandi cambiano la scena.
-        · The commands change the scene.
+        <span class="expanded-inline-english">
+          · The commands change the scene.
+        </span>
       </span>
     </div>
   `;
@@ -7266,14 +7279,18 @@ function renderClassroomSceneLearn() {
     <div class="impara-scene-section-heading">
       <strong>
         Cosa posso dire?
-        · What can I say?
+        <span class="expanded-inline-english">
+          · What can I say?
+        </span>
       </strong>
 
       <span>
         Guarda la situazione
         e ascolta cosa puoi dire.
-        · Look at the situation
-        and listen to what you can say.
+        <span class="expanded-inline-english">
+          · Look at the situation
+          and listen to what you can say.
+        </span>
       </span>
     </div>
   `;
