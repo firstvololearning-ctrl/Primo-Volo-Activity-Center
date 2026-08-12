@@ -866,19 +866,19 @@ button {
 
 .worn-piece[data-item="maglietta"] {
   left: 20%;
-  top: 22%;
+  top: 25%;
   width: 60%;
 }
 
 .worn-piece[data-item="maglione"] {
   left: 16%;
-  top: 20%;
+  top: 24%;
   width: 68%;
 }
 
 .worn-piece[data-item="giacca"] {
   left: 15%;
-  top: 20%;
+  top: 24%;
   width: 70%;
 }
 
@@ -920,7 +920,7 @@ button {
 
 .worn-piece[data-item="sciarpa"] {
   left: 32%;
-  top: 21%;
+  top: 24%;
   width: 36%;
 }
 
