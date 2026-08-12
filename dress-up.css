@@ -913,9 +913,9 @@ button {
 /* accessories */
 
 .worn-piece[data-item="cappello"] {
-  left: 27%;
-  top: 3%;
-  width: 46%;
+  left: 25%;
+  top: 1%;
+  width: 44%;
 }
 
 .worn-piece[data-item="sciarpa"] {
