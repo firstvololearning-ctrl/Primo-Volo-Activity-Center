@@ -905,9 +905,9 @@ button {
 /* shoes */
 
 .worn-piece[data-item="scarpe"] {
-  left: 21%;
-  top: 79%;
-  width: 58%;
+  left: 18%;
+  top: 80%;
+  width: 64%;
 }
 
 /* accessories */
@@ -919,9 +919,9 @@ button {
 }
 
 .worn-piece[data-item="sciarpa"] {
-  left: 32%;
-  top: 24%;
-  width: 36%;
+  left: 35%;
+  top: 23%;
+  width: 30%;
 }
 
 /* Hide obsolete CSS-built body pieces if any remain */
