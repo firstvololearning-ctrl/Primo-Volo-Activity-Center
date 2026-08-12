@@ -8362,3 +8362,204 @@ body.hide-english
   display: none !important;
 }
 
+
+/* ========================================
+   IL VIAGGIO DI VOLO — FLIGHT JOURNEY
+   Visual refinement only
+   ======================================== */
+
+.volo-flight-path {
+  position: relative;
+  overflow: hidden;
+
+  border-color: #d5e2f0;
+
+  background:
+    linear-gradient(
+      180deg,
+      #fbfdff 0%,
+      #f5f9fd 100%
+    );
+
+  box-shadow:
+    0 5px 16px
+    rgba(39, 75, 132, 0.07);
+}
+
+
+/* Heading */
+
+.flight-path-title {
+  font-size: 1.08rem;
+  letter-spacing: 0.01em;
+}
+
+.flight-path-subtitle {
+  color: #6d7e94;
+}
+
+.flight-path-instruction {
+  color: #526a87;
+}
+
+
+/* Give the route a little more air */
+
+.flight-path-track {
+  position: relative;
+
+  padding-top: 28px;
+  padding-bottom: 4px;
+}
+
+
+/* Flight trail between stops */
+
+.flight-stop:not(:last-child)::after {
+  top: 21px;
+
+  height: 3px;
+
+  background:
+    repeating-linear-gradient(
+      90deg,
+      #cad8e8 0 9px,
+      transparent 9px 15px
+    );
+
+  border-radius: 999px;
+}
+
+
+/* Route already practiced */
+
+.flight-stop.segment-complete:not(:last-child)::after {
+  background:
+    repeating-linear-gradient(
+      90deg,
+      #8faed2 0 10px,
+      transparent 10px 15px
+    );
+}
+
+
+/* Stops feel like flight checkpoints */
+
+.flight-stop-node {
+  background:
+    rgba(255,255,255,.94);
+
+  box-shadow:
+    0 2px 7px
+    rgba(39,75,132,.05);
+}
+
+
+/* Practiced = a quiet blue checkpoint */
+
+.flight-stop.practiced:not(.active)
+.flight-stop-node {
+  border-color: #aec5df;
+
+  background: #f1f6fc;
+}
+
+
+/* Current location */
+
+.flight-stop.active
+.flight-stop-node,
+.flight-stop.active.practiced
+.flight-stop-node {
+  border-color: var(--coral);
+
+  background: #fff8f4;
+
+  box-shadow:
+    0 0 0 4px
+    rgba(212,108,92,.12),
+    0 4px 10px
+    rgba(39,75,132,.08);
+}
+
+
+/* Volo flies above the current checkpoint */
+
+.flight-stop-plane {
+  top: -25px;
+
+  font-size: 1.35rem;
+
+  transform:
+    translateX(-50%)
+    rotate(-10deg);
+
+  filter:
+    drop-shadow(
+      0 3px 3px
+      rgba(39,75,132,.17)
+    );
+}
+
+
+/* A few subtle clouds along the route */
+
+.flight-stop:nth-child(3n + 2)::before {
+  content: "☁️";
+
+  position: absolute;
+
+  z-index: 1;
+
+  top: -13px;
+  right: -3px;
+
+  font-size: .72rem;
+
+  opacity: .32;
+
+  pointer-events: none;
+}
+
+.flight-stop:nth-child(5n)::before {
+  content: "☁️";
+
+  position: absolute;
+
+  z-index: 1;
+
+  top: -7px;
+  left: -2px;
+
+  font-size: .58rem;
+
+  opacity: .24;
+
+  pointer-events: none;
+}
+
+
+/* Keep the final destination quiet until available */
+
+.flight-stop.coming-soon {
+  opacity: .46;
+}
+
+
+/* Mobile */
+
+@media (max-width: 700px) {
+  .flight-path-track {
+    padding-top: 26px;
+  }
+
+  .flight-stop-plane {
+    top: -22px;
+    font-size: 1.2rem;
+  }
+
+  .flight-stop:nth-child(3n + 2)::before,
+  .flight-stop:nth-child(5n)::before {
+    display: none;
+  }
+}
