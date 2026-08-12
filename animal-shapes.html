@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Trova l'animale! | Primo Volo d'Italiano</title>
+  <link rel="stylesheet" href="animal-shapes.css">
+</head>
+
+<body>
+
+  <main class="animal-activity">
+
+    <header class="activity-header">
+
+      <a href="index.html" class="back-link">
+        ← Primo Volo d'Italiano
+      </a>
+
+      <div class="header-title">
+        <h1>Trova l'animale!</h1>
+        <p>Find the animal!</p>
+      </div>
+
+      <button id="newRoundButton" class="reset-button" type="button">
+        ↻ Nuovo giro
+        <span>New round</span>
+      </button>
+
+    </header>
+
+    <section class="instruction-card">
+      <strong>Abbina ogni animale alla sua sagoma.</strong>
+      <span>Match each animal to its silhouette.</span>
+    </section>
+
+    <section class="game-layout">
+
+      <aside class="animal-tray-panel">
+        <h2>
+          Animali
+          <span>Animals</span>
+        </h2>
+
+        <div id="animalTray" class="animal-tray"></div>
+      </aside>
+
+      <section class="match-panel">
+        <div id="targetGrid" class="target-grid"></div>
+      </section>
+
+      <aside class="language-panel">
+
+        <h2>
+          Che animale è?
+          <span>What animal is it?</span>
+        </h2>
+
+        <div id="languageCard" class="language-card">
+          <strong>Trova un animale.</strong>
+          <span>Find an animal.</span>
+        </div>
+
+        <div id="completedWords" class="completed-words"></div>
+
+      </aside>
+
+    </section>
+
+  </main>
+
+  <script src="animal-shapes.js"></script>
+
+</body>
+</html>
