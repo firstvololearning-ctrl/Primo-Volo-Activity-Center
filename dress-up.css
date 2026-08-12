@@ -1,0 +1,935 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  font-family: Arial, Helvetica, sans-serif;
+  color: #24352d;
+  background:
+    radial-gradient(circle at top, #ffffff 0%, #f9f5ec 55%, #efe7d8 100%);
+}
+
+button {
+  font: inherit;
+}
+
+.dress-up-app {
+  width: min(1500px, 96%);
+  margin: 18px auto 40px;
+}
+
+.dress-up-header {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  gap: 18px;
+  padding: 16px 20px;
+  border: 2px solid #ddd4c6;
+  border-radius: 22px;
+  background: #fffdf8;
+  box-shadow: 0 8px 22px rgba(55, 50, 42, 0.1);
+}
+
+.back-link {
+  justify-self: start;
+  color: #274b84;
+  font-weight: 800;
+  text-decoration: none;
+}
+
+.back-link:hover {
+  text-decoration: underline;
+}
+
+.title-group {
+  text-align: center;
+}
+
+.title-group h1 {
+  margin: 0;
+  color: #274b84;
+  font-size: clamp(30px, 4vw, 48px);
+  line-height: 1.05;
+}
+
+.title-group p {
+  margin: 4px 0 0;
+  color: #737b77;
+  font-style: italic;
+  font-weight: 700;
+}
+
+.reset-button {
+  justify-self: end;
+  padding: 10px 15px;
+  border: 2px solid #d7cebf;
+  border-radius: 14px;
+  background: white;
+  color: #805936;
+  cursor: pointer;
+  font-weight: 800;
+}
+
+.reset-button span {
+  display: block;
+  margin-top: 2px;
+  color: #777;
+  font-size: 0.72rem;
+  font-style: italic;
+}
+
+.instruction-card {
+  width: min(720px, 100%);
+  margin: 16px auto;
+  padding: 12px 18px;
+  border: 2px solid #e2d8ca;
+  border-radius: 16px;
+  background: white;
+  text-align: center;
+}
+
+.instruction-card strong,
+.instruction-card span {
+  display: block;
+}
+
+.instruction-card strong {
+  color: #274b84;
+  font-size: 1.05rem;
+}
+
+.instruction-card span {
+  margin-top: 2px;
+  color: #747c77;
+  font-style: italic;
+}
+
+.activity-area {
+  display: grid;
+  grid-template-columns: 320px minmax(380px, 1fr) 300px;
+  gap: 16px;
+  align-items: start;
+}
+
+.clothing-panel,
+.figure-panel,
+.language-panel {
+  border: 2px solid #e2d8ca;
+  border-radius: 22px;
+  background: white;
+  box-shadow: 0 8px 22px rgba(55, 50, 42, 0.09);
+}
+
+.clothing-panel,
+.language-panel {
+  padding: 18px;
+}
+
+.clothing-panel h2,
+.language-panel h2 {
+  margin: 0;
+  color: #274b84;
+  text-align: center;
+}
+
+.clothing-panel > p,
+.language-panel > p {
+  margin: 3px 0 14px;
+  color: #767e79;
+  text-align: center;
+  font-style: italic;
+}
+
+.clothing-tray {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.clothing-card {
+  min-width: 0;
+  min-height: 118px;
+  padding: 10px 8px;
+  border: 2px solid #ded5c8;
+  border-radius: 16px;
+  background: #fffdf8;
+  cursor: grab;
+  touch-action: none;
+  transition:
+    transform 0.15s ease,
+    box-shadow 0.15s ease,
+    border-color 0.15s ease;
+}
+
+.clothing-card:hover {
+  transform: translateY(-2px);
+  border-color: #bda98f;
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.09);
+}
+
+.clothing-card.dragging {
+  opacity: 0.55;
+  cursor: grabbing;
+}
+
+.clothing-card strong,
+.clothing-card span {
+  display: block;
+  text-align: center;
+}
+
+.clothing-card strong {
+  margin-top: 8px;
+  font-size: 0.82rem;
+}
+
+.clothing-card span {
+  margin-top: 2px;
+  color: #777;
+  font-size: 0.7rem;
+  font-style: italic;
+}
+
+/* ========================================
+   Clay clothing pieces in tray
+   ======================================== */
+
+.clothing-shape {
+  position: relative;
+  margin: 0 auto;
+  filter:
+    drop-shadow(0 3px 2px rgba(0,0,0,.16))
+    drop-shadow(inset 0 1px 1px rgba(255,255,255,.7));
+}
+
+.red {
+  background: #ef6a66;
+}
+
+.yellow {
+  background: #f5c84c;
+}
+
+.blue {
+  background: #4c8bd8;
+}
+
+.purple {
+  background: #9d74c7;
+}
+
+.green {
+  background: #64a972;
+}
+
+.orange {
+  background: #ec934f;
+}
+
+.shirt {
+  width: 64px;
+  height: 54px;
+  border-radius: 14px 14px 10px 10px;
+}
+
+.shirt::before,
+.shirt::after {
+  content: "";
+  position: absolute;
+  top: 5px;
+  width: 25px;
+  height: 24px;
+  border-radius: 10px;
+  background: inherit;
+}
+
+.shirt::before {
+  left: -16px;
+  transform: rotate(28deg);
+}
+
+.shirt::after {
+  right: -16px;
+  transform: rotate(-28deg);
+}
+
+.pants {
+  width: 66px;
+  height: 66px;
+  border-radius: 12px 12px 8px 8px;
+}
+
+.pants::before {
+  content: "";
+  position: absolute;
+  left: 29px;
+  bottom: 0;
+  width: 8px;
+  height: 46px;
+  border-radius: 5px;
+  background: #fffdf8;
+}
+
+.skirt {
+  width: 72px;
+  height: 58px;
+  clip-path: polygon(31% 0, 69% 0, 100% 100%, 0 100%);
+  border-radius: 10px;
+}
+
+.shoes {
+  width: 78px;
+  height: 28px;
+  background: transparent !important;
+}
+
+.shoes::before,
+.shoes::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  width: 35px;
+  height: 22px;
+  border-radius: 16px 16px 10px 10px;
+  background: #64a972;
+}
+
+.shoes::before {
+  left: 0;
+}
+
+.shoes::after {
+  right: 0;
+}
+
+.hat {
+  width: 72px;
+  height: 30px;
+  border-radius: 40px 40px 14px 14px;
+}
+
+.hat::after {
+  content: "";
+  position: absolute;
+  left: -11px;
+  bottom: -5px;
+  width: 94px;
+  height: 12px;
+  border-radius: 50%;
+  background: inherit;
+}
+
+.scarf {
+  width: 20px;
+  height: 72px;
+  border-radius: 12px;
+}
+
+.scarf::before {
+  content: "";
+  position: absolute;
+  top: 4px;
+  left: -16px;
+  width: 52px;
+  height: 18px;
+  border-radius: 12px;
+  background: inherit;
+}
+
+/* ========================================
+   Figure area
+   ======================================== */
+
+.figure-panel {
+  position: relative;
+  min-height: 660px;
+  padding: 20px;
+  overflow: hidden;
+  background:
+    radial-gradient(circle at center 42%, #ffffff 0%, #fbfaf5 52%, #f4efe5 100%);
+}
+
+.stick-figure {
+  position: relative;
+  width: 330px;
+  height: 570px;
+  margin: 18px auto 0;
+}
+
+.head,
+.torso,
+.arm,
+.leg,
+.foot {
+  position: absolute;
+  background:
+    linear-gradient(
+      145deg,
+      #f5c66d 0%,
+      #e8a74e 52%,
+      #d68b3c 100%
+    );
+  box-shadow:
+    inset 5px 5px 8px rgba(255,255,255,.34),
+    inset -5px -6px 9px rgba(119,74,35,.12),
+    0 5px 9px rgba(0,0,0,.13);
+}
+
+.head {
+  left: 111px;
+  top: 15px;
+  width: 108px;
+  height: 108px;
+  border-radius: 50%;
+}
+
+.torso {
+  left: 145px;
+  top: 120px;
+  width: 40px;
+  height: 185px;
+  border-radius: 24px;
+}
+
+.arm {
+  top: 145px;
+  width: 32px;
+  height: 170px;
+  border-radius: 22px;
+  transform-origin: top center;
+}
+
+.left-arm {
+  left: 105px;
+  transform: rotate(28deg);
+}
+
+.right-arm {
+  right: 105px;
+  transform: rotate(-28deg);
+}
+
+.leg {
+  top: 290px;
+  width: 36px;
+  height: 210px;
+  border-radius: 24px;
+  transform-origin: top center;
+}
+
+.left-leg {
+  left: 125px;
+  transform: rotate(7deg);
+}
+
+.right-leg {
+  right: 125px;
+  transform: rotate(-7deg);
+}
+
+.foot {
+  top: 490px;
+  width: 75px;
+  height: 34px;
+  border-radius: 22px;
+}
+
+.left-foot {
+  left: 78px;
+  transform: rotate(-6deg);
+}
+
+.right-foot {
+  right: 78px;
+  transform: rotate(6deg);
+}
+
+/* subtle clay color accents */
+
+.head {
+  background:
+    linear-gradient(
+      145deg,
+      #f1bb63,
+      #e79c45 60%,
+      #d27c37
+    );
+}
+
+.torso {
+  background:
+    linear-gradient(
+      145deg,
+      #5aa4dc,
+      #3e85c4 60%,
+      #2f6fab
+    );
+}
+
+.left-arm {
+  background:
+    linear-gradient(
+      145deg,
+      #e76168,
+      #cc4752
+    );
+}
+
+.right-arm {
+  background:
+    linear-gradient(
+      145deg,
+      #6eae72,
+      #4b9157
+    );
+}
+
+.left-leg {
+  background:
+    linear-gradient(
+      145deg,
+      #9770c0,
+      #7754a2
+    );
+}
+
+.right-leg {
+  background:
+    linear-gradient(
+      145deg,
+      #ef9d4d,
+      #d87e32
+    );
+}
+
+.left-foot {
+  background:
+    linear-gradient(
+      145deg,
+      #4c8bd8,
+      #2f6da9
+    );
+}
+
+.right-foot {
+  background:
+    linear-gradient(
+      145deg,
+      #ec6d65,
+      #ca4e4d
+    );
+}
+
+/* ========================================
+   Drop zones
+   ======================================== */
+
+.drop-zone {
+  position: absolute;
+  z-index: 20;
+  border: 3px dashed transparent;
+  border-radius: 18px;
+  transition:
+    border-color 0.16s ease,
+    background 0.16s ease;
+  pointer-events: auto;
+}
+
+.drop-zone.drag-over {
+  border-color: #274b84;
+  background: rgba(39, 75, 132, 0.12);
+}
+
+.hat-zone {
+  left: 91px;
+  top: 0;
+  width: 148px;
+  height: 88px;
+}
+
+.top-zone {
+  left: 72px;
+  top: 111px;
+  width: 186px;
+  height: 205px;
+}
+
+.bottom-zone {
+  left: 96px;
+  top: 280px;
+  width: 138px;
+  height: 144px;
+}
+
+.shoes-zone {
+  left: 58px;
+  top: 472px;
+  width: 215px;
+  height: 74px;
+}
+
+.accessory-zone {
+  left: 109px;
+  top: 97px;
+  width: 112px;
+  height: 120px;
+}
+
+.worn-piece {
+  position: absolute;
+  z-index: 40;
+  pointer-events: none;
+}
+
+/* fitted clothing */
+
+.worn-piece[data-item="maglietta"],
+.worn-piece[data-item="maglione"] {
+  left: 107px;
+  top: 121px;
+}
+
+.worn-piece[data-item="pantaloni"] {
+  left: 116px;
+  top: 287px;
+}
+
+.worn-piece[data-item="gonna"] {
+  left: 129px;
+  top: 284px;
+}
+
+.worn-piece[data-item="scarpe"] {
+  left: 126px;
+  top: 493px;
+}
+
+.worn-piece[data-item="cappello"] {
+  left: 128px;
+  top: 8px;
+}
+
+.worn-piece[data-item="sciarpa"] {
+  left: 155px;
+  top: 108px;
+}
+
+.drop-help {
+  margin: 2px 0 0;
+  color: #75807a;
+  text-align: center;
+  font-weight: 700;
+}
+
+.drop-help span {
+  display: block;
+  margin-top: 2px;
+  font-size: 0.8rem;
+  font-style: italic;
+  font-weight: 600;
+}
+
+/* ========================================
+   Language panel
+   ======================================== */
+
+.sentence-output {
+  min-height: 86px;
+  padding: 14px;
+  border: 2px solid #d8cfbf;
+  border-radius: 16px;
+  background: #fffdf8;
+  text-align: center;
+}
+
+.sentence-output strong,
+.sentence-output span {
+  display: block;
+}
+
+.sentence-output strong {
+  color: #274b84;
+  line-height: 1.45;
+}
+
+.sentence-output span {
+  margin-top: 5px;
+  color: #777;
+  font-size: 0.86rem;
+  font-style: italic;
+}
+
+.worn-items {
+  display: grid;
+  gap: 7px;
+  margin-top: 14px;
+}
+
+.worn-chip {
+  padding: 8px 10px;
+  border: 2px solid #e0d7c9;
+  border-radius: 12px;
+  background: #fffdf8;
+  font-size: 0.86rem;
+  font-weight: 800;
+  text-align: center;
+}
+
+/* ========================================
+   Drag ghost used for pointer/touch
+   ======================================== */
+
+.drag-ghost {
+  position: fixed;
+  z-index: 5000;
+  width: 110px;
+  min-height: 90px;
+  padding: 8px;
+  transform: translate(-50%, -50%) rotate(-3deg);
+  border: 2px solid #cfc2b0;
+  border-radius: 16px;
+  background: white;
+  box-shadow: 0 12px 28px rgba(0,0,0,.24);
+  pointer-events: none;
+  opacity: 0.94;
+}
+
+.drag-ghost strong,
+.drag-ghost span {
+  display: none;
+}
+
+/* ========================================
+   Responsive
+   ======================================== */
+
+@media (max-width: 1050px) {
+  .activity-area {
+    grid-template-columns: 270px minmax(360px, 1fr);
+  }
+
+  .language-panel {
+    grid-column: 1 / -1;
+  }
+}
+
+@media (max-width: 760px) {
+  .dress-up-header {
+    grid-template-columns: 1fr;
+    text-align: center;
+  }
+
+  .back-link,
+  .reset-button {
+    justify-self: center;
+  }
+
+  .activity-area {
+    grid-template-columns: 1fr;
+  }
+
+  .figure-panel {
+    order: 1;
+  }
+
+  .clothing-panel {
+    order: 2;
+  }
+
+  .language-panel {
+    order: 3;
+  }
+
+  .clothing-tray {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 520px) {
+  .dress-up-app {
+    width: 100%;
+    margin-top: 0;
+  }
+
+  .dress-up-header,
+  .clothing-panel,
+  .figure-panel,
+  .language-panel {
+    border-radius: 0;
+  }
+
+  .figure-panel {
+    padding: 10px 0;
+  }
+
+  .stick-figure {
+    transform: scale(0.88);
+    transform-origin: top center;
+    margin-bottom: -65px;
+  }
+
+  .clothing-tray {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+
+/* ========================================
+   PNG DRESS-UP ASSETS
+   ======================================== */
+
+.clothing-image {
+  display: block;
+  width: 100%;
+  height: 82px;
+  margin: 0 auto;
+  object-fit: contain;
+  pointer-events: none;
+}
+
+.stick-figure {
+  position: relative;
+  width: 360px;
+  height: 570px;
+  margin: 10px auto 0;
+}
+
+.person-image {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  pointer-events: none;
+}
+
+/* Drop areas remain invisible until dragging */
+
+.drop-zone {
+  z-index: 20;
+}
+
+.hat-zone {
+  left: 28%;
+  top: 1%;
+  width: 44%;
+  height: 22%;
+}
+
+.top-zone {
+  left: 17%;
+  top: 20%;
+  width: 66%;
+  height: 31%;
+}
+
+.accessory-zone {
+  left: 30%;
+  top: 18%;
+  width: 40%;
+  height: 24%;
+}
+
+.bottom-zone {
+  left: 27%;
+  top: 45%;
+  width: 46%;
+  height: 31%;
+}
+
+.shoes-zone {
+  left: 16%;
+  top: 77%;
+  width: 68%;
+  height: 19%;
+}
+
+/* Real PNG clothing placed over the mannequin */
+
+.worn-piece {
+  position: absolute;
+  z-index: 40;
+  pointer-events: none;
+}
+
+.worn-piece img {
+  display: block;
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+}
+
+/* tops */
+
+.worn-piece[data-item="maglietta"] {
+  left: 20%;
+  top: 22%;
+  width: 60%;
+}
+
+.worn-piece[data-item="maglione"] {
+  left: 16%;
+  top: 20%;
+  width: 68%;
+}
+
+.worn-piece[data-item="giacca"] {
+  left: 15%;
+  top: 20%;
+  width: 70%;
+}
+
+/* bottoms */
+
+.worn-piece[data-item="pantaloni"] {
+  left: 27%;
+  top: 46%;
+  width: 46%;
+}
+
+.worn-piece[data-item="pantaloncini"] {
+  left: 27%;
+  top: 47%;
+  width: 46%;
+}
+
+.worn-piece[data-item="gonna"] {
+  left: 24%;
+  top: 45%;
+  width: 52%;
+}
+
+/* shoes */
+
+.worn-piece[data-item="scarpe"] {
+  left: 21%;
+  top: 79%;
+  width: 58%;
+}
+
+/* accessories */
+
+.worn-piece[data-item="cappello"] {
+  left: 27%;
+  top: 3%;
+  width: 46%;
+}
+
+.worn-piece[data-item="sciarpa"] {
+  left: 32%;
+  top: 21%;
+  width: 36%;
+}
+
+/* Hide obsolete CSS-built body pieces if any remain */
+.head,
+.torso,
+.arm,
+.leg,
+.foot {
+  display: none !important;
+}
+

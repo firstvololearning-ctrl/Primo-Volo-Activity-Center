@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vesti il personaggio | Primo Volo d'Italiano</title>
+  <link rel="stylesheet" href="dress-up.css">
+</head>
+
+<body>
+
+  <main class="dress-up-app">
+
+    <header class="dress-up-header">
+      <a href="index.html" class="back-link">
+        ← Primo Volo d'Italiano
+      </a>
+
+      <div class="title-group">
+        <h1>Vesti il personaggio!</h1>
+        <p>Dress the figure!</p>
+      </div>
+
+      <button id="resetButton" class="reset-button" type="button">
+        ↻ Ricomincia
+        <span>Start over</span>
+      </button>
+    </header>
+
+    <section class="instruction-card">
+      <strong>Trascina i vestiti sul personaggio.</strong>
+      <span>Drag the clothes onto the figure.</span>
+    </section>
+
+    <section class="activity-area">
+
+      <aside class="clothing-panel">
+        <h2>Vestiti</h2>
+        <p>Clothes</p>
+
+        <div id="clothingTray" class="clothing-tray">
+
+          <button class="clothing-card" type="button"
+            data-item="maglietta" data-slot="top" data-label="la maglietta">
+            <img class="clothing-image" src="images/scene-images/clothing/dress-up/maglietta.png" alt="">
+            <strong>la maglietta</strong>
+            <span>T-shirt</span>
+          </button>
+
+          <button class="clothing-card" type="button"
+            data-item="maglione" data-slot="top" data-label="il maglione">
+            <img class="clothing-image" src="images/scene-images/clothing/dress-up/maglione.png" alt="">
+            <strong>il maglione</strong>
+            <span>sweater</span>
+          </button>
+
+          <button class="clothing-card" type="button"
+            data-item="giacca" data-slot="top" data-label="la giacca">
+            <img class="clothing-image" src="images/scene-images/clothing/dress-up/giacca.png" alt="">
+            <strong>la giacca</strong>
+            <span>jacket</span>
+          </button>
+
+          <button class="clothing-card" type="button"
+            data-item="pantaloni" data-slot="bottom" data-label="i pantaloni">
+            <img class="clothing-image" src="images/scene-images/clothing/dress-up/pantaloni.png" alt="">
+            <strong>i pantaloni</strong>
+            <span>pants</span>
+          </button>
+
+          <button class="clothing-card" type="button"
+            data-item="pantaloncini" data-slot="bottom" data-label="i pantaloncini">
+            <img class="clothing-image" src="images/scene-images/clothing/dress-up/pantaloncini.png" alt="">
+            <strong>i pantaloncini</strong>
+            <span>shorts</span>
+          </button>
+
+          <button class="clothing-card" type="button"
+            data-item="gonna" data-slot="bottom" data-label="la gonna">
+            <img class="clothing-image" src="images/scene-images/clothing/dress-up/gonna.png" alt="">
+            <strong>la gonna</strong>
+            <span>skirt</span>
+          </button>
+
+          <button class="clothing-card" type="button"
+            data-item="scarpe" data-slot="shoes" data-label="le scarpe">
+            <img class="clothing-image" src="images/scene-images/clothing/dress-up/scarpe.png" alt="">
+            <strong>le scarpe</strong>
+            <span>shoes</span>
+          </button>
+
+          <button class="clothing-card" type="button"
+            data-item="cappello" data-slot="hat" data-label="il cappello">
+            <img class="clothing-image" src="images/scene-images/clothing/dress-up/cappello.png" alt="">
+            <strong>il cappello</strong>
+            <span>hat</span>
+          </button>
+
+          <button class="clothing-card" type="button"
+            data-item="sciarpa" data-slot="accessory" data-label="la sciarpa">
+            <img class="clothing-image" src="images/scene-images/clothing/dress-up/sciarpa.png" alt="">
+            <strong>la sciarpa</strong>
+            <span>scarf</span>
+          </button>
+
+        </div>
+      </aside>
+
+      <section class="figure-panel">
+
+        <div id="figure" class="stick-figure">
+
+          <img
+            class="person-image"
+            src="images/scene-images/clothing/dress-up/person.png"
+            alt="Personaggio di argilla"
+          >
+
+          <div class="drop-zone hat-zone" data-slot="hat"></div>
+          <div class="drop-zone top-zone" data-slot="top"></div>
+          <div class="drop-zone bottom-zone" data-slot="bottom"></div>
+          <div class="drop-zone shoes-zone" data-slot="shoes"></div>
+          <div class="drop-zone accessory-zone" data-slot="accessory"></div>
+
+        </div>
+
+        <p class="drop-help">
+          Metti i vestiti qui.
+          <span>Put the clothes here.</span>
+        </p>
+
+      </section>
+
+      <aside class="language-panel">
+        <h2>Che cosa indossa?</h2>
+        <p>What are they wearing?</p>
+
+        <div id="sentenceOutput" class="sentence-output">
+          <strong>Il personaggio...</strong>
+          <span>The figure...</span>
+        </div>
+
+        <div id="wornItems" class="worn-items"></div>
+      </aside>
+
+    </section>
+
+  </main>
+
+  <script src="dress-up.js"></script>
+
+</body>
+</html>
