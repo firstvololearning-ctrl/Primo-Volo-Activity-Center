@@ -1,0 +1,944 @@
+* {
+  box-sizing: border-box;
+}
+
+:root {
+  --blue: #274b84;
+  --blue-soft: #edf3fa;
+  --brown: #805936;
+  --cream: #fbf7ee;
+  --cream-dark: #e2d6c5;
+  --gold: #d5a33a;
+  --coral: #d76858;
+  --ink: #27372f;
+  --muted: #737a75;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  font-family: Arial, Helvetica, sans-serif;
+  color: var(--ink);
+
+  background:
+    radial-gradient(
+      circle at top,
+      #ffffff 0%,
+      #faf6ee 50%,
+      #f0e9de 100%
+    );
+}
+
+.carnevale-page {
+  width: min(1180px, 95%);
+  margin: 18px auto 44px;
+}
+
+
+/* ========================================
+   Header
+   ======================================== */
+
+.culture-header {
+  position: relative;
+
+  padding: 30px 28px;
+
+  border: 2px solid var(--cream-dark);
+  border-radius: 24px;
+
+  background: rgba(255, 255, 255, .94);
+
+  box-shadow:
+    0 10px 26px rgba(61, 51, 40, .08);
+}
+
+.back-link {
+  position: absolute;
+  left: 24px;
+  top: 24px;
+
+  color: var(--blue);
+
+  font-size: .88rem;
+  font-weight: 800;
+
+  text-decoration: none;
+}
+
+.back-link:hover {
+  text-decoration: underline;
+}
+
+.header-copy {
+  text-align: center;
+}
+
+.eyebrow {
+  margin-bottom: 7px;
+
+  color: var(--brown);
+
+  font-size: .84rem;
+  font-weight: 800;
+
+  letter-spacing: .02em;
+}
+
+.header-copy h1 {
+  margin: 0;
+
+  color: var(--blue);
+
+  font-size: clamp(
+    2.5rem,
+    6vw,
+    4.4rem
+  );
+
+  line-height: .95;
+}
+
+.subtitle {
+  margin: 12px 0 0;
+
+  color: var(--brown);
+
+  font-size: 1.12rem;
+  font-weight: 800;
+}
+
+.subtitle-en {
+  margin: 3px 0 0;
+
+  color: var(--muted);
+
+  font-size: .9rem;
+  font-style: italic;
+}
+
+
+/* ========================================
+   Hero
+   ======================================== */
+
+.hero-section {
+  display: grid;
+
+  grid-template-columns:
+    minmax(0, .85fr)
+    minmax(420px, 1.15fr);
+
+  align-items: center;
+
+  gap: 28px;
+
+  margin-top: 20px;
+
+  padding: 30px;
+
+  overflow: hidden;
+
+  border: 2px solid var(--cream-dark);
+  border-radius: 24px;
+
+  background: white;
+
+  box-shadow:
+    0 9px 25px rgba(61, 51, 40, .07);
+}
+
+.section-tag {
+  display: inline-block;
+
+  margin-bottom: 12px;
+
+  padding: 7px 11px;
+
+  border-radius: 999px;
+
+  background: var(--blue-soft);
+
+  color: var(--blue);
+
+  font-size: .82rem;
+  font-weight: 800;
+}
+
+.hero-copy h2 {
+  margin: 0 0 16px;
+
+  color: var(--brown);
+
+  font-size: clamp(1.7rem, 3vw, 2.4rem);
+}
+
+.italian-lead {
+  margin-bottom: 10px;
+
+  color: var(--blue);
+
+  font-size: 1.15rem;
+  font-weight: 800;
+}
+
+.italian-text {
+  line-height: 1.6;
+}
+
+.support-note {
+  margin-top: 18px;
+
+  padding: 14px 16px;
+
+  border-left: 5px solid var(--gold);
+  border-radius: 11px;
+
+  background: #fff8e8;
+
+  line-height: 1.5;
+}
+
+.hero-figures {
+  position: relative;
+
+  min-height: 390px;
+}
+
+.hero-person {
+  position: absolute;
+
+  bottom: 0;
+
+  height: 365px;
+
+  object-fit: contain;
+
+  filter:
+    drop-shadow(
+      0 8px 6px rgba(0,0,0,.13)
+    );
+}
+
+.hero-person-left {
+  left: 0;
+  z-index: 1;
+
+  transform:
+    rotate(-3deg)
+    scale(.88);
+
+  transform-origin: bottom;
+}
+
+.hero-person-center {
+  left: 50%;
+  z-index: 3;
+
+  transform:
+    translateX(-50%)
+    scale(1.02);
+
+  transform-origin: bottom;
+}
+
+.hero-person-right {
+  right: 0;
+  z-index: 2;
+
+  transform:
+    rotate(3deg)
+    scale(.9);
+
+  transform-origin: bottom;
+}
+
+
+/* ========================================
+   Info cards
+   ======================================== */
+
+.info-grid {
+  display: grid;
+
+  grid-template-columns:
+    repeat(3, minmax(0, 1fr));
+
+  gap: 18px;
+
+  margin-top: 20px;
+}
+
+.info-card {
+  padding: 25px;
+
+  border: 2px solid var(--cream-dark);
+  border-radius: 21px;
+
+  background: white;
+
+  box-shadow:
+    0 7px 20px rgba(61, 51, 40, .06);
+}
+
+.info-icon {
+  margin-bottom: 8px;
+
+  font-size: 2rem;
+}
+
+.bilingual-heading h2 {
+  margin: 0;
+
+  color: var(--brown);
+
+  font-size: 1.35rem;
+}
+
+.bilingual-heading span {
+  display: block;
+
+  margin-top: 2px;
+
+  color: var(--muted);
+
+  font-size: .78rem;
+  font-style: italic;
+  font-weight: 700;
+}
+
+.info-card p {
+  line-height: 1.55;
+}
+
+.english-support {
+  color: var(--muted);
+
+  font-size: .9rem;
+  font-style: italic;
+
+  line-height: 1.55;
+}
+
+.mini-vocab {
+  margin-top: 9px;
+
+  padding: 9px 11px;
+
+  border: 1px solid #ddd1c0;
+  border-radius: 11px;
+
+  background: var(--cream);
+}
+
+.mini-vocab strong,
+.mini-vocab span {
+  display: block;
+}
+
+.mini-vocab strong {
+  color: var(--blue);
+}
+
+.mini-vocab span {
+  margin-top: 2px;
+
+  color: var(--muted);
+
+  font-size: .76rem;
+  font-style: italic;
+}
+
+
+/* ========================================
+   Did you know
+   ======================================== */
+
+.did-you-know {
+  display: flex;
+
+  align-items: flex-start;
+
+  gap: 20px;
+
+  margin-top: 20px;
+
+  padding: 25px 28px;
+
+  border: 2px solid #e8d395;
+  border-radius: 22px;
+
+  background: #fff9e6;
+
+  box-shadow:
+    0 7px 20px rgba(61, 51, 40, .05);
+}
+
+.did-you-know-icon {
+  font-size: 2.8rem;
+}
+
+.did-you-know-copy p {
+  margin: 10px 0;
+}
+
+blockquote {
+  margin: 14px 0 7px;
+
+  color: var(--brown);
+
+  font-family: Georgia, serif;
+
+  font-size: 1.35rem;
+  font-style: italic;
+  font-weight: 700;
+}
+
+.saying-italian {
+  color: var(--blue);
+
+  font-weight: 800;
+}
+
+
+/* ========================================
+   Costume section
+   ======================================== */
+
+.costume-section {
+  margin-top: 20px;
+
+  padding: 28px;
+
+  border: 2px solid var(--cream-dark);
+  border-radius: 24px;
+
+  background: white;
+
+  box-shadow:
+    0 8px 22px rgba(61,51,40,.06);
+}
+
+.section-heading {
+  display: flex;
+
+  align-items: center;
+
+  gap: 12px;
+}
+
+.section-heading-icon {
+  font-size: 2.3rem;
+}
+
+.section-heading h2 {
+  margin: 0;
+
+  color: var(--brown);
+}
+
+.section-heading p {
+  margin: 2px 0 0;
+
+  color: var(--muted);
+
+  font-size: .83rem;
+  font-style: italic;
+}
+
+.costume-intro {
+  margin-bottom: 2px;
+
+  line-height: 1.5;
+}
+
+.costume-intro-en {
+  margin-top: 0;
+}
+
+.costume-grid {
+  display: grid;
+
+  grid-template-columns:
+    repeat(4, minmax(0, 1fr));
+
+  gap: 14px;
+
+  margin-top: 24px;
+}
+
+.costume-card {
+  display: grid;
+
+  place-items: end center;
+
+  min-height: 295px;
+
+  margin: 0;
+
+  padding: 10px;
+
+  overflow: hidden;
+
+  border: 2px solid #e4dacb;
+  border-radius: 19px;
+
+  background:
+    radial-gradient(
+      circle at top,
+      #fff 0%,
+      #faf6ef 75%
+    );
+}
+
+.costume-card img {
+  display: block;
+
+  width: 100%;
+  height: 270px;
+
+  object-fit: contain;
+
+  filter:
+    drop-shadow(
+      0 7px 5px rgba(0,0,0,.12)
+    );
+}
+
+.illustration-note {
+  margin: 22px 0 0;
+
+  color: #6e6c65;
+
+  font-size: .78rem;
+
+  line-height: 1.5;
+}
+
+.illustration-note + .illustration-note {
+  margin-top: 3px;
+}
+
+
+/* ========================================
+   Source
+   ======================================== */
+
+.source-box {
+  margin-top: 20px;
+
+  padding: 18px 20px;
+
+  border: 1px solid #ddd3c5;
+  border-radius: 16px;
+
+  background: #f8f4ed;
+
+  color: #666;
+
+  font-size: .8rem;
+
+  line-height: 1.5;
+}
+
+.source-box strong {
+  color: var(--brown);
+}
+
+.source-box p {
+  margin: 6px 0 7px;
+}
+
+.source-box a {
+  color: var(--blue);
+
+  font-weight: 800;
+}
+
+
+/* ========================================
+   Footer
+   ======================================== */
+
+.page-footer {
+  display: flex;
+
+  justify-content: center;
+
+  gap: 8px;
+
+  margin-top: 24px;
+
+  color: #777;
+
+  font-size: .8rem;
+}
+
+.page-footer strong {
+  color: var(--brown);
+}
+
+
+/* ========================================
+   Responsive
+   ======================================== */
+
+@media (max-width: 900px) {
+
+  .hero-section {
+    grid-template-columns: 1fr;
+  }
+
+  .hero-figures {
+    min-height: 360px;
+  }
+
+  .info-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .costume-grid {
+    grid-template-columns:
+      repeat(2, minmax(0, 1fr));
+  }
+
+}
+
+
+@media (max-width: 600px) {
+
+  .carnevale-page {
+    width: 96%;
+  }
+
+  .culture-header {
+    padding: 20px;
+  }
+
+  .back-link {
+    position: static;
+
+    display: inline-block;
+
+    margin-bottom: 20px;
+  }
+
+  .hero-section,
+  .costume-section {
+    padding: 20px;
+  }
+
+  .hero-figures {
+    min-height: 285px;
+  }
+
+  .hero-person {
+    height: 285px;
+  }
+
+  .costume-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .costume-card {
+    min-height: 220px;
+  }
+
+  .costume-card img {
+    height: 200px;
+  }
+
+  .did-you-know {
+    padding: 20px;
+  }
+
+}
+
+/* ========================================
+   Carnevale visual refinements
+   ======================================== */
+
+body {
+  background:
+    radial-gradient(
+      circle at top,
+      #ffffff 0%,
+      #f8f5fc 34%,
+      #f3eef9 100%
+    );
+}
+
+.hero-figures {
+  min-height: 400px;
+}
+
+.hero-person {
+  height: 355px;
+}
+
+.hero-person-left {
+  left: -4%;
+  transform:
+    rotate(-3deg)
+    scale(.84);
+}
+
+.hero-person-center {
+  left: 50%;
+  transform:
+    translateX(-50%)
+    scale(.98);
+}
+
+.hero-person-right {
+  right: -4%;
+  transform:
+    rotate(3deg)
+    scale(.84);
+}
+
+
+/* Hero figure spacing refinement */
+
+.hero-figures {
+  min-height: 405px;
+}
+
+.hero-person {
+  height: 345px;
+  bottom: 8px;
+}
+
+.hero-person-left {
+  left: 2%;
+  transform:
+    rotate(-2deg)
+    scale(.9);
+}
+
+.hero-person-center {
+  left: 50%;
+  transform:
+    translateX(-50%)
+    scale(.95);
+}
+
+.hero-person-right {
+  right: 2%;
+  transform:
+    rotate(2deg)
+    scale(.9);
+}
+
+
+/* Final hero costume arrangement */
+
+.hero-figures {
+  min-height: 405px;
+  width: 100%;
+}
+
+.hero-person {
+  height: 340px;
+  bottom: 5px;
+}
+
+.hero-person-left {
+  left: -7%;
+  transform:
+    rotate(-4deg)
+    scale(.88);
+}
+
+.hero-person-center {
+  left: 50%;
+  transform:
+    translateX(-50%)
+    scale(1);
+  z-index: 3;
+}
+
+.hero-person-right {
+  right: -7%;
+  transform:
+    rotate(3deg)
+    scale(.9);
+}
+
+
+/* Final hero costume balance */
+
+.hero-person-left {
+  left: -1%;
+  transform:
+    rotate(-4deg)
+    scale(1.03);
+}
+
+.hero-person-center {
+  left: 50%;
+  transform:
+    translateX(-50%)
+    scale(.92);
+}
+
+.hero-person-right {
+  right: -1%;
+  transform:
+    rotate(2deg)
+    scale(.91);
+}
+
+
+/* Slightly reduce left hero figure */
+
+.hero-person-left {
+  left: 1%;
+  transform:
+    rotate(-3deg)
+    scale(.92);
+}
+
+
+/* Refine information cards */
+
+.info-grid {
+  align-items: stretch;
+}
+
+.info-card {
+  display: flex;
+  flex-direction: column;
+  min-height: 330px;
+}
+
+.info-card p {
+  margin: 10px 0 0;
+  line-height: 1.6;
+}
+
+.bilingual-heading {
+  margin-bottom: 8px;
+}
+
+
+/* Purple Carnevale callouts */
+
+.support-note {
+  border-left: 5px solid #8a6fbd;
+  background: #f2ecfa;
+}
+
+.did-you-know {
+  border-color: #cfc0e8;
+  background: #f4effb;
+}
+
+.did-you-know-icon {
+  filter: saturate(.85);
+}
+
+
+/* Make purple callouts distinct from page background */
+
+.support-note {
+  background: #eee5f8;
+  border-left: 5px solid #815db3;
+  box-shadow: 0 3px 10px rgba(91, 66, 125, .06);
+}
+
+.did-you-know {
+  background: #eee5f8;
+  border: 2px solid #c1a9df;
+  box-shadow: 0 5px 14px rgba(91, 66, 125, .06);
+}
+
+
+/* Slightly increase reading text size */
+
+.hero-copy p,
+.info-card p,
+.did-you-know-copy p,
+.costume-intro {
+  font-size: 1rem;
+}
+
+.info-card p {
+  line-height: 1.65;
+}
+
+.italian-lead {
+  font-size: 1.2rem;
+}
+
+.bilingual-heading h2 {
+  font-size: 1.45rem;
+}
+
+.bilingual-heading span,
+.section-heading p,
+.subtitle-en {
+  font-size: .86rem;
+}
+
+.did-you-know-copy blockquote {
+  font-size: 1.45rem;
+}
+
+
+/* ========================================
+   FINAL READING SIZE
+   ======================================== */
+
+body .hero-copy p {
+  font-size: 17px !important;
+  line-height: 1.6 !important;
+}
+
+body .hero-copy .italian-lead {
+  font-size: 18px !important;
+  line-height: 1.55 !important;
+}
+
+body .info-card p {
+  font-size: 17px !important;
+  line-height: 1.6 !important;
+}
+
+body .did-you-know p {
+  font-size: 17px !important;
+  line-height: 1.55 !important;
+}
+
+body .costume-section p {
+  font-size: 17px !important;
+  line-height: 1.55 !important;
+}
+
+
+/* ========================================
+   FINAL CARNEVALE POLISH
+   ======================================== */
+
+/* Give the three information cards enough room
+   for the larger student-facing text */
+.info-card {
+  padding: 22px 22px 24px;
+}
+
+/* Keep paragraphs comfortably separated */
+.info-card p {
+  margin-top: 12px;
+  margin-bottom: 0;
+}
+
+/* Keep headings compact so the cards don't feel oversized */
+.info-card h3 {
+  margin-bottom: 2px;
+}
+
+/* Slight breathing room between the major page sections */
+.info-grid {
+  margin-bottom: 20px;
+}
+
