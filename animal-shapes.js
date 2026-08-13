@@ -1,6 +1,16 @@
 "use strict";
 
 const IMAGE_BASE = "images/animals/";
+function sayItalian(text) {
+  if (
+    typeof window.primoVoloSpeakItalian ===
+    "function"
+  ) {
+    window.primoVoloSpeakItalian(text);
+  }
+}
+
+
 
 const animals = [
   { id: "cane", italian: "il cane", english: "the dog", image: "animals-01.png" },
@@ -62,6 +72,13 @@ function makeRound() {
     card.type = "button";
     card.className = "animal-card";
     card.dataset.id = animal.id;
+
+    card.addEventListener(
+      "click",
+      () => {
+        sayItalian(animal.italian);
+      }
+    );
 
     card.innerHTML = `
       <img src="${IMAGE_BASE}${animal.image}" alt="">
@@ -229,6 +246,8 @@ function checkMatch(animal, target) {
   if (target.classList.contains("correct")) return;
 
   if (target.dataset.id !== animal.id) {
+    sayItalian("Prova ancora.");
+
     target.animate(
       [
         { transform: "translateX(0)" },
@@ -264,12 +283,44 @@ function checkMatch(animal, target) {
     <span>It is ${animal.english}.</span>
   `;
 
+  sayItalian(
+    `È ${animal.italian}.`
+  );
+
   const chip = document.createElement("div");
   chip.className = "word-chip";
   chip.textContent = animal.italian;
   completedWords.appendChild(chip);
 }
 
-newRoundButton.addEventListener("click", makeRound);
+document
+  .querySelector("#animalInstructionAudio")
+  ?.addEventListener(
+    "click",
+    () => {
+      sayItalian(
+        "Abbina ogni animale alla sua sagoma."
+      );
+    }
+  );
+
+document
+  .querySelector("#animalQuestionAudio")
+  ?.addEventListener(
+    "click",
+    () => {
+      sayItalian(
+        "Che animale è?"
+      );
+    }
+  );
+
+newRoundButton.addEventListener(
+  "click",
+  () => {
+    makeRound();
+    sayItalian("Trova un animale.");
+  }
+);
 
 makeRound();

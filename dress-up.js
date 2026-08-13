@@ -13,6 +13,25 @@ const resetButton = document.querySelector("#resetButton");
 const sentenceOutput = document.querySelector("#sentenceOutput");
 const wornItems = document.querySelector("#wornItems");
 
+function sayItalian(text) {
+  if (
+    typeof window.primoVoloSpeakItalian ===
+    "function"
+  ) {
+    window.primoVoloSpeakItalian(text);
+  }
+}
+
+const dressInstructionAudio =
+  document.querySelector(
+    "#dressInstructionAudio"
+  );
+
+const dressQuestionAudio =
+  document.querySelector(
+    "#dressQuestionAudio"
+  );
+
 let activeItem = null;
 let dragGhost = null;
 let pointerId = null;
@@ -173,6 +192,15 @@ function dressFigure(item) {
   };
 
   updateLanguagePanel();
+
+  sayItalian(
+    buildItalianSentence(
+      getWornLabels()
+    ).replace(
+      " e ",
+      " e anche "
+    )
+  );
 }
 
 function removePieceFromSlot(slot) {
@@ -210,6 +238,29 @@ function buildItalianSentence(labels) {
 
   return `Il personaggio indossa ${allButLast.join(", ")} e ${last}.`;
 }
+
+function buildSpokenItalianSentence(labels) {
+  if (labels.length === 0) {
+    return "Il personaggio.";
+  }
+
+  if (labels.length === 1) {
+    return `Il personaggio indossa ${labels[0]}.`;
+  }
+
+  if (labels.length === 2) {
+    return `Il personaggio indossa ${labels[0]} e anche ${labels[1]}.`;
+  }
+
+  const allButLast =
+    labels.slice(0, -1);
+
+  const last =
+    labels[labels.length - 1];
+
+  return `Il personaggio indossa ${allButLast.join(", ")} e anche ${last}.`;
+}
+
 
 function buildEnglishSentence(labels) {
   if (labels.length === 0) {
@@ -291,7 +342,16 @@ function resetActivity() {
 clothingCards.forEach((card) => {
   card.addEventListener(
     "pointerdown",
-    (event) => startPointerDrag(event, card)
+    (event) => {
+      sayItalian(
+        card.dataset.label
+      );
+
+      startPointerDrag(
+        event,
+        card
+      );
+    }
   );
 });
 
@@ -399,6 +459,24 @@ dropZones.forEach((zone) => {
     }
   );
 });
+
+dressInstructionAudio?.addEventListener(
+  "click",
+  () => {
+    sayItalian(
+      "Trascina i vestiti sul personaggio."
+    );
+  }
+);
+
+dressQuestionAudio?.addEventListener(
+  "click",
+  () => {
+    sayItalian(
+      "Che cosa indossa?"
+    );
+  }
+);
 
 resetButton.addEventListener(
   "click",

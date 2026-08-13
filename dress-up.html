@@ -29,6 +29,14 @@
 
     <section class="instruction-card">
       <strong>Trascina i vestiti sul personaggio.</strong>
+      <button
+        type="button"
+        id="dressInstructionAudio"
+        class="mini-audio-button"
+        aria-label="Ascolta l'istruzione"
+      >
+        🔊
+      </button>
       <span>Drag the clothes onto the figure.</span>
     </section>
 
@@ -132,7 +140,17 @@
       </section>
 
       <aside class="language-panel">
-        <h2>Che cosa indossa?</h2>
+        <h2>
+          Che cosa indossa?
+          <button
+            type="button"
+            id="dressQuestionAudio"
+            class="mini-audio-button"
+            aria-label="Ascolta la domanda"
+          >
+            🔊
+          </button>
+        </h2>
         <p>What is the person wearing?</p>
 
         <div id="sentenceOutput" class="sentence-output">
@@ -147,6 +165,7 @@
 
   </main>
 
+  <script src="italian-audio.js"></script>
   <script src="dress-up.js"></script>
 
 </body>

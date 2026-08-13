@@ -2261,118 +2261,86 @@ function setActiveButton(mode) {
  
 
 function createVocabularyCard(item) {
+  const isFeelings =
+    currentTopicKey === "feelings";
+
+  const masculine =
+    item.masculine || item.italian;
+
+  const feminine =
+    item.feminine || masculine;
+
+  const displayItalian =
+    isFeelings
+      ? (
+          masculine === feminine
+            ? `È ${masculine}.`
+            : `È ${masculine}. / È ${feminine}.`
+        )
+      : item.italian;
+
+  const spokenItalian =
+    isFeelings
+      ? (
+          masculine === feminine
+            ? `È ${masculine}.`
+            : `È ${masculine}. È ${feminine}.`
+        )
+      : item.italian;
 
   const card = document.createElement("button");
 
- 
-
   card.className = "vocabulary-card";
-
   card.type = "button";
 
- 
-
   card.setAttribute(
-
     "aria-label",
-
-    `Hear ${item.italian}`
-
+    `Hear ${displayItalian}`
   );
-
- 
 
   card.innerHTML = `
-
     <div class="image-frame">
-
       <img
-
         src="${item.image}"
-
         alt="${item.english}"
-
       >
-
     </div>
-
- 
 
     <div class="card-text">
-
       <p class="italian-word">
-
-        ${item.italian}
-
+        ${displayItalian}
       </p>
-
- 
 
       <p class="english-word">
-
         ${item.english}
-
       </p>
-
     </div>
 
- 
-
     <span
-
       class="audio-icon"
-
       aria-hidden="true"
-
     >
-
       🔊
-
     </span>
-
   `;
 
- 
-
   card.addEventListener("click", () => {
-
-    speakItalian(item.italian);
-
- 
+    speakItalian(spokenItalian);
 
     card.classList.remove("is-speaking");
-
- 
-
     void card.offsetWidth;
-
- 
-
     card.classList.add("is-speaking");
-
   });
 
- 
-
   card.addEventListener(
-
     "animationend",
-
     () => {
-
       card.classList.remove("is-speaking");
-
     }
-
   );
 
- 
-
   return card;
-
 }
-
- 
 
 function renderVocabulary() {
 
@@ -6076,8 +6044,7 @@ currentVocabulary =
   getTopicVocabulary(currentTopicKey);
   setActivityButtonsDisabled(false);
 if (genderChoice) {
-  genderChoice.hidden =
-    currentTopicKey !== "feelings";
+  genderChoice.hidden = true;
 }
  
 
