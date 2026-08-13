@@ -5059,6 +5059,80 @@ body.months-topic
   margin-top: 14px;
 }
 
+.site-header .culture-link {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+
+  width: min(100%, 340px);
+  min-height: 96px;
+  margin: 16px auto 0;
+  padding: 16px 18px;
+
+  border: 1px solid #d8e2ef;
+  border-radius: 22px;
+
+  background:
+    linear-gradient(180deg, #fffdf8 0%, #f6f1e7 100%);
+
+  box-shadow: 0 8px 20px rgba(39, 75, 132, 0.08);
+
+  text-align: center;
+}
+
+.site-header .culture-link:hover,
+.site-header .culture-link:focus-visible {
+  transform: translateY(-2px);
+  border-color: #bfd0e5;
+  background:
+    linear-gradient(180deg, #fffefb 0%, #f8f4ec 100%);
+  box-shadow: 0 12px 26px rgba(39, 75, 132, 0.12);
+}
+
+.site-header .culture-link-title {
+  display: block;
+
+  color: #24364d;
+
+  font-size: 1.05rem;
+  font-weight: 900;
+  line-height: 1.2;
+}
+
+.site-header .culture-link-subtitle {
+  display: block;
+
+  color: #6f7d8f;
+
+  font-size: 0.8rem;
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+@media (max-width: 820px) {
+  .site-header .culture-link {
+    width: min(100%, 420px);
+    margin-top: 12px;
+  }
+}
+
+@media (max-width: 480px) {
+  .site-header .culture-link {
+    min-height: 84px;
+    padding: 14px 16px;
+  }
+
+  .site-header .culture-link-title {
+    font-size: 0.98rem;
+  }
+
+  .site-header .culture-link-subtitle {
+    font-size: 0.74rem;
+  }
+}
+
 
 /* Responsive */
 
@@ -8562,4 +8636,76 @@ body.hide-english
   .flight-stop:nth-child(5n)::before {
     display: none;
   }
+}
+
+/* Cultura compact size */
+.site-header .culture-link {
+  min-height: 58px;
+  width: min(100%, 320px);
+  margin-top: 10px;
+  padding: 7px 16px;
+  gap: 2px;
+}
+
+.site-header .culture-link-title {
+  font-size: 0.98rem;
+}
+
+.site-header .culture-link-subtitle {
+  font-size: 0.72rem;
+}
+
+@media (max-width: 480px) {
+  .site-header .culture-link {
+    min-height: 56px;
+    padding: 7px 14px;
+  }
+}
+
+/* Force compact Cultura destination */
+.site-header .header-actions > a.culture-link {
+  width: 300px !important;
+  max-width: calc(100% - 24px) !important;
+
+  height: 52px !important;
+  min-height: 52px !important;
+  max-height: 52px !important;
+
+  margin: 10px auto 0 !important;
+  padding: 5px 14px !important;
+
+  gap: 0 !important;
+  align-self: center !important;
+}
+
+.site-header .header-actions > a.culture-link .culture-link-title {
+  font-size: 0.95rem !important;
+  line-height: 1.05 !important;
+}
+
+.site-header .header-actions > a.culture-link .culture-link-subtitle {
+  margin-top: 2px !important;
+  font-size: 0.68rem !important;
+  line-height: 1 !important;
+}
+
+@media (max-width: 480px) {
+  .site-header .header-actions > a.culture-link {
+    width: 280px !important;
+    height: 50px !important;
+    min-height: 50px !important;
+    max-height: 50px !important;
+  }
+}
+
+/* Cultura — coordinate with Per chi impara */
+.site-header .header-actions > a.culture-link {
+  background: #f9fbfe !important;
+  border-color: #dce6f1 !important;
+}
+
+.site-header .header-actions > a.culture-link:hover,
+.site-header .header-actions > a.culture-link:focus-visible {
+  background: #f2f7fc !important;
+  border-color: #c7d8ea !important;
 }
