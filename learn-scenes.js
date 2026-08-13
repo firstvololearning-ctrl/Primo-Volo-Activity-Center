@@ -977,6 +977,8 @@
               italian !==
               target.italian
             ) {
+              speak(italian);
+
               button.classList.add(
                 "incorrect"
               );
