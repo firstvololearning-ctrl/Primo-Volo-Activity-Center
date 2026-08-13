@@ -2264,29 +2264,44 @@ function createVocabularyCard(item) {
   const isFeelings =
     currentTopicKey === "feelings";
 
+  const isAdjectives =
+    currentTopicKey === "adjectives";
+
   const masculine =
     item.masculine || item.italian;
 
   const feminine =
     item.feminine || masculine;
 
-  const displayItalian =
-    isFeelings
-      ? (
-          masculine === feminine
-            ? `È ${masculine}.`
-            : `È ${masculine}. / È ${feminine}.`
-        )
-      : item.italian;
+  let displayItalian =
+    item.italian;
 
-  const spokenItalian =
-    isFeelings
-      ? (
-          masculine === feminine
-            ? `È ${masculine}.`
-            : `È ${masculine}. È ${feminine}.`
-        )
-      : item.italian;
+  let spokenItalian =
+    item.italian;
+
+  if (isFeelings) {
+    displayItalian =
+      masculine === feminine
+        ? `È ${masculine}.`
+        : `È ${masculine}. / È ${feminine}.`;
+
+    spokenItalian =
+      masculine === feminine
+        ? `È ${masculine}.`
+        : `È ${masculine}. È ${feminine}.`;
+  }
+
+  if (isAdjectives) {
+    displayItalian =
+      masculine === feminine
+        ? masculine
+        : `${masculine} / ${feminine}`;
+
+    spokenItalian =
+      masculine === feminine
+        ? masculine
+        : `${masculine}. ${feminine}.`;
+  }
 
   const card = document.createElement("button");
 

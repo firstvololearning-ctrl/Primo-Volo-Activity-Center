@@ -363,6 +363,41 @@ if (
     });
   }
 
+  function getItalianForms(item) {
+    const masculine =
+      item.masculine || item.italian;
+
+    const feminine =
+      item.feminine || masculine;
+
+    return {
+      masculine,
+      feminine
+    };
+  }
+
+  function getItalianDisplay(item) {
+    const {
+      masculine,
+      feminine
+    } = getItalianForms(item);
+
+    return masculine !== feminine
+      ? `${masculine} / ${feminine}`
+      : masculine;
+  }
+
+  function getItalianSpeech(item) {
+    const {
+      masculine,
+      feminine
+    } = getItalianForms(item);
+
+    return masculine !== feminine
+      ? `${masculine}. ${feminine}.`
+      : masculine;
+  }
+
   function itemMatchesSearch(
     item,
     searchTerm
@@ -371,9 +406,14 @@ if (
       return true;
     }
 
+    const {
+      masculine,
+      feminine
+    } = getItalianForms(item);
+
     const searchableText =
       normalizeText(
-        `${item.italian} ${item.english}`
+        `${item.italian} ${masculine} ${feminine} ${item.english}`
       );
 
     return searchableText.includes(
@@ -385,14 +425,20 @@ if (
     const articleLabel =
       item.english || item.italian;
 
+    const italianDisplay =
+      getItalianDisplay(item);
+
+    const italianSpeech =
+      getItalianSpeech(item);
+
     return `
       <article class="glossary-card">
 
         <button
           type="button"
           class="glossary-audio-button"
-          data-speak="${item.italian}"
-          aria-label="Listen to ${item.italian}"
+          data-speak="${italianSpeech}"
+          aria-label="Listen to ${italianDisplay}"
           title="Ascolta · Listen"
         >
           🔊
@@ -409,7 +455,7 @@ if (
 
         <div class="glossary-card-text">
           <p class="glossary-card-italian">
-            ${item.italian}
+            ${italianDisplay}
           </p>
 
           <p class="glossary-card-english">

@@ -460,41 +460,57 @@ const animals = [
 const adjectives = [
   {
     italian: "buono",
+    masculine: "buono",
+    feminine: "buona",
     english: "good",
     image: "images/adjectives/adjectives-01.png"
   },
   {
     italian: "cattivo",
+    masculine: "cattivo",
+    feminine: "cattiva",
     english: "bad",
     image: "images/adjectives/adjectives-02.png"
   },
   {
     italian: "piccolo",
+    masculine: "piccolo",
+    feminine: "piccola",
     english: "small",
     image: "images/adjectives/adjectives-03.png"
   },
   {
     italian: "grande",
+    masculine: "grande",
+    feminine: "grande",
     english: "big",
     image: "images/adjectives/adjectives-04.png"
   },
   {
     italian: "caldo",
+    masculine: "caldo",
+    feminine: "calda",
     english: "hot",
     image: "images/adjectives/adjectives-06.png"
   },
   {
     italian: "freddo",
+    masculine: "freddo",
+    feminine: "fredda",
     english: "cold",
     image: "images/adjectives/adjectives-05.png"
   },
   {
     italian: "lento",
+    masculine: "lento",
+    feminine: "lenta",
     english: "slow",
     image: "images/adjectives/adjectives-07.png"
   },
   {
     italian: "veloce",
+    masculine: "veloce",
+    feminine: "veloce",
     english: "fast",
     image: "images/adjectives/adjectives-08.png"
   }
