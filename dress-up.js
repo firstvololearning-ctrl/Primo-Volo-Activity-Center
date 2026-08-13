@@ -45,6 +45,9 @@ const wornImageByItem = {
     "images/scene-images/clothing/matched/shirt-rainbow.png",
 "pantaloni-rossi":
     "images/scene-images/clothing/matched/pants-red.png",
+
+  "cappotto":
+    "images/scene-images/clothing/matched/coat-winter.png",
 };
 
 const wornBySlot = {
