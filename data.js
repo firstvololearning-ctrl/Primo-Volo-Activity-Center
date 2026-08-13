@@ -968,6 +968,59 @@ const time = [
     image: "images/time/time-20.png"
   }
 ];
+const routines = [
+  {
+    italian: "Mi sveglio.",
+    english: "I wake up.",
+    image: "images/routines/svegliarsi.png"
+  },
+  {
+    italian: "Mi alzo.",
+    english: "I get up.",
+    image: "images/routines/alzarsi.png"
+  },
+  {
+    italian: "Faccio colazione.",
+    english: "I have breakfast.",
+    image: "images/routines/eating-breakfast.png"
+  },
+  {
+    italian: "Vado a scuola.",
+    english: "I go to school.",
+    image: "images/routines/going-to-school.png"
+  },
+  {
+    italian: "Torno a casa.",
+    english: "I go home.",
+    image: "images/routines/return-home.png"
+  },
+  {
+    italian: "Faccio i compiti.",
+    english: "I do my homework.",
+    image: "images/routines/homework.png"
+  },
+  {
+    italian: "Gioco.",
+    english: "I play.",
+    image: "images/routines/play.png"
+  },
+  {
+    italian: "Leggo.",
+    english: "I read.",
+    image: "images/routines/read.png"
+  },
+  {
+    italian: "Vado a dormire.",
+    english: "I go to bed.",
+    image: "images/routines/going-to-sleep.png"
+  },
+  {
+    italian: "Dormo.",
+    english: "I sleep.",
+    image: "images/routines/sleeping.png"
+  }
+];
+
 const days = [
   {
     italian: "lunedì",

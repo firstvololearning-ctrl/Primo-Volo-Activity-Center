@@ -229,6 +229,16 @@ if (
           : []
     },
     {
+      id: "routines",
+      icon: "🌅",
+      italian: "La mia giornata",
+      english: "Daily Routines",
+      vocabulary:
+        typeof routines !== "undefined"
+          ? routines
+          : []
+    },
+    {
   id: "days",
   icon: "📅",
   italian: "I giorni della settimana",

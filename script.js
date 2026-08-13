@@ -1765,6 +1765,14 @@ animals: {
 
 },
 
+routines: {
+  icon: "🌅",
+  italian: "La mia giornata",
+  english: "Daily Routines",
+  vocabulary: routines,
+  available: true
+},
+
  days: {
   icon: "📅",
   italian: "I giorni della settimana",
