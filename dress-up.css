@@ -924,6 +924,89 @@ button {
   width: 30%;
 }
 
+
+/* Expanded clay clothing */
+
+.worn-piece[data-item="vestito-blu"] {
+  left: 18%;
+  top: 24%;
+  width: 64%;
+}
+
+.worn-piece[data-item="vestito-dorato"] {
+  left: 14%;
+  top: 23%;
+  width: 72%;
+}
+
+.worn-piece[data-item="smoking"] {
+  left: 16%;
+  top: 24%;
+  width: 68%;
+}
+
+.worn-piece[data-item="cappotto"] {
+  left: 14%;
+  top: 23%;
+  width: 72%;
+  z-index: 44;
+}
+
+.worn-piece[data-item="camicia"],
+.worn-piece[data-item="maglietta-righe"],
+.worn-piece[data-item="maglietta-arcobaleno"],
+.worn-piece[data-item="maglietta-colorata"] {
+  left: 19%;
+  top: 25%;
+  width: 62%;
+}
+
+.worn-piece[data-item="pantaloni-rossi"] {
+  left: 26%;
+  top: 45%;
+  width: 48%;
+}
+
+.worn-piece[data-item="guanti-blu"] {
+  left: 6%;
+  top: 36%;
+  width: 88%;
+  z-index: 48;
+}
+
+.worn-piece[data-item="cappello-elegante"] {
+  left: 25%;
+  top: 0%;
+  width: 46%;
+}
+
+.worn-piece[data-item="cappello-invernale"] {
+  left: 27%;
+  top: 2%;
+  width: 46%;
+}
+
+.worn-piece[data-item="scarpe-ballerine"] {
+  left: 20%;
+  top: 80%;
+  width: 60%;
+  z-index: 46;
+}
+
+.worn-piece[data-item="scarpe-zoccoli"] {
+  left: 19%;
+  top: 80%;
+  width: 62%;
+  z-index: 46;
+}
+
+.worn-piece[data-item="stivali-invernali"] {
+  left: 18%;
+  top: 74%;
+  width: 64%;
+  z-index: 46;
+}
+
 /* Hide obsolete CSS-built body pieces if any remain */
 .head,
 .torso,
@@ -941,5 +1024,203 @@ button {
   cursor: pointer;
   font-size: 0.95em;
   vertical-align: middle;
+}
+
+
+
+/* FINAL EXPANDED CLOTHING FIT */
+
+/* Keep the mannequin nearby while browsing the long clothing tray */
+@media (min-width: 761px) {
+  .figure-panel {
+    position: sticky;
+    top: 18px;
+    align-self: start;
+  }
+}
+
+/* New hats — fit the actual head rather than covering it */
+.worn-piece[data-item="cappello-elegante"] {
+  left: 33%;
+  top: 2%;
+  width: 34%;
+}
+
+.worn-piece[data-item="cappello-invernale"] {
+  left: 32%;
+  top: 2%;
+  width: 36%;
+}
+
+/* Gloves — sit around the hands instead of across the entire body */
+.worn-piece[data-item="guanti-blu"] {
+  left: 24%;
+  top: 40%;
+  width: 52%;
+  z-index: 48;
+}
+
+/* Front-facing footwear */
+.worn-piece[data-item="scarpe-ballerine"] {
+  left: 27%;
+  top: 82%;
+  width: 46%;
+  z-index: 46;
+}
+
+.worn-piece[data-item="scarpe-zoccoli"] {
+  left: 27%;
+  top: 82%;
+  width: 46%;
+  z-index: 46;
+}
+
+.worn-piece[data-item="stivali-invernali"] {
+  left: 28%;
+  top: 72%;
+  width: 44%;
+  z-index: 46;
+}
+
+/* New pants */
+.worn-piece[data-item="pantaloni-rossi"] {
+  left: 28%;
+  top: 47%;
+  width: 44%;
+}
+
+/* Full outfits */
+.worn-piece[data-item="vestito-dorato"] {
+  left: 10%;
+  top: 22%;
+  width: 80%;
+}
+
+.worn-piece[data-item="smoking"] {
+  left: 11%;
+  top: 23%;
+  width: 78%;
+}
+
+/* ========================================
+   FINAL POSITION TUNING
+   ======================================== */
+
+/* Hat sits on top of the head */
+.worn-piece[data-item="cappello-elegante"] {
+  left: 35%;
+  top: -2%;
+  width: 30%;
+}
+
+/* Winter hat */
+.worn-piece[data-item="cappello-invernale"] {
+  left: 34%;
+  top: 0%;
+  width: 32%;
+}
+
+/* Gloves — smaller and closer to actual hands */
+.worn-piece[data-item="guanti-blu"] {
+  left: 29%;
+  top: 42%;
+  width: 42%;
+  z-index: 48;
+}
+
+/* Ballet shoes sit OVER the blue feet */
+.worn-piece[data-item="scarpe-ballerine"] {
+  left: 31%;
+  top: 77%;
+  width: 38%;
+  z-index: 46;
+}
+
+/* Clogs use the same foot position */
+.worn-piece[data-item="scarpe-zoccoli"] {
+  left: 30%;
+  top: 77%;
+  width: 40%;
+  z-index: 46;
+}
+
+/* Boots begin higher on the lower legs */
+.worn-piece[data-item="stivali-invernali"] {
+  left: 29%;
+  top: 67%;
+  width: 42%;
+  z-index: 46;
+}
+
+/* Tuxedo needs to cover more of the figure */
+.worn-piece[data-item="smoking"] {
+  left: 5%;
+  top: 22%;
+  width: 90%;
+}
+
+/* Full formal gown */
+.worn-piece[data-item="vestito-dorato"] {
+  left: 2%;
+  top: 20%;
+  width: 96%;
+}
+
+
+/* MATCH NEW PIECES TO THE ORIGINAL PROVEN FITS */
+
+.worn-piece[data-item="camicia"],
+.worn-piece[data-item="maglietta-righe"],
+.worn-piece[data-item="maglietta-arcobaleno"] {
+  left: 20%;
+  top: 25%;
+  width: 60%;
+}
+
+.worn-piece[data-item="cappotto"] {
+  left: 15%;
+  top: 24%;
+  width: 70%;
+}
+
+.worn-piece[data-item="pantaloni-rossi"] {
+  left: 27%;
+  top: 46%;
+  width: 46%;
+}
+
+.worn-piece[data-item="scarpe-ballerine"],
+.worn-piece[data-item="scarpe-zoccoli"] {
+  left: 18%;
+  top: 80%;
+  width: 64%;
+}
+
+.worn-piece[data-item="cappello-elegante"],
+.worn-piece[data-item="cappello-invernale"] {
+  left: 25%;
+  top: 1%;
+  width: 44%;
+}
+
+
+.worn-piece[data-item="pantaloni-rossi"] {
+  left: 21%;
+  top: 46%;
+  width: 58%;
+}
+
+
+.worn-piece[data-item="pantaloni-rossi"] {
+  left: 21%;
+  top: 46%;
+  width: 58%;
+}
+
+
+.worn-piece[data-item="cappotto"] {
+  left: 7%;
+  top: 21%;
+  width: 86%;
 }
 

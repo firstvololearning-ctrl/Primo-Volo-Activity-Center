@@ -36,6 +36,17 @@ let activeItem = null;
 let dragGhost = null;
 let pointerId = null;
 
+const wornImageByItem = {
+
+  "maglietta-righe":
+    "images/scene-images/clothing/matched/shirt-striped.png",
+
+  "maglietta-arcobaleno":
+    "images/scene-images/clothing/matched/shirt-rainbow.png",
+"pantaloni-rossi":
+    "images/scene-images/clothing/matched/pants-red.png",
+};
+
 const wornBySlot = {
   top: null,
   bottom: null,
@@ -44,12 +55,16 @@ const wornBySlot = {
   accessory: null
 };
 
+const fullBodyItems = new Set([]);
+
 function getCardData(card) {
   return {
     item: card.dataset.item,
     slot: card.dataset.slot,
     label: card.dataset.label,
-    image: card.querySelector(".clothing-image").getAttribute("src")
+    image:
+      wornImageByItem[card.dataset.item] ||
+      card.querySelector(".clothing-image").getAttribute("src")
   };
 }
 
@@ -172,6 +187,25 @@ function endPointerDrag(event) {
 }
 
 function dressFigure(item) {
+  const isFullBody =
+    fullBodyItems.has(item.item);
+
+  if (isFullBody) {
+    removePieceFromSlot("top");
+    removePieceFromSlot("bottom");
+  } else if (
+    (
+      item.slot === "top" ||
+      item.slot === "bottom"
+    ) &&
+    wornBySlot.top &&
+    fullBodyItems.has(
+      wornBySlot.top.item
+    )
+  ) {
+    removePieceFromSlot("top");
+  }
+
   removePieceFromSlot(item.slot);
 
   const wrapper = document.createElement("div");
@@ -276,7 +310,13 @@ function buildEnglishSentence(labels) {
     "la gonna": "a skirt",
     "le scarpe": "shoes",
     "il cappello": "a hat",
-    "la sciarpa": "a scarf"
+    "la sciarpa": "a scarf",
+    "il vestito": "a dress",
+    "lo smoking": "a tuxedo",
+    "il cappotto": "a coat",
+    "la camicia": "a shirt",
+    "i guanti": "gloves",
+    "gli stivali": "boots"
   };
 
   const englishLabels = labels.map(
@@ -339,10 +379,20 @@ function resetActivity() {
    Pointer / touch dragging
    ======================================== */
 
+const clothingTapStarts = new WeakMap();
+
 clothingCards.forEach((card) => {
   card.addEventListener(
     "pointerdown",
     (event) => {
+      clothingTapStarts.set(
+        card,
+        {
+          x: event.clientX,
+          y: event.clientY
+        }
+      );
+
       sayItalian(
         card.dataset.label
       );
@@ -351,6 +401,41 @@ clothingCards.forEach((card) => {
         event,
         card
       );
+    }
+  );
+
+  card.addEventListener(
+    "pointerup",
+    (event) => {
+      const start =
+        clothingTapStarts.get(
+          card
+        );
+
+      if (!start) {
+        return;
+      }
+
+      const distance =
+        Math.hypot(
+          event.clientX - start.x,
+          event.clientY - start.y
+        );
+
+      clothingTapStarts.delete(
+        card
+      );
+
+      /*
+        A short tap dresses the figure.
+        A real drag keeps the normal
+        drag-and-drop behavior.
+      */
+      if (distance <= 12) {
+        dressFigure(
+          getCardData(card)
+        );
+      }
     }
   );
 });
@@ -464,7 +549,7 @@ dressInstructionAudio?.addEventListener(
   "click",
   () => {
     sayItalian(
-      "Trascina i vestiti sul personaggio."
+      "Tocca un vestito per indossarlo, oppure trascinalo sul personaggio."
     );
   }
 );
