@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1"
+  >
+  <title>Cultura · Culture | Primo Volo d'Italiano</title>
+
+  <style>
+    :root {
+      --blue: #274b84;
+      --blue-light: #edf4fb;
+      --border: #d8e2ef;
+      --text: #24364d;
+      --muted: #66758d;
+      --coral: #d46c5c;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      background: #f7f9fc;
+      color: var(--text);
+      font-family:
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        sans-serif;
+    }
+
+    .culture-header {
+      padding: 30px 20px 24px;
+      background: white;
+      border-bottom: 1px solid var(--border);
+      text-align: center;
+    }
+
+    .culture-header h1 {
+      margin: 0;
+      color: var(--blue);
+      font-size: clamp(2rem, 5vw, 3rem);
+    }
+
+    .culture-header p {
+      margin: 8px 0 0;
+      color: var(--muted);
+      font-weight: 700;
+    }
+
+    .back-link {
+      display: inline-block;
+      margin-top: 18px;
+      color: var(--blue);
+      font-weight: 800;
+      text-decoration: none;
+    }
+
+    main {
+      width: min(1000px, calc(100% - 32px));
+      margin: 34px auto 60px;
+    }
+
+    .intro {
+      max-width: 760px;
+      margin: 0 auto 30px;
+      text-align: center;
+      line-height: 1.6;
+    }
+
+    .intro strong {
+      color: var(--blue);
+    }
+
+    .resource-grid {
+      display: grid;
+      grid-template-columns:
+        repeat(auto-fit, minmax(260px, 1fr));
+      gap: 24px;
+    }
+
+    .resource-card {
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+
+      background: white;
+      border: 2px solid var(--border);
+      border-radius: 22px;
+
+      color: inherit;
+      text-decoration: none;
+
+      box-shadow:
+        0 8px 24px rgba(39, 75, 132, 0.10);
+
+      transition:
+        transform 0.16s ease,
+        box-shadow 0.16s ease;
+    }
+
+    .resource-card:hover,
+    .resource-card:focus-visible {
+      transform: translateY(-3px);
+      box-shadow:
+        0 12px 30px rgba(39, 75, 132, 0.16);
+      outline: none;
+    }
+
+    .resource-image {
+      width: 100%;
+      aspect-ratio: 4 / 3;
+      object-fit: contain;
+      background: white;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .resource-icon {
+      display: grid;
+      place-items: center;
+      aspect-ratio: 4 / 3;
+
+      background:
+        linear-gradient(
+          145deg,
+          #edf4fb,
+          #f7eff5
+        );
+
+      border-bottom: 1px solid var(--border);
+
+      font-size: 5rem;
+    }
+
+    .resource-copy {
+      display: grid;
+      gap: 6px;
+      padding: 20px;
+    }
+
+    .resource-copy strong {
+      color: var(--blue);
+      font-size: 1.35rem;
+    }
+
+    .resource-copy span {
+      color: var(--muted);
+      font-weight: 700;
+      line-height: 1.45;
+    }
+
+    .resource-copy small {
+      margin-top: 4px;
+      color: var(--coral);
+      font-weight: 800;
+    }
+  </style>
+</head>
+
+<body>
+
+<header class="culture-header">
+  <h1>🏛️ Cultura · Culture</h1>
+
+  <p>
+    Esplora l'Italia, le tradizioni e la vita culturale.
+    · Explore Italy, traditions, and cultural life.
+  </p>
+
+  <a
+    class="back-link"
+    href="../index.html"
+  >
+    ← Torna al Centro Attività · Back to Activity Center
+  </a>
+</header>
+
+<main>
+
+  <section class="intro">
+    <strong>Risorse culturali · Cultural Resources</strong>
+
+    <p>
+      Scopri aspetti della cultura italiana attraverso
+      immagini, tradizioni, geografia e risorse interattive.
+    </p>
+
+    <p>
+      Explore Italian culture through visual materials,
+      traditions, geography, and interactive resources.
+    </p>
+  </section>
+
+  <section
+    class="resource-grid"
+    aria-label="Cultural resources"
+  >
+
+    <a
+      class="resource-card"
+      href="vendemmia/la-vendemmia.png"
+      target="_blank"
+      rel="noopener noreferrer"
+    >
+      <img
+        class="resource-image"
+        src="vendemmia/la-vendemmia.png"
+        alt="La vendemmia — seven-step claymation grape harvest sequence"
+      >
+
+      <div class="resource-copy">
+        <strong>🍇 La vendemmia</strong>
+
+        <span>
+          Dall'uva al succo d'uva ·
+          From grapes to grape juice
+        </span>
+
+        <small>
+          Sequenza culturale visiva · Visual cultural sequence
+        </small>
+      </div>
+    </a>
+
+    <a
+      class="resource-card"
+      href="https://firstvololearning-ctrl.github.io/Italy-Explorer/"
+      target="_blank"
+      rel="noopener noreferrer"
+    >
+      <div
+        class="resource-icon"
+        aria-hidden="true"
+      >
+        🗺️
+      </div>
+
+      <div class="resource-copy">
+        <strong>Italy Explorer</strong>
+
+        <span>
+          Esplora la geografia, la storia, i luoghi
+          e la cultura italiana.
+        </span>
+
+        <span>
+          Explore Italian geography, history,
+          places, and culture.
+        </span>
+
+        <small>
+          Apri Italy Explorer · Open Italy Explorer ↗
+        </small>
+      </div>
+    </a>
+
+  </section>
+
+</main>
+
+</body>
+</html>
