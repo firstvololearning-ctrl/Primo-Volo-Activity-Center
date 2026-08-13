@@ -9345,3 +9345,147 @@ strong {
 .about-growing-section {
   margin-top: 14px;
 }
+
+
+/* ========================================
+   ABOUT — PRACTICE / PASSPORT / PROGRESS
+   ======================================== */
+
+.about-progress-system-grid {
+  display: grid;
+  grid-template-columns:
+    repeat(3, minmax(0, 1fr));
+  gap: 12px;
+
+  margin: 18px 0;
+}
+
+.about-progress-system-card {
+  padding: 15px;
+
+  background: #f8fafc;
+
+  border:
+    1px solid #dce6f1;
+
+  border-radius: 15px;
+}
+
+.about-progress-system-icon {
+  margin-bottom: 7px;
+
+  font-size: 1.45rem;
+}
+
+.about-progress-system-card h4 {
+  margin: 0 0 9px;
+
+  color: #173f73;
+
+  font-size: .88rem;
+  line-height: 1.2;
+}
+
+.about-progress-system-card h4 span {
+  display: block;
+
+  margin-top: 2px;
+
+  color: #718097;
+
+  font-size: .67rem;
+  font-weight: 650;
+}
+
+.about-progress-question {
+  display: block;
+
+  margin-bottom: 8px;
+
+  color: #b45e4e;
+
+  font-size: .72rem;
+  line-height: 1.25;
+}
+
+.about-progress-question span {
+  display: block;
+
+  margin-top: 2px;
+
+  color: #7b8798;
+
+  font-size: .65rem;
+  font-weight: 650;
+}
+
+.about-progress-system-card p {
+  margin: 7px 0;
+
+  color: #4c607c;
+
+  font-size: .72rem;
+  line-height: 1.4;
+}
+
+.about-progress-meaning {
+  margin-top: 10px;
+  padding: 9px 10px;
+
+  background: #fff8f5;
+
+  border-left:
+    3px solid #d96f5f;
+
+  border-radius: 8px;
+
+  color: #4f6078;
+
+  font-size: .68rem;
+  line-height: 1.35;
+}
+
+.about-progress-meaning
+.about-english,
+.about-progress-meaning
+span {
+  display: block;
+  margin-top: 5px;
+}
+
+.about-progress-caution {
+  margin-top: 14px !important;
+  padding: 10px 12px;
+
+  background: #f2f6fa;
+
+  border-radius: 10px;
+
+  color: #53657d;
+}
+
+@media (max-width: 760px) {
+  .about-progress-system-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+
+/* Understanding Progress — threshold note */
+
+.about-progress-thresholds {
+  margin: 14px 0 10px;
+  padding: 11px 13px;
+
+  background: #fff8f3;
+  border: 1px solid #f0ddd3;
+  border-radius: 11px;
+
+  color: #52637b;
+  font-size: .72rem;
+  line-height: 1.4;
+}
+
+.about-progress-thresholds p {
+  margin: 0;
+}
