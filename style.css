@@ -8709,3 +8709,639 @@ body.hide-english
   background: #f2f7fc !important;
   border-color: #c7d8ea !important;
 }
+
+
+/* ========================================
+   ABOUT — PROGRAM ARCHITECTURE
+   ======================================== */
+
+.about-program-overview {
+  border-top: 4px solid rgba(39, 75, 132, .22);
+}
+
+.about-method-section {
+  background: #f8fbff;
+}
+
+.about-method-pill-grid {
+  display: grid;
+  grid-template-columns:
+    repeat(auto-fit, minmax(145px, 1fr));
+  gap: 10px;
+  margin-top: 18px;
+}
+
+.about-method-pill {
+  display: grid;
+  gap: 4px;
+  align-content: start;
+
+  padding: 12px;
+
+  background: #ffffff;
+  border: 1px solid #dce7f2;
+  border-radius: 14px;
+
+  color: #274b84;
+  text-align: center;
+}
+
+.about-method-pill strong {
+  font-size: .8rem;
+  line-height: 1.2;
+}
+
+.about-method-pill span {
+  color: #718097;
+  font-size: .69rem;
+  font-weight: 650;
+}
+
+.about-context-highlight {
+  margin-top: 18px !important;
+  padding: 13px 15px;
+
+  background: #fff8f5;
+  border-left: 4px solid #d96f5f;
+  border-radius: 12px;
+}
+
+.about-topic-area-map {
+  display: grid;
+  grid-template-columns:
+    repeat(5, minmax(0, 1fr));
+  gap: 9px;
+
+  margin: 18px 0 22px;
+}
+
+.about-topic-area {
+  min-height: 72px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  padding: 10px 9px;
+
+  background: #eef4fa;
+  border: 1px solid #dce6f1;
+  border-radius: 12px;
+
+  color: #274b84;
+  text-align: center;
+}
+
+.about-topic-area strong {
+  display: block;
+
+  font-size: .78rem;
+  line-height: 1.2;
+}
+
+.about-topic-area span {
+  display: block;
+  margin-top: 4px;
+
+  color: #718097;
+
+  font-size: .67rem;
+  font-weight: 650;
+  line-height: 1.2;
+}
+
+.about-scope-note {
+  margin-top: 16px !important;
+  color: #52657f;
+}
+
+.about-creator-divider {
+  position: relative;
+
+  margin: 38px 0 20px;
+
+  border-top:
+    2px solid rgba(39, 75, 132, .16);
+
+  text-align: center;
+}
+
+.about-creator-divider span {
+  position: relative;
+  top: -13px;
+
+  display: inline-block;
+
+  padding: 3px 14px;
+
+  background: #fbfdff;
+
+  color: #274b84;
+
+  font-size: .84rem;
+  font-weight: 850;
+  letter-spacing: .02em;
+}
+
+.about-creator-section {
+  margin-top: 0;
+  border: 2px solid rgba(39, 75, 132, .13);
+  box-shadow:
+    0 8px 24px rgba(39, 75, 132, .06);
+}
+
+@media (max-width: 820px) {
+  .about-topic-area-map {
+    grid-template-columns:
+      repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 480px) {
+  .about-topic-area-map {
+    grid-template-columns: 1fr;
+  }
+}
+
+
+/* ========================================
+   ABOUT — GROUPED SCOPE & SEQUENCE
+   ======================================== */
+
+.about-scope-groups {
+  display: grid;
+
+  grid-template-columns:
+    repeat(2, minmax(0, 1fr));
+
+  gap: 15px;
+
+  margin: 20px 0 24px;
+}
+
+.about-scope-group {
+  overflow: hidden;
+
+  background: #f8fafc;
+
+  border:
+    1px solid #dfe7f0;
+
+  border-radius: 17px;
+}
+
+.about-scope-group-heading {
+  display: block;
+
+  padding: 11px 14px;
+
+  background: #eef4fa;
+
+  border-left:
+    4px solid #d96f5f;
+}
+
+.about-scope-group-heading
+strong {
+  display: block;
+
+  color: #173f73;
+
+  font-size: .9rem;
+  font-weight: 850;
+  line-height: 1.2;
+}
+
+.about-scope-group-heading
+span {
+  display: block;
+
+  margin-top: 3px;
+
+  color: #687991;
+
+  font-size: .7rem;
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.about-scope-topic-list {
+  display: grid;
+
+  gap: 7px;
+
+  padding: 11px;
+}
+
+.about-scope-topic {
+  padding: 9px 10px;
+
+  background: #ffffff;
+
+  border:
+    1px solid #dfe7f0;
+
+  border-radius: 12px;
+}
+
+.about-scope-topic-main {
+  display: flex;
+
+  align-items: center;
+
+  gap: 9px;
+}
+
+.about-scope-topic-icon {
+  width: 25px;
+
+  flex:
+    0 0 25px;
+
+  text-align: center;
+
+  font-size: 1rem;
+}
+
+.about-scope-topic-copy {
+  display: grid;
+
+  gap: 1px;
+
+  min-width: 0;
+}
+
+.about-scope-topic-copy
+strong {
+  color: #173f73;
+
+  font-size: .78rem;
+  font-weight: 800;
+  line-height: 1.18;
+}
+
+.about-scope-topic-copy
+span {
+  color: #718097;
+
+  font-size: .67rem;
+  font-weight: 650;
+  line-height: 1.18;
+}
+
+.about-scope-development {
+  display: grid;
+
+  gap: 3px;
+
+  margin:
+    9px 0 1px 34px;
+
+  padding:
+    8px 10px;
+
+  background: #fff8f5;
+
+  border-left:
+    3px solid #d96f5f;
+
+  border-radius: 8px;
+
+  color: #4d607a;
+
+  font-size: .69rem;
+  line-height: 1.35;
+}
+
+.about-scope-development
+> strong {
+  color: #b45e4e;
+
+  font-size: .67rem;
+
+  text-transform: uppercase;
+
+  letter-spacing: .04em;
+}
+
+.about-scope-development
+.about-english,
+.about-scope-development
+.about-english strong {
+  color: #718097;
+}
+
+/*
+  Fifth group becomes a deliberate
+  full-width final row.
+*/
+.about-scope-group[data-group="time"] {
+  grid-column: 1 / -1;
+}
+
+.about-scope-group[data-group="time"]
+.about-scope-group {
+  width: 100%;
+}
+
+.about-scope-group[data-group="time"]
+.about-scope-topic-list {
+  grid-template-columns:
+    repeat(2, minmax(0, 1fr));
+
+  column-gap: 9px;
+}
+
+/*
+  Highlight Daily Routines slightly because
+  it contains a visible developmental sequence.
+*/
+.about-scope-topic[data-topic="routines"] {
+  border-color: #e9b8ad;
+
+  box-shadow:
+    inset 0 0 0 1px
+    rgba(217, 111, 95, .06);
+}
+
+@media (max-width: 760px) {
+  .about-scope-groups {
+    grid-template-columns: 1fr;
+  }
+
+  .about-scope-group[data-group="time"] {
+    grid-column: auto;
+  }
+
+  .about-scope-group[data-group="time"]
+  .about-scope-topic-list {
+    grid-template-columns: 1fr;
+  }
+}
+
+
+/* ========================================
+   ABOUT — NESTED SCOPE & SEQUENCE
+   ======================================== */
+
+.about-scope-groups {
+  display: grid;
+  grid-template-columns:
+    repeat(2, minmax(0, 1fr));
+  gap: 16px;
+
+  margin: 20px 0 24px;
+}
+
+.about-scope-group {
+  overflow: hidden;
+
+  background: #f8fafc;
+
+  border:
+    1px solid #dce6f1;
+
+  border-radius: 17px;
+}
+
+.about-scope-group-heading {
+  padding: 11px 14px;
+
+  background: #eaf2fa;
+
+  border-left:
+    4px solid #d96f5f;
+}
+
+.about-scope-group-heading
+strong {
+  display: block;
+
+  color: #173f73;
+
+  font-size: .92rem;
+  font-weight: 850;
+  line-height: 1.15;
+}
+
+.about-scope-group-heading
+span {
+  display: block;
+
+  margin-top: 3px;
+
+  color: #687991;
+
+  font-size: .7rem;
+  font-weight: 700;
+  line-height: 1.15;
+}
+
+.about-scope-topic-list {
+  display: grid;
+  gap: 8px;
+
+  padding: 11px;
+}
+
+.about-scope-topic {
+  padding: 10px 11px;
+
+  background: #ffffff;
+
+  border:
+    1px solid #dfe7f0;
+
+  border-radius: 12px;
+}
+
+.about-scope-topic-title {
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 5px 7px;
+
+  color: #173f73;
+
+  line-height: 1.18;
+}
+
+.about-scope-topic-title
+strong {
+  font-size: .79rem;
+  font-weight: 850;
+}
+
+.about-scope-topic-title
+.about-english {
+  color: #718097;
+
+  font-size: .67rem;
+  font-weight: 650;
+}
+
+.about-scope-topic p {
+  margin:
+    7px 0 0 25px;
+
+  color: #465b78;
+
+  font-size: .72rem;
+  font-weight: 650;
+  line-height: 1.38;
+}
+
+.about-scope-topic-development {
+  border-color: #e8b4a8;
+
+  box-shadow:
+    inset 0 0 0 1px
+    rgba(217, 111, 95, .05);
+}
+
+.about-scope-development {
+  display: grid;
+  gap: 4px;
+
+  margin:
+    9px 0 1px 25px;
+
+  padding: 9px 10px;
+
+  background: #fff7f3;
+
+  border-left:
+    3px solid #d96f5f;
+
+  border-radius: 8px;
+
+  color: #4d607a;
+
+  font-size: .69rem;
+  line-height: 1.35;
+}
+
+.about-scope-development
+> strong {
+  color: #b45e4e;
+
+  font-size: .65rem;
+  font-weight: 850;
+
+  text-transform: uppercase;
+  letter-spacing: .04em;
+}
+
+.about-scope-development
+.about-english,
+.about-scope-development
+.about-english strong {
+  color: #718097;
+}
+
+/*
+  Six Time & Calendar topics make a clean
+  full-width final curriculum area.
+*/
+.about-scope-group[data-group="time"] {
+  grid-column: 1 / -1;
+}
+
+.about-scope-group[data-group="time"]
+.about-scope-topic-list {
+  grid-template-columns:
+    repeat(2, minmax(0, 1fr));
+  column-gap: 9px;
+}
+
+@media (max-width: 760px) {
+  .about-scope-groups {
+    grid-template-columns: 1fr;
+  }
+
+  .about-scope-group[data-group="time"] {
+    grid-column: auto;
+  }
+
+  .about-scope-group[data-group="time"]
+  .about-scope-topic-list {
+    grid-template-columns: 1fr;
+  }
+}
+
+
+/* ========================================
+   ABOUT — FINAL SECTION FLOW
+   ======================================== */
+
+.about-progression-intro {
+  margin-bottom: 14px;
+}
+
+.about-resource-divider {
+  position: relative;
+
+  margin: 36px 0 18px;
+
+  border-top:
+    2px solid rgba(39, 75, 132, .16);
+
+  text-align: center;
+}
+
+.about-resource-divider span {
+  position: relative;
+  top: -13px;
+
+  display: inline-block;
+
+  padding: 3px 14px;
+
+  background: #fbfdff;
+
+  color: #274b84;
+
+  font-size: .86rem;
+  font-weight: 850;
+  letter-spacing: .01em;
+}
+
+
+/* ========================================
+   ABOUT — LEARNING RESOURCES
+   ======================================== */
+
+.about-resource-divider {
+  position: relative;
+  margin: 36px 0 20px;
+
+  border-top:
+    2px solid rgba(39, 75, 132, .16);
+
+  text-align: center;
+}
+
+.about-resource-divider span {
+  position: relative;
+  top: -13px;
+
+  display: inline-block;
+
+  padding: 3px 15px;
+
+  background: #fbfdff;
+
+  color: #274b84;
+
+  font-size: .88rem;
+  font-weight: 850;
+}
+
+.about-differentiation-section {
+  border-left:
+    4px solid rgba(90, 157, 87, .45);
+}
+
+.about-growing-section {
+  margin-top: 14px;
+}

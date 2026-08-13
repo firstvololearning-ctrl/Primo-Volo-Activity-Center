@@ -11,53 +11,8 @@
     return;
   }
 
-  const groups = [
-    {
-      titleItalian: "Inizia e comunica",
-      titleEnglish: "Start & Communicate",
-      topics: [
-        "greetings",
-        "feelings",
-        "classroom"
-      ]
-    },
-    {
-      titleItalian: "Il mondo intorno a me",
-      titleEnglish: "The World Around Me",
-      topics: [
-        "supplies",
-        "food",
-        "clothing",
-        "bodyParts",
-        "home",
-        "animals"
-      ]
-    },
-    {
-      titleItalian: "Descrivi e trova",
-      titleEnglish: "Describe & Locate",
-      topics: [
-        "colors",
-        "adjectives",
-        "family",
-        "places",
-        "prepositions"
-      ]
-    },
-    {
-      titleItalian: "Il tempo e la mia giornata",
-      titleEnglish: "Time & My Day",
-      topics: [
-        "numbers",
-        "routines",
-        "days",
-        "months",
-        "time",
-        "weather",
-        "seasons"
-      ]
-    }
-  ];
+  const groups =
+    window.PRIMO_VOLO_TOPIC_GROUPS || [];
 
   const style =
     document.createElement("style");
@@ -365,6 +320,183 @@
       line-height: 1.15;
     }
 
+    .topic-picker-resources {
+      margin-top: 18px;
+      padding: 15px 4px 2px;
+
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+
+      border-top:
+        1px solid #dbe4ef;
+    }
+
+    .topic-picker-resources-copy {
+      display: grid;
+      gap: 3px;
+      min-width: 0;
+    }
+
+    .topic-picker-resources-copy
+    strong {
+      color: #173f73;
+
+      font-size: .86rem;
+      font-weight: 850;
+      line-height: 1.2;
+    }
+
+    .topic-picker-resources-copy
+    span {
+      color: #718097;
+
+      font-size: .7rem;
+      font-weight: 650;
+      line-height: 1.25;
+    }
+
+    .topic-picker-resource-links {
+      display: flex;
+      align-items: stretch;
+      gap: 8px;
+      flex: 0 0 auto;
+    }
+
+    .topic-picker-resource-link {
+      min-width: 128px;
+
+      display: flex;
+      align-items: center;
+      gap: 9px;
+
+      padding: 9px 12px;
+
+      background: #ffffff;
+
+      border:
+        1px solid #dbe4ef;
+
+      border-radius: 13px;
+
+      color: #173f73;
+
+      text-decoration: none;
+
+      box-shadow:
+        0 4px 12px
+        rgba(31, 75, 125, .05);
+
+      transition:
+        transform .15s ease,
+        border-color .15s ease,
+        background .15s ease;
+    }
+
+    .topic-picker-resource-link:hover {
+      transform:
+        translateY(-1px);
+
+      border-color: #e3ab9f;
+
+      background: #fffaf8;
+    }
+
+    .topic-picker-resource-icon {
+      flex: 0 0 auto;
+
+      font-size: 1.2rem;
+    }
+
+    .topic-picker-resource-link
+    > span:last-child {
+      display: grid;
+      gap: 1px;
+    }
+
+    .topic-picker-resource-link
+    strong {
+      color: #173f73;
+
+      font-size: .78rem;
+      font-weight: 800;
+      line-height: 1.15;
+    }
+
+    .topic-picker-resource-link
+    small {
+      color: #758399;
+
+      font-size: .66rem;
+      font-weight: 650;
+      line-height: 1.15;
+    }
+
+    /* Make supporting resources easier to notice */
+    .topic-picker-resources {
+      margin-top: 18px;
+      padding: 14px 16px;
+
+      background: #fff8f5;
+
+      border:
+        1.5px solid #efc3b8;
+
+      border-radius: 17px;
+
+      box-shadow:
+        0 6px 18px
+        rgba(112, 70, 56, .07);
+    }
+
+    .topic-picker-resources-copy
+    strong {
+      color: #173f73;
+
+      font-size: .94rem;
+      font-weight: 850;
+    }
+
+    .topic-picker-resources-copy
+    span {
+      margin-top: 2px;
+
+      color: #66758a;
+
+      font-size: .72rem;
+      line-height: 1.3;
+    }
+
+    .topic-picker-resource-links {
+      gap: 10px;
+    }
+
+    .topic-picker-resource-link {
+      min-width: 142px;
+
+      padding: 10px 14px;
+
+      background: #ffffff;
+
+      border:
+        1.5px solid #e2b5a9;
+
+      box-shadow:
+        0 4px 12px
+        rgba(39, 72, 111, .06);
+    }
+
+    .topic-picker-resource-link
+    strong {
+      font-size: .82rem;
+    }
+
+    .topic-picker-resource-link
+    small {
+      font-size: .68rem;
+    }
+
     @media (max-width: 720px) {
       .topic-picker-groups {
         grid-template-columns: 1fr;
@@ -372,6 +504,20 @@
 
       .topic-picker-panel {
         max-height: 66vh;
+      }
+
+      .topic-picker-resources {
+        align-items: stretch;
+        flex-direction: column;
+      }
+
+      .topic-picker-resource-links {
+        width: 100%;
+      }
+
+      .topic-picker-resource-link {
+        flex: 1 1 0;
+        min-width: 0;
       }
     }
 
@@ -436,6 +582,57 @@
 
   panel.innerHTML = `
     <div class="topic-picker-groups">
+    </div>
+
+    <div class="topic-picker-resources">
+      <div class="topic-picker-resources-copy">
+        <strong>
+          📚 Risorse per continuare · Keep Learning
+        </strong>
+
+        <span>
+          Continua a imparare con libri e schede.
+          · Keep learning with books and worksheets.
+        </span>
+      </div>
+
+      <div class="topic-picker-resource-links">
+        <a
+          class="topic-picker-resource-link"
+          href="books.html"
+        >
+          <span class="topic-picker-resource-icon">
+            📚
+          </span>
+
+          <span>
+            <strong>
+              Mini-libri
+            </strong>
+            <small>
+              Books
+            </small>
+          </span>
+        </a>
+
+        <a
+          class="topic-picker-resource-link"
+          href="worksheets.html"
+        >
+          <span class="topic-picker-resource-icon">
+            🖨️
+          </span>
+
+          <span>
+            <strong>
+              Schede
+            </strong>
+            <small>
+              Worksheets
+            </small>
+          </span>
+        </a>
+      </div>
     </div>
   `;
 
