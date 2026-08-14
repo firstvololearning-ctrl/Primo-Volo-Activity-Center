@@ -15,6 +15,29 @@
   const STORAGE_KEY =
     "primoVoloFlightPathPractice";
 
+  const CURRENT_STUDENT_STORAGE_KEY =
+    "primoVoloCurrentStudentV1";
+
+  function getPracticeStorageKey() {
+    const studentId =
+      window.localStorage.getItem(
+        CURRENT_STUDENT_STORAGE_KEY
+      );
+
+    if (!studentId) {
+      return STORAGE_KEY;
+    }
+
+    return (
+      STORAGE_KEY +
+      ":student:" +
+      studentId
+    );
+  }
+
+  window.getPrimoVoloFlightPathStorageKey =
+    getPracticeStorageKey;
+
   const topicSelect =
     document.querySelector("#topicSelect");
 
@@ -57,7 +80,7 @@
     try {
       const saved =
         window.localStorage.getItem(
-          STORAGE_KEY
+          getPracticeStorageKey()
         );
 
       if (!saved) {
@@ -92,7 +115,7 @@
   function savePracticeData() {
     try {
       window.localStorage.setItem(
-        STORAGE_KEY,
+        getPracticeStorageKey(),
         JSON.stringify(practiceData)
       );
     } catch (error) {
@@ -225,6 +248,28 @@
     function getVoloFlightPathData() {
       return practiceData;
     };
+
+  window.addEventListener(
+    "primo-volo-student-changed",
+    () => {
+      practiceData = loadPracticeData();
+
+      window.requestAnimationFrame(() => {
+        renderFlightPath();
+
+        document.dispatchEvent(
+          new CustomEvent(
+            "voloflightpathchange",
+            {
+              detail: {
+                practiceData
+              }
+            }
+          )
+        );
+      });
+    }
+  );
 
   /* ========================================
      CREATE FLIGHT PATH

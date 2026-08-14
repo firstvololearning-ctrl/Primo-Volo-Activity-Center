@@ -42,6 +42,27 @@
         }
       })
     );
+
+    /*
+      A student change is also a learner-context
+      change. Keep the selected topic, but rerun
+      its normal setup so the new student does
+      not inherit another student's active
+      activity screen.
+    */
+    const topicSelect =
+      document.querySelector("#topicSelect");
+
+    if (
+      topicSelect &&
+      topicSelect.value
+    ) {
+      topicSelect.dispatchEvent(
+        new Event("change", {
+          bubbles: true
+        })
+      );
+    }
   }
 
   function makeId() {

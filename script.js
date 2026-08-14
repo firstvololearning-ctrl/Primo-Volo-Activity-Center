@@ -166,8 +166,30 @@ const referenceClose =
  
 
 const PROGRESS_STORAGE_KEY =
-
   "primoVoloActivityCenterProgress";
+
+const CURRENT_STUDENT_STORAGE_KEY =
+  "primoVoloCurrentStudentV1";
+
+function getProgressStorageKey() {
+  const studentId =
+    window.localStorage.getItem(
+      CURRENT_STUDENT_STORAGE_KEY
+    );
+
+  if (!studentId) {
+    return PROGRESS_STORAGE_KEY;
+  }
+
+  return (
+    PROGRESS_STORAGE_KEY +
+    ":student:" +
+    studentId
+  );
+}
+
+window.getPrimoVoloProgressStorageKey =
+  getProgressStorageKey;
 
  
 
@@ -212,9 +234,7 @@ function loadProgressData() {
   try {
 
     const saved = window.localStorage.getItem(
-
-      PROGRESS_STORAGE_KEY
-
+      getProgressStorageKey()
     );
 
  
@@ -278,11 +298,8 @@ function saveProgressData() {
   try {
 
     window.localStorage.setItem(
-
-      PROGRESS_STORAGE_KEY,
-
+      getProgressStorageKey(),
       JSON.stringify(progressData)
-
     );
 
   } catch (error) {
@@ -300,6 +317,26 @@ function saveProgressData() {
 }
 
  
+
+
+window.addEventListener(
+  "primo-volo-student-changed",
+  () => {
+    progressData = loadProgressData();
+
+    if (
+      typeof updateProgressBadge === "function"
+    ) {
+      updateProgressBadge();
+    }
+
+    if (
+      typeof renderProgressReport === "function"
+    ) {
+      renderProgressReport();
+    }
+  }
+);
 
 function calculateAccuracy(correct, attempts) {
 
@@ -1150,7 +1187,13 @@ function createProgressInterface() {
 
       const confirmed = window.confirm(
 
-        "Clear all saved progress data on this device?"
+        (
+          window.PrimoVoloStudent &&
+          typeof window.PrimoVoloStudent.getCurrent === "function" &&
+          window.PrimoVoloStudent.getCurrent()
+        )
+          ? `Clear saved progress for ${window.PrimoVoloStudent.getCurrent().name}?`
+          : "Clear saved progress for unassigned practice?"
 
       );
 
