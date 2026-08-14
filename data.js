@@ -462,6 +462,8 @@ const adjectives = [
     italian: "buono",
     masculine: "buono",
     feminine: "buona",
+    masculinePlural: "buoni",
+    femininePlural: "buone",
     english: "good",
     image: "images/adjectives/adjectives-01.png"
   },
@@ -469,6 +471,8 @@ const adjectives = [
     italian: "cattivo",
     masculine: "cattivo",
     feminine: "cattiva",
+    masculinePlural: "cattivi",
+    femininePlural: "cattive",
     english: "bad",
     image: "images/adjectives/adjectives-02.png"
   },
@@ -476,6 +480,8 @@ const adjectives = [
     italian: "piccolo",
     masculine: "piccolo",
     feminine: "piccola",
+    masculinePlural: "piccoli",
+    femininePlural: "piccole",
     english: "small",
     image: "images/adjectives/adjectives-03.png"
   },
@@ -483,6 +489,8 @@ const adjectives = [
     italian: "grande",
     masculine: "grande",
     feminine: "grande",
+    masculinePlural: "grandi",
+    femininePlural: "grandi",
     english: "big",
     image: "images/adjectives/adjectives-04.png"
   },
@@ -490,6 +498,8 @@ const adjectives = [
     italian: "caldo",
     masculine: "caldo",
     feminine: "calda",
+    masculinePlural: "caldi",
+    femininePlural: "calde",
     english: "hot",
     image: "images/adjectives/adjectives-06.png"
   },
@@ -497,6 +507,8 @@ const adjectives = [
     italian: "freddo",
     masculine: "freddo",
     feminine: "fredda",
+    masculinePlural: "freddi",
+    femininePlural: "fredde",
     english: "cold",
     image: "images/adjectives/adjectives-05.png"
   },
@@ -504,6 +516,8 @@ const adjectives = [
     italian: "lento",
     masculine: "lento",
     feminine: "lenta",
+    masculinePlural: "lenti",
+    femininePlural: "lente",
     english: "slow",
     image: "images/adjectives/adjectives-07.png"
   },
@@ -511,6 +525,8 @@ const adjectives = [
     italian: "veloce",
     masculine: "veloce",
     feminine: "veloce",
+    masculinePlural: "veloci",
+    femininePlural: "veloci",
     english: "fast",
     image: "images/adjectives/adjectives-08.png"
   },
@@ -518,6 +534,8 @@ const adjectives = [
     italian: "lungo",
     masculine: "lungo",
     feminine: "lunga",
+    masculinePlural: "lunghi",
+    femininePlural: "lunghe",
     english: "long",
     image: "images/adjectives/lungo.png"
   },
@@ -525,6 +543,8 @@ const adjectives = [
     italian: "corto",
     masculine: "corto",
     feminine: "corta",
+    masculinePlural: "corti",
+    femininePlural: "corte",
     english: "short (length)",
     image: "images/adjectives/corto.png"
   },
@@ -532,6 +552,8 @@ const adjectives = [
     italian: "alto",
     masculine: "alto",
     feminine: "alta",
+    masculinePlural: "alti",
+    femininePlural: "alte",
     english: "tall",
     image: "images/adjectives/alto.png"
   },
@@ -539,6 +561,8 @@ const adjectives = [
     italian: "basso",
     masculine: "basso",
     feminine: "bassa",
+    masculinePlural: "bassi",
+    femininePlural: "basse",
     english: "short (height)",
     image: "images/adjectives/basso.png"
   },
@@ -546,6 +570,8 @@ const adjectives = [
     italian: "pesante",
     masculine: "pesante",
     feminine: "pesante",
+    masculinePlural: "pesanti",
+    femininePlural: "pesanti",
     english: "heavy",
     image: "images/adjectives/pesante.png"
   },
@@ -553,6 +579,8 @@ const adjectives = [
     italian: "leggero",
     masculine: "leggero",
     feminine: "leggera",
+    masculinePlural: "leggeri",
+    femininePlural: "leggere",
     english: "light (weight)",
     image: "images/adjectives/leggero.png"
   },
@@ -560,6 +588,8 @@ const adjectives = [
     italian: "nuovo",
     masculine: "nuovo",
     feminine: "nuova",
+    masculinePlural: "nuovi",
+    femininePlural: "nuove",
     english: "new",
     image: "images/adjectives/nuovo.png"
   },
@@ -567,6 +597,8 @@ const adjectives = [
     italian: "vecchio",
     masculine: "vecchio",
     feminine: "vecchia",
+    masculinePlural: "vecchi",
+    femininePlural: "vecchie",
     english: "old",
     image: "images/adjectives/vecchio.png"
   }
@@ -597,101 +629,141 @@ const seasons = [
 const clothing = [
   {
     italian: "il pigiama",
+    gender: "masculine",
+    number: "singular",
     english: "pajamas",
     image: "images/clothing/clothes-01.png"
   },
   {
     italian: "la maglietta",
+    gender: "feminine",
+    number: "singular",
     english: "T-shirt",
     image: "images/clothing/clothes-02.png"
   },
   {
     italian: "la camicia",
+    gender: "feminine",
+    number: "singular",
     english: "shirt",
     image: "images/clothing/clothes-03.png"
   },
   {
     italian: "la felpa",
+    gender: "feminine",
+    number: "singular",
     english: "hoodie",
     image: "images/clothing/clothes-04.png"
   },
   {
     italian: "il maglione",
+    gender: "masculine",
+    number: "singular",
     english: "sweater",
     image: "images/clothing/clothes-05.png"
   },
   {
     italian: "il cappotto",
+    gender: "masculine",
+    number: "singular",
     english: "coat",
     image: "images/clothing/clothes-06.png"
   },
   {
     italian: "la giacca",
+    gender: "feminine",
+    number: "singular",
     english: "jacket",
     image: "images/clothing/clothes-07.png"
   },
   {
     italian: "i pantaloncini",
+    gender: "masculine",
+    number: "plural",
     english: "shorts",
     image: "images/clothing/clothes-08.png"
   },
   {
     italian: "la gonna",
+    gender: "feminine",
+    number: "singular",
     english: "skirt",
     image: "images/clothing/clothes-09.png"
   },
   {
     italian: "i calzini",
+    gender: "masculine",
+    number: "plural",
     english: "socks",
     image: "images/clothing/clothes-10.png"
   },
   {
     italian: "la sciarpa",
+    gender: "feminine",
+    number: "singular",
     english: "scarf",
     image: "images/clothing/clothes-11.png"
   },
   {
     italian: "i guanti",
+    gender: "masculine",
+    number: "plural",
     english: "gloves",
     image: "images/clothing/clothes-12.png"
   },
   {
     italian: "il cappello",
+    gender: "masculine",
+    number: "singular",
     english: "hat",
     image: "images/clothing/clothes-13.png"
   },
   {
     italian: "gli occhiali",
+    gender: "masculine",
+    number: "plural",
     english: "glasses",
     image: "images/clothing/clothes-14.png"
   },
   {
     italian: "le scarpe",
+    gender: "feminine",
+    number: "plural",
     english: "shoes",
     image: "images/clothing/clothes-15.png"
   },
   {
     italian: "gli stivali",
+    gender: "masculine",
+    number: "plural",
     english: "boots",
     image: "images/clothing/clothes-16.png"
   },
   {
     italian: "il costume da bagno",
+    gender: "masculine",
+    number: "singular",
     english: "swimsuit",
     image: "images/clothing/clothes-17.png"
   },
   {
     italian: "la cintura",
+    gender: "feminine",
+    number: "singular",
     english: "belt",
     image: "images/clothing/clothes-18.png"
   },
   {
     italian: "il vestito",
+    gender: "masculine",
+    number: "singular",
     english: "dress",
     image: "images/clothing/clothes-19.png"
   },
   {
     italian: "i pantaloni",
+    gender: "masculine",
+    number: "plural",
     english: "pants",
     image: "images/clothing/clothes-20.png"
   }
@@ -1253,56 +1325,100 @@ const weather = [
 const colors = [
   {
     italian: "rosso",
+    masculine: "rosso",
+    feminine: "rossa",
+    masculinePlural: "rossi",
+    femininePlural: "rosse",
     english: "red",
     image: "images/colors/colors-01.png"
   },
   {
     italian: "arancione",
+    masculine: "arancione",
+    feminine: "arancione",
+    masculinePlural: "arancioni",
+    femininePlural: "arancioni",
     english: "orange",
     image: "images/colors/colors-02.png"
   },
   {
     italian: "giallo",
+    masculine: "giallo",
+    feminine: "gialla",
+    masculinePlural: "gialli",
+    femininePlural: "gialle",
     english: "yellow",
     image: "images/colors/colors-03.png"
   },
   {
     italian: "verde",
+    masculine: "verde",
+    feminine: "verde",
+    masculinePlural: "verdi",
+    femininePlural: "verdi",
     english: "green",
     image: "images/colors/colors-04.png"
   },
   {
     italian: "blu",
+    masculine: "blu",
+    feminine: "blu",
+    masculinePlural: "blu",
+    femininePlural: "blu",
     english: "blue",
     image: "images/colors/colors-05.png"
   },
   {
     italian: "viola",
+    masculine: "viola",
+    feminine: "viola",
+    masculinePlural: "viola",
+    femininePlural: "viola",
     english: "purple",
     image: "images/colors/colors-06.png"
   },
   {
     italian: "rosa",
+    masculine: "rosa",
+    feminine: "rosa",
+    masculinePlural: "rosa",
+    femininePlural: "rosa",
     english: "pink",
     image: "images/colors/colors-07.png"
   },
   {
     italian: "nero",
+    masculine: "nero",
+    feminine: "nera",
+    masculinePlural: "neri",
+    femininePlural: "nere",
     english: "black",
     image: "images/colors/colors-08.png"
   },
   {
     italian: "bianco",
+    masculine: "bianco",
+    feminine: "bianca",
+    masculinePlural: "bianchi",
+    femininePlural: "bianche",
     english: "white",
     image: "images/colors/colors-09.png"
   },
   {
     italian: "marrone",
+    masculine: "marrone",
+    feminine: "marrone",
+    masculinePlural: "marroni",
+    femininePlural: "marroni",
     english: "brown",
     image: "images/colors/colors-10.png"
   },
   {
     italian: "grigio",
+    masculine: "grigio",
+    feminine: "grigia",
+    masculinePlural: "grigi",
+    femininePlural: "grigie",
     english: "gray",
     image: "images/colors/colors-11.png"
   }
