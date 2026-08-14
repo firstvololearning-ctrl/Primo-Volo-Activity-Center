@@ -48,9 +48,6 @@ const wornImageByItem = {
   "cappotto":
     "images/scene-images/clothing/dress-up/fitted-final/coat-winter-fit.png",
 
-  "cappello-invernale":
-    "images/scene-images/clothing/dress-up/fitted-final/hat-winter-fit.png",
-
   "vestito-blu":
     "images/scene-images/clothing/dress-up/fitted-final/dress-blue-fit.png",
 
