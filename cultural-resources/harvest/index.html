@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Il raccolto e le tradizioni alimentari | Primo Volo d'Italiano</title>
+
+<style>
+
+:root {
+  --blue: #274b84;
+  --brown: #775126;
+  --orange: #b66e3d;
+  --cream: #fffaf2;
+  --border: #e5d5bd;
+  --text: #4f4a43;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: #f5f8fc;
+  color: var(--text);
+  font-family:
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    sans-serif;
+}
+
+.harvest-header {
+  padding: 40px 20px 32px;
+  text-align: center;
+  background:
+    linear-gradient(
+      145deg,
+      #fffaf2,
+      #f7ead8
+    );
+  border-bottom: 1px solid var(--border);
+}
+
+.harvest-header h1 {
+  margin: 8px auto 4px;
+  color: var(--brown);
+  font-size: clamp(1.8rem, 4vw, 2.7rem);
+}
+
+.harvest-header .english-title {
+  margin: 0;
+  color: var(--orange);
+  font-weight: 700;
+}
+
+.harvest-header .intro {
+  max-width: 700px;
+  margin: 18px auto 0;
+  line-height: 1.6;
+}
+
+.back-link {
+  display: inline-block;
+  margin-top: 20px;
+  color: var(--blue);
+  font-weight: 700;
+  text-decoration: none;
+}
+
+main {
+  width: min(1050px, calc(100% - 32px));
+  margin: 34px auto 60px;
+}
+
+.harvest-grid {
+  display: grid;
+  grid-template-columns:
+    repeat(4, minmax(0, 1fr));
+  gap: 22px;
+}
+
+.harvest-card {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+
+  background: white;
+  border: 2px solid var(--border);
+  border-radius: 22px;
+
+  color: inherit;
+  text-decoration: none;
+
+  box-shadow:
+    0 8px 24px rgba(70, 54, 35, 0.08);
+}
+
+.harvest-card-active {
+  transition:
+    transform 0.16s ease,
+    box-shadow 0.16s ease;
+}
+
+.harvest-card-active:hover {
+  transform: translateY(-3px);
+  box-shadow:
+    0 12px 28px rgba(70, 54, 35, 0.15);
+}
+
+.harvest-image,
+.harvest-icon {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+}
+
+.harvest-image {
+  object-fit: contain;
+  padding: 10px;
+  background: #fffdf8;
+  border-bottom: 1px solid var(--border);
+}
+
+.harvest-icon {
+  display: grid;
+  place-items: center;
+  font-size: 4.5rem;
+
+  background:
+    radial-gradient(
+      circle,
+      #fffdf7,
+      #f7ead8
+    );
+
+  border-bottom: 1px solid var(--border);
+}
+
+.harvest-copy {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: 8px;
+  padding: 18px;
+  line-height: 1.4;
+}
+
+.harvest-copy strong {
+  color: var(--brown);
+  font-size: 1.05rem;
+}
+
+.harvest-copy span {
+  font-size: 0.9rem;
+}
+
+.harvest-english {
+  color: #756d64;
+}
+
+.harvest-copy small {
+  margin-top: auto;
+  padding-top: 6px;
+  color: var(--orange);
+  font-weight: 800;
+}
+
+.harvest-coming {
+  opacity: 0.88;
+}
+
+.harvest-coming small {
+  color: #8c7a69;
+}
+
+@media (max-width: 950px) {
+  .harvest-grid {
+    grid-template-columns:
+      repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 580px) {
+  .harvest-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+</style>
+</head>
+
+<body>
+
+<header class="harvest-header">
+
+  <div>🍂 SAPORI E TRADIZIONI D'AUTUNNO</div>
+
+  <h1>
+    🌾 Il raccolto e le tradizioni alimentari
+  </h1>
+
+  <p class="english-title">
+    Harvest &amp; Food Traditions
+  </p>
+
+  <p class="intro">
+    Scopri alcune tradizioni italiane legate al raccolto
+    e ai sapori dell'autunno.
+    ·
+    Explore Italian traditions connected to the harvest
+    and the flavors of autumn.
+  </p>
+
+  <a class="back-link" href="../index.html">
+    ← Cultura · Culture
+  </a>
+
+</header>
+
+<main>
+
+  <div class="harvest-grid">
+
+    <a
+      class="harvest-card harvest-card-active"
+      href="../vendemmia/la-vendemmia.png"
+      target="_blank"
+      rel="noopener noreferrer"
+    >
+      <img
+        class="harvest-image"
+        src="../vendemmia/la-vendemmia.png"
+        alt="La vendemmia"
+      >
+
+      <div class="harvest-copy">
+        <strong>🍇 La vendemmia</strong>
+
+        <span>
+          La raccolta dell'uva e la produzione del vino
+        </span>
+
+        <span class="harvest-english">
+          The grape harvest and winemaking
+        </span>
+
+        <small>
+          Esplora · Explore ↗
+        </small>
+      </div>
+    </a>
+
+    <article class="harvest-card harvest-coming">
+
+      <div class="harvest-icon">🐕</div>
+
+      <div class="harvest-copy">
+        <strong>
+          La ricerca del tartufo
+        </strong>
+
+        <span>
+          Cani addestrati, boschi e tartufi d'autunno
+        </span>
+
+        <span class="harvest-english">
+          Truffle hunting in the autumn woods
+        </span>
+
+        <small>
+          Prossimamente · Coming Soon
+        </small>
+      </div>
+
+    </article>
+
+    <article class="harvest-card harvest-coming">
+
+      <div class="harvest-icon">🌰</div>
+
+      <div class="harvest-copy">
+        <strong>
+          Le castagne
+        </strong>
+
+        <span>
+          Castagne arrostite e dolci tradizionali
+        </span>
+
+        <span class="harvest-english">
+          Roasted chestnuts and traditional treats
+        </span>
+
+        <small>
+          Prossimamente · Coming Soon
+        </small>
+      </div>
+
+    </article>
+
+    <article class="harvest-card harvest-coming">
+
+      <div class="harvest-icon">🫒</div>
+
+      <div class="harvest-copy">
+        <strong>
+          La raccolta delle olive
+        </strong>
+
+        <span>
+          Dalla raccolta delle olive all'olio nuovo
+        </span>
+
+        <span class="harvest-english">
+          From the olive harvest to fresh olive oil
+        </span>
+
+        <small>
+          Prossimamente · Coming Soon
+        </small>
+      </div>
+
+    </article>
+
+  </div>
+
+</main>
+
+</body>
+</html>
