@@ -793,11 +793,11 @@
           "
         >
           <strong>
-            ${group.titleItalian}
+            ${group.titleItalian || group.italian}
           </strong>
 
           <span>
-            ${group.titleEnglish}
+            ${group.titleEnglish || group.english}
           </span>
         </h3>
 
