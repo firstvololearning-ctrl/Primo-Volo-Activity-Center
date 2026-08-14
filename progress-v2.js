@@ -1018,7 +1018,7 @@
                 ${escapeHtml(higher)}
               </p>
               <p>
-                <strong>Additional practice suggested:</strong>
+                <strong>Practice signal:</strong>
                 ${escapeHtml(suggested)}
               </p>
             </div>
@@ -1368,7 +1368,7 @@
       <section class="pv2-report-section">
         <h3>By Topic</h3>
         <p class="progress-note">
-          “Higher accuracy” and “Additional practice suggested” appear only after at least 3 scored responses in an activity. Higher accuracy = 85% or above; additional practice suggested = below 70%.
+          “Higher accuracy” and “Practice signal” appear only after at least 3 scored responses in an activity. Higher accuracy = 85% or above; a practice signal appears below 70%.
           ${progressData.sessions.length >= 500 ? " Detailed topic and attempt-history views use the most recent 500 saved response records; lifetime cumulative totals remain preserved in the overall and activity summaries." : ""}
         </p>
 

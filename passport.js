@@ -637,14 +637,11 @@
               Timbro da ottenere
 
               <span>
-                ${progressTowardStamp}
-                di
+                ${practiceStatus.practicedCount}/${practiceStatus.availableCount}
+                praticate · practiced
+                <br>
                 ${practiceStatus.required}
-                attività ·
-                ${progressTowardStamp}
-                of
-                ${practiceStatus.required}
-                activities
+                per timbro · for stamp
               </span>
             </small>
           `;
