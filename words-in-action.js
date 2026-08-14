@@ -319,6 +319,134 @@
         display: none;
       }
 
+      .words-action-expansion {
+        margin: 18px 0 4px;
+        padding: 18px;
+        border: 2px solid
+          var(--border, #d9e2ef);
+        border-radius: 20px;
+        background: #f8fbff;
+      }
+
+      .words-action-expansion[hidden] {
+        display: none;
+      }
+
+      .words-action-expansion-heading {
+        margin: 0 0 5px;
+        color: var(--blue-dark, #274b84);
+        font-size: 1.08rem;
+        font-weight: 900;
+        text-align: center;
+      }
+
+      .words-action-expansion-note {
+        margin: 0 0 14px;
+        color: var(--muted, #66758d);
+        font-size: 0.9rem;
+        text-align: center;
+      }
+
+      .words-action-expansion-tools {
+        display: grid;
+        grid-template-columns:
+          repeat(2, minmax(0, 1fr));
+        gap: 10px;
+        margin-bottom: 14px;
+      }
+
+      .words-action-expand-button {
+        min-height: 50px;
+        padding: 10px 12px;
+        border: 2px solid
+          var(--border, #d9e2ef);
+        border-radius: 15px;
+        background: white;
+        color: var(--blue-dark, #274b84);
+        font: inherit;
+        font-weight: 850;
+        cursor: pointer;
+      }
+
+      .words-action-expand-button:hover,
+      .words-action-expand-button:focus-visible,
+      .words-action-expand-button.is-active {
+        border-color:
+          var(--blue, #4774b8);
+        background: #eef5ff;
+        outline: none;
+      }
+
+      .words-action-modifier-panel {
+        margin-top: 12px;
+      }
+
+      .words-action-modifier-panel[hidden] {
+        display: none;
+      }
+
+      .words-action-modifier-label {
+        display: block;
+        margin: 0 0 8px;
+        color: var(--blue-dark, #274b84);
+        font-weight: 850;
+        text-align: center;
+      }
+
+      .words-action-modifier-grid {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 8px;
+      }
+
+      .words-action-modifier {
+        padding: 8px 11px;
+        border: 2px solid
+          var(--border, #d9e2ef);
+        border-radius: 999px;
+        background: white;
+        color: var(--blue-dark, #274b84);
+        font: inherit;
+        font-weight: 800;
+        cursor: pointer;
+      }
+
+      .words-action-modifier:hover,
+      .words-action-modifier:focus-visible,
+      .words-action-modifier.is-selected {
+        border-color: #4f79b8;
+        background: #eaf2ff;
+        outline: none;
+      }
+
+      .words-action-expanded-sentence {
+        margin: 16px 0 0;
+        padding: 13px 14px;
+        border-radius: 15px;
+        background: white;
+        color: #337a4d;
+        font-size: clamp(
+          1.08rem,
+          2.5vw,
+          1.35rem
+        );
+        font-weight: 900;
+        text-align: center;
+      }
+
+      .words-action-expanded-audio {
+        display: block;
+        margin: 10px auto 0;
+        border: 0;
+        background: transparent;
+        color: var(--blue-dark, #274b84);
+        font: inherit;
+        font-weight: 800;
+        cursor: pointer;
+      }
+
+
       @media (max-width: 1050px) {
         .activity-menu {
           grid-template-columns:
@@ -1329,6 +1457,318 @@ function showRoutinesWordsQuestion() {
   );
 }
 
+function showClothingSentenceExpansion(
+  carrier,
+  noun
+) {
+  if (
+    currentTopicKey !== "clothing" ||
+    !window.PrimoVoloAgreement ||
+    typeof colors === "undefined" ||
+    typeof adjectives === "undefined"
+  ) {
+    return;
+  }
+
+  const container =
+    wordsActivity.querySelector(
+      "#wordsActionExpansion"
+    );
+
+  if (!container) {
+    return;
+  }
+
+  const compatibleAdjectives =
+    new Set(
+      Array.isArray(
+        noun.compatibleAdjectives
+      )
+        ? noun.compatibleAdjectives
+        : []
+    );
+
+  const clothingAdjectives =
+    adjectives.filter(
+      item =>
+        compatibleAdjectives.has(
+          item.italian
+        )
+    );
+
+  let selectedColor = null;
+  let selectedAdjective = null;
+
+  const carrierText =
+    carrier.italian
+      .replace("...", "")
+      .trim();
+
+  function buildSentence() {
+    const nounPhrase =
+      window.PrimoVoloAgreement
+        .buildModifiedNounPhrase(
+          noun,
+          {
+            color: selectedColor,
+            adjective:
+              selectedAdjective
+          }
+        );
+
+    return `${carrierText} ${nounPhrase}.`;
+  }
+
+  function updatePreview() {
+    const preview =
+      container.querySelector(
+        "#wordsActionExpandedSentence"
+      );
+
+    if (preview) {
+      preview.textContent =
+        buildSentence();
+    }
+  }
+
+  function modifierButton(
+    item,
+    kind
+  ) {
+    const form =
+      window.PrimoVoloAgreement
+        .getModifierForm(
+          item,
+          noun
+        );
+
+    return `
+      <button
+        type="button"
+        class="words-action-modifier"
+        data-modifier-kind="${kind}"
+        data-modifier-word="${item.italian}"
+      >
+        ${form}
+      </button>
+    `;
+  }
+
+  container.innerHTML = `
+    <p class="words-action-expansion-heading">
+      ✨ Espandi la frase
+      · Expand the sentence
+    </p>
+
+    <p class="words-action-expansion-note">
+      Aggiungi un dettaglio, se vuoi.
+      · Add a detail if you want.
+    </p>
+
+    <div class="words-action-expansion-tools">
+      <button
+        type="button"
+        id="addWordsColor"
+        class="words-action-expand-button"
+      >
+        🎨 + Colore · Color
+      </button>
+
+      <button
+        type="button"
+        id="addWordsAdjective"
+        class="words-action-expand-button"
+      >
+        🔎 + Aggettivo · Adjective
+      </button>
+    </div>
+
+    <div
+      id="wordsColorPanel"
+      class="words-action-modifier-panel"
+      hidden
+    >
+      <span
+        class="words-action-modifier-label"
+      >
+        Scegli un colore · Choose a color
+      </span>
+
+      <div class="words-action-modifier-grid">
+        ${colors.map(
+          item =>
+            modifierButton(
+              item,
+              "color"
+            )
+        ).join("")}
+      </div>
+    </div>
+
+    <div
+      id="wordsAdjectivePanel"
+      class="words-action-modifier-panel"
+      hidden
+    >
+      <span
+        class="words-action-modifier-label"
+      >
+        Scegli un aggettivo
+        · Choose an adjective
+      </span>
+
+      <div class="words-action-modifier-grid">
+        ${clothingAdjectives.map(
+          item =>
+            modifierButton(
+              item,
+              "adjective"
+            )
+        ).join("")}
+      </div>
+    </div>
+
+    <p
+      id="wordsActionExpandedSentence"
+      class="words-action-expanded-sentence"
+    >
+      ${buildSentence()}
+    </p>
+
+    <button
+      type="button"
+      id="wordsActionExpandedAudio"
+      class="words-action-expanded-audio"
+    >
+      🔊 Ascolta · Listen
+    </button>
+  `;
+
+  container.hidden = false;
+
+  const colorToggle =
+    container.querySelector(
+      "#addWordsColor"
+    );
+
+  const adjectiveToggle =
+    container.querySelector(
+      "#addWordsAdjective"
+    );
+
+  const colorPanel =
+    container.querySelector(
+      "#wordsColorPanel"
+    );
+
+  const adjectivePanel =
+    container.querySelector(
+      "#wordsAdjectivePanel"
+    );
+
+  colorToggle.addEventListener(
+    "click",
+    () => {
+      colorPanel.hidden =
+        !colorPanel.hidden;
+
+      colorToggle.classList.toggle(
+        "is-active",
+        !colorPanel.hidden
+      );
+    }
+  );
+
+  adjectiveToggle.addEventListener(
+    "click",
+    () => {
+      adjectivePanel.hidden =
+        !adjectivePanel.hidden;
+
+      adjectiveToggle.classList.toggle(
+        "is-active",
+        !adjectivePanel.hidden
+      );
+    }
+  );
+
+  container
+    .querySelectorAll(
+      ".words-action-modifier"
+    )
+    .forEach(button => {
+
+      button.addEventListener(
+        "click",
+        () => {
+
+          const kind =
+            button.dataset.modifierKind;
+
+          const word =
+            button.dataset.modifierWord;
+
+          const pool =
+            kind === "color"
+              ? colors
+              : clothingAdjectives;
+
+          const selected =
+            pool.find(
+              item =>
+                item.italian === word
+            );
+
+          if (!selected) {
+            return;
+          }
+
+          container
+            .querySelectorAll(
+              `[data-modifier-kind="${kind}"]`
+            )
+            .forEach(choice => {
+              choice.classList.remove(
+                "is-selected"
+              );
+            });
+
+          button.classList.add(
+            "is-selected"
+          );
+
+          if (kind === "color") {
+            selectedColor = selected;
+          } else {
+            selectedAdjective =
+              selected;
+          }
+
+          updatePreview();
+
+          speakSentence(
+            buildSentence()
+          );
+        }
+      );
+    });
+
+  const audioButton =
+    container.querySelector(
+      "#wordsActionExpandedAudio"
+    );
+
+  audioButton.addEventListener(
+    "click",
+    () => {
+      speakSentence(
+        buildSentence()
+      );
+    }
+  );
+}
+
+
 function showWordsQuestion() {
   if (currentTopicKey === "routines") {
     showRoutinesWordsQuestion();
@@ -1517,6 +1957,12 @@ const choices =
           </span>
         </p>
 
+        <div
+          id="wordsActionExpansion"
+          class="words-action-expansion"
+          hidden
+        ></div>
+
         <button
           type="button"
           id="nextWordsAction"
@@ -1652,6 +2098,16 @@ const sentence =
             `;
 
             speakSentence(sentence);
+
+            if (
+              currentTopicKey ===
+                "clothing"
+            ) {
+              showClothingSentenceExpansion(
+                carrier,
+                currentWordsItem
+              );
+            }
           } else {
             button.classList.add(
               "incorrect"

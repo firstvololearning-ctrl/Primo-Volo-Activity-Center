@@ -631,6 +631,7 @@ const clothing = [
     italian: "il pigiama",
     gender: "masculine",
     number: "singular",
+    compatibleAdjectives: ["grande", "piccolo", "nuovo", "vecchio"],
     english: "pajamas",
     image: "images/clothing/clothes-01.png"
   },
@@ -638,6 +639,7 @@ const clothing = [
     italian: "la maglietta",
     gender: "feminine",
     number: "singular",
+    compatibleAdjectives: ["grande", "piccolo", "leggero", "lungo", "corto", "nuovo", "vecchio"],
     english: "T-shirt",
     image: "images/clothing/clothes-02.png"
   },
@@ -645,6 +647,7 @@ const clothing = [
     italian: "la camicia",
     gender: "feminine",
     number: "singular",
+    compatibleAdjectives: ["grande", "piccolo", "leggero", "lungo", "corto", "nuovo", "vecchio"],
     english: "shirt",
     image: "images/clothing/clothes-03.png"
   },
@@ -652,6 +655,7 @@ const clothing = [
     italian: "la felpa",
     gender: "feminine",
     number: "singular",
+    compatibleAdjectives: ["grande", "piccolo", "pesante", "leggero", "nuovo", "vecchio"],
     english: "hoodie",
     image: "images/clothing/clothes-04.png"
   },
@@ -659,6 +663,7 @@ const clothing = [
     italian: "il maglione",
     gender: "masculine",
     number: "singular",
+    compatibleAdjectives: ["grande", "piccolo", "pesante", "leggero", "nuovo", "vecchio"],
     english: "sweater",
     image: "images/clothing/clothes-05.png"
   },
@@ -666,6 +671,7 @@ const clothing = [
     italian: "il cappotto",
     gender: "masculine",
     number: "singular",
+    compatibleAdjectives: ["grande", "piccolo", "pesante", "leggero", "lungo", "corto", "nuovo", "vecchio"],
     english: "coat",
     image: "images/clothing/clothes-06.png"
   },
@@ -673,6 +679,7 @@ const clothing = [
     italian: "la giacca",
     gender: "feminine",
     number: "singular",
+    compatibleAdjectives: ["grande", "piccolo", "pesante", "leggero", "lungo", "corto", "nuovo", "vecchio"],
     english: "jacket",
     image: "images/clothing/clothes-07.png"
   },
@@ -680,6 +687,7 @@ const clothing = [
     italian: "i pantaloncini",
     gender: "masculine",
     number: "plural",
+    compatibleAdjectives: ["grande", "piccolo", "nuovo", "vecchio"],
     english: "shorts",
     image: "images/clothing/clothes-08.png"
   },
@@ -687,6 +695,7 @@ const clothing = [
     italian: "la gonna",
     gender: "feminine",
     number: "singular",
+    compatibleAdjectives: ["grande", "piccolo", "leggero", "lungo", "corto", "nuovo", "vecchio"],
     english: "skirt",
     image: "images/clothing/clothes-09.png"
   },
@@ -694,6 +703,7 @@ const clothing = [
     italian: "i calzini",
     gender: "masculine",
     number: "plural",
+    compatibleAdjectives: ["grande", "piccolo", "lungo", "corto", "nuovo", "vecchio"],
     english: "socks",
     image: "images/clothing/clothes-10.png"
   },
@@ -701,6 +711,7 @@ const clothing = [
     italian: "la sciarpa",
     gender: "feminine",
     number: "singular",
+    compatibleAdjectives: ["grande", "piccolo", "leggero", "lungo", "corto", "nuovo", "vecchio"],
     english: "scarf",
     image: "images/clothing/clothes-11.png"
   },
@@ -708,6 +719,7 @@ const clothing = [
     italian: "i guanti",
     gender: "masculine",
     number: "plural",
+    compatibleAdjectives: ["grande", "piccolo", "pesante", "leggero", "nuovo", "vecchio"],
     english: "gloves",
     image: "images/clothing/clothes-12.png"
   },
@@ -715,6 +727,7 @@ const clothing = [
     italian: "il cappello",
     gender: "masculine",
     number: "singular",
+    compatibleAdjectives: ["grande", "piccolo", "nuovo", "vecchio"],
     english: "hat",
     image: "images/clothing/clothes-13.png"
   },
@@ -722,6 +735,7 @@ const clothing = [
     italian: "gli occhiali",
     gender: "masculine",
     number: "plural",
+    compatibleAdjectives: ["grande", "piccolo", "nuovo", "vecchio"],
     english: "glasses",
     image: "images/clothing/clothes-14.png"
   },
@@ -729,6 +743,7 @@ const clothing = [
     italian: "le scarpe",
     gender: "feminine",
     number: "plural",
+    compatibleAdjectives: ["grande", "piccolo", "pesante", "leggero", "nuovo", "vecchio"],
     english: "shoes",
     image: "images/clothing/clothes-15.png"
   },
@@ -736,6 +751,7 @@ const clothing = [
     italian: "gli stivali",
     gender: "masculine",
     number: "plural",
+    compatibleAdjectives: ["grande", "piccolo", "pesante", "leggero", "nuovo", "vecchio"],
     english: "boots",
     image: "images/clothing/clothes-16.png"
   },
@@ -743,6 +759,7 @@ const clothing = [
     italian: "il costume da bagno",
     gender: "masculine",
     number: "singular",
+    compatibleAdjectives: ["grande", "piccolo", "nuovo", "vecchio"],
     english: "swimsuit",
     image: "images/clothing/clothes-17.png"
   },
@@ -750,6 +767,7 @@ const clothing = [
     italian: "la cintura",
     gender: "feminine",
     number: "singular",
+    compatibleAdjectives: ["lungo", "corto", "nuovo", "vecchio"],
     english: "belt",
     image: "images/clothing/clothes-18.png"
   },
@@ -757,6 +775,7 @@ const clothing = [
     italian: "il vestito",
     gender: "masculine",
     number: "singular",
+    compatibleAdjectives: ["grande", "piccolo", "leggero", "lungo", "corto", "nuovo", "vecchio"],
     english: "dress",
     image: "images/clothing/clothes-19.png"
   },
@@ -764,6 +783,7 @@ const clothing = [
     italian: "i pantaloni",
     gender: "masculine",
     number: "plural",
+    compatibleAdjectives: ["grande", "piccolo", "pesante", "leggero", "lungo", "corto", "nuovo", "vecchio"],
     english: "pants",
     image: "images/clothing/clothes-20.png"
   }
