@@ -927,12 +927,6 @@ button {
 
 /* Expanded clay clothing */
 
-.worn-piece[data-item="vestito-blu"] {
-  left: 18%;
-  top: 24%;
-  width: 64%;
-}
-
 .worn-piece[data-item="vestito-dorato"] {
   left: 14%;
   top: 23%;
@@ -943,13 +937,6 @@ button {
   left: 16%;
   top: 24%;
   width: 68%;
-}
-
-.worn-piece[data-item="cappotto"] {
-  left: 14%;
-  top: 23%;
-  width: 72%;
-  z-index: 44;
 }
 
 .worn-piece[data-item="camicia"],
@@ -977,12 +964,6 @@ button {
 .worn-piece[data-item="cappello-elegante"] {
   left: 25%;
   top: 0%;
-  width: 46%;
-}
-
-.worn-piece[data-item="cappello-invernale"] {
-  left: 27%;
-  top: 2%;
   width: 46%;
 }
 
@@ -1044,12 +1025,6 @@ button {
   left: 33%;
   top: 2%;
   width: 34%;
-}
-
-.worn-piece[data-item="cappello-invernale"] {
-  left: 32%;
-  top: 2%;
-  width: 36%;
 }
 
 /* Gloves — sit around the hands instead of across the entire body */
@@ -1114,12 +1089,6 @@ button {
 }
 
 /* Winter hat */
-.worn-piece[data-item="cappello-invernale"] {
-  left: 34%;
-  top: 0%;
-  width: 32%;
-}
-
 /* Gloves — smaller and closer to actual hands */
 .worn-piece[data-item="guanti-blu"] {
   left: 29%;
@@ -1177,12 +1146,6 @@ button {
   width: 60%;
 }
 
-.worn-piece[data-item="cappotto"] {
-  left: 15%;
-  top: 24%;
-  width: 70%;
-}
-
 .worn-piece[data-item="pantaloni-rossi"] {
   left: 27%;
   top: 46%;
@@ -1197,13 +1160,6 @@ button {
 }
 
 .worn-piece[data-item="cappello-elegante"],
-.worn-piece[data-item="cappello-invernale"] {
-  left: 25%;
-  top: 1%;
-  width: 44%;
-}
-
-
 .worn-piece[data-item="pantaloni-rossi"] {
   left: 21%;
   top: 46%;
@@ -1217,10 +1173,54 @@ button {
   width: 58%;
 }
 
+/* COAT — matched to the proven giacca geometry */
 
-.worn-piece[data-item="cappotto"] {
-  left: 7%;
-  top: 21%;
-  width: 86%;
+/* Cappotto — same proven placement as la giacca */
+
+/* Cappotto — long winter coat */
+
+
+/* Cappotto — true 360x570 mannequin overlay */
+.worn-piece[data-item="cappotto"] img,
+.worn-piece[data-item="cappotto"] .worn-image {
+  display: block;
+  width: 100% !important;
+  height: 100% !important;
+}
+
+
+/* ========================================
+   MANNEQUIN-FIT OVERLAYS
+   ======================================== */
+
+.worn-piece[data-item="cappotto"],
+.worn-piece[data-item="cappello-invernale"],
+.worn-piece[data-item="vestito-blu"] {
+  left: 0 !important;
+  top: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+}
+
+.worn-piece[data-item="cappotto"] img,
+.worn-piece[data-item="cappello-invernale"] img,
+.worn-piece[data-item="vestito-blu"] img,
+.worn-piece[data-item="cappotto"] .worn-image,
+.worn-piece[data-item="cappello-invernale"] .worn-image,
+.worn-piece[data-item="vestito-blu"] .worn-image {
+  display: block;
+  width: 100% !important;
+  height: 100% !important;
+}
+
+/* FINAL MANNEQUIN OVERLAYS — coat, winter hat, blue dress */
+.worn-piece[data-item="cappotto"],
+.worn-piece[data-item="cappello-invernale"],
+.worn-piece[data-item="vestito-blu"] {
+  left: 0 !important;
+  top: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: fill !important;
 }
 

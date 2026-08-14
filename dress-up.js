@@ -45,9 +45,15 @@ const wornImageByItem = {
     "images/scene-images/clothing/matched/shirt-rainbow.png",
 "pantaloni-rossi":
     "images/scene-images/clothing/matched/pants-red.png",
-
   "cappotto":
-    "images/scene-images/clothing/matched/coat-winter.png",
+    "images/scene-images/clothing/dress-up/fitted-final/coat-winter-fit.png",
+
+  "cappello-invernale":
+    "images/scene-images/clothing/dress-up/fitted-final/hat-winter-fit.png",
+
+  "vestito-blu":
+    "images/scene-images/clothing/dress-up/fitted-final/dress-blue-fit.png",
+
 };
 
 const wornBySlot = {
