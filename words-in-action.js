@@ -447,6 +447,51 @@
       }
 
 
+      .words-action-guided-expansion {
+        margin: 14px auto 18px;
+        padding: 14px;
+        border-radius: 18px;
+        background: white;
+        text-align: center;
+      }
+
+      .words-action-guided-label {
+        margin: 0 0 10px;
+        color: var(--blue-dark, #274b84);
+        font-weight: 850;
+      }
+
+      .words-action-guided-image {
+        display: block;
+        width: min(100%, 460px);
+        max-height: 330px;
+        margin: 0 auto 12px;
+        object-fit: contain;
+        border-radius: 16px;
+      }
+
+      .words-action-guided-sentence {
+        margin: 8px 0 0;
+        color: #337a4d;
+        font-size: clamp(
+          1.08rem,
+          2.5vw,
+          1.35rem
+        );
+        font-weight: 900;
+      }
+
+      .words-action-guided-audio {
+        margin: 10px auto 0;
+        border: 0;
+        background: transparent;
+        color: var(--blue-dark, #274b84);
+        font: inherit;
+        font-weight: 800;
+        cursor: pointer;
+      }
+
+
       @media (max-width: 1050px) {
         .activity-menu {
           grid-template-columns:
@@ -1457,6 +1502,667 @@ function showRoutinesWordsQuestion() {
   );
 }
 
+const combinedExpansionTargets = Object.freeze({
+  family: Object.freeze({
+    "la nonna": [
+      {
+        image:
+          "images/combined-adjectives/family-combined-adjectives/nonna-bassa-rossa.png",
+        sentence:
+          "La nonna è bassa e rossa."
+      }
+    ],
+
+    "il nonno": [
+      {
+        image:
+          "images/combined-adjectives/family-combined-adjectives/nonno-alto-rosso.png",
+        sentence:
+          "Il nonno è alto e rosso."
+      }
+    ],
+
+    "la mamma": [
+      {
+        image:
+          "images/combined-adjectives/family-combined-adjectives/mamma-alta-blu.png",
+        sentence:
+          "La mamma è alta e blu."
+      }
+    ],
+
+    "il papà": [
+      {
+        image:
+          "images/combined-adjectives/family-combined-adjectives/papa-alto-verde.png",
+        sentence:
+          "Il papà è alto e verde."
+      }
+    ],
+
+    "il fratello": [
+      {
+        image:
+          "images/combined-adjectives/family-combined-adjectives/fratello-alto-giallo.png",
+        sentence:
+          "Il fratello è alto e giallo."
+      },
+      {
+        image:
+          "images/combined-adjectives/family-combined-adjectives/fratello-basso-verde.png",
+        sentence:
+          "Il fratello è basso e verde."
+      }
+    ],
+
+    "la sorella": [
+      {
+        image:
+          "images/combined-adjectives/family-combined-adjectives/sorella-bassa-blu.png",
+        sentence:
+          "La sorella è bassa e blu."
+      }
+    ]
+  }),
+
+  animals: Object.freeze({
+    "il cane": [
+      {
+        image:
+          "images/combined-adjectives/animals-combined/cane-grande-giallo.png",
+        sentence:
+          "Il cane è grande e giallo."
+      }
+    ],
+
+    "la capra": [
+      {
+        image:
+          "images/combined-adjectives/animals-combined/capra-grande-bianca.png",
+        sentence:
+          "La capra è grande e bianca."
+      }
+    ],
+
+    "il coniglio": [
+      {
+        image:
+          "images/combined-adjectives/animals-combined/coniglio-grande-grigio.png",
+        sentence:
+          "Il coniglio è grande e grigio."
+      }
+    ],
+
+    "il gatto": [
+      {
+        image:
+          "images/combined-adjectives/animals-combined/gatto-grande-grigio.png",
+        sentence:
+          "Il gatto è grande e grigio."
+      }
+    ],
+
+    "la tartaruga": [
+      {
+        image:
+          "images/combined-adjectives/animals-combined/tartaruga-grande-verde.png",
+        sentence:
+          "La tartaruga è grande e verde."
+      }
+    ],
+
+    "l'uccello": [
+      {
+        image:
+          "images/combined-adjectives/animals-combined/uccello-grande-blu.png",
+        sentence:
+          "L'uccello è grande e blu."
+      }
+    ]
+  }),
+
+  clothing: Object.freeze({
+    "la camicia": [
+      {
+        image:
+          "images/combined-adjectives/clothing-combined/camicia-grande-rossa.png",
+        sentence:
+          "La camicia è grande e rossa."
+      }
+    ],
+
+    "il cappello": [
+      {
+        image:
+          "images/combined-adjectives/clothing-combined/cappello-grande-viola.png",
+        sentence:
+          "Il cappello è grande e viola."
+      }
+    ],
+
+    "il cappotto": [
+      {
+        image:
+          "images/combined-adjectives/clothing-combined/cappotto-grande-blu.png",
+        sentence:
+          "Il cappotto è grande e blu."
+      }
+    ],
+
+    "i pantaloni": [
+      {
+        image:
+          "images/combined-adjectives/clothing-combined/pantaloni-grandi-verdi.png",
+        sentence:
+          "I pantaloni sono grandi e verdi."
+      }
+    ],
+
+    "il vestito": [
+      {
+        image:
+          "images/combined-adjectives/clothing-combined/vestito-grande-rosa.png",
+        sentence:
+          "Il vestito è grande e rosa."
+      }
+    ]
+  })
+});
+
+function getCombinedExpansionTarget(
+  topicKey,
+  noun
+) {
+  const topicTargets =
+    combinedExpansionTargets[
+      topicKey
+    ];
+
+  if (
+    !topicTargets ||
+    !noun?.italian
+  ) {
+    return null;
+  }
+
+  const options =
+    topicTargets[noun.italian];
+
+  if (
+    !Array.isArray(options) ||
+    !options.length
+  ) {
+    return null;
+  }
+
+  return options[
+    Math.floor(
+      Math.random() *
+      options.length
+    )
+  ];
+}
+
+function getGuidedTargetParts(
+  target
+) {
+  if (!target?.sentence) {
+    return null;
+  }
+
+  const match =
+    target.sentence.match(
+      /(?:è|sono)\s+(.+?)\s+e\s+(.+?)\.$/i
+    );
+
+  if (!match) {
+    return null;
+  }
+
+  return {
+    adjective: match[1].trim(),
+    color: match[2].trim()
+  };
+}
+
+function getGuidedOppositeAdjective(
+  noun,
+  adjective
+) {
+  const opposites = {
+    alto: "basso",
+    alta: "bassa",
+    basso: "alto",
+    bassa: "alta"
+  };
+
+  if (opposites[adjective]) {
+    return opposites[adjective];
+  }
+
+  const phrase =
+    noun?.italian
+      ?.trim()
+      .toLowerCase() || "";
+
+  const feminine =
+    phrase.startsWith("la ") ||
+    phrase.startsWith("le ");
+
+  const plural =
+    phrase.startsWith("i ") ||
+    phrase.startsWith("gli ") ||
+    phrase.startsWith("le ");
+
+  if (
+    adjective === "grande" ||
+    adjective === "grandi"
+  ) {
+    if (plural) {
+      return feminine
+        ? "piccole"
+        : "piccoli";
+    }
+
+    return feminine
+      ? "piccola"
+      : "piccolo";
+  }
+
+  if (
+    adjective.startsWith("piccol")
+  ) {
+    return plural
+      ? "grandi"
+      : "grande";
+  }
+
+  return null;
+}
+
+function shuffleGuidedChoices(
+  choices
+) {
+  return [...choices].sort(
+    () => Math.random() - 0.5
+  );
+}
+
+function getGuidedAdjectiveChoices(
+  noun,
+  correct
+) {
+  const opposite =
+    getGuidedOppositeAdjective(
+      noun,
+      correct
+    );
+
+  return shuffleGuidedChoices(
+    [
+      correct,
+      opposite
+    ].filter(Boolean)
+  );
+}
+
+function getGuidedColorChoices(
+  correct
+) {
+  const distractors = [
+    "blu",
+    "rosa",
+    "viola"
+  ];
+
+  const choices = [correct];
+
+  for (const color of distractors) {
+    if (
+      color !== correct &&
+      choices.length < 4
+    ) {
+      choices.push(color);
+    }
+  }
+
+  return shuffleGuidedChoices(
+    choices
+  );
+}
+
+function buildGuidedCombinedExpansionMarkup(
+  target,
+  noun
+) {
+  const parts =
+    getGuidedTargetParts(
+      target
+    );
+
+  if (!parts) {
+    return "";
+  }
+
+  const adjectiveChoices =
+    getGuidedAdjectiveChoices(
+      noun,
+      parts.adjective
+    );
+
+  const colorChoices =
+    getGuidedColorChoices(
+      parts.color
+    );
+
+  return `
+    <div class="words-action-guided-expansion">
+
+      <p class="words-action-guided-label">
+        👀 Guarda l’immagine
+        · Look at the image
+      </p>
+
+      <img
+        class="words-action-guided-image"
+        src="${target.image}"
+        alt=""
+      >
+
+      <div
+        class="words-action-guided-step"
+        id="guidedAdjectiveStep"
+      >
+        <p class="words-action-modifier-label">
+          1. Com’è?
+          · Choose the adjective
+        </p>
+
+        <div class="words-action-modifier-grid">
+          ${adjectiveChoices.map(
+            choice => `
+              <button
+                type="button"
+                class="words-action-modifier"
+                data-guided-adjective="${choice}"
+              >
+                ${choice}
+              </button>
+            `
+          ).join("")}
+        </div>
+      </div>
+
+      <div
+        class="words-action-guided-step"
+        id="guidedColorStep"
+        hidden
+      >
+        <p class="words-action-modifier-label">
+          2. Di che colore è?
+          · Choose the color
+        </p>
+
+        <div class="words-action-modifier-grid">
+          ${colorChoices.map(
+            choice => `
+              <button
+                type="button"
+                class="words-action-modifier"
+                data-guided-color="${choice}"
+              >
+                ${choice}
+              </button>
+            `
+          ).join("")}
+        </div>
+      </div>
+
+      <div
+        id="guidedExpansionResult"
+        hidden
+      >
+        <p class="words-action-guided-sentence">
+          ${target.sentence}
+        </p>
+
+        <button
+          type="button"
+          class="words-action-guided-audio"
+          data-guided-expansion-audio
+        >
+          🔊 Ascolta · Listen
+        </button>
+      </div>
+
+    </div>
+  `;
+}
+
+function wireGuidedCombinedExpansionChoices(
+  container,
+  target,
+  noun
+) {
+  const parts =
+    getGuidedTargetParts(
+      target
+    );
+
+  if (!parts) {
+    return;
+  }
+
+  const colorStep =
+    container.querySelector(
+      "#guidedColorStep"
+    );
+
+  const result =
+    container.querySelector(
+      "#guidedExpansionResult"
+    );
+
+  container
+    .querySelectorAll(
+      "[data-guided-adjective]"
+    )
+    .forEach(button => {
+      button.addEventListener(
+        "click",
+        () => {
+          const choice =
+            button.dataset
+              .guidedAdjective;
+
+          if (
+            choice !==
+            parts.adjective
+          ) {
+            button.classList.add(
+              "incorrect"
+            );
+
+            window.setTimeout(
+              () => {
+                button.classList.remove(
+                  "incorrect"
+                );
+              },
+              500
+            );
+
+            return;
+          }
+
+          container
+            .querySelectorAll(
+              "[data-guided-adjective]"
+            )
+            .forEach(choiceButton => {
+              choiceButton.disabled =
+                true;
+            });
+
+          button.classList.add(
+            "correct"
+          );
+
+          colorStep.hidden = false;
+
+          speakSentence(
+            parts.adjective
+          );
+        }
+      );
+    });
+
+  container
+    .querySelectorAll(
+      "[data-guided-color]"
+    )
+    .forEach(button => {
+      button.addEventListener(
+        "click",
+        () => {
+          const choice =
+            button.dataset
+              .guidedColor;
+
+          if (
+            choice !==
+            parts.color
+          ) {
+            button.classList.add(
+              "incorrect"
+            );
+
+            window.setTimeout(
+              () => {
+                button.classList.remove(
+                  "incorrect"
+                );
+              },
+              500
+            );
+
+            return;
+          }
+
+          container
+            .querySelectorAll(
+              "[data-guided-color]"
+            )
+            .forEach(choiceButton => {
+              choiceButton.disabled =
+                true;
+            });
+
+          button.classList.add(
+            "correct"
+          );
+
+          result.hidden = false;
+
+          speakSentence(
+            target.sentence
+          );
+        }
+      );
+    });
+
+  const audioButton =
+    container.querySelector(
+      "[data-guided-expansion-audio]"
+    );
+
+  audioButton?.addEventListener(
+    "click",
+    () => {
+      speakSentence(
+        target.sentence
+      );
+    }
+  );
+}
+
+function showGuidedCombinedExpansion(
+  topicKey,
+  noun
+) {
+  const container =
+    wordsActivity.querySelector(
+      "#wordsActionExpansion"
+    );
+
+  if (!container) {
+    return;
+  }
+
+  const target =
+    getCombinedExpansionTarget(
+      topicKey,
+      noun
+    );
+
+  if (!target) {
+    return;
+  }
+
+  container.innerHTML = `
+    <button
+      type="button"
+      id="openWordsExpansion"
+      class="words-action-expand-button"
+    >
+      ✨ Espandi la frase
+      · Expand the sentence
+    </button>
+
+    <div
+      id="guidedWordsExpansion"
+      hidden
+    >
+      <p class="words-action-expansion-note">
+        Guarda e aggiungi due dettagli.
+        · Look and add two details.
+      </p>
+
+      ${buildGuidedCombinedExpansionMarkup(
+        target,
+        noun
+      )}
+    </div>
+  `;
+
+  container.hidden = false;
+
+  const openButton =
+    container.querySelector(
+      "#openWordsExpansion"
+    );
+
+  const expansion =
+    container.querySelector(
+      "#guidedWordsExpansion"
+    );
+
+  openButton.addEventListener(
+    "click",
+    () => {
+      openButton.hidden = true;
+      expansion.hidden = false;
+
+      wireGuidedCombinedExpansionChoices(
+        container,
+        target,
+        noun
+      );
+    }
+  );
+}
+
+
 function showClothingSentenceExpansion(
   carrier,
   noun
@@ -1476,6 +2182,21 @@ function showClothingSentenceExpansion(
     );
 
   if (!container) {
+    return;
+  }
+
+  const guidedTarget =
+    getCombinedExpansionTarget(
+      "clothing",
+      noun
+    );
+
+  if (guidedTarget) {
+    showGuidedCombinedExpansion(
+      "clothing",
+      noun
+    );
+
     return;
   }
 
@@ -1565,6 +2286,10 @@ function showClothingSentenceExpansion(
       · Add a detail if you want.
     </p>
 
+    ${buildGuidedCombinedExpansionMarkup(
+      guidedTarget
+    )}
+
     <div class="words-action-expansion-tools">
       <button
         type="button"
@@ -1645,6 +2370,11 @@ function showClothingSentenceExpansion(
   `;
 
   container.hidden = false;
+
+  wireGuidedCombinedExpansionAudio(
+    container,
+    guidedTarget
+  );
 
   const colorToggle =
     container.querySelector(
@@ -2105,6 +2835,16 @@ const sentence =
             ) {
               showClothingSentenceExpansion(
                 carrier,
+                currentWordsItem
+              );
+            } else if (
+              currentTopicKey ===
+                "family" ||
+              currentTopicKey ===
+                "animals"
+            ) {
+              showGuidedCombinedExpansion(
+                currentTopicKey,
                 currentWordsItem
               );
             }
