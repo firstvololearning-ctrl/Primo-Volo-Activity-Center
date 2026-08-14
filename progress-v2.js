@@ -1270,7 +1270,30 @@
     const lastPracticed =
       getOverallLastPracticed();
 
+    const currentStudent =
+      window.PrimoVoloStudent &&
+      typeof window.PrimoVoloStudent.getCurrent ===
+        "function"
+        ? window.PrimoVoloStudent.getCurrent()
+        : null;
+
+    const studentName =
+      currentStudent?.name
+        ? String(currentStudent.name)
+        : "";
+
     summary.innerHTML = `
+      ${
+        studentName
+          ? `
+            <div class="pv2-student-heading">
+              <strong>Student:</strong>
+              ${escapeHtml(studentName)}
+            </div>
+          `
+          : ""
+      }
+
       <div class="progress-stat">
         <strong>${scoredAttempts}</strong>
         <span>Scored Responses</span>
@@ -1459,6 +1482,19 @@
       .progress-summary {
         grid-template-columns:
           repeat(3, minmax(0, 1fr));
+      }
+
+      .pv2-student-heading {
+        grid-column: 1 / -1;
+        margin: 0 0 2px;
+        padding: 2px 2px 4px;
+        font-size: 1rem;
+        color: #43536b;
+        text-align: left;
+      }
+
+      .pv2-student-heading strong {
+        color: #274b84;
       }
 
       .pv2-date-stat {

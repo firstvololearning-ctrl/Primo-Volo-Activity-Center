@@ -125,7 +125,7 @@
     }
 
     const ok = window.confirm(
-      `Remove ${student.name} from this device?\n\nThis will remove the student profile.`
+      `Remove ${student.name} from this device?\n\nThis will remove the student profile and all saved Progress, Flight Path, and Passport data for this student.`
     );
 
     if (!ok) {
@@ -135,6 +135,23 @@
     saveStudents(
       students.filter((item) => item.id !== id)
     );
+
+    /*
+      Student learning data uses the same
+      student-ID suffix across Progress,
+      Flight Path, and Passport.
+    */
+    [
+      "primoVoloActivityCenterProgress",
+      "primoVoloFlightPathPractice",
+      "primoVoloPassportAchievements"
+    ].forEach(baseKey => {
+      localStorage.removeItem(
+        baseKey +
+        ":student:" +
+        id
+      );
+    });
 
     if (currentId() === id) {
       setCurrent("");
