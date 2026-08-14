@@ -313,6 +313,29 @@
   const PASSPORT_STORAGE_KEY =
     "primoVoloPassportAchievements";
 
+  const CURRENT_STUDENT_STORAGE_KEY =
+    "primoVoloCurrentStudentV1";
+
+  function getPassportStorageKey() {
+    const studentId =
+      window.localStorage.getItem(
+        CURRENT_STUDENT_STORAGE_KEY
+      );
+
+    if (!studentId) {
+      return PASSPORT_STORAGE_KEY;
+    }
+
+    return (
+      PASSPORT_STORAGE_KEY +
+      ":student:" +
+      studentId
+    );
+  }
+
+  window.getVoloPassportStorageKey =
+    getPassportStorageKey;
+
   const EXPLORED_RATIO =
     0.70;
 
@@ -327,7 +350,7 @@
     try {
       const saved =
         window.localStorage.getItem(
-          PASSPORT_STORAGE_KEY
+          getPassportStorageKey()
         );
 
       if (!saved) {
@@ -362,7 +385,7 @@
   function savePassportData() {
     try {
       window.localStorage.setItem(
-        PASSPORT_STORAGE_KEY,
+        getPassportStorageKey(),
         JSON.stringify(
           passportData
         )
@@ -777,8 +800,16 @@
 
 
   /* ========================================
-     RESPOND TO NEW PRACTICE
+     RESPOND TO STUDENT / PRACTICE CHANGES
      ======================================== */
+
+  window.addEventListener(
+    "primo-volo-student-changed",
+    () => {
+      passportData =
+        loadPassportData();
+    }
+  );
 
   document.addEventListener(
     "voloflightpathchange",
@@ -787,6 +818,10 @@
         event.detail?.topic;
 
       if (!topicKey) {
+        if (!modal.hidden) {
+          renderPassport();
+        }
+
         return;
       }
 
