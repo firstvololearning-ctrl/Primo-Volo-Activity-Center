@@ -513,6 +513,62 @@ const adjectives = [
     feminine: "veloce",
     english: "fast",
     image: "images/adjectives/adjectives-08.png"
+  },
+  {
+    italian: "lungo",
+    masculine: "lungo",
+    feminine: "lunga",
+    english: "long",
+    image: "images/adjectives/lungo.png"
+  },
+  {
+    italian: "corto",
+    masculine: "corto",
+    feminine: "corta",
+    english: "short (length)",
+    image: "images/adjectives/corto.png"
+  },
+  {
+    italian: "alto",
+    masculine: "alto",
+    feminine: "alta",
+    english: "tall",
+    image: "images/adjectives/alto.png"
+  },
+  {
+    italian: "basso",
+    masculine: "basso",
+    feminine: "bassa",
+    english: "short (height)",
+    image: "images/adjectives/basso.png"
+  },
+  {
+    italian: "pesante",
+    masculine: "pesante",
+    feminine: "pesante",
+    english: "heavy",
+    image: "images/adjectives/pesante.png"
+  },
+  {
+    italian: "leggero",
+    masculine: "leggero",
+    feminine: "leggera",
+    english: "light (weight)",
+    image: "images/adjectives/leggero.png"
+  },
+  {
+    italian: "nuovo",
+    masculine: "nuovo",
+    feminine: "nuova",
+    english: "new",
+    image: "images/adjectives/nuovo.png"
+  },
+  {
+    italian: "vecchio",
+    masculine: "vecchio",
+    feminine: "vecchia",
+    english: "old",
+    image: "images/adjectives/vecchio.png"
   }
 ];
 const seasons = [
