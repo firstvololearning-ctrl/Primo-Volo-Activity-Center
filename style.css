@@ -9600,3 +9600,30 @@ p + p {
 */
 
 /* ABOUT 2026 LANGUAGE-SPLIT END */
+
+/* === HEADER GENERAL INFO TOOLS === */
+
+.header-info-tools {
+  grid-column: 1 / -1;
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 2px;
+}
+
+.header-info-tools .header-link {
+  flex: 0 1 150px;
+  min-height: 42px !important;
+  padding: 7px 12px !important;
+}
+
+@media (max-width: 600px) {
+  .header-info-tools {
+    width: 100%;
+  }
+
+  .header-info-tools .header-link {
+    flex: 1 1 0;
+  }
+}
+

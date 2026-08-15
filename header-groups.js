@@ -41,6 +41,12 @@
       'a[href="worksheets.html"]'
     ),
     document.querySelector(
+      'a[href="games.html"]'
+    )
+  ].filter(Boolean);
+
+  const infoItems = [
+    document.querySelector(
       "#aboutItalianButton"
     ),
     document.querySelector(
@@ -108,8 +114,21 @@
 
   utilities.innerHTML = "";
 
+  const infoRow =
+    document.createElement(
+      "div"
+    );
+
+  infoRow.className =
+    "header-info-tools";
+
+  infoItems.forEach(item => {
+    infoRow.appendChild(item);
+  });
+
   utilities.append(
     learnerGroup,
-    educatorGroup
+    educatorGroup,
+    infoRow
   );
 })();
