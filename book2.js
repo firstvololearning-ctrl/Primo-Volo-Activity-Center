@@ -2,141 +2,144 @@
 
 const bookPages = [
   {
-    image: "images/book1/book1-01.png",
-    alt: "Volo waves and introduces himself.",
+    image: "images/book2/book2-01.png",
+    alt: "A group of familiar animals.",
     text: [
-      "Ciao!",
-      "Mi chiamo Volo."
+      "Gli animali!"
     ],
     audio:
-      "Ciao! Mi chiamo Volo."
+      "Gli animali!"
   },
 
   {
-    image: "images/book1/book1-02.png",
-    alt: "Volo presents a clay diorama of Rome.",
+    image: "images/book2/book2-02.png",
+    alt: "One dog.",
     text: [
-      "Sono di Roma."
+      "Io vedo un cane."
     ],
     audio:
-      "Sono di Roma."
+      "Io vedo un cane."
   },
 
   {
-    image: "images/book1/book1-03.png",
-    alt: "A spring map of Italy with sunshine.",
+    image: "images/book2/book2-03.png",
+    alt: "Two cats.",
     text: [
-      "È primavera.",
-      "C’è il sole."
+      "Io vedo due gatti."
     ],
     audio:
-      "È primavera. C’è il sole."
+      "Io vedo due gatti."
   },
 
   {
-    image: "images/book1/book1-04.png",
-    alt: "Volo eats a large chocolate chip cookie.",
+    image: "images/book2/book2-04.png",
+    alt: "Three birds.",
     text: [
-      "Mangio il biscotto.",
-      "È grande.",
-      "È buono.",
-      "Mi piace il biscotto."
+      "Io vedo tre uccelli."
     ],
     audio:
-      "Mangio il biscotto. È grande. È buono. Mi piace il biscotto."
+      "Io vedo tre uccelli."
   },
 
   {
-    image: "images/book1/book1-05.png",
-    alt: "Volo drinks milk.",
+    image: "images/book2/book2-05.png",
+    alt: "Four rabbits.",
     text: [
-      "Bevo il latte.",
-      "È bianco.",
-      "È buono.",
-      "Mi piace il latte."
+      "Io vedo quattro conigli."
     ],
     audio:
-      "Bevo il latte. È bianco. È buono. Mi piace il latte."
+      "Io vedo quattro conigli."
   },
 
   {
-    image: "images/book1/book1-06.png",
-    alt: "Volo points toward the reader and asks, E tu?",
+    image: "images/book2/book2-06.png",
+    alt: "Five different animals to count.",
     text: [
+      "Quanti animali vedi?"
+    ],
+    audio:
+      "Quanti animali vedi?"
+  },
+
+  {
+    image: "images/book2/book2-07.png",
+    alt: "A small yellow dog is indicated by an arrow.",
+    text: [
+      "Il cane è piccolo e giallo."
+    ],
+    audio:
+      "Il cane è piccolo e giallo."
+  },
+
+  {
+    image: "images/book2/book2-08.png",
+    alt: "A large white goat is indicated by an arrow.",
+    text: [
+      "La capra è grande e bianca."
+    ],
+    audio:
+      "La capra è grande e bianca."
+  },
+
+  {
+    image: "images/book2/book2-09.png",
+    alt: "A large green turtle is indicated by an arrow.",
+    text: [
+      "La tartaruga è grande e verde."
+    ],
+    audio:
+      "La tartaruga è grande e verde."
+  },
+
+  {
+    image: "images/book2/book2-10.png",
+    alt: "A small brown cow is indicated by an arrow.",
+    text: [
+      "La mucca è piccola e marrone."
+    ],
+    audio:
+      "La mucca è piccola e marrone."
+  },
+
+  {
+    image: "images/book2/book2-11.png",
+    alt: "A large pink pig is indicated by an arrow.",
+    text: [
+      "Il maiale è grande e rosa."
+    ],
+    audio:
+      "Il maiale è grande e rosa."
+  },
+
+  {
+    image: "images/book2/book2-12.png",
+    alt: "Two turtles with one turtle indicated by an arrow.",
+    text: [
+      "Di che colore è la tartaruga?"
+    ],
+    audio:
+      "Di che colore è la tartaruga?"
+  },
+
+  {
+    image: "images/book2/book2-13.png",
+    alt: "A group of different familiar animals.",
+    text: [
+      "Quale animale ti piace?"
+    ],
+    audio:
+      "Quale animale ti piace?"
+  },
+
+  {
+    image: "images/book2/book2-14.png",
+    alt: "A group of different familiar animals.",
+    text: [
+      "Mi piace il ____.",
       "E tu?"
     ],
     audio:
-      "E tu?"
-  },
-
-  {
-    image: "images/book1/book1-07.png",
-    alt: "Volo asks the reader their name.",
-    text: [
-      "Come ti chiami?"
-    ],
-    audio:
-      "Come ti chiami?"
-  },
-
-  {
-    image: "images/book1/book1-08.png",
-    alt: "Volo asks where the reader is from.",
-    text: [
-      "Di dove sei?"
-    ],
-    audio:
-      "Di dove sei?"
-  },
-
-  {
-    image: "images/book1/book1-09.png",
-    alt: "Volo asks which season it is.",
-    text: [
-      "Che stagione è?"
-    ],
-    audio:
-      "Che stagione è?"
-  },
-
-  {
-    image: "images/book1/book1-10.png",
-    alt: "Volo asks about the weather.",
-    text: [
-      "Che tempo fa?"
-    ],
-    audio:
-      "Che tempo fa?"
-  },
-
-  {
-    image: "images/book1/book1-11.png",
-    alt: "Volo asks whether the reader likes the cookie.",
-    text: [
-      "Ti piace il biscotto?"
-    ],
-    audio:
-      "Ti piace il biscotto?"
-  },
-
-  {
-    image: "images/book1/book1-12.png",
-    alt: "Volo asks whether the reader likes milk.",
-    text: [
-      "Ti piace il latte?"
-    ],
-    audio:
-      "Ti piace il latte?"
-  },
-
-  {
-    image: "images/book1/book1-13.png",
-    alt: "Volo waves goodbye and says, A presto!",
-    text: [
-      "A presto!"
-    ],
-    audio:
-      "A presto!"
+      "Mi piace il... E tu?"
   }
 ];
 
