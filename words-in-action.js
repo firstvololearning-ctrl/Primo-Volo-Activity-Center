@@ -1572,6 +1572,12 @@ const combinedExpansionTargets = Object.freeze({
           "images/combined-adjectives/animals-combined/cane-grande-giallo.png",
         sentence:
           "Il cane è grande e giallo."
+      },
+      {
+        image:
+          "images/combined-adjectives/animals-combined/cane-piccolo-giallo.png",
+        sentence:
+          "Il cane è piccolo e giallo."
       }
     ],
 
@@ -1599,6 +1605,30 @@ const combinedExpansionTargets = Object.freeze({
           "images/combined-adjectives/animals-combined/gatto-grande-grigio.png",
         sentence:
           "Il gatto è grande e grigio."
+      }
+    ],
+
+    "il maiale": [
+      {
+        image:
+          "images/combined-adjectives/animals-combined/maiale-grande-rosa.png",
+        sentence:
+          "Il maiale è grande e rosa."
+      },
+      {
+        image:
+          "images/combined-adjectives/animals-combined/maiale-piccolo-marrone.png",
+        sentence:
+          "Il maiale è piccolo e marrone."
+      }
+    ],
+
+    "la mucca": [
+      {
+        image:
+          "images/combined-adjectives/animals-combined/mucca-piccola-marrone.png",
+        sentence:
+          "La mucca è piccola e marrone."
       }
     ],
 
