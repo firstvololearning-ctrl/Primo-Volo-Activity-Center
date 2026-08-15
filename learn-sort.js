@@ -486,6 +486,16 @@
       <span>🔤 Ordina le parole</span>
       <small>Sort Words</small>
     </button>
+
+    <button
+      type="button"
+      class="learn-mode-button"
+      data-learn-mode="preference"
+      aria-pressed="false"
+    >
+      <span>❤️ Cosa ti piace?</span>
+      <small>What Do You Like?</small>
+    </button>
   `;
 
   const sortWorkspace =
@@ -566,6 +576,288 @@
   );
 
 
+
+  /* ========================================
+     FOOD PREFERENCE · COSA TI PIACE?
+     ======================================== */
+
+  const foodPreferencePairs = [
+    [
+      {
+        image: "images/food/food-01.png",
+        label: "la mela",
+        phrase: "Mi piace la mela."
+      },
+      {
+        image: "images/food/food-03.png",
+        label: "la banana",
+        phrase: "Mi piace la banana."
+      }
+    ],
+    [
+      {
+        image: "images/food/food-02.png",
+        label: "l’arancia",
+        phrase: "Mi piace l’arancia."
+      },
+      {
+        image: "images/food/food-07.png",
+        label: "l’uva",
+        phrase: "Mi piace l’uva."
+      }
+    ],
+    [
+      {
+        image: "images/food/food-04.png",
+        label: "il pane",
+        phrase: "Mi piace il pane."
+      },
+      {
+        image: "images/food/food-05.png",
+        label: "il formaggio",
+        phrase: "Mi piace il formaggio."
+      }
+    ],
+    [
+      {
+        image: "images/food/food-06.png",
+        label: "l’uovo",
+        phrase: "Mi piace l’uovo."
+      },
+      {
+        image: "images/food/food-19.png",
+        label: "il biscotto",
+        phrase: "Mi piace il biscotto."
+      }
+    ],
+    [
+      {
+        image: "images/food/food-09.png",
+        label: "il latte",
+        phrase: "Mi piace il latte."
+      },
+      {
+        image: "images/food/food-08.png",
+        label: "il succo d’arancia",
+        phrase: "Mi piace il succo d’arancia."
+      }
+    ],
+    [
+      {
+        image: "images/food/food-11.png",
+        label: "il pollo",
+        phrase: "Mi piace il pollo."
+      },
+      {
+        image: "images/food/food-12.png",
+        label: "il pesce",
+        phrase: "Mi piace il pesce."
+      }
+    ],
+    [
+      {
+        image: "images/food/food-13.png",
+        label: "l’insalata",
+        phrase: "Mi piace l’insalata."
+      },
+      {
+        image: "images/food/food-18.png",
+        label: "la zuppa",
+        phrase: "Mi piace la zuppa."
+      }
+    ],
+    [
+      {
+        image: "images/food/food-14.png",
+        label: "il pomodoro",
+        phrase: "Mi piace il pomodoro."
+      },
+      {
+        image: "images/food/food-16.png",
+        label: "la carota",
+        phrase: "Mi piace la carota."
+      }
+    ],
+    [
+      {
+        image: "images/food/food-15.png",
+        label: "la fragola",
+        phrase: "Mi piace la fragola."
+      },
+      {
+        image: "images/food/food-17.png",
+        label: "la patata",
+        phrase: "Mi piace la patata."
+      }
+    ],
+    [
+      {
+        image: "images/food/food-20.png",
+        label: "il riso",
+        phrase: "Mi piace il riso."
+      },
+      {
+        image: "images/food/food-10.png",
+        label: "l’acqua",
+        phrase: "Mi piace l’acqua."
+      }
+    ]
+  ];
+
+  let foodPreferencePairIndex = 0;
+
+  function renderFoodPreference() {
+    const pair =
+      foodPreferencePairs[
+        foodPreferencePairIndex
+      ];
+
+    sortWorkspace.innerHTML = `
+      <div class="impara-food-preference-shell">
+
+        <div class="impara-scene-section-heading">
+          <strong>
+            Cosa ti piace?
+            <span class="expanded-inline-english">
+              · What do you like?
+            </span>
+          </strong>
+
+        </div>
+
+        <div class="impara-language-focus">
+          <strong>Mi piace…</strong>
+          <span>I like…</span>
+        </div>
+
+        <div class="food-preference-choices">
+          ${pair.map(
+            (item, index) => `
+              <button
+                type="button"
+                class="food-preference-choice"
+                data-food-preference-index="${index}"
+              >
+                <img
+                  src="${escapeHTML(item.image)}"
+                  alt="${escapeHTML(item.label)}"
+                >
+                <strong>
+                  ${escapeHTML(item.label)}
+                </strong>
+              </button>
+            `
+          ).join("")}
+        </div>
+
+        <div
+          class="food-preference-result"
+          aria-live="polite"
+        ></div>
+
+        <button
+          type="button"
+          class="food-preference-next"
+          hidden
+        >
+          Un’altra coppia
+          <span>· Another pair</span>
+        </button>
+
+      </div>
+    `;
+
+    const choiceButtons =
+      [
+        ...sortWorkspace.querySelectorAll(
+          "[data-food-preference-index]"
+        )
+      ];
+
+    const result =
+      sortWorkspace.querySelector(
+        ".food-preference-result"
+      );
+
+    const nextButton =
+      sortWorkspace.querySelector(
+        ".food-preference-next"
+      );
+
+    choiceButtons.forEach(button => {
+      button.addEventListener(
+        "click",
+        () => {
+          const index =
+            Number(
+              button.dataset
+                .foodPreferenceIndex
+            );
+
+          const item =
+            pair[index];
+
+          if (!item) {
+            return;
+          }
+
+          choiceButtons.forEach(choice => {
+            choice.classList.remove(
+              "is-selected"
+            );
+          });
+
+          button.classList.add(
+            "is-selected"
+          );
+
+          result.innerHTML = `
+            <strong>
+              ${escapeHTML(item.phrase)}
+            </strong>
+
+            <button
+              type="button"
+              class="food-preference-audio"
+              aria-label="Ascolta ${escapeHTML(item.phrase)}"
+            >
+              🔊
+            </button>
+          `;
+
+          speak(item.phrase);
+
+          result
+            .querySelector(
+              ".food-preference-audio"
+            )
+            ?.addEventListener(
+              "click",
+              () => {
+                speak(item.phrase);
+              }
+            );
+
+          nextButton.hidden = false;
+        }
+      );
+    });
+
+    nextButton?.addEventListener(
+      "click",
+      () => {
+        foodPreferencePairIndex =
+          (
+            foodPreferencePairIndex + 1
+          ) %
+          foodPreferencePairs.length;
+
+        renderFoodPreference();
+      }
+    );
+  }
+
+
   /* ========================================
      RENDER MODE
      ======================================== */
@@ -586,6 +878,20 @@
 
     currentLearnMode =
       mode;
+
+    if (learnInstructions) {
+      learnInstructions.innerHTML =
+        mode === "preference"
+          ? `
+              Scegli quello che ti piace
+              e ascolta la frase.
+              <span>
+                Choose what you like
+                and listen to the sentence.
+              </span>
+            `
+          : primoVoloDefaultLearnInstructions;
+    }
 
     modeButtons.forEach(
       button => {
@@ -626,6 +932,13 @@
 
     sortWorkspace.hidden =
       false;
+
+    if (
+      mode === "preference"
+    ) {
+      renderFoodPreference();
+      return;
+    }
 
     startSortRound(
       mode
@@ -1123,13 +1436,23 @@
 
     modeButtons.forEach(
       button => {
+        const mode =
+          button.dataset.learnMode;
+
         if (
-          button.dataset
-            .learnMode ===
-          "explore"
+          mode === "explore"
         ) {
           button.hidden =
             false;
+          return;
+        }
+
+        if (
+          mode === "preference"
+        ) {
+          button.hidden =
+            topicSelect.value !==
+              "food";
           return;
         }
 
