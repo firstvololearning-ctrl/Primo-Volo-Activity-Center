@@ -9489,3 +9489,114 @@ span {
 .about-progress-thresholds p {
   margin: 0;
 }
+
+/* ABOUT 2026 LANGUAGE-SPLIT START */
+
+/*
+  The current About language switch already hides
+  .about-english or .about-italian appropriately.
+
+  Older progression CSS hid the entire <strong> in
+  English mode and the entire description <div> in
+  Italian mode. The revised progression contains both
+  languages inside each element, so keep the containers
+  visible and let the language spans control visibility.
+*/
+
+.about-modal.show-italian
+.progression-step > div,
+.about-modal.show-english
+.progression-step > strong {
+  display: block !important;
+}
+
+
+/* Five instructional principles */
+
+.about-method-principles {
+  display: grid;
+  gap: 14px;
+  margin-top: 18px;
+}
+
+.about-method-principle {
+  padding: 16px 18px;
+  border: 1px solid #e3ebf4;
+  border-radius: 16px;
+  background: #fbfdff;
+}
+
+.about-method-principle h4 {
+  margin: 0 0 8px;
+  color: #274b84;
+  font-size: 1.02rem;
+  line-height: 1.35;
+}
+
+.about-method-principle p {
+  margin: 0;
+}
+
+.about-method-principle
+p + p {
+  margin-top: 10px;
+}
+
+
+/* Three phases of the 10-step progression */
+
+.progression-phase {
+  margin: 20px 0 10px;
+  padding: 9px 14px;
+  border-radius: 14px;
+  background: #edf5fc;
+  color: #274b84;
+  text-align: center;
+}
+
+.progression-phase:first-child {
+  margin-top: 8px;
+}
+
+.progression-phase strong {
+  display: block;
+}
+
+
+/*
+  Ensure explicit language spans work in the new
+  principle and progression structures.
+*/
+
+.about-modal.show-italian
+.about-method-principle
+.about-english,
+.about-modal.show-italian
+.progression-phase
+.about-english,
+.about-modal.show-italian
+.progression-step
+.about-english {
+  display: none !important;
+}
+
+.about-modal.show-english
+.about-method-principle
+.about-italian,
+.about-modal.show-english
+.progression-phase
+.about-italian,
+.about-modal.show-english
+.progression-step
+.about-italian {
+  display: none !important;
+}
+
+
+/*
+  Scope & Sequence is intentionally NOT changed here.
+  Topic names and Italian carrier phrases remain visible
+  as instructional target language in the English About.
+*/
+
+/* ABOUT 2026 LANGUAGE-SPLIT END */
