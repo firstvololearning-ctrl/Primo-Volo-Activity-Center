@@ -354,6 +354,10 @@ body {
     object-fit: contain;
   }
 
+  .printable-text {
+    display: none !important;
+  }
+
   .printable-image-wrap {
     display: grid !important;
     place-items: center;
