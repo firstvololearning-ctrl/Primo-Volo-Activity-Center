@@ -49,8 +49,6 @@ const completeActivity =
 const memoryActivity =
 
   document.querySelector("#memoryActivity");
-const conversationActivity =
-  document.querySelector("#conversationActivity");
   
 const englishToggle =
 
