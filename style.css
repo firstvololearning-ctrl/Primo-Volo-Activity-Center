@@ -9776,3 +9776,26 @@ p + p {
     scroll-behavior: auto !important;
   }
 }
+
+/* ========================================
+   FRASI · COMING SOON
+   ======================================== */
+
+/* FRASI COMING SOON STATE */
+.activity-button[data-mode="sentences"]:disabled {
+  opacity: 0.72;
+  cursor: not-allowed;
+  border-style: dashed;
+  background: #f7f9fc;
+  box-shadow: none;
+  transform: none;
+}
+
+.activity-button[data-mode="sentences"]:disabled:hover {
+  transform: none;
+  box-shadow: none;
+}
+
+.activity-button[data-mode="sentences"] small {
+  font-weight: 700;
+}

@@ -1982,7 +1982,22 @@ function setActivityButtonsDisabled(
   document
     .querySelectorAll(".activity-button")
     .forEach(button => {
-      button.disabled = disabled;
+      const isComingSoon =
+        button.dataset.mode === "sentences";
+
+      button.disabled =
+        disabled || isComingSoon;
+
+      if (isComingSoon) {
+        button.setAttribute(
+          "aria-disabled",
+          "true"
+        );
+      } else {
+        button.removeAttribute(
+          "aria-disabled"
+        );
+      }
     });
 }
 
@@ -6640,17 +6655,7 @@ activityButtons.forEach(button => {
       return;
     }
 
-    if (mode === "sentences") {
-      window.alert(
-`📝 Frasi · Sentences
 
-Coming Soon!
-
-Students will write complete Italian sentences using the vocabulary they have learned.`
-      );
-
-      return;
-    }
 
     window.alert(
       "Questa attività sarà disponibile presto."
