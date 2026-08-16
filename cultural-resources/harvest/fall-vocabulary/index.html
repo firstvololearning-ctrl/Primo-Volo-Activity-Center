@@ -115,6 +115,38 @@
       line-height: 1.55;
     }
 
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 18px;
+    }
+
+    .activity-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+
+      padding: 10px 16px;
+      border-radius: 999px;
+
+      background: var(--orange);
+      color: white;
+
+      text-decoration: none;
+      font-weight: 850;
+      box-shadow: 0 6px 16px rgba(157, 80, 27, .16);
+
+      transition:
+        transform .15s ease,
+        background .15s ease;
+    }
+
+    .activity-link:hover {
+      background: var(--orange-dark);
+      transform: translateY(-1px);
+    }
+
     .hero-sentence {
       display: inline-block;
       margin-top: 18px;
@@ -291,6 +323,194 @@
 
       font-weight: 800;
       cursor: pointer;
+    }
+
+    .sort-panel {
+      padding: 22px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--paper);
+      box-shadow: var(--shadow);
+    }
+
+    .sort-category-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+      margin-bottom: 16px;
+    }
+
+    .sort-category-button {
+      appearance: none;
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      padding: 12px 10px;
+      background: #fffaf4;
+      color: var(--ink);
+      font-weight: 800;
+      cursor: pointer;
+    }
+
+    .sort-category-button:hover {
+      background: var(--orange-soft);
+    }
+
+    .sort-category-button.active {
+      border-color: var(--orange);
+      background: var(--orange-soft);
+      color: var(--orange-dark);
+    }
+
+    .sort-message {
+      min-height: 28px;
+      margin: 0 0 16px;
+      text-align: center;
+      color: var(--orange-dark);
+      font-weight: 800;
+    }
+
+    .sort-items-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 12px;
+    }
+
+    .sort-item {
+      appearance: none;
+      border: 2px solid var(--line);
+      border-radius: 16px;
+      padding: 8px;
+      background: white;
+      color: var(--ink);
+      cursor: pointer;
+      transition:
+        transform .15s ease,
+        border-color .15s ease,
+        opacity .15s ease;
+    }
+
+    .sort-item:hover {
+      transform: translateY(-2px);
+      border-color: #e6b382;
+    }
+
+    .sort-item img {
+      width: 100%;
+      aspect-ratio: 1 / 1;
+      object-fit: contain;
+      border-radius: 10px;
+    }
+
+    .sort-item span {
+      display: block;
+      margin-top: 6px;
+      font-weight: 800;
+      font-size: .92rem;
+    }
+
+    .sort-item.matched {
+      opacity: .3;
+      cursor: default;
+      transform: none;
+    }
+
+    .sort-item.try-again {
+      animation: sortShake .3s ease;
+      border-color: #c96d23;
+    }
+
+    @keyframes sortShake {
+      0%, 100% { transform: translateX(0); }
+      30% { transform: translateX(-5px); }
+      70% { transform: translateX(5px); }
+    }
+
+    .sort-bins {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+      margin-top: 20px;
+    }
+
+    .sort-bin {
+      min-height: 105px;
+      padding: 12px;
+      border: 1px dashed #d8c5b2;
+      border-radius: 16px;
+      background: #fffaf5;
+    }
+
+    .sort-bin-label {
+      margin: 0 0 8px;
+      text-align: center;
+      font-weight: 850;
+      color: var(--orange-dark);
+    }
+
+    .sort-bin-items {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 6px;
+    }
+
+    .sort-chip {
+      padding: 5px 8px;
+      border-radius: 999px;
+      background: var(--green-soft);
+      color: #4f6e37;
+      font-size: .82rem;
+      font-weight: 800;
+    }
+
+    .sort-actions {
+      display: flex;
+      justify-content: center;
+      margin-top: 18px;
+    }
+
+    .sort-reset {
+      appearance: none;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 9px 16px;
+      background: white;
+      color: var(--orange-dark);
+      font-weight: 800;
+      cursor: pointer;
+    }
+
+    .sentence-part {
+      appearance: none;
+      cursor: pointer;
+      font-family: inherit;
+    }
+
+    .sentence-part:hover {
+      background: #dfeeda;
+    }
+
+    .sentence-part.speaking {
+      background: var(--green);
+      color: white;
+    }
+
+    @media (max-width: 800px) {
+      .sort-category-grid,
+      .sort-bins {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .sort-items-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 430px) {
+      .sort-category-grid,
+      .sort-bins {
+        grid-template-columns: 1fr;
+      }
     }
 
     .sentence-card .picture {
@@ -481,6 +701,15 @@
         <div class="hero-sentence">
           È autunno.
         </div>
+
+        <div class="hero-actions">
+          <a
+            class="activity-link"
+            href="#groupActivity"
+          >
+            🎯 Attività · Activities
+          </a>
+        </div>
       </div>
 
       <div class="hero-image">
@@ -587,6 +816,114 @@
 
     </section>
 
+    <section id="groupActivity">
+
+      <div class="section-heading">
+        <h2>Metti in gruppo</h2>
+        <p>
+          Scegli un gruppo, poi tocca le parole che appartengono a quel gruppo.
+        </p>
+      </div>
+
+      <div class="sort-panel">
+
+        <div class="sort-category-grid">
+          <button
+            class="sort-category-button"
+            type="button"
+            data-category="natura"
+          >
+            🌿 La natura
+          </button>
+
+          <button
+            class="sort-category-button"
+            type="button"
+            data-category="raccolto"
+          >
+            🧺 Il raccolto
+          </button>
+
+          <button
+            class="sort-category-button"
+            type="button"
+            data-category="tempo"
+          >
+            🌧️ Il tempo
+          </button>
+
+          <button
+            class="sort-category-button"
+            type="button"
+            data-category="oggetto"
+          >
+            ☂️ Un oggetto
+          </button>
+        </div>
+
+        <p
+          class="sort-message"
+          id="sortMessage"
+          aria-live="polite"
+        >
+          Scegli un gruppo per cominciare.
+        </p>
+
+        <div
+          class="sort-items-grid"
+          id="sortItems"
+        ></div>
+
+        <div class="sort-bins">
+
+          <div class="sort-bin">
+            <p class="sort-bin-label">🌿 La natura</p>
+            <div
+              class="sort-bin-items"
+              data-bin="natura"
+            ></div>
+          </div>
+
+          <div class="sort-bin">
+            <p class="sort-bin-label">🧺 Il raccolto</p>
+            <div
+              class="sort-bin-items"
+              data-bin="raccolto"
+            ></div>
+          </div>
+
+          <div class="sort-bin">
+            <p class="sort-bin-label">🌧️ Il tempo</p>
+            <div
+              class="sort-bin-items"
+              data-bin="tempo"
+            ></div>
+          </div>
+
+          <div class="sort-bin">
+            <p class="sort-bin-label">☂️ Un oggetto</p>
+            <div
+              class="sort-bin-items"
+              data-bin="oggetto"
+            ></div>
+          </div>
+
+        </div>
+
+        <div class="sort-actions">
+          <button
+            class="sort-reset"
+            id="sortReset"
+            type="button"
+          >
+            ↻ Ricomincia
+          </button>
+        </div>
+
+      </div>
+
+    </section>
+
     <section>
 
       <div class="section-heading">
@@ -618,17 +955,11 @@
             </p>
 
             <div class="sentence-parts">
-              <span class="sentence-part">
-                In autunno
-              </span>
+              <button type="button" class="sentence-part">In autunno</button>
 
-              <span class="sentence-part">
-                le foglie
-              </span>
+              <button type="button" class="sentence-part">le foglie</button>
 
-              <span class="sentence-part">
-                cadono
-              </span>
+              <button type="button" class="sentence-part">cadono</button>
             </div>
 
           </div>
@@ -655,17 +986,11 @@
             </p>
 
             <div class="sentence-parts">
-              <span class="sentence-part">
-                In autunno
-              </span>
+              <button type="button" class="sentence-part">In autunno</button>
 
-              <span class="sentence-part">
-                facciamo
-              </span>
+              <button type="button" class="sentence-part">facciamo</button>
 
-              <span class="sentence-part">
-                la vendemmia
-              </span>
+              <button type="button" class="sentence-part">la vendemmia</button>
             </div>
 
           </div>
@@ -694,17 +1019,11 @@
             </p>
 
             <div class="sentence-parts">
-              <span class="sentence-part">
-                In autunno
-              </span>
+              <button type="button" class="sentence-part">In autunno</button>
 
-              <span class="sentence-part">
-                cerchiamo
-              </span>
+              <button type="button" class="sentence-part">cerchiamo</button>
 
-              <span class="sentence-part">
-                i tartufi
-              </span>
+              <button type="button" class="sentence-part">i tartufi</button>
             </div>
 
           </div>
@@ -870,6 +1189,207 @@
         `)
         .join("");
 
+    const categoryMap = {
+      natura: [
+        "le foglie",
+        "la ghianda",
+        "le castagne",
+        "i funghi"
+      ],
+      raccolto: [
+        "la zucca",
+        "l’uva",
+        "la vendemmia"
+      ],
+      tempo: [
+        "la pioggia",
+        "la nebbia"
+      ],
+      oggetto: [
+        "l’ombrello"
+      ]
+    };
+
+    const categoryLabels = {
+      natura: "La natura",
+      raccolto: "Il raccolto",
+      tempo: "Il tempo",
+      oggetto: "Un oggetto"
+    };
+
+    const sortItems =
+      document.getElementById("sortItems");
+
+    const sortMessage =
+      document.getElementById("sortMessage");
+
+    const sortReset =
+      document.getElementById("sortReset");
+
+    const categoryButtons =
+      document.querySelectorAll(
+        ".sort-category-button"
+      );
+
+    let activeCategory = null;
+
+    function getCategory(word) {
+      return Object
+        .entries(categoryMap)
+        .find(([, words]) =>
+          words.includes(word)
+        )?.[0];
+    }
+
+    function renderSortItems() {
+      sortItems.innerHTML =
+        vocab
+          .map(item => `
+            <button
+              class="sort-item"
+              type="button"
+              data-word="${item.italian}"
+            >
+              <img
+                src="${item.image}"
+                alt="${item.italian}"
+              >
+              <span>${item.italian}</span>
+            </button>
+          `)
+          .join("");
+
+      sortItems
+        .querySelectorAll(".sort-item")
+        .forEach(button => {
+          button.addEventListener(
+            "click",
+            () => {
+              const word =
+                button.dataset.word;
+
+              speakItalian(word);
+
+              if (!activeCategory) {
+                sortMessage.textContent =
+                  "Scegli prima un gruppo.";
+                return;
+              }
+
+              const correctCategory =
+                getCategory(word);
+
+              if (
+                correctCategory ===
+                activeCategory
+              ) {
+                button.classList.add(
+                  "matched"
+                );
+
+                button.disabled = true;
+
+                const bin =
+                  document.querySelector(
+                    `[data-bin="${activeCategory}"]`
+                  );
+
+                const chip =
+                  document.createElement("span");
+
+                chip.className =
+                  "sort-chip";
+
+                chip.textContent =
+                  word;
+
+                bin.appendChild(chip);
+
+                sortMessage.textContent =
+                  "Sì! Continua.";
+
+                const remaining =
+                  sortItems.querySelectorAll(
+                    ".sort-item:not(:disabled)"
+                  );
+
+                if (
+                  remaining.length === 0
+                ) {
+                  sortMessage.textContent =
+                    "Bravissimo! Hai raggruppato tutte le parole.";
+                }
+
+                return;
+              }
+
+              button.classList.remove(
+                "try-again"
+              );
+
+              void button.offsetWidth;
+
+              button.classList.add(
+                "try-again"
+              );
+
+              sortMessage.textContent =
+                "Prova un altro gruppo.";
+            }
+          );
+        });
+    }
+
+    categoryButtons.forEach(button => {
+      button.addEventListener(
+        "click",
+        () => {
+          activeCategory =
+            button.dataset.category;
+
+          categoryButtons.forEach(
+            other =>
+              other.classList.toggle(
+                "active",
+                other === button
+              )
+          );
+
+          sortMessage.textContent =
+            `Ora trova le parole per: ${categoryLabels[activeCategory]}.`;
+        }
+      );
+    });
+
+    sortReset.addEventListener(
+      "click",
+      () => {
+        activeCategory = null;
+
+        categoryButtons.forEach(
+          button =>
+            button.classList.remove(
+              "active"
+            )
+        );
+
+        document
+          .querySelectorAll(
+            ".sort-bin-items"
+          )
+          .forEach(bin => {
+            bin.innerHTML = "";
+          });
+
+        sortMessage.textContent =
+          "Scegli un gruppo per cominciare.";
+
+        renderSortItems();
+      }
+    );
+
+    renderSortItems();
+
     function speakItalian(text, button) {
       if (!("speechSynthesis" in window)) {
         alert("Audio is not supported in this browser.");
@@ -965,6 +1485,20 @@
       document
         .querySelectorAll(".sentence-body .sentence")
         .forEach(addAudioButton);
+
+      document
+        .querySelectorAll(".sentence-part")
+        .forEach(part => {
+          part.addEventListener(
+            "click",
+            () => {
+              speakItalian(
+                part.textContent.trim(),
+                part
+              );
+            }
+          );
+        });
     }
 
     const englishToggle =
