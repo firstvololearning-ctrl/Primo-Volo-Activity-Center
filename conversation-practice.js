@@ -143,14 +143,14 @@
 
     conversationButton.innerHTML = `
       <span class="activity-icon">
-        💬
+        🗣️
       </span>
 
       <span class="activity-italian">
         Conversiamo
       </span>
 
-      <small>
+      <small lang="en">
         Conversation
       </small>
     `;
@@ -752,10 +752,10 @@
 
         <div class="conversation-heading">
           <h4>
-            💬 Conversiamo
+            🗣️ Conversiamo
           </h4>
 
-          <p>
+          <p lang="en">
             Conversation Practice
           </p>
         </div>
