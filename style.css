@@ -9799,3 +9799,43 @@ p + p {
 .activity-button[data-mode="sentences"] small {
   font-weight: 700;
 }
+
+/* ========================================
+   KEYBOARD FOCUS ACCESSIBILITY
+   ======================================== */
+
+/* KEYBOARD FOCUS ACCESSIBILITY */
+:where(
+  a[href],
+  button:not(:disabled),
+  input:not(:disabled),
+  select:not(:disabled),
+  textarea:not(:disabled),
+  [role="button"][tabindex]:not([tabindex="-1"])
+):focus-visible {
+  outline: 3px solid var(--blue, #274b84);
+  outline-offset: 3px;
+}
+
+/*
+  Restore a visible ring where older component
+  rules intentionally removed the browser outline.
+*/
+.site-header .header-link:focus-visible,
+.site-header .companion-site-link:focus-visible,
+.reference-option:focus-visible,
+.gender-choice-button:focus-visible,
+.volo-age-input:focus-visible,
+.complete-input:focus-visible {
+  outline: 3px solid var(--blue, #274b84);
+  outline-offset: 3px;
+}
+
+/*
+  Make the English toggle's keyboard focus
+  visible around the whole control.
+*/
+.english-toggle:has(input:focus-visible) {
+  outline: 3px solid var(--blue, #274b84);
+  outline-offset: 3px;
+}

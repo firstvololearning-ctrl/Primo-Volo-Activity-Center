@@ -6596,6 +6596,93 @@ document.addEventListener(
 );
 
 /* ========================================
+   MODAL KEYBOARD FOCUS
+   ======================================== */
+
+function trapOpenModalFocus(event) {
+  if (event.key !== "Tab") {
+    return;
+  }
+
+  const openModal =
+    referenceModal &&
+    !referenceModal.hidden
+      ? referenceModal
+      : aboutModal &&
+        !aboutModal.hidden
+        ? aboutModal
+        : null;
+
+  if (!openModal) {
+    return;
+  }
+
+  const focusableSelector = [
+    'a[href]',
+    'button:not([disabled])',
+    'input:not([disabled])',
+    'select:not([disabled])',
+    'textarea:not([disabled])',
+    '[tabindex]:not([tabindex="-1"])'
+  ].join(",");
+
+  const focusableElements =
+    Array.from(
+      openModal.querySelectorAll(
+        focusableSelector
+      )
+    ).filter(element =>
+      element.getClientRects().length > 0
+    );
+
+  if (!focusableElements.length) {
+    event.preventDefault();
+    return;
+  }
+
+  const first =
+    focusableElements[0];
+
+  const last =
+    focusableElements[
+      focusableElements.length - 1
+    ];
+
+  if (
+    !openModal.contains(
+      document.activeElement
+    )
+  ) {
+    event.preventDefault();
+    first.focus();
+    return;
+  }
+
+  if (
+    event.shiftKey &&
+    document.activeElement === first
+  ) {
+    event.preventDefault();
+    last.focus();
+    return;
+  }
+
+  if (
+    !event.shiftKey &&
+    document.activeElement === last
+  ) {
+    event.preventDefault();
+    first.focus();
+  }
+}
+
+document.addEventListener(
+  "keydown",
+  trapOpenModalFocus
+);
+
+
+/* ========================================
 
    MODE BUTTONS
 
