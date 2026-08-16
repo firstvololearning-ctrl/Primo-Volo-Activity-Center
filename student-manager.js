@@ -166,6 +166,7 @@
   let modalEl;
   let listEl;
   let nameInput;
+  let lastFocusedElement = null;
 
   function renderSelect() {
     if (!selectEl) {
@@ -270,6 +271,8 @@
   }
 
   function openModal() {
+    lastFocusedElement = document.activeElement;
+
     renderStudentList();
     modalEl.hidden = false;
     document.body.classList.add("pv-student-modal-open");
@@ -282,6 +285,15 @@
   function closeModal() {
     modalEl.hidden = true;
     document.body.classList.remove("pv-student-modal-open");
+
+    if (
+      lastFocusedElement &&
+      typeof lastFocusedElement.focus === "function"
+    ) {
+      lastFocusedElement.focus();
+    }
+
+    lastFocusedElement = null;
   }
 
   function buildUI() {
@@ -543,6 +555,12 @@
     modalEl = document.createElement("div");
     modalEl.className = "pv-student-modal";
     modalEl.hidden = true;
+    modalEl.setAttribute("role", "dialog");
+    modalEl.setAttribute("aria-modal", "true");
+    modalEl.setAttribute(
+      "aria-labelledby",
+      "pvStudentDialogTitle"
+    );
 
     const dialog = document.createElement("div");
     dialog.className = "pv-student-dialog";
@@ -553,6 +571,7 @@
     const titleWrap = document.createElement("div");
 
     const title = document.createElement("h2");
+    title.id = "pvStudentDialogTitle";
     title.textContent = "👤 Students";
 
     const subtitle = document.createElement("p");
@@ -577,6 +596,10 @@
     nameInput = document.createElement("input");
     nameInput.type = "text";
     nameInput.placeholder = "Student name or initials";
+    nameInput.setAttribute(
+      "aria-label",
+      "Student name or initials"
+    );
     nameInput.autocomplete = "off";
 
     const createButton = document.createElement("button");
@@ -626,11 +649,47 @@
     });
 
     document.addEventListener("keydown", (event) => {
-      if (
-        event.key === "Escape" &&
-        !modalEl.hidden
-      ) {
+      if (modalEl.hidden) {
+        return;
+      }
+
+      if (event.key === "Escape") {
         closeModal();
+        return;
+      }
+
+      if (event.key !== "Tab") {
+        return;
+      }
+
+      const focusable = Array.from(
+        modalEl.querySelectorAll(
+          'button:not([disabled]), input:not([disabled]), select:not([disabled]), a[href], [tabindex]:not([tabindex="-1"])'
+        )
+      ).filter(
+        element =>
+          element.offsetParent !== null
+      );
+
+      if (!focusable.length) {
+        return;
+      }
+
+      const first = focusable[0];
+      const last = focusable[focusable.length - 1];
+
+      if (
+        event.shiftKey &&
+        document.activeElement === first
+      ) {
+        event.preventDefault();
+        last.focus();
+      } else if (
+        !event.shiftKey &&
+        document.activeElement === last
+      ) {
+        event.preventDefault();
+        first.focus();
       }
     });
 
