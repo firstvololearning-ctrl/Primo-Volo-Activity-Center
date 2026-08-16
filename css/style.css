@@ -5032,6 +5032,26 @@ body.months-topic
 }
 
 
+/* Bilingual utility labels stay together as one flex item. */
+.site-header
+.header-nav-group-items
+.header-link-label {
+  display: block;
+  width: 100%;
+  white-space: normal;
+  line-height: 1.2;
+  text-align: center;
+}
+
+/*
+  The longer Games label uses the full second row
+  of the educator tools group.
+*/
+.educator-tools
+.header-link-wide {
+  grid-column: 1 / -1;
+}
+
 /* Very subtle distinction between groups */
 
 .learner-tools {
