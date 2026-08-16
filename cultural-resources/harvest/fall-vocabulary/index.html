@@ -1,0 +1,996 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>L’autunno | Primo Volo d’Italiano</title>
+
+  <style>
+    :root {
+      --cream: #fffaf4;
+      --paper: #ffffff;
+      --ink: #252525;
+      --muted: #676767;
+      --line: #e8ded2;
+      --orange: #d97828;
+      --orange-dark: #9d501b;
+      --orange-soft: #fff0dd;
+      --green: #769954;
+      --green-soft: #eef5e8;
+      --shadow: 0 10px 28px rgba(70, 45, 20, .09);
+      --radius: 22px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family:
+        "Avenir Next",
+        "Segoe UI",
+        Arial,
+        sans-serif;
+      color: var(--ink);
+      background:
+        linear-gradient(
+          180deg,
+          #fffdf9 0%,
+          var(--cream) 100%
+        );
+    }
+
+    img {
+      display: block;
+      max-width: 100%;
+    }
+
+    a {
+      color: inherit;
+    }
+
+    button {
+      font: inherit;
+    }
+
+    .page {
+      width: min(1180px, calc(100% - 32px));
+      margin: 0 auto;
+      padding: 26px 0 64px;
+    }
+
+    .back-row {
+      margin-bottom: 18px;
+    }
+
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      text-decoration: none;
+      font-weight: 750;
+      color: var(--orange-dark);
+    }
+
+    .hero {
+      display: grid;
+      grid-template-columns: 1.05fr .95fr;
+      gap: 28px;
+      align-items: center;
+
+      padding: 30px;
+      border: 1px solid var(--line);
+      border-radius: 30px;
+      background: var(--paper);
+      box-shadow: var(--shadow);
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      padding: 7px 12px;
+      margin-bottom: 13px;
+
+      border-radius: 999px;
+      background: var(--orange-soft);
+      color: var(--orange-dark);
+
+      font-size: .92rem;
+      font-weight: 800;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(2.4rem, 6vw, 4.5rem);
+      line-height: 1;
+    }
+
+    .hero-lead {
+      margin: 14px 0 0;
+      max-width: 44ch;
+
+      color: #454545;
+      font-size: 1.12rem;
+      line-height: 1.55;
+    }
+
+    .hero-sentence {
+      display: inline-block;
+      margin-top: 18px;
+      padding: 10px 15px;
+
+      border: 1px solid #f0d6bd;
+      border-radius: 999px;
+      background: #fff8ef;
+
+      color: var(--orange-dark);
+      font-weight: 800;
+    }
+
+    .hero-image {
+      border-radius: 24px;
+      overflow: hidden;
+      background: #fff;
+    }
+
+    .hero-image img {
+      width: 100%;
+      aspect-ratio: 1 / 1;
+      object-fit: contain;
+    }
+
+    section {
+      margin-top: 38px;
+    }
+
+    .section-heading {
+      margin-bottom: 18px;
+    }
+
+    .section-heading h2 {
+      margin: 0;
+      font-size: clamp(1.55rem, 3vw, 2rem);
+    }
+
+    .section-heading p {
+      margin: 5px 0 0;
+      color: var(--muted);
+    }
+
+    .months-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+    }
+
+    .vocab-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 17px;
+    }
+
+    .sentence-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+
+    .culture-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
+    }
+
+    .card {
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--paper);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+
+    .picture {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      aspect-ratio: 1 / 1;
+      padding: 14px;
+
+      background:
+        linear-gradient(
+          180deg,
+          #fffefa 0%,
+          #fff8f0 100%
+        );
+
+      border-bottom: 1px solid var(--line);
+    }
+
+    .picture img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+
+    .card-text {
+      padding: 14px 15px 16px;
+      text-align: center;
+    }
+
+    .italian {
+      margin: 0;
+      font-size: 1.13rem;
+      font-weight: 850;
+    }
+
+    .audio-button {
+      appearance: none;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      width: 38px;
+      height: 38px;
+      margin-top: 10px;
+
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+
+      background: #fff8ef;
+      color: var(--orange-dark);
+
+      font-size: 1.05rem;
+      cursor: pointer;
+      transition:
+        transform .15s ease,
+        background .15s ease;
+    }
+
+    .audio-button:hover {
+      background: var(--orange-soft);
+      transform: translateY(-1px);
+    }
+
+    .audio-button:focus-visible {
+      outline: 3px solid rgba(217, 120, 40, .25);
+      outline-offset: 2px;
+    }
+
+    .audio-button.speaking {
+      background: var(--orange);
+      color: white;
+    }
+
+    .english {
+      display: none;
+      margin: 4px 0 0;
+      color: var(--muted);
+      font-size: .94rem;
+      font-weight: 650;
+    }
+
+    body.show-english .english {
+      display: block;
+    }
+
+    .controls {
+      display: flex;
+      justify-content: flex-end;
+      margin: 18px 0 0;
+    }
+
+    .control-button {
+      appearance: none;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 9px 14px;
+
+      background: white;
+      color: var(--orange-dark);
+
+      font-weight: 800;
+      cursor: pointer;
+    }
+
+    .sentence-card .picture {
+      aspect-ratio: 4 / 3;
+      padding: 0;
+    }
+
+    .sentence-card .picture img {
+      object-fit: cover;
+    }
+
+    .sentence-body {
+      padding: 17px;
+    }
+
+    .sentence {
+      margin: 0;
+
+      font-size: 1.15rem;
+      line-height: 1.4;
+      font-weight: 850;
+    }
+
+    .sentence-english {
+      display: none;
+      margin: 7px 0 0;
+
+      color: var(--muted);
+      font-size: .95rem;
+    }
+
+    body.show-english .sentence-english {
+      display: block;
+    }
+
+    .sentence-parts {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 7px;
+      margin-top: 14px;
+    }
+
+    .sentence-part {
+      padding: 6px 9px;
+      border-radius: 999px;
+
+      background: var(--green-soft);
+      border: 1px solid #dbe8d2;
+
+      color: #4f6e37;
+      font-size: .88rem;
+      font-weight: 800;
+    }
+
+    .truffle-crop {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      background: #f6f0e7;
+    }
+
+    .sentence-card .picture .truffle-crop img {
+      position: absolute;
+      top: 0;
+      left: 50%;
+
+      width: 160%;
+      height: auto;
+      max-width: none;
+      max-height: none;
+
+      object-fit: initial;
+      transform: translate(-50%, -13%);
+    }
+
+    .culture-card {
+      padding: 22px;
+    }
+
+    .culture-label {
+      display: inline-block;
+      margin-bottom: 10px;
+      padding: 6px 10px;
+
+      border-radius: 999px;
+      background: var(--green-soft);
+      color: #4f6e37;
+
+      font-size: .86rem;
+      font-weight: 850;
+    }
+
+    .culture-card h3 {
+      margin: 0;
+      font-size: 1.3rem;
+    }
+
+    .culture-card p {
+      margin: 8px 0 16px;
+      color: var(--muted);
+      line-height: 1.55;
+    }
+
+    .culture-link {
+      display: inline-flex;
+      padding: 9px 14px;
+
+      border-radius: 999px;
+      background: var(--orange);
+      color: white;
+
+      text-decoration: none;
+      font-weight: 800;
+    }
+
+    .footer {
+      margin-top: 44px;
+      text-align: center;
+      color: var(--muted);
+      font-size: .9rem;
+    }
+
+    @media (max-width: 980px) {
+      .hero {
+        grid-template-columns: 1fr;
+      }
+
+      .vocab-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+
+      .sentence-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 700px) {
+      .months-grid,
+      .culture-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .vocab-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .hero {
+        padding: 20px;
+      }
+    }
+
+    @media (max-width: 430px) {
+      .vocab-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <main class="page">
+
+    <div class="back-row">
+      <a
+        class="back-link"
+        href="../index.html"
+      >
+        ← Harvest
+      </a>
+    </div>
+
+    <section class="hero">
+
+      <div>
+        <span class="eyebrow">
+          🍂 Vocabolario stagionale
+        </span>
+
+        <h1>L’autunno</h1>
+
+        <p class="hero-lead">
+          Scopriamo alcune parole, immagini e tradizioni
+          dell’autunno in Italia.
+        </p>
+
+        <div class="hero-sentence">
+          È autunno.
+        </div>
+      </div>
+
+      <div class="hero-image">
+        <img
+          src="autunno.png"
+          alt="L'Italia in autunno"
+        >
+      </div>
+
+    </section>
+
+    <div class="controls">
+      <button
+        class="control-button"
+        id="englishToggle"
+        type="button"
+      >
+        Show English
+      </button>
+    </div>
+
+    <section>
+
+      <div class="section-heading">
+        <h2>I mesi dell’autunno</h2>
+        <p>
+          Settembre, ottobre e novembre.
+        </p>
+      </div>
+
+      <div class="months-grid">
+
+        <article class="card">
+          <div class="picture">
+            <img
+              src="settembre.png"
+              alt="Settembre"
+            >
+          </div>
+
+          <div class="card-text">
+            <p class="italian">
+              settembre
+            </p>
+            <p class="english">
+              September
+            </p>
+          </div>
+        </article>
+
+        <article class="card">
+          <div class="picture">
+            <img
+              src="ottobre.png"
+              alt="Ottobre"
+            >
+          </div>
+
+          <div class="card-text">
+            <p class="italian">
+              ottobre
+            </p>
+            <p class="english">
+              October
+            </p>
+          </div>
+        </article>
+
+        <article class="card">
+          <div class="picture">
+            <img
+              src="novembre.png"
+              alt="Novembre"
+            >
+          </div>
+
+          <div class="card-text">
+            <p class="italian">
+              novembre
+            </p>
+            <p class="english">
+              November
+            </p>
+          </div>
+        </article>
+
+      </div>
+
+    </section>
+
+    <section>
+
+      <div class="section-heading">
+        <h2>Impara le parole</h2>
+        <p>
+          Guarda le immagini e leggi le parole.
+        </p>
+      </div>
+
+      <div
+        class="vocab-grid"
+        id="vocabGrid"
+      ></div>
+
+    </section>
+
+    <section>
+
+      <div class="section-heading">
+        <h2>Guarda cosa succede</h2>
+        <p>
+          Leggiamo tre frasi sull’autunno.
+        </p>
+      </div>
+
+      <div class="sentence-grid">
+
+        <article class="card sentence-card">
+
+          <div class="picture">
+            <img
+              src="le-foglie-cadono.png"
+              alt="Le foglie cadono da un albero in autunno"
+            >
+          </div>
+
+          <div class="sentence-body">
+
+            <p class="sentence">
+              In autunno le foglie cadono.
+            </p>
+
+            <p class="sentence-english">
+              In autumn the leaves fall.
+            </p>
+
+            <div class="sentence-parts">
+              <span class="sentence-part">
+                In autunno
+              </span>
+
+              <span class="sentence-part">
+                le foglie
+              </span>
+
+              <span class="sentence-part">
+                cadono
+              </span>
+            </div>
+
+          </div>
+
+        </article>
+
+        <article class="card sentence-card">
+
+          <div class="picture">
+            <img
+              src="vendemmia.png"
+              alt="La vendemmia"
+            >
+          </div>
+
+          <div class="sentence-body">
+
+            <p class="sentence">
+              In autunno facciamo la vendemmia.
+            </p>
+
+            <p class="sentence-english">
+              In autumn we harvest grapes.
+            </p>
+
+            <div class="sentence-parts">
+              <span class="sentence-part">
+                In autunno
+              </span>
+
+              <span class="sentence-part">
+                facciamo
+              </span>
+
+              <span class="sentence-part">
+                la vendemmia
+              </span>
+            </div>
+
+          </div>
+
+        </article>
+
+        <article class="card sentence-card">
+
+          <div class="picture">
+            <div class="truffle-crop">
+              <img
+                src="../tartufo.png"
+                alt="Il tartufaio e il cane cercano il tartufo nel bosco"
+              >
+            </div>
+          </div>
+
+          <div class="sentence-body">
+
+            <p class="sentence">
+              In autunno cerchiamo i tartufi.
+            </p>
+
+            <p class="sentence-english">
+              In autumn we look for truffles.
+            </p>
+
+            <div class="sentence-parts">
+              <span class="sentence-part">
+                In autunno
+              </span>
+
+              <span class="sentence-part">
+                cerchiamo
+              </span>
+
+              <span class="sentence-part">
+                i tartufi
+              </span>
+            </div>
+
+          </div>
+
+        </article>
+
+      </div>
+
+    </section>
+
+    <section>
+
+      <div class="section-heading">
+        <h2>Scopri di più</h2>
+        <p>
+          Esplora alcune tradizioni italiane
+          legate all’autunno.
+        </p>
+      </div>
+
+      <div class="culture-grid">
+
+        <article class="card culture-card">
+
+          <span class="culture-label">
+            Cultura
+          </span>
+
+          <h3>
+            La vendemmia
+          </h3>
+
+          <p>
+            Scopri come si raccolgono le uve
+            durante la vendemmia.
+          </p>
+
+          <a
+            class="culture-link"
+            href="../la-vendemmia.html"
+          >
+            Esplora →
+          </a>
+
+        </article>
+
+        <article class="card culture-card">
+
+          <span class="culture-label">
+            Cultura
+          </span>
+
+          <h3>
+            La cerca del tartufo
+          </h3>
+
+          <p>
+            Scopri come si cercano i tartufi
+            e perché questa tradizione è speciale.
+          </p>
+
+          <a
+            class="culture-link"
+            href="../la-cerca-del-tartufo.html"
+          >
+            Esplora →
+          </a>
+
+        </article>
+
+      </div>
+
+    </section>
+
+    <div class="footer">
+      Primo Volo d’Italiano · L’autunno
+    </div>
+
+  </main>
+
+  <script>
+    const vocab = [
+      {
+        italian: "le foglie",
+        english: "leaves",
+        image: "foglie.png"
+      },
+      {
+        italian: "la ghianda",
+        english: "acorn",
+        image: "ghianda.png"
+      },
+      {
+        italian: "le castagne",
+        english: "chestnuts",
+        image: "castagne.png"
+      },
+      {
+        italian: "la zucca",
+        english: "pumpkin",
+        image: "zucca.png"
+      },
+      {
+        italian: "l’uva",
+        english: "grapes",
+        image: "uva.png"
+      },
+      {
+        italian: "la vendemmia",
+        english: "grape harvest",
+        image: "vendemmia.png"
+      },
+      {
+        italian: "i funghi",
+        english: "mushrooms",
+        image: "funghi.png"
+      },
+      {
+        italian: "la pioggia",
+        english: "rain",
+        image: "pioggia.png"
+      },
+      {
+        italian: "la nebbia",
+        english: "fog",
+        image: "nebbia.png"
+      },
+      {
+        italian: "l’ombrello",
+        english: "umbrella",
+        image: "ombrello.png"
+      }
+    ];
+
+    const vocabGrid =
+      document.getElementById("vocabGrid");
+
+    vocabGrid.innerHTML =
+      vocab
+        .map(item => `
+          <article class="card">
+
+            <div class="picture">
+              <img
+                src="${item.image}"
+                alt="${item.italian}"
+              >
+            </div>
+
+            <div class="card-text">
+
+              <p class="italian">
+                ${item.italian}
+              </p>
+
+              <p class="english">
+                ${item.english}
+              </p>
+
+            </div>
+
+          </article>
+        `)
+        .join("");
+
+    function speakItalian(text, button) {
+      if (!("speechSynthesis" in window)) {
+        alert("Audio is not supported in this browser.");
+        return;
+      }
+
+      window.speechSynthesis.cancel();
+
+      document
+        .querySelectorAll(".audio-button")
+        .forEach(btn => btn.classList.remove("speaking"));
+
+      const utterance =
+        new SpeechSynthesisUtterance(text);
+
+      utterance.lang = "it-IT";
+      utterance.rate = 0.82;
+      utterance.pitch = 1;
+
+      const voices =
+        window.speechSynthesis.getVoices();
+
+      const italianVoice =
+        voices.find(voice =>
+          /^it[-_]/i.test(voice.lang)
+        );
+
+      if (italianVoice) {
+        utterance.voice = italianVoice;
+      }
+
+      if (button) {
+        button.classList.add("speaking");
+      }
+
+      utterance.onend = () => {
+        if (button) {
+          button.classList.remove("speaking");
+        }
+      };
+
+      utterance.onerror = () => {
+        if (button) {
+          button.classList.remove("speaking");
+        }
+      };
+
+      window.speechSynthesis.speak(utterance);
+    }
+
+    function addAudioButton(element) {
+      if (!element) return;
+
+      const text =
+        element.textContent.trim();
+
+      const button =
+        document.createElement("button");
+
+      button.type = "button";
+      button.className = "audio-button";
+      button.innerHTML = "🔊";
+      button.setAttribute(
+        "aria-label",
+        `Ascolta: ${text}`
+      );
+      button.title = `Ascolta: ${text}`;
+
+      button.addEventListener(
+        "click",
+        () => speakItalian(text, button)
+      );
+
+      element.insertAdjacentElement(
+        "afterend",
+        button
+      );
+    }
+
+    function addAudio() {
+      document
+        .querySelectorAll(".hero h1")
+        .forEach(addAudioButton);
+
+      document
+        .querySelectorAll(".hero-sentence")
+        .forEach(addAudioButton);
+
+      document
+        .querySelectorAll(".card-text .italian")
+        .forEach(addAudioButton);
+
+      document
+        .querySelectorAll(".sentence-body .sentence")
+        .forEach(addAudioButton);
+    }
+
+    const englishToggle =
+      document.getElementById("englishToggle");
+
+    addAudio();
+
+    let showEnglish = false;
+
+    englishToggle.addEventListener(
+      "click",
+      () => {
+        showEnglish = !showEnglish;
+
+        document.body.classList.toggle(
+          "show-english",
+          showEnglish
+        );
+
+        englishToggle.textContent =
+          showEnglish
+            ? "Hide English"
+            : "Show English";
+      }
+    );
+  </script>
+
+</body>
+</html>
