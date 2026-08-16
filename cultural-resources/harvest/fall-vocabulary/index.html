@@ -262,7 +262,7 @@
 
     .culture-grid {
       display: grid;
-      grid-template-columns: repeat(2, 1fr);
+      grid-template-columns: repeat(3, 1fr);
       gap: 20px;
     }
 
@@ -547,7 +547,44 @@
         grid-template-columns: 1fr;
       }
     }
-  </style>
+
+/* AUTUMN HERO COMPACT START */
+
+@media (min-width: 801px) {
+
+  .hero {
+    padding-top: 28px;
+    padding-bottom: 28px;
+  }
+
+  .hero h1 {
+    font-size: clamp(3.4rem, 5vw, 5rem);
+    margin-top: 10px;
+    margin-bottom: 14px;
+  }
+
+  .hero-image {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .hero-image img {
+    width: min(100%, 520px);
+    max-height: 410px;
+    height: auto;
+    object-fit: contain;
+  }
+
+  .activity-cta {
+    margin-top: 14px;
+  }
+
+}
+
+/* AUTUMN HERO COMPACT END */
+
+</style>
 </head>
 
 <body>
@@ -587,11 +624,11 @@
               class="activity-link"
               href="activities.html"
             >
-              🎯 Attività · Activities
+              🎯 Attività e risorse · Activities & Resources
             </a>
 
             <div class="activity-subtext">
-              Gioca, ascolta e metti in gruppo.
+              Crea una poesia, gioca e scopri le risorse stampabili.
             </div>
           </div>
         </div>
@@ -814,7 +851,7 @@
     <section>
 
       <div class="section-heading">
-        <h2>Scopri di più</h2>
+        <h2>Cultura d’autunno · Autumn Culture</h2>
         <p>
           Esplora alcune tradizioni italiane
           legate all’autunno.
@@ -865,6 +902,30 @@
           <a
             class="culture-link"
             href="../la-cerca-del-tartufo.html"
+          >
+            Esplora →
+          </a>
+
+        </article>
+
+        <article class="card culture-card">
+
+          <span class="culture-label">
+            Cultura
+          </span>
+
+          <h3>
+            La festa di San Martino
+          </h3>
+
+          <p>
+            Scopri l’11 novembre, le castagne
+            e le tradizioni di San Martino.
+          </p>
+
+          <a
+            class="culture-link"
+            href="../la-festa-di-san-martino.html"
           >
             Esplora →
           </a>
