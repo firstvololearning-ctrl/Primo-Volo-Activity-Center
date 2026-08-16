@@ -80,6 +80,80 @@ if (
       });
     });
 }
+
+  const autumnGlossaryVocabulary = [
+    {
+      italian: "l’autunno",
+      english: "fall / autumn",
+      image: "cultural-resources/harvest/fall-vocabulary/autunno.png"
+    },
+    {
+      italian: "settembre",
+      english: "September",
+      image: "cultural-resources/harvest/fall-vocabulary/settembre.png"
+    },
+    {
+      italian: "ottobre",
+      english: "October",
+      image: "cultural-resources/harvest/fall-vocabulary/ottobre.png"
+    },
+    {
+      italian: "novembre",
+      english: "November",
+      image: "cultural-resources/harvest/fall-vocabulary/novembre.png"
+    },
+    {
+      italian: "le foglie",
+      english: "leaves",
+      image: "cultural-resources/harvest/fall-vocabulary/foglie.png"
+    },
+    {
+      italian: "la ghianda",
+      english: "acorn",
+      image: "cultural-resources/harvest/fall-vocabulary/ghianda.png"
+    },
+    {
+      italian: "le castagne",
+      english: "chestnuts",
+      image: "cultural-resources/harvest/fall-vocabulary/castagne.png"
+    },
+    {
+      italian: "la zucca",
+      english: "pumpkin",
+      image: "cultural-resources/harvest/fall-vocabulary/zucca.png"
+    },
+    {
+      italian: "l’uva",
+      english: "grapes",
+      image: "cultural-resources/harvest/fall-vocabulary/uva.png"
+    },
+    {
+      italian: "la vendemmia",
+      english: "grape harvest",
+      image: "cultural-resources/harvest/fall-vocabulary/vendemmia.png"
+    },
+    {
+      italian: "i funghi",
+      english: "mushrooms",
+      image: "cultural-resources/harvest/fall-vocabulary/funghi.png"
+    },
+    {
+      italian: "la pioggia",
+      english: "rain",
+      image: "cultural-resources/harvest/fall-vocabulary/pioggia.png"
+    },
+    {
+      italian: "la nebbia",
+      english: "fog",
+      image: "cultural-resources/harvest/fall-vocabulary/nebbia.png"
+    },
+    {
+      italian: "l’ombrello",
+      english: "umbrella",
+      image: "cultural-resources/harvest/fall-vocabulary/ombrello.png"
+    }
+  ];
+
   const possibleTopics = [
    {
   id: "carrier-phrases",
@@ -287,6 +361,13 @@ if (
         typeof seasons !== "undefined"
           ? seasons
           : []
+    },
+    {
+      id: "autumn",
+      icon: "🍂",
+      italian: "L’autunno",
+      english: "Fall",
+      vocabulary: autumnGlossaryVocabulary
     },
     {
       id: "classroom",
