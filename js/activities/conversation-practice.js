@@ -6,11 +6,11 @@
 
   Load this file AFTER assemble-sentences.js:
 
-  <script src="data.js"></script>
-  <script src="script.js"></script>
-  <script src="words-in-action.js"></script>
-  <script src="assemble-sentences.js"></script>
-  <script src="conversation-practice.js"></script>
+  <script src="js/core/data.js"></script>
+  <script src="js/core/script.js"></script>
+  <script src="js/activities/words-in-action.js"></script>
+  <script src="js/activities/assemble-sentences.js"></script>
+  <script src="js/activities/conversation-practice.js"></script>
 
   Version 1 supports:
   - Il tempo · Weather

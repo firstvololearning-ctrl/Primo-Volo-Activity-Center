@@ -6,8 +6,8 @@
 
   Add this file AFTER script.js in index.html:
 
-  <script src="script.js"></script>
-  <script src="words-in-action.js"></script>
+  <script src="js/core/script.js"></script>
+  <script src="js/activities/words-in-action.js"></script>
 */
 
 (function initializeWordsInAction() {
