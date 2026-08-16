@@ -9278,64 +9278,57 @@ strong {
   margin-bottom: 14px;
 }
 
-.about-resource-divider {
-  position: relative;
-
-  margin: 36px 0 18px;
-
-  border-top:
-    2px solid rgba(39, 75, 132, .16);
-
-  text-align: center;
-}
-
-.about-resource-divider span {
-  position: relative;
-  top: -13px;
-
-  display: inline-block;
-
-  padding: 3px 14px;
-
-  background: #fbfdff;
-
-  color: #274b84;
-
-  font-size: .86rem;
-  font-weight: 850;
-  letter-spacing: .01em;
-}
-
-
 /* ========================================
    ABOUT — LEARNING RESOURCES
    ======================================== */
 
-.about-resource-divider {
-  position: relative;
-  margin: 36px 0 20px;
-
-  border-top:
-    2px solid rgba(39, 75, 132, .16);
-
-  text-align: center;
+.about-resource-grid {
+  display: grid;
+  grid-template-columns:
+    repeat(2, minmax(0, 1fr));
+  gap: 16px;
+  margin-top: 20px;
 }
 
-.about-resource-divider span {
-  position: relative;
-  top: -13px;
-
-  display: inline-block;
-
-  padding: 3px 15px;
-
+.about-resource-card {
+  padding: 20px;
+  border:
+    1px solid rgba(39, 75, 132, .14);
+  border-radius: 18px;
   background: #fbfdff;
-
-  color: #274b84;
-
-  font-size: .88rem;
-  font-weight: 850;
 }
+
+.about-resource-card h4 {
+  margin: 0 0 12px;
+  color: #274b84;
+}
+
+.about-resource-card p {
+  margin: 0 0 11px;
+}
+
+.about-resource-card p:last-child {
+  margin-bottom: 0;
+}
+
+.about-resource-card-featured {
+  grid-column: 1 / -1;
+}
+
+.about-resource-card a {
+  font-weight: 800;
+}
+
+@media (max-width: 720px) {
+  .about-resource-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .about-resource-card-featured {
+    grid-column: auto;
+  }
+}
+
 
 .about-differentiation-section {
   border-left:
