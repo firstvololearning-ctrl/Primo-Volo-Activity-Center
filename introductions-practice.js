@@ -61,7 +61,7 @@
     introductionsButton.hidden = true;
 
     introductionsButton.innerHTML = `
-      <span class="activity-icon">
+      <span class="activity-icon" aria-hidden="true">
         👋
       </span>
 

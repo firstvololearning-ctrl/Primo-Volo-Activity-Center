@@ -121,7 +121,7 @@
 
     assembleButton.innerHTML = `
 
-      <span class="activity-icon">
+      <span class="activity-icon" aria-hidden="true">
 
         🧩
 

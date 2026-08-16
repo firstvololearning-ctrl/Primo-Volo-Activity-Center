@@ -60,7 +60,7 @@
       "words-in-action";
 
     wordsButton.innerHTML = `
-      <span class="activity-icon">
+      <span class="activity-icon" aria-hidden="true">
         💬
       </span>
 

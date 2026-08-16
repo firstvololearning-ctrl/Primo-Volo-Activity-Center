@@ -142,7 +142,7 @@
     conversationButton.hidden = true;
 
     conversationButton.innerHTML = `
-      <span class="activity-icon">
+      <span class="activity-icon" aria-hidden="true">
         🗣️
       </span>
 
