@@ -8,7 +8,7 @@ from reportlab.pdfbase.ttfonts import TTFont
 from reportlab.lib.utils import ImageReader
 from PIL import Image
 
-ROOT = Path(__file__).resolve().parents[1]
+ROOT = Path(__file__).resolve().parents[2]
 WORKSHEET_DIR = ROOT / "images" / "worksheets" / "clothingworksheet"
 CLOTHING_DIR = ROOT / "images" / "clothing"
 
