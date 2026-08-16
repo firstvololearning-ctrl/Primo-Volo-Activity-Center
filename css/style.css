@@ -7472,7 +7472,7 @@ body.hide-english
   overflow: hidden !important;
 
   background-image:
-    url("images/scene-images/prepositions/box-background.png") !important;
+    url("../images/scene-images/prepositions/box-background.png") !important;
 
   background-size: cover !important;
   background-position: center !important;
@@ -7696,12 +7696,12 @@ body.hide-english
 
 .quick-prep-stage[data-scene="box"] {
   background-image:
-    url("images/scene-images/prepositions/box-background.png") !important;
+    url("../images/scene-images/prepositions/box-background.png") !important;
 }
 
 .quick-prep-stage[data-scene="table"] {
   background-image:
-    url("images/scene-images/prepositions/table-background.png") !important;
+    url("../images/scene-images/prepositions/table-background.png") !important;
 }
 
 
