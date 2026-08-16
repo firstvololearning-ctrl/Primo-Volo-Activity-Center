@@ -1,0 +1,794 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Attività d’autunno | Primo Volo d’Italiano</title>
+
+  <style>
+    :root {
+      --cream: #fffaf4;
+      --paper: #ffffff;
+      --ink: #252525;
+      --muted: #676767;
+      --line: #e8ded2;
+      --orange: #d97828;
+      --orange-dark: #9d501b;
+      --orange-soft: #fff0dd;
+      --green: #769954;
+      --green-soft: #eef5e8;
+      --shadow: 0 10px 28px rgba(70, 45, 20, .09);
+      --radius: 22px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family:
+        "Avenir Next",
+        "Segoe UI",
+        Arial,
+        sans-serif;
+      color: var(--ink);
+      background:
+        linear-gradient(
+          180deg,
+          #fffdf9 0%,
+          var(--cream) 100%
+        );
+    }
+
+    button {
+      font: inherit;
+    }
+
+    .page {
+      width: min(1100px, calc(100% - 32px));
+      margin: 0 auto;
+      padding: 26px 0 64px;
+    }
+
+    .back-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 18px;
+      margin-bottom: 20px;
+    }
+
+    .back-link {
+      text-decoration: none;
+      color: var(--orange-dark);
+      font-weight: 800;
+    }
+
+    .hero {
+      padding: 26px;
+      border: 1px solid var(--line);
+      border-radius: 28px;
+      background: white;
+      box-shadow: var(--shadow);
+      text-align: center;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      padding: 7px 12px;
+      border-radius: 999px;
+      background: var(--orange-soft);
+      color: var(--orange-dark);
+      font-size: .92rem;
+      font-weight: 800;
+    }
+
+    h1 {
+      margin: 12px 0 5px;
+      font-size: clamp(2rem, 5vw, 3.5rem);
+    }
+
+    .hero p {
+      margin: 0 auto;
+      max-width: 620px;
+      color: var(--muted);
+      line-height: 1.55;
+    }
+
+    .activity {
+      margin-top: 28px;
+      padding: 22px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--paper);
+      box-shadow: var(--shadow);
+    }
+
+    .activity h2 {
+      margin: 0;
+      font-size: 1.7rem;
+    }
+
+    .directions {
+      display: grid;
+      gap: 5px;
+      margin: 8px 0 22px;
+      color: var(--muted);
+    }
+
+    .directions strong {
+      color: var(--ink);
+    }
+
+    .category-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+    }
+
+    .category-button {
+      appearance: none;
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      padding: 13px 10px;
+
+      background: #fffaf4;
+      color: var(--ink);
+
+      font-weight: 850;
+      cursor: pointer;
+    }
+
+    .category-button:hover {
+      background: var(--orange-soft);
+    }
+
+    .category-button.active {
+      border-color: var(--orange);
+      background: var(--orange-soft);
+      color: var(--orange-dark);
+    }
+
+    .message {
+      min-height: 30px;
+      margin: 16px 0;
+      text-align: center;
+      color: var(--orange-dark);
+      font-weight: 850;
+    }
+
+    .items {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 12px;
+    }
+
+    .item {
+      appearance: none;
+      border: 2px solid var(--line);
+      border-radius: 16px;
+      padding: 8px;
+
+      background: white;
+      color: var(--ink);
+
+      cursor: pointer;
+
+      transition:
+        transform .15s ease,
+        border-color .15s ease,
+        opacity .15s ease;
+    }
+
+    .item:hover {
+      transform: translateY(-2px);
+      border-color: #e6b382;
+    }
+
+    .item img {
+      display: block;
+      width: 100%;
+      aspect-ratio: 1 / 1;
+      object-fit: contain;
+      border-radius: 10px;
+    }
+
+    .item span {
+      display: block;
+      margin-top: 7px;
+      font-weight: 850;
+      font-size: .92rem;
+    }
+
+    .item.matched {
+      opacity: .25;
+      cursor: default;
+      transform: none;
+    }
+
+    .item.try-again {
+      border-color: var(--orange);
+      animation: shake .28s ease;
+    }
+
+    @keyframes shake {
+      0%, 100% {
+        transform: translateX(0);
+      }
+
+      35% {
+        transform: translateX(-5px);
+      }
+
+      70% {
+        transform: translateX(5px);
+      }
+    }
+
+    .bins {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+      margin-top: 22px;
+    }
+
+    .bin {
+      min-height: 110px;
+      padding: 12px;
+
+      border: 1px dashed #d8c5b2;
+      border-radius: 16px;
+
+      background: #fffaf5;
+    }
+
+    .bin-title {
+      margin: 0 0 9px;
+      text-align: center;
+      color: var(--orange-dark);
+      font-weight: 850;
+    }
+
+    .bin-items {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 6px;
+    }
+
+    .chip {
+      padding: 5px 8px;
+      border-radius: 999px;
+
+      background: var(--green-soft);
+      color: #4f6e37;
+
+      font-size: .82rem;
+      font-weight: 800;
+    }
+
+    .actions {
+      display: flex;
+      justify-content: center;
+      margin-top: 20px;
+    }
+
+    .reset {
+      appearance: none;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 10px 17px;
+
+      background: white;
+      color: var(--orange-dark);
+
+      font-weight: 850;
+      cursor: pointer;
+    }
+
+    .note {
+      margin: 18px 0 0;
+      text-align: center;
+      color: var(--muted);
+      font-size: .9rem;
+    }
+
+    @media (max-width: 800px) {
+      .category-grid,
+      .bins {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .items {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 440px) {
+      .category-grid,
+      .bins,
+      .items {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <main class="page">
+
+    <div class="back-row">
+      <a
+        class="back-link"
+        href="index.html"
+      >
+        ← L’autunno
+      </a>
+
+      <a
+        class="back-link"
+        href="../index.html"
+      >
+        ← Harvest
+      </a>
+    </div>
+
+    <header class="hero">
+
+      <span class="eyebrow">
+        🎯 Attività · Activities
+      </span>
+
+      <h1>
+        Attività d’autunno
+      </h1>
+
+      <p>
+        Ascolta, osserva e usa le parole dell’autunno.
+      </p>
+
+    </header>
+
+    <section class="activity">
+
+      <h2>
+        Metti in gruppo
+      </h2>
+
+      <div class="directions">
+        <strong>
+          1. Scegli un gruppo.
+        </strong>
+
+        <strong>
+          2. Tocca le parole che appartengono al gruppo.
+        </strong>
+
+        <span>
+          Tocca una parola anche per ascoltarla.
+        </span>
+      </div>
+
+      <div class="category-grid">
+
+        <button
+          class="category-button"
+          type="button"
+          data-category="natura"
+        >
+          🌿 La natura
+        </button>
+
+        <button
+          class="category-button"
+          type="button"
+          data-category="raccolto"
+        >
+          🧺 Il raccolto
+        </button>
+
+        <button
+          class="category-button"
+          type="button"
+          data-category="tempo"
+        >
+          🌧️ Il tempo
+        </button>
+
+        <button
+          class="category-button"
+          type="button"
+          data-category="oggetto"
+        >
+          ☂️ Un oggetto
+        </button>
+
+      </div>
+
+      <p
+        class="message"
+        id="message"
+        aria-live="polite"
+      >
+        Scegli un gruppo per cominciare.
+      </p>
+
+      <div
+        class="items"
+        id="items"
+      ></div>
+
+      <div class="bins">
+
+        <div class="bin">
+          <p class="bin-title">
+            🌿 La natura
+          </p>
+          <div
+            class="bin-items"
+            data-bin="natura"
+          ></div>
+        </div>
+
+        <div class="bin">
+          <p class="bin-title">
+            🧺 Il raccolto
+          </p>
+          <div
+            class="bin-items"
+            data-bin="raccolto"
+          ></div>
+        </div>
+
+        <div class="bin">
+          <p class="bin-title">
+            🌧️ Il tempo
+          </p>
+          <div
+            class="bin-items"
+            data-bin="tempo"
+          ></div>
+        </div>
+
+        <div class="bin">
+          <p class="bin-title">
+            ☂️ Un oggetto
+          </p>
+          <div
+            class="bin-items"
+            data-bin="oggetto"
+          ></div>
+        </div>
+
+      </div>
+
+      <div class="actions">
+        <button
+          class="reset"
+          id="reset"
+          type="button"
+        >
+          ↻ Ricomincia
+        </button>
+      </div>
+
+      <p class="note">
+        Attività di pratica · Nessun punteggio
+      </p>
+
+    </section>
+
+  </main>
+
+  <script>
+    const vocab = [
+      {
+        italian: "le foglie",
+        image: "foglie.png"
+      },
+      {
+        italian: "la ghianda",
+        image: "ghianda.png"
+      },
+      {
+        italian: "le castagne",
+        image: "castagne.png"
+      },
+      {
+        italian: "la zucca",
+        image: "zucca.png"
+      },
+      {
+        italian: "l’uva",
+        image: "uva.png"
+      },
+      {
+        italian: "la vendemmia",
+        image: "vendemmia.png"
+      },
+      {
+        italian: "i funghi",
+        image: "funghi.png"
+      },
+      {
+        italian: "la pioggia",
+        image: "pioggia.png"
+      },
+      {
+        italian: "la nebbia",
+        image: "nebbia.png"
+      },
+      {
+        italian: "l’ombrello",
+        image: "ombrello.png"
+      }
+    ];
+
+    const groups = {
+      natura: [
+        "le foglie",
+        "la ghianda",
+        "le castagne",
+        "i funghi"
+      ],
+
+      raccolto: [
+        "la zucca",
+        "l’uva",
+        "la vendemmia"
+      ],
+
+      tempo: [
+        "la pioggia",
+        "la nebbia"
+      ],
+
+      oggetto: [
+        "l’ombrello"
+      ]
+    };
+
+    const labels = {
+      natura: "La natura",
+      raccolto: "Il raccolto",
+      tempo: "Il tempo",
+      oggetto: "Un oggetto"
+    };
+
+    const items =
+      document.getElementById("items");
+
+    const message =
+      document.getElementById("message");
+
+    const reset =
+      document.getElementById("reset");
+
+    const categoryButtons =
+      document.querySelectorAll(
+        ".category-button"
+      );
+
+    let activeCategory = null;
+
+    function speakItalian(text) {
+      if (!("speechSynthesis" in window)) {
+        return;
+      }
+
+      window.speechSynthesis.cancel();
+
+      const speech =
+        new SpeechSynthesisUtterance(text);
+
+      speech.lang = "it-IT";
+      speech.rate = .82;
+
+      const voices =
+        window.speechSynthesis.getVoices();
+
+      const italianVoice =
+        voices.find(voice =>
+          /^it[-_]/i.test(voice.lang)
+        );
+
+      if (italianVoice) {
+        speech.voice = italianVoice;
+      }
+
+      window.speechSynthesis.speak(speech);
+    }
+
+    function categoryFor(word) {
+      return Object
+        .entries(groups)
+        .find(([, words]) =>
+          words.includes(word)
+        )?.[0];
+    }
+
+    function clearActiveCategory() {
+      activeCategory = null;
+
+      categoryButtons.forEach(button =>
+        button.classList.remove("active")
+      );
+    }
+
+    function renderItems() {
+      items.innerHTML =
+        vocab
+          .map(item => `
+            <button
+              class="item"
+              type="button"
+              data-word="${item.italian}"
+            >
+              <img
+                src="${item.image}"
+                alt="${item.italian}"
+              >
+              <span>
+                ${item.italian}
+              </span>
+            </button>
+          `)
+          .join("");
+
+      items
+        .querySelectorAll(".item")
+        .forEach(button => {
+
+          button.addEventListener(
+            "click",
+            () => {
+
+              const word =
+                button.dataset.word;
+
+              speakItalian(word);
+
+              if (!activeCategory) {
+                message.textContent =
+                  "Prima scegli un gruppo.";
+                return;
+              }
+
+              const correct =
+                categoryFor(word);
+
+              if (
+                correct !==
+                activeCategory
+              ) {
+                button.classList.remove(
+                  "try-again"
+                );
+
+                void button.offsetWidth;
+
+                button.classList.add(
+                  "try-again"
+                );
+
+                message.textContent =
+                  `Prova un’altra parola per ${labels[activeCategory]}.`;
+
+                return;
+              }
+
+              button.disabled = true;
+
+              button.classList.add(
+                "matched"
+              );
+
+              const bin =
+                document.querySelector(
+                  `[data-bin="${activeCategory}"]`
+                );
+
+              const chip =
+                document.createElement("span");
+
+              chip.className = "chip";
+              chip.textContent = word;
+
+              bin.appendChild(chip);
+
+              const unfinished =
+                [
+                  ...items.querySelectorAll(
+                    ".item:not(:disabled)"
+                  )
+                ];
+
+              if (
+                unfinished.length === 0
+              ) {
+                clearActiveCategory();
+
+                message.textContent =
+                  "Bravissimo! Hai raggruppato tutte le parole.";
+
+                return;
+              }
+
+              const moreInGroup =
+                unfinished.some(item =>
+                  categoryFor(
+                    item.dataset.word
+                  ) === activeCategory
+                );
+
+              if (!moreInGroup) {
+                const finishedLabel =
+                  labels[activeCategory];
+
+                clearActiveCategory();
+
+                message.textContent =
+                  `Hai completato ${finishedLabel}. Scegli un altro gruppo.`;
+
+                return;
+              }
+
+              message.textContent =
+                `Sì! Continua con ${labels[activeCategory]}.`;
+            }
+          );
+        });
+    }
+
+    categoryButtons.forEach(button => {
+
+      button.addEventListener(
+        "click",
+        () => {
+
+          activeCategory =
+            button.dataset.category;
+
+          categoryButtons.forEach(
+            other =>
+              other.classList.toggle(
+                "active",
+                other === button
+              )
+          );
+
+          message.textContent =
+            `Trova le parole per: ${labels[activeCategory]}.`;
+        }
+      );
+
+    });
+
+    reset.addEventListener(
+      "click",
+      () => {
+
+        clearActiveCategory();
+
+        document
+          .querySelectorAll(
+            ".bin-items"
+          )
+          .forEach(bin => {
+            bin.innerHTML = "";
+          });
+
+        message.textContent =
+          "Scegli un gruppo per cominciare.";
+
+        renderItems();
+      }
+    );
+
+    renderItems();
+  </script>
+
+</body>
+</html>
