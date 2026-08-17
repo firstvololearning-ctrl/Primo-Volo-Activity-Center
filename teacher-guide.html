@@ -1,0 +1,982 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1"
+  >
+
+  <title>
+    For Teachers · Primo Volo Italian Learning Hub
+  </title>
+
+  <link rel="stylesheet" href="css/style.css">
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    :root {
+      --blue: #274b84;
+      --blue-2: #315f9f;
+      --blue-soft: #edf4fb;
+
+      --coral: #d46c5c;
+      --coral-soft: #fff3ef;
+
+      --gold: #d9a93e;
+      --gold-soft: #fff9e9;
+
+      --green: #498565;
+      --green-soft: #eef8f2;
+
+      --ink: #34465b;
+      --muted: #65758a;
+
+      --line: #d9e2ed;
+      --surface: #ffffff;
+      --page: #f5f7fa;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      color: var(--ink);
+      background: var(--page);
+      font-family:
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        Arial,
+        Helvetica,
+        sans-serif;
+    }
+
+    .teacher-header {
+      display: grid;
+      grid-template-columns: 1fr 1.7fr 1fr;
+      align-items: center;
+      gap: 24px;
+
+      width: min(1120px, calc(100% - 32px));
+      margin: 0 auto;
+      padding: 26px 0 18px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .brand img {
+      width: 62px;
+      height: auto;
+    }
+
+    .brand-copy {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .brand-copy strong {
+      color: var(--blue);
+      font-size: .95rem;
+    }
+
+    .brand-copy span {
+      color: #758398;
+      font-size: .77rem;
+      font-weight: 750;
+    }
+
+    .page-title {
+      text-align: center;
+    }
+
+    .page-title h1 {
+      margin: 0;
+      color: var(--blue);
+      font-size: clamp(2rem, 4vw, 3rem);
+      line-height: 1.02;
+    }
+
+    .page-title p {
+      margin: 7px 0 0;
+      color: var(--coral);
+      font-size: .92rem;
+      font-weight: 900;
+    }
+
+    .home-link {
+      justify-self: end;
+
+      padding: 10px 15px;
+      border: 1px solid #d6e0ec;
+      border-radius: 999px;
+
+      color: var(--blue);
+      background: white;
+
+      font-size: .85rem;
+      font-weight: 850;
+      text-decoration: none;
+    }
+
+    main {
+      width: min(1040px, calc(100% - 32px));
+      margin: 0 auto 48px;
+    }
+
+    /* HERO */
+
+    .teacher-hero {
+      position: relative;
+      overflow: hidden;
+
+      padding: 28px 30px;
+
+      border: 1px solid var(--line);
+      border-radius: 24px;
+
+      background:
+        linear-gradient(
+          135deg,
+          #f8fbff 0%,
+          #ffffff 55%,
+          #fff9eb 100%
+        );
+
+      box-shadow:
+        0 9px 26px rgba(39, 75, 132, .07);
+    }
+
+    .hero-layout {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 0;
+      align-items: center;
+    }
+
+    .eyebrow {
+      margin: 0 0 8px;
+
+      color: var(--green);
+      font-size: .78rem;
+      font-weight: 950;
+      letter-spacing: .07em;
+      text-transform: uppercase;
+    }
+
+    .teacher-hero h2 {
+      max-width: none;
+      width: 100%;
+      margin: 0;
+
+      color: var(--blue);
+      font-size: clamp(1.65rem, 3.6vw, 2.45rem);
+      line-height: 1.12;
+    }
+
+    .hero-copy {
+      max-width: none;
+      width: 100%;
+      margin: 13px 0 0;
+
+      color: #52657b;
+      font-size: 1rem;
+      line-height: 1.65;
+    }
+
+    .hero-copy strong {
+      color: var(--blue);
+    }
+
+
+    .status-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+
+      margin-top: 18px;
+    }
+
+    .status {
+      padding: 7px 11px;
+      border-radius: 999px;
+
+      font-size: .78rem;
+      font-weight: 850;
+    }
+
+    .status.online {
+      color: var(--blue);
+      background: var(--blue-soft);
+    }
+
+    .status.monthly {
+      color: #7d5d16;
+      background: var(--gold-soft);
+    }
+
+    .status.september {
+      color: #356d50;
+      background: var(--green-soft);
+    }
+
+    /* QUICK LINKS */
+
+    .quick-links {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 9px;
+
+      margin: 18px 0 25px;
+    }
+
+    .quick-links a {
+      padding: 9px 13px;
+
+      border: 1px solid #d7e1ec;
+      border-radius: 999px;
+
+      color: var(--blue);
+      background: white;
+
+      font-size: .79rem;
+      font-weight: 850;
+      text-decoration: none;
+
+      box-shadow:
+        0 4px 12px rgba(39, 75, 132, .04);
+    }
+
+    .quick-links a:hover,
+    .quick-links a:focus-visible {
+      border-color: #a9bfd9;
+      background: #f7faff;
+      outline: none;
+    }
+
+    /* CARDS */
+
+    .section-grid {
+      display: grid;
+      grid-template-columns:
+        repeat(2, minmax(0, 1fr));
+      gap: 16px;
+
+      margin-top: 16px;
+    }
+
+    .info-card {
+      position: relative;
+      overflow: hidden;
+
+      padding: 21px 22px;
+
+      border: 1px solid var(--line);
+      border-radius: 20px;
+
+      background: var(--surface);
+
+      box-shadow:
+        0 7px 20px rgba(39, 75, 132, .055);
+    }
+
+    .info-card::before {
+      content: "";
+
+      position: absolute;
+      top: 0;
+      left: 0;
+
+      width: 100%;
+      height: 5px;
+
+      background: var(--blue);
+    }
+
+    .info-card.gold::before {
+      background: var(--gold);
+    }
+
+    .info-card.coral::before {
+      background: var(--coral);
+    }
+
+    .info-card.green::before {
+      background: var(--green);
+    }
+
+    .card-heading {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+
+      margin-bottom: 9px;
+    }
+
+    .card-icon {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      width: 34px;
+      height: 34px;
+
+      border-radius: 10px;
+
+      background: var(--blue-soft);
+
+      font-size: 1.05rem;
+    }
+
+    .gold .card-icon {
+      background: var(--gold-soft);
+    }
+
+    .coral .card-icon {
+      background: var(--coral-soft);
+    }
+
+    .green .card-icon {
+      background: var(--green-soft);
+    }
+
+    .info-card h3 {
+      margin: 0;
+
+      color: var(--blue);
+      font-size: 1.05rem;
+    }
+
+    .info-card p {
+      margin: 8px 0 0;
+
+      color: #5b6d81;
+      font-size: .9rem;
+      line-height: 1.55;
+    }
+
+    .compact-list {
+      display: grid;
+      gap: 7px;
+
+      margin: 12px 0 0;
+      padding: 0;
+
+      list-style: none;
+    }
+
+    .compact-list li {
+      position: relative;
+      padding-left: 18px;
+
+      color: #52657a;
+      font-size: .86rem;
+      line-height: 1.42;
+    }
+
+    .compact-list li::before {
+      content: "•";
+
+      position: absolute;
+      left: 2px;
+      top: 0;
+
+      color: var(--coral);
+      font-weight: 950;
+    }
+
+    /* PROGRESSION */
+
+    .progression-card {
+      margin-top: 16px;
+      padding: 22px 24px;
+
+      border: 1px solid var(--line);
+      border-radius: 22px;
+
+      background: white;
+
+      box-shadow:
+        0 8px 22px rgba(39, 75, 132, .06);
+    }
+
+    .progression-card h2 {
+      margin: 0;
+
+      color: var(--blue);
+      font-size: 1.35rem;
+      text-align: center;
+    }
+
+    .progression-intro {
+      max-width: 780px;
+      margin: 7px auto 17px;
+
+      color: #68798c;
+      font-size: .88rem;
+      line-height: 1.55;
+      text-align: center;
+    }
+
+    .progression {
+      display: grid;
+      grid-template-columns:
+        1fr auto 1fr auto 1fr auto 1fr auto 1fr;
+      align-items: center;
+      gap: 7px;
+    }
+
+    .step {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      min-height: 62px;
+      padding: 9px 8px;
+
+      border: 1px solid #dbe5ef;
+      border-radius: 13px;
+
+      color: var(--blue);
+      background: #f8fbff;
+
+      font-size: .78rem;
+      font-weight: 900;
+      line-height: 1.25;
+      text-align: center;
+    }
+
+    .progress-arrow {
+      color: var(--coral);
+      font-size: 1.05rem;
+      font-weight: 950;
+    }
+
+    /* CARRIER PHRASES */
+
+    .phrase-bank {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 7px;
+
+      margin-top: 13px;
+    }
+
+    .phrase {
+      padding: 6px 9px;
+
+      border: 1px solid #cddced;
+      border-radius: 999px;
+
+      color: var(--blue);
+      background: #f5f9fd;
+
+      font-size: .77rem;
+      font-weight: 900;
+    }
+
+    .teaching-moves {
+      display: grid;
+      grid-template-columns:
+        repeat(2, minmax(0, 1fr));
+      gap: 7px;
+
+      margin-top: 13px;
+    }
+
+    .teaching-move {
+      padding: 9px 10px;
+
+      border: 1px solid #dfe6ee;
+      border-radius: 11px;
+
+      color: #58697c;
+      background: #fafbfd;
+
+      font-size: .78rem;
+      font-weight: 800;
+      line-height: 1.35;
+    }
+
+    /* CLOSING */
+
+    .closing-note {
+      margin-top: 16px;
+      padding: 18px 22px;
+
+      border-left: 5px solid var(--coral);
+      border-radius: 14px;
+
+      background: var(--coral-soft);
+    }
+
+    .closing-note strong {
+      color: var(--blue);
+    }
+
+    .closing-note p {
+      margin: 0;
+
+      color: #58697b;
+      font-size: .9rem;
+      line-height: 1.55;
+    }
+
+    footer {
+      padding: 18px 16px 30px;
+
+      color: #7b8796;
+      font-size: .76rem;
+      text-align: center;
+    }
+
+    @media (max-width: 800px) {
+      .teacher-header {
+        grid-template-columns: 1fr;
+        justify-items: center;
+        text-align: center;
+      }
+
+      .home-link {
+        justify-self: center;
+      }
+
+      .hero-layout {
+        grid-template-columns: 1fr;
+      }
+
+      .hero-mark {
+        display: none;
+      }
+
+      .section-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .progression {
+        grid-template-columns: 1fr;
+      }
+
+      .progress-arrow {
+        transform: rotate(90deg);
+        text-align: center;
+      }
+    }
+
+    @media (max-width: 500px) {
+      main {
+        width: min(100% - 20px, 1040px);
+      }
+
+      .teacher-hero {
+        padding: 22px 18px;
+      }
+
+      .info-card {
+        padding: 19px 17px;
+      }
+
+      .progression-card {
+        padding: 19px 15px;
+      }
+
+      .teaching-moves {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <header class="teacher-header">
+
+    <div class="brand">
+      <img
+        src="images/logo/logo.png"
+        alt="First Volo Learning"
+      >
+
+      <div class="brand-copy">
+        <strong>First Volo Learning</strong>
+        <span>Primo Volo Italian Learning Hub</span>
+      </div>
+    </div>
+
+    <div class="page-title">
+      <h1>For Teachers</h1>
+      <p>Practical support for novice Italian learners</p>
+    </div>
+
+    <a
+      class="home-link"
+      href="index.html"
+    >
+      ✈️ Primo Volo · Home
+    </a>
+
+  </header>
+
+
+  <main>
+
+    <section class="teacher-hero">
+
+      <div class="hero-layout">
+
+        <div>
+          <p class="eyebrow">
+            A flexible, growing collection
+          </p>
+
+          <h2>
+            Use what fits your students and your teaching.
+          </h2>
+
+          <p class="hero-copy">
+            I created
+            <strong>Primo Volo Italian Learning Hub</strong>
+            for my own teaching and thought the materials
+            might be helpful to other teachers as well.
+            Use one resource, a partner game, a monthly set,
+            or anything in between.
+          </p>
+
+          <p class="hero-copy">
+            <strong>
+              Primo Volo is designed to help novice learners
+              move from understanding new language to using it
+              more independently.
+            </strong>
+            Students first meet vocabulary and phrases through
+            clear visuals, audio, and modeled language. They then
+            practice using familiar sentence patterns, retrieve
+            the language with gradually less support, and apply it
+            in speaking, writing, and interaction with others.
+            Grammatical patterns are introduced through the language
+            students are already learning and using, and the materials
+            highlight opportunities for teachers to help students notice,
+            compare, and explicitly explore those patterns in context
+            as appropriate. Cultural materials connect that language to
+            meaningful themes and contexts.
+          </p>
+
+          <div class="status-row">
+            <span class="status online">
+              💻 Online practice is optional
+            </span>
+
+            <span class="status monthly">
+              📅 Built month by month
+            </span>
+
+            <span class="status september">
+              ✓ September nearly complete
+            </span>
+          </div>
+        </div>
+
+
+      </div>
+
+    </section>
+
+
+    <nav
+      class="quick-links"
+      aria-label="Teacher resources"
+    >
+      <a href="monthly-curriculum.html">
+        📅 Monthly Materials
+      </a>
+
+      <a href="worksheets.html">
+        ✏️ Worksheets & Visuals
+      </a>
+
+      <a href="games.html">
+        🎲 Printable Games
+      </a>
+
+      <a href="index.html">
+        💻 Online Practice
+      </a>
+          <a class="quick-link" href="cultural-resources/">
+            <span>🏛️ Culture</span>
+          </a>
+    </nav>
+
+
+    <div class="section-grid">
+
+      <section class="info-card">
+        <div class="card-heading">
+          <div class="card-icon">🧰</div>
+          <h3>What you’ll find</h3>
+        </div>
+
+        <ul class="compact-list">
+          <li>
+            Printable worksheets and visual supports
+          </li>
+
+          <li>
+            Printable games and hands-on activities
+          </li>
+
+          <li>
+            Partner games with questions and answers
+          </li>
+
+          <li>
+            Optional interactive online practice and
+            reinforcement
+          </li>
+
+          <li>
+            Cultural readings, short texts, poetry, and related activities
+          </li>
+
+          <li>
+            Cultural and interactive activities connected to monthly themes
+          </li>
+        </ul>
+      </section>
+
+
+      <section class="info-card gold">
+        <div class="card-heading">
+          <div class="card-icon">📅</div>
+          <h3>Built around monthly themes</h3>
+        </div>
+
+        <p>
+          Resources are being added and expanded month by month around <strong>monthly themes</strong>. Vocabulary, reusable language, printables, interactive practice, and cultural resources connect to the same monthly focus.
+        </p>
+
+        <p>
+          <strong>September is nearly complete.</strong>
+          Additional months will continue to build out
+          across the year.
+        </p>
+      </section>
+
+    </div>
+
+
+    <section class="progression-card">
+
+      <h2>
+        How the language builds
+      </h2>
+
+      <p class="progression-intro">
+        Across Primo Volo’s learning progression, students move
+        broadly from understanding and recognition toward
+        increasingly independent language use. Support is
+        gradually reduced through guided practice, sentence
+        building, active recall, and independent production.
+      </p>
+
+      <div class="progression">
+
+        <div class="step">
+          Understanding<br>&amp; Recognition
+        </div>
+
+        <div class="progress-arrow">→</div>
+
+        <div class="step">
+          Guided<br>Practice
+        </div>
+
+        <div class="progress-arrow">→</div>
+
+        <div class="step">
+          Sentence<br>Building
+        </div>
+
+        <div class="progress-arrow">→</div>
+
+        <div class="step">
+          Active<br>Recall
+        </div>
+
+        <div class="progress-arrow">→</div>
+
+        <div class="step">
+          Independent<br>Production
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <div class="section-grid">
+
+      <section class="info-card coral">
+
+        <div class="card-heading">
+          <div class="card-icon">💬</div>
+          <h3>Reusable carrier phrases</h3>
+        </div>
+
+        <p>
+          Familiar sentence frames give novice learners a
+          stable structure while the vocabulary changes.
+          Students can begin using new words in meaningful
+          language instead of practicing only isolated
+          vocabulary.
+        </p>
+
+        <div class="phrase-bank">
+          <span class="phrase">Io vedo…</span>
+          <span class="phrase">Io ho…</span>
+          <span class="phrase">Mi piace…</span>
+          <span class="phrase">Non mi piace…</span>
+          <span class="phrase">È…</span>
+          <span class="phrase">C’è…</span>
+        </div>
+
+      </section>
+
+
+      <section class="info-card green">
+
+        <div class="card-heading">
+          <div class="card-icon">🔎</div>
+          <h3>Grammar in context</h3>
+        </div>
+
+        <p>
+          The language students are already using creates
+          natural opportunities to draw attention to
+          Italian structure.
+        </p>
+
+        <div class="teaching-moves">
+          <div class="teaching-move">
+            👂 Model it repeatedly
+          </div>
+
+          <div class="teaching-move">
+            💡 Notice it aloud
+          </div>
+
+          <div class="teaching-move">
+            🔍 Highlight or compare it
+          </div>
+
+          <div class="teaching-move">
+            ✏️ Teach it explicitly
+          </div>
+        </div>
+
+        <p>
+          This may include articles and noun patterns,
+          gender and number, agreement, recurring verb
+          forms, word order, and question-and-answer
+          structures.
+        </p>
+
+      </section>
+
+
+      <section class="info-card">
+
+        <div class="card-heading">
+          <div class="card-icon">👥</div>
+          <h3>From practice to interaction</h3>
+        </div>
+
+        <p>
+          Many resources move beyond individual practice.
+          Partner and small-group games give students
+          repeated opportunities to
+          <strong>ask, listen, answer, choose, describe,
+          and express preferences</strong>
+          using familiar language.
+        </p>
+
+        <p>
+          The same target vocabulary can therefore be
+          practiced through recognition, sentence building,
+          retrieval, and real conversational turns.
+        </p>
+
+      </section>
+
+
+      <section class="info-card gold">
+
+        <div class="card-heading">
+          <div class="card-icon">🌱</div>
+          <h3>What the current materials build</h3>
+        </div>
+
+        <ul class="compact-list">
+          <li>
+            vocabulary recognition and independent retrieval
+          </li>
+
+          <li>
+            listening, reading, speaking, and writing
+          </li>
+
+          <li>
+            meaningful sentence-frame use
+          </li>
+
+          <li>
+            conversational question-and-answer routines
+          </li>
+
+          <li>
+            familiarity with recurring grammatical patterns
+          </li>
+
+          <li>
+            increasing independence with Italian
+          </li>
+        </ul>
+
+      </section>
+
+    </div>
+
+
+    <section class="closing-note">
+      <p>
+        <strong>More explicit grammar support is coming,</strong>
+        always connected to meaningful language and context.
+        The current materials already let students hear,
+        see, retrieve, and use recurring structures so that
+        teachers can choose when to model them, point them
+        out, or teach them more explicitly.
+        The online activities remain optional; the printable
+        resources are designed to be useful on their own.
+      </p>
+    </section>
+
+  </main>
+
+
+  <footer>
+    First Volo Learning |
+    Primo Volo Italian Learning Hub
+  </footer>
+
+</body>
+</html>

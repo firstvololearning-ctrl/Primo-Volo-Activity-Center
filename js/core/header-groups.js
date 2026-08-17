@@ -33,6 +33,30 @@
     )
   ].filter(Boolean);
 
+  const teacherGuideLink = (() => {
+    const template =
+      document.querySelector(
+        'a[href="worksheets.html"]'
+      );
+
+    if (!template) {
+      return null;
+    }
+
+    const link =
+      template.cloneNode(true);
+
+    link.removeAttribute("id");
+
+    link.href =
+      "teacher-guide.html";
+
+    link.textContent =
+      "👩‍🏫 Guida per insegnanti · Teacher Guide";
+
+    return link;
+  })();
+
   const monthlyCurriculumLink = (() => {
     const template =
       document.querySelector(
@@ -61,6 +85,7 @@
     document.querySelector(
       "#progressButton"
     ),
+    teacherGuideLink,
     monthlyCurriculumLink,
     document.querySelector(
       'a[href="worksheets.html"]'
