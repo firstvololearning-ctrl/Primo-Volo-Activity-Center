@@ -387,7 +387,7 @@
         padding: 0 12px 18px;
       }
     }
-  
+
     /* PLANNED RESOURCES START */
 
     .planned-box {
@@ -476,6 +476,148 @@
 
     /* PLANNED RESOURCES END */
 
+
+    /* MONTHLY LANGUAGE SUPPORT START */
+
+    .language-support {
+      display: grid;
+      grid-template-columns: 1.15fr .85fr;
+      gap: 14px;
+
+      margin: 0 22px 20px;
+    }
+
+    .frames-box,
+    .patterns-box {
+      padding: 15px 17px;
+
+      border: 1px solid #dce5ef;
+      border-radius: 14px;
+
+      background: #f8fbfe;
+    }
+
+    .frames-box h3,
+    .patterns-box h3 {
+      margin: 0;
+
+      color: #274b84;
+      font-size: .92rem;
+      line-height: 1.3;
+    }
+
+    .language-subtitle {
+      margin: 3px 0 12px;
+
+      color: #8290a1;
+      font-size: .72rem;
+      line-height: 1.4;
+    }
+
+    .frame-group + .frame-group {
+      margin-top: 11px;
+    }
+
+    .frame-group-label {
+      display: block;
+      margin-bottom: 6px;
+
+      color: #68798e;
+      font-size: .69rem;
+      font-weight: 900;
+      letter-spacing: .04em;
+      text-transform: uppercase;
+    }
+
+    .frame-chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .frame-chip {
+      display: inline-flex;
+      align-items: center;
+
+      min-height: 30px;
+      padding: 5px 9px;
+
+      border-radius: 999px;
+
+      font-size: .76rem;
+      font-weight: 800;
+      line-height: 1.25;
+    }
+
+    .frame-chip.available {
+      border: 1px solid #bfd4e7;
+
+      color: #355a7c;
+      background: white;
+    }
+
+    .frame-chip.coming {
+      border: 1px dashed #c9d1db;
+
+      color: #778493;
+      background: #f4f6f8;
+    }
+
+    .patterns-list {
+      display: grid;
+      gap: 8px;
+
+      margin: 12px 0 0;
+      padding: 0;
+
+      list-style: none;
+    }
+
+    .patterns-list li {
+      padding: 8px 10px;
+
+      border: 1px solid #e0e6ed;
+      border-radius: 10px;
+
+      background: white;
+    }
+
+    .patterns-list strong {
+      display: block;
+
+      color: #4d6178;
+      font-size: .77rem;
+      line-height: 1.3;
+    }
+
+    .patterns-list span {
+      display: block;
+      margin-top: 2px;
+
+      color: #85909d;
+      font-size: .68rem;
+      line-height: 1.4;
+    }
+
+    @media (max-width: 760px) {
+      .language-support {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .language-support {
+        margin: 0 12px 16px;
+      }
+
+      .frames-box,
+      .patterns-box {
+        padding: 14px;
+      }
+    }
+
+    /* MONTHLY LANGUAGE SUPPORT END */
+
   </style>
 </head>
 
@@ -538,7 +680,7 @@
 <a href="#aprile">Apr</a>
     </nav>
 
-    
+
     <article class="month-card" id="settembre">
       <header class="month-heading">
         <p class="month-name">Settembre</p>
@@ -561,66 +703,144 @@
         </ul>
       </section>
 
-      
+      <!-- LANGUAGE SUPPORT START -->
+      <div class="language-support">
+
+        <section class="frames-box">
+          <h3>
+            💬 Frasi utili · Sentence Frames
+          </h3>
+
+          <p class="language-subtitle">
+            Modelli per parlare e scrivere con il lessico del mese.
+            <span lang="en">
+              Useful frames for monthly language.
+            </span>
+          </p>
+
+
+          <div class="frame-group">
+            <span class="frame-group-label">
+              Disponibili · Supported now
+            </span>
+
+            <div class="frame-chips">
+              <span class="frame-chip available">Mi chiamo…</span>
+<span class="frame-chip available">Ho ___ anni.</span>
+<span class="frame-chip available">Il mio colore preferito è…</span>
+<span class="frame-chip available">Mi piace…</span>
+            </div>
+          </div>
+
+
+          <div class="frame-group">
+            <span class="frame-group-label">
+              Da aggiungere · To come
+            </span>
+
+            <div class="frame-chips">
+              <span class="frame-chip coming">Sono…</span>
+<span class="frame-chip coming">Il mio hobby è…</span>
+<span class="frame-chip coming">Nella mia classe c’è…</span>
+            </div>
+          </div>
+
+        </section>
+
+        <section class="patterns-box">
+          <h3>
+            🔎 Modelli da notare · Language Patterns
+          </h3>
+
+          <p class="language-subtitle">
+            Prima si usa il modello; poi, quando utile,
+            si richiama brevemente l’attenzione al pattern.
+          </p>
+
+          <ul class="patterns-list">
+
+          <li>
+            <strong>Mi chiamo… / Ho ___ anni.</strong>
+            <span>Usare prima come blocchi interi per presentarsi.</span>
+          </li>
+
+          <li>
+            <strong>un quaderno / una matita</strong>
+            <span>Far notare l’articolo insieme al nome.</span>
+          </li>
+
+          <li>
+            <strong>rosso / rossa</strong>
+            <span>Quando utile, confrontare il colore con nomi diversi.</span>
+          </li>
+
+          </ul>
+        </section>
+
+      </div>
+      <!-- LANGUAGE SUPPORT END -->
+
+
+
       <div class="resource-grid">
-        
+
         <section class="resource-box">
           <h3>💻 Attività digitali · Digital Activities</h3>
           <div class="resource-links">
-            
+
             <a class="resource-link" href="index.html">
               <span>👋 Saluti e presentazioni</span>
               <span class="arrow" aria-hidden="true">→</span>
             </a>
-            
+
 
             <a class="resource-link" href="index.html">
               <span>🔢 I numeri</span>
               <span class="arrow" aria-hidden="true">→</span>
             </a>
-            
+
 
             <a class="resource-link" href="index.html">
               <span>🎨 I colori</span>
               <span class="arrow" aria-hidden="true">→</span>
             </a>
-            
+
 
             <a class="resource-link" href="index.html">
               <span>📚 Materiale scolastico</span>
               <span class="arrow" aria-hidden="true">→</span>
             </a>
-            
+
 
             <a class="resource-link" href="index.html">
               <span>🏫 Espressioni in classe</span>
               <span class="arrow" aria-hidden="true">→</span>
             </a>
-            
+
           </div>
         </section>
-        
+
         <section class="resource-box">
           <h3>🖨️ Stampabili · Printables</h3>
           <div class="resource-links">
-            
+
             <a class="resource-link" href="worksheets.html">
               <span>📚 Materiale scolastico</span>
               <span class="arrow" aria-hidden="true">→</span>
             </a>
-            
+
 
             <a class="resource-link" href="worksheets.html">
               <span>🎨 I colori</span>
               <span class="arrow" aria-hidden="true">→</span>
             </a>
-            
+
           </div>
         </section>
-        
+
       </div>
-    
-    
+
+
       <!-- PLANNED START -->
       <section
         class="planned-box"
@@ -639,7 +859,7 @@
         </p>
 
         <div class="planned-items">
-          
+
         <div class="planned-item">
           <span class="planned-icon" aria-hidden="true">
             💻
@@ -652,7 +872,7 @@
             </span>
           </div>
         </div>
-            
+
         <div class="planned-item">
           <span class="planned-icon" aria-hidden="true">
             🖨️
@@ -665,7 +885,7 @@
             </span>
           </div>
         </div>
-            
+
         <div class="planned-item">
           <span class="planned-icon" aria-hidden="true">
             🏛️
@@ -678,13 +898,13 @@
             </span>
           </div>
         </div>
-            
+
         </div>
       </section>
       <!-- PLANNED END -->
-    
+
     </article>
-        
+
     <article class="month-card" id="ottobre">
       <header class="month-heading">
         <p class="month-name">Ottobre</p>
@@ -707,84 +927,162 @@
         </ul>
       </section>
 
-      
+      <!-- LANGUAGE SUPPORT START -->
+      <div class="language-support">
+
+        <section class="frames-box">
+          <h3>
+            💬 Frasi utili · Sentence Frames
+          </h3>
+
+          <p class="language-subtitle">
+            Modelli per parlare e scrivere con il lessico del mese.
+            <span lang="en">
+              Useful frames for monthly language.
+            </span>
+          </p>
+
+
+          <div class="frame-group">
+            <span class="frame-group-label">
+              Disponibili · Supported now
+            </span>
+
+            <div class="frame-chips">
+              <span class="frame-chip available">In autunno…</span>
+<span class="frame-chip available">Vedo…</span>
+<span class="frame-chip available">È…</span>
+<span class="frame-chip available">Fa…</span>
+<span class="frame-chip available">C’è / Ci sono…</span>
+<span class="frame-chip available">Mi piace…</span>
+            </div>
+          </div>
+
+
+          <div class="frame-group">
+            <span class="frame-group-label">
+              Da aggiungere · To come
+            </span>
+
+            <div class="frame-chips">
+              <span class="frame-chip coming">Le foglie sono…</span>
+            </div>
+          </div>
+
+        </section>
+
+        <section class="patterns-box">
+          <h3>
+            🔎 Modelli da notare · Language Patterns
+          </h3>
+
+          <p class="language-subtitle">
+            Prima si usa il modello; poi, quando utile,
+            si richiama brevemente l’attenzione al pattern.
+          </p>
+
+          <ul class="patterns-list">
+
+          <li>
+            <strong>c’è / ci sono</strong>
+            <span>Confrontare uno e più di uno dentro scene familiari.</span>
+          </li>
+
+          <li>
+            <strong>foglia rossa / foglie rosse</strong>
+            <span>Far notare ciò che cambia quando il nome cambia.</span>
+          </li>
+
+          <li>
+            <strong>fa freddo / piove / c’è il sole</strong>
+            <span>Trattare prima le espressioni del tempo come modelli interi.</span>
+          </li>
+
+          </ul>
+        </section>
+
+      </div>
+      <!-- LANGUAGE SUPPORT END -->
+
+
+
       <div class="resource-grid">
-        
+
         <section class="resource-box">
           <h3>💻 Attività digitali · Digital Activities</h3>
           <div class="resource-links">
-            
+
             <a class="resource-link" href="index.html">
               <span>🎨 I colori</span>
               <span class="arrow" aria-hidden="true">→</span>
             </a>
-            
+
 
             <a class="resource-link" href="index.html">
               <span>🍂 Le stagioni</span>
               <span class="arrow" aria-hidden="true">→</span>
             </a>
-            
+
 
             <a class="resource-link" href="index.html">
               <span>🌦️ Il tempo</span>
               <span class="arrow" aria-hidden="true">→</span>
             </a>
-            
+
 
             <a class="resource-link" href="index.html">
               <span>🍎 Il cibo e le bevande</span>
               <span class="arrow" aria-hidden="true">→</span>
             </a>
-            
+
           </div>
         </section>
-        
+
         <section class="resource-box">
           <h3>🖨️ Stampabili · Printables</h3>
           <div class="resource-links">
-            
+
             <a class="resource-link" href="worksheets.html">
               <span>🎨 I colori</span>
               <span class="arrow" aria-hidden="true">→</span>
             </a>
-            
+
 
             <a class="resource-link" href="cultural-resources/harvest/fall-vocabulary/activities.html">
               <span>🍂 Attività e risorse d’autunno</span>
               <span class="arrow" aria-hidden="true">→</span>
             </a>
-            
+
           </div>
         </section>
-        
+
         <section class="resource-box">
           <h3>🏛️ Cultura · Culture</h3>
           <div class="resource-links">
-            
+
             <a class="resource-link" href="cultural-resources/harvest/fall-vocabulary/index.html">
               <span>🍂 L’autunno in Italia</span>
               <span class="arrow" aria-hidden="true">→</span>
             </a>
-            
+
 
             <a class="resource-link" href="cultural-resources/harvest/la-vendemmia.html">
               <span>🍇 La vendemmia</span>
               <span class="arrow" aria-hidden="true">→</span>
             </a>
-            
+
 
             <a class="resource-link" href="cultural-resources/harvest/la-cerca-del-tartufo.html">
               <span>🌿 La cerca del tartufo</span>
               <span class="arrow" aria-hidden="true">→</span>
             </a>
-            
+
           </div>
         </section>
-        
+
       </div>
-    
-    
+
+
       <!-- PLANNED START -->
       <section
         class="planned-box"
@@ -803,7 +1101,7 @@
         </p>
 
         <div class="planned-items">
-          
+
         <div class="planned-item">
           <span class="planned-icon" aria-hidden="true">
             🏛️
@@ -816,13 +1114,13 @@
             </span>
           </div>
         </div>
-            
+
         </div>
       </section>
       <!-- PLANNED END -->
-    
+
     </article>
-        
+
     <article class="month-card" id="novembre">
       <header class="month-heading">
         <p class="month-name">Novembre</p>
@@ -845,72 +1143,150 @@
         </ul>
       </section>
 
-      
+      <!-- LANGUAGE SUPPORT START -->
+      <div class="language-support">
+
+        <section class="frames-box">
+          <h3>
+            💬 Frasi utili · Sentence Frames
+          </h3>
+
+          <p class="language-subtitle">
+            Modelli per parlare e scrivere con il lessico del mese.
+            <span lang="en">
+              Useful frames for monthly language.
+            </span>
+          </p>
+
+
+          <div class="frame-group">
+            <span class="frame-group-label">
+              Disponibili · Supported now
+            </span>
+
+            <div class="frame-chips">
+              <span class="frame-chip available">È un / una…</span>
+<span class="frame-chip available">Mi piace…</span>
+<span class="frame-chip available">Non mi piace…</span>
+            </div>
+          </div>
+
+
+          <div class="frame-group">
+            <span class="frame-group-label">
+              Da aggiungere · To come
+            </span>
+
+            <div class="frame-chips">
+              <span class="frame-chip coming">L’animale fa…</span>
+<span class="frame-chip coming">A colazione mangio…</span>
+<span class="frame-chip coming">A pranzo mangio…</span>
+<span class="frame-chip coming">A cena mangio…</span>
+            </div>
+          </div>
+
+        </section>
+
+        <section class="patterns-box">
+          <h3>
+            🔎 Modelli da notare · Language Patterns
+          </h3>
+
+          <p class="language-subtitle">
+            Prima si usa il modello; poi, quando utile,
+            si richiama brevemente l’attenzione al pattern.
+          </p>
+
+          <ul class="patterns-list">
+
+          <li>
+            <strong>un cane / una mucca</strong>
+            <span>Continuare a modellare l’articolo insieme al nome.</span>
+          </li>
+
+          <li>
+            <strong>mi piace / mi piacciono</strong>
+            <span>Con gruppi pronti, confrontare una cosa e più cose.</span>
+          </li>
+
+          <li>
+            <strong>mangio / bevo</strong>
+            <span>Usare le forme io dentro frasi significative prima di espandere.</span>
+          </li>
+
+          </ul>
+        </section>
+
+      </div>
+      <!-- LANGUAGE SUPPORT END -->
+
+
+
       <div class="resource-grid">
-        
+
         <section class="resource-box">
           <h3>💻 Attività digitali · Digital Activities</h3>
           <div class="resource-links">
-            
+
             <a class="resource-link" href="index.html">
               <span>🐶 Gli animali</span>
               <span class="arrow" aria-hidden="true">→</span>
             </a>
-            
+
 
             <a class="resource-link" href="index.html">
               <span>🍎 Il cibo e le bevande</span>
               <span class="arrow" aria-hidden="true">→</span>
             </a>
-            
+
           </div>
         </section>
-        
+
         <section class="resource-box">
           <h3>🖨️ Stampabili · Printables</h3>
           <div class="resource-links">
-            
+
             <a class="resource-link" href="worksheets.html">
               <span>🐶 Gli animali</span>
               <span class="arrow" aria-hidden="true">→</span>
             </a>
-            
+
 
             <a class="resource-link" href="games.html">
               <span>🎲 Giochi stampabili</span>
               <span class="arrow" aria-hidden="true">→</span>
             </a>
-            
+
 
             <a class="resource-link" href="cultural-resources/harvest/la-festa-di-san-martino/il-dolce-di-san-martino-da-colorare.pdf">
               <span>🖍️ Il dolce di San Martino</span>
               <span class="arrow" aria-hidden="true">→</span>
             </a>
-            
+
           </div>
         </section>
-        
+
         <section class="resource-box">
           <h3>🏛️ Cultura · Culture</h3>
           <div class="resource-links">
-            
+
             <a class="resource-link" href="cultural-resources/harvest/la-festa-di-san-martino.html">
               <span>🌰 La Festa di San Martino</span>
               <span class="arrow" aria-hidden="true">→</span>
             </a>
-            
+
 
             <a class="resource-link" href="cultural-resources/harvest/fall-vocabulary/index.html">
               <span>🍂 L’autunno in Italia</span>
               <span class="arrow" aria-hidden="true">→</span>
             </a>
-            
+
           </div>
         </section>
-        
+
       </div>
-    
-    
+
+
       <!-- PLANNED START -->
       <section
         class="planned-box"
@@ -929,7 +1305,7 @@
         </p>
 
         <div class="planned-items">
-          
+
         <div class="planned-item">
           <span class="planned-icon" aria-hidden="true">
             💻
@@ -942,7 +1318,7 @@
             </span>
           </div>
         </div>
-            
+
         <div class="planned-item">
           <span class="planned-icon" aria-hidden="true">
             🖨️
@@ -955,7 +1331,7 @@
             </span>
           </div>
         </div>
-            
+
         <div class="planned-item">
           <span class="planned-icon" aria-hidden="true">
             🏛️
@@ -968,13 +1344,13 @@
             </span>
           </div>
         </div>
-            
+
         </div>
       </section>
       <!-- PLANNED END -->
-    
+
     </article>
-        
+
     <article class="month-card" id="dicembre">
       <header class="month-heading">
         <p class="month-name">Dicembre</p>
@@ -997,8 +1373,71 @@
         </ul>
       </section>
 
-      
-    
+      <!-- LANGUAGE SUPPORT START -->
+      <div class="language-support">
+
+        <section class="frames-box">
+          <h3>
+            💬 Frasi utili · Sentence Frames
+          </h3>
+
+          <p class="language-subtitle">
+            Modelli per parlare e scrivere con il lessico del mese.
+            <span lang="en">
+              Useful frames for monthly language.
+            </span>
+          </p>
+
+
+
+          <div class="frame-group">
+            <span class="frame-group-label">
+              Da aggiungere · To come
+            </span>
+
+            <div class="frame-chips">
+              <span class="frame-chip coming">Buon Natale!</span>
+<span class="frame-chip coming">Buone feste!</span>
+<span class="frame-chip coming">A Natale…</span>
+<span class="frame-chip coming">Vedo…</span>
+<span class="frame-chip coming">Mi piace…</span>
+<span class="frame-chip coming">Vorrei…</span>
+            </div>
+          </div>
+
+        </section>
+
+        <section class="patterns-box">
+          <h3>
+            🔎 Modelli da notare · Language Patterns
+          </h3>
+
+          <p class="language-subtitle">
+            Prima si usa il modello; poi, quando utile,
+            si richiama brevemente l’attenzione al pattern.
+          </p>
+
+          <ul class="patterns-list">
+
+          <li>
+            <strong>Buon Natale! / Buone feste!</strong>
+            <span>Presentare gli auguri come espressioni complete.</span>
+          </li>
+
+          <li>
+            <strong>A Natale mangio… / vado… / vedo…</strong>
+            <span>Riutilizzare verbi familiari dentro un nuovo contesto.</span>
+          </li>
+
+          </ul>
+        </section>
+
+      </div>
+      <!-- LANGUAGE SUPPORT END -->
+
+
+
+
       <!-- PLANNED START -->
       <section
         class="planned-box"
@@ -1017,7 +1456,7 @@
         </p>
 
         <div class="planned-items">
-          
+
         <div class="planned-item">
           <span class="planned-icon" aria-hidden="true">
             💻
@@ -1030,7 +1469,7 @@
             </span>
           </div>
         </div>
-            
+
         <div class="planned-item">
           <span class="planned-icon" aria-hidden="true">
             🖨️
@@ -1043,7 +1482,7 @@
             </span>
           </div>
         </div>
-            
+
         <div class="planned-item">
           <span class="planned-icon" aria-hidden="true">
             📚
@@ -1056,7 +1495,7 @@
             </span>
           </div>
         </div>
-            
+
         <div class="planned-item">
           <span class="planned-icon" aria-hidden="true">
             🏛️
@@ -1069,13 +1508,13 @@
             </span>
           </div>
         </div>
-            
+
         </div>
       </section>
       <!-- PLANNED END -->
-    
+
     </article>
-        
+
     <article class="month-card" id="gennaio">
       <header class="month-heading">
         <p class="month-name">Gennaio</p>
@@ -1098,60 +1537,138 @@
         </ul>
       </section>
 
-      
+      <!-- LANGUAGE SUPPORT START -->
+      <div class="language-support">
+
+        <section class="frames-box">
+          <h3>
+            💬 Frasi utili · Sentence Frames
+          </h3>
+
+          <p class="language-subtitle">
+            Modelli per parlare e scrivere con il lessico del mese.
+            <span lang="en">
+              Useful frames for monthly language.
+            </span>
+          </p>
+
+
+          <div class="frame-group">
+            <span class="frame-group-label">
+              Disponibili · Supported now
+            </span>
+
+            <div class="frame-chips">
+              <span class="frame-chip available">Fa freddo.</span>
+<span class="frame-chip available">Indosso…</span>
+<span class="frame-chip available">Il / La ___ è…</span>
+<span class="frame-chip available">Mi piace…</span>
+            </div>
+          </div>
+
+
+          <div class="frame-group">
+            <span class="frame-group-label">
+              Da aggiungere · To come
+            </span>
+
+            <div class="frame-chips">
+              <span class="frame-chip coming">In inverno…</span>
+<span class="frame-chip coming">Mi piace sciare.</span>
+<span class="frame-chip coming">Mi piace pattinare.</span>
+            </div>
+          </div>
+
+        </section>
+
+        <section class="patterns-box">
+          <h3>
+            🔎 Modelli da notare · Language Patterns
+          </h3>
+
+          <p class="language-subtitle">
+            Prima si usa il modello; poi, quando utile,
+            si richiama brevemente l’attenzione al pattern.
+          </p>
+
+          <ul class="patterns-list">
+
+          <li>
+            <strong>il cappello rosso / la sciarpa rossa</strong>
+            <span>Ottimo momento per far notare il cambiamento del colore.</span>
+          </li>
+
+          <li>
+            <strong>indosso…</strong>
+            <span>Usare la forma io come modello funzionale.</span>
+          </li>
+
+          <li>
+            <strong>i guanti / le scarpe</strong>
+            <span>Confrontare singolare e plurale attraverso i vestiti.</span>
+          </li>
+
+          </ul>
+        </section>
+
+      </div>
+      <!-- LANGUAGE SUPPORT END -->
+
+
+
       <div class="resource-grid">
-        
+
         <section class="resource-box">
           <h3>💻 Attività digitali · Digital Activities</h3>
           <div class="resource-links">
-            
+
             <a class="resource-link" href="index.html">
               <span>👕 I vestiti</span>
               <span class="arrow" aria-hidden="true">→</span>
             </a>
-            
+
 
             <a class="resource-link" href="dress-up.html">
               <span>🧥 Vestiamo il personaggio</span>
               <span class="arrow" aria-hidden="true">→</span>
             </a>
-            
+
 
             <a class="resource-link" href="index.html">
               <span>🌦️ Il tempo</span>
               <span class="arrow" aria-hidden="true">→</span>
             </a>
-            
+
 
             <a class="resource-link" href="index.html">
               <span>🎨 I colori</span>
               <span class="arrow" aria-hidden="true">→</span>
             </a>
-            
+
           </div>
         </section>
-        
+
         <section class="resource-box">
           <h3>🖨️ Stampabili · Printables</h3>
           <div class="resource-links">
-            
+
             <a class="resource-link" href="worksheets.html">
               <span>👕 I vestiti</span>
               <span class="arrow" aria-hidden="true">→</span>
             </a>
-            
+
 
             <a class="resource-link" href="games.html">
               <span>🎲 Giochi sui vestiti</span>
               <span class="arrow" aria-hidden="true">→</span>
             </a>
-            
+
           </div>
         </section>
-        
+
       </div>
-    
-    
+
+
       <!-- PLANNED START -->
       <section
         class="planned-box"
@@ -1170,7 +1687,7 @@
         </p>
 
         <div class="planned-items">
-          
+
         <div class="planned-item">
           <span class="planned-icon" aria-hidden="true">
             💻
@@ -1183,7 +1700,7 @@
             </span>
           </div>
         </div>
-            
+
         <div class="planned-item">
           <span class="planned-icon" aria-hidden="true">
             🖨️
@@ -1196,7 +1713,7 @@
             </span>
           </div>
         </div>
-            
+
         <div class="planned-item">
           <span class="planned-icon" aria-hidden="true">
             🏛️
@@ -1209,7 +1726,7 @@
             </span>
           </div>
         </div>
-            
+
         <div class="planned-item">
           <span class="planned-icon" aria-hidden="true">
             🏛️
@@ -1222,13 +1739,13 @@
             </span>
           </div>
         </div>
-            
+
         </div>
       </section>
       <!-- PLANNED END -->
-    
+
     </article>
-        
+
     <article class="month-card" id="febbraio">
       <header class="month-heading">
         <p class="month-name">Febbraio</p>
@@ -1251,66 +1768,143 @@
         </ul>
       </section>
 
-      
+      <!-- LANGUAGE SUPPORT START -->
+      <div class="language-support">
+
+        <section class="frames-box">
+          <h3>
+            💬 Frasi utili · Sentence Frames
+          </h3>
+
+          <p class="language-subtitle">
+            Modelli per parlare e scrivere con il lessico del mese.
+            <span lang="en">
+              Useful frames for monthly language.
+            </span>
+          </p>
+
+
+          <div class="frame-group">
+            <span class="frame-group-label">
+              Disponibili · Supported now
+            </span>
+
+            <div class="frame-chips">
+              <span class="frame-chip available">Mi piace…</span>
+<span class="frame-chip available">Non mi piace…</span>
+<span class="frame-chip available">Indosso…</span>
+<span class="frame-chip available">È rosso / rossa…</span>
+            </div>
+          </div>
+
+
+          <div class="frame-group">
+            <span class="frame-group-label">
+              Da aggiungere · To come
+            </span>
+
+            <div class="frame-chips">
+              <span class="frame-chip coming">Il mio costume è…</span>
+<span class="frame-chip coming">Ti voglio bene.</span>
+            </div>
+          </div>
+
+        </section>
+
+        <section class="patterns-box">
+          <h3>
+            🔎 Modelli da notare · Language Patterns
+          </h3>
+
+          <p class="language-subtitle">
+            Prima si usa il modello; poi, quando utile,
+            si richiama brevemente l’attenzione al pattern.
+          </p>
+
+          <ul class="patterns-list">
+
+          <li>
+            <strong>un costume rosso / una maschera rossa</strong>
+            <span>Riutilizzare l’accordo dentro descrizioni reali.</span>
+          </li>
+
+          <li>
+            <strong>mi piace / mi piacciono</strong>
+            <span>Confrontare le forme quando nasce naturalmente dal contenuto.</span>
+          </li>
+
+          <li>
+            <strong>io indosso / lui o lei indossa</strong>
+            <span>Per i gruppi pronti, confrontare chi compie l’azione.</span>
+          </li>
+
+          </ul>
+        </section>
+
+      </div>
+      <!-- LANGUAGE SUPPORT END -->
+
+
+
       <div class="resource-grid">
-        
+
         <section class="resource-box">
           <h3>💻 Attività digitali · Digital Activities</h3>
           <div class="resource-links">
-            
+
             <a class="resource-link" href="index.html">
               <span>👕 I vestiti</span>
               <span class="arrow" aria-hidden="true">→</span>
             </a>
-            
+
 
             <a class="resource-link" href="dress-up.html">
               <span>🧥 Vestiamo il personaggio</span>
               <span class="arrow" aria-hidden="true">→</span>
             </a>
-            
+
 
             <a class="resource-link" href="index.html">
               <span>🎨 I colori</span>
               <span class="arrow" aria-hidden="true">→</span>
             </a>
-            
+
           </div>
         </section>
-        
+
         <section class="resource-box">
           <h3>🖨️ Stampabili · Printables</h3>
           <div class="resource-links">
-            
+
             <a class="resource-link" href="worksheets.html">
               <span>👕 I vestiti</span>
               <span class="arrow" aria-hidden="true">→</span>
             </a>
-            
+
 
             <a class="resource-link" href="games.html">
               <span>🎲 Giochi stampabili</span>
               <span class="arrow" aria-hidden="true">→</span>
             </a>
-            
+
           </div>
         </section>
-        
+
         <section class="resource-box">
           <h3>🏛️ Cultura · Culture</h3>
           <div class="resource-links">
-            
+
             <a class="resource-link" href="cultural-resources/carnevale.html">
               <span>🎭 Carnevale in Italia</span>
               <span class="arrow" aria-hidden="true">→</span>
             </a>
-            
+
           </div>
         </section>
-        
+
       </div>
-    
-    
+
+
       <!-- PLANNED START -->
       <section
         class="planned-box"
@@ -1329,7 +1923,7 @@
         </p>
 
         <div class="planned-items">
-          
+
         <div class="planned-item">
           <span class="planned-icon" aria-hidden="true">
             💻
@@ -1342,7 +1936,7 @@
             </span>
           </div>
         </div>
-            
+
         <div class="planned-item">
           <span class="planned-icon" aria-hidden="true">
             🖨️
@@ -1355,7 +1949,7 @@
             </span>
           </div>
         </div>
-            
+
         <div class="planned-item">
           <span class="planned-icon" aria-hidden="true">
             🖨️
@@ -1368,7 +1962,7 @@
             </span>
           </div>
         </div>
-            
+
         <div class="planned-item">
           <span class="planned-icon" aria-hidden="true">
             🏛️
@@ -1381,7 +1975,7 @@
             </span>
           </div>
         </div>
-            
+
         <div class="planned-item">
           <span class="planned-icon" aria-hidden="true">
             🏛️
@@ -1394,13 +1988,13 @@
             </span>
           </div>
         </div>
-            
+
         </div>
       </section>
       <!-- PLANNED END -->
-    
+
     </article>
-        
+
     <article class="month-card" id="marzo">
       <header class="month-heading">
         <p class="month-name">Marzo</p>
@@ -1423,66 +2017,148 @@
         </ul>
       </section>
 
-      
+      <!-- LANGUAGE SUPPORT START -->
+      <div class="language-support">
+
+        <section class="frames-box">
+          <h3>
+            💬 Frasi utili · Sentence Frames
+          </h3>
+
+          <p class="language-subtitle">
+            Modelli per parlare e scrivere con il lessico del mese.
+            <span lang="en">
+              Useful frames for monthly language.
+            </span>
+          </p>
+
+
+          <div class="frame-group">
+            <span class="frame-group-label">
+              Disponibili · Supported now
+            </span>
+
+            <div class="frame-chips">
+              <span class="frame-chip available">È…</span>
+<span class="frame-chip available">Ha…</span>
+<span class="frame-chip available">Sa…</span>
+<span class="frame-chip available">È grande / piccolo…</span>
+            </div>
+          </div>
+
+
+          <div class="frame-group">
+            <span class="frame-group-label">
+              Da aggiungere · To come
+            </span>
+
+            <div class="frame-chips">
+              <span class="frame-chip coming">In primavera…</span>
+<span class="frame-chip coming">Mio papà…</span>
+            </div>
+          </div>
+
+        </section>
+
+        <section class="patterns-box">
+          <h3>
+            🔎 Modelli da notare · Language Patterns
+          </h3>
+
+          <p class="language-subtitle">
+            Prima si usa il modello; poi, quando utile,
+            si richiama brevemente l’attenzione al pattern.
+          </p>
+
+          <ul class="patterns-list">
+
+          <li>
+            <strong>è / ha / sa</strong>
+            <span>Confrontare le tre strutture mentre si descrivono gli animali.</span>
+          </li>
+
+          <li>
+            <strong>piccolo / piccola</strong>
+            <span>Far notare la forma dell’aggettivo dentro la descrizione.</span>
+          </li>
+
+          <li>
+            <strong>è → sono · ha → hanno · sa → sanno</strong>
+            <span>Solo con gruppi pronti, espandere dal singolare al plurale.</span>
+          </li>
+
+          <li>
+            <strong>mio papà / mia mamma</strong>
+            <span>Far notare mio e mia attraverso il lessico della famiglia.</span>
+          </li>
+
+          </ul>
+        </section>
+
+      </div>
+      <!-- LANGUAGE SUPPORT END -->
+
+
+
       <div class="resource-grid">
-        
+
         <section class="resource-box">
           <h3>💻 Attività digitali · Digital Activities</h3>
           <div class="resource-links">
-            
+
             <a class="resource-link" href="index.html">
               <span>🌷 Le stagioni</span>
               <span class="arrow" aria-hidden="true">→</span>
             </a>
-            
+
 
             <a class="resource-link" href="index.html">
               <span>🐶 Gli animali</span>
               <span class="arrow" aria-hidden="true">→</span>
             </a>
-            
+
 
             <a class="resource-link" href="index.html">
               <span>🔎 Gli aggettivi</span>
               <span class="arrow" aria-hidden="true">→</span>
             </a>
-            
+
 
             <a class="resource-link" href="index.html">
               <span>👨‍👩‍👧 La famiglia</span>
               <span class="arrow" aria-hidden="true">→</span>
             </a>
-            
+
           </div>
         </section>
-        
+
         <section class="resource-box">
           <h3>🖨️ Stampabili · Printables</h3>
           <div class="resource-links">
-            
+
             <a class="resource-link" href="worksheets.html">
               <span>🐶 Gli animali</span>
               <span class="arrow" aria-hidden="true">→</span>
             </a>
-            
+
           </div>
         </section>
-        
+
         <section class="resource-box">
           <h3>🏛️ Cultura · Culture</h3>
           <div class="resource-links">
-            
+
             <a class="resource-link" href="cultural-resources/poetry/primavera/la-prima-margherita.html">
               <span>🌼 La prima margherita</span>
               <span class="arrow" aria-hidden="true">→</span>
             </a>
-            
+
           </div>
         </section>
-        
+
       </div>
-    
-    
+
+
       <!-- PLANNED START -->
       <section
         class="planned-box"
@@ -1501,7 +2177,7 @@
         </p>
 
         <div class="planned-items">
-          
+
         <div class="planned-item">
           <span class="planned-icon" aria-hidden="true">
             💻
@@ -1514,7 +2190,7 @@
             </span>
           </div>
         </div>
-            
+
         <div class="planned-item">
           <span class="planned-icon" aria-hidden="true">
             💻
@@ -1527,7 +2203,7 @@
             </span>
           </div>
         </div>
-            
+
         <div class="planned-item">
           <span class="planned-icon" aria-hidden="true">
             🖨️
@@ -1540,7 +2216,7 @@
             </span>
           </div>
         </div>
-            
+
         <div class="planned-item">
           <span class="planned-icon" aria-hidden="true">
             🖨️
@@ -1553,7 +2229,7 @@
             </span>
           </div>
         </div>
-            
+
         <div class="planned-item">
           <span class="planned-icon" aria-hidden="true">
             🏛️
@@ -1566,13 +2242,13 @@
             </span>
           </div>
         </div>
-            
+
         </div>
       </section>
       <!-- PLANNED END -->
-    
+
     </article>
-        
+
     <article class="month-card" id="aprile">
       <header class="month-heading">
         <p class="month-name">Aprile</p>
@@ -1595,54 +2271,130 @@
         </ul>
       </section>
 
-      
+      <!-- LANGUAGE SUPPORT START -->
+      <div class="language-support">
+
+        <section class="frames-box">
+          <h3>
+            💬 Frasi utili · Sentence Frames
+          </h3>
+
+          <p class="language-subtitle">
+            Modelli per parlare e scrivere con il lessico del mese.
+            <span lang="en">
+              Useful frames for monthly language.
+            </span>
+          </p>
+
+
+          <div class="frame-group">
+            <span class="frame-group-label">
+              Disponibili · Supported now
+            </span>
+
+            <div class="frame-chips">
+              <span class="frame-chip available">Mi piace…</span>
+            </div>
+          </div>
+
+
+          <div class="frame-group">
+            <span class="frame-group-label">
+              Da aggiungere · To come
+            </span>
+
+            <div class="frame-chips">
+              <span class="frame-chip coming">A Pasqua mangio…</span>
+<span class="frame-chip coming">A Pasqua vado…</span>
+<span class="frame-chip coming">Vedo…</span>
+<span class="frame-chip coming">La mia mamma…</span>
+            </div>
+          </div>
+
+        </section>
+
+        <section class="patterns-box">
+          <h3>
+            🔎 Modelli da notare · Language Patterns
+          </h3>
+
+          <p class="language-subtitle">
+            Prima si usa il modello; poi, quando utile,
+            si richiama brevemente l’attenzione al pattern.
+          </p>
+
+          <ul class="patterns-list">
+
+          <li>
+            <strong>A Pasqua mangio… / vado…</strong>
+            <span>Riutilizzare forme io già familiari per parlare di abitudini.</span>
+          </li>
+
+          <li>
+            <strong>mia mamma / mio papà</strong>
+            <span>Riprendere il modello possessivo attraverso la famiglia.</span>
+          </li>
+
+          <li>
+            <strong>mangio / vado / vedo</strong>
+            <span>Con gruppi pronti, confrontare più verbi dentro la stessa cornice.</span>
+          </li>
+
+          </ul>
+        </section>
+
+      </div>
+      <!-- LANGUAGE SUPPORT END -->
+
+
+
       <div class="resource-grid">
-        
+
         <section class="resource-box">
           <h3>💻 Attività digitali · Digital Activities</h3>
           <div class="resource-links">
-            
+
             <a class="resource-link" href="index.html">
               <span>🌷 Le stagioni</span>
               <span class="arrow" aria-hidden="true">→</span>
             </a>
-            
+
 
             <a class="resource-link" href="index.html">
               <span>🍎 Il cibo e le bevande</span>
               <span class="arrow" aria-hidden="true">→</span>
             </a>
-            
+
 
             <a class="resource-link" href="index.html">
               <span>👨‍👩‍👧 La famiglia</span>
               <span class="arrow" aria-hidden="true">→</span>
             </a>
-            
+
           </div>
         </section>
-        
+
         <section class="resource-box">
           <h3>🏛️ Cultura · Culture</h3>
           <div class="resource-links">
-            
+
             <a class="resource-link" href="cultural-resources/poetry/primavera/aprile.html">
               <span>🌷 Aprile</span>
               <span class="arrow" aria-hidden="true">→</span>
             </a>
-            
+
 
             <a class="resource-link" href="cultural-resources/poetry/primavera/la-prima-margherita.html">
               <span>🌼 La prima margherita</span>
               <span class="arrow" aria-hidden="true">→</span>
             </a>
-            
+
           </div>
         </section>
-        
+
       </div>
-    
-    
+
+
       <!-- PLANNED START -->
       <section
         class="planned-box"
@@ -1661,7 +2413,7 @@
         </p>
 
         <div class="planned-items">
-          
+
         <div class="planned-item">
           <span class="planned-icon" aria-hidden="true">
             💻
@@ -1674,7 +2426,7 @@
             </span>
           </div>
         </div>
-            
+
         <div class="planned-item">
           <span class="planned-icon" aria-hidden="true">
             🖨️
@@ -1687,7 +2439,7 @@
             </span>
           </div>
         </div>
-            
+
         <div class="planned-item">
           <span class="planned-icon" aria-hidden="true">
             🖨️
@@ -1700,7 +2452,7 @@
             </span>
           </div>
         </div>
-            
+
         <div class="planned-item">
           <span class="planned-icon" aria-hidden="true">
             🏛️
@@ -1713,13 +2465,13 @@
             </span>
           </div>
         </div>
-            
+
         </div>
       </section>
       <!-- PLANNED END -->
-    
+
     </article>
-        
+
 
     <p class="note">
       <strong>Nota:</strong>
