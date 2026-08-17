@@ -173,6 +173,16 @@ if (
           : []
     },
     {
+      id: "hobbies",
+      icon: "🎯",
+      italian: "Hobby e tempo libero",
+      english: "Hobbies & Free Time",
+      vocabulary:
+        typeof hobbies !== "undefined"
+          ? hobbies
+          : []
+    },
+    {
       id: "supplies",
       icon: "📚",
       italian: "Materiale scolastico",

@@ -1,5 +1,88 @@
 "use strict";
 
+const hobbies = [
+  {
+    italian: "aggiustare o costruire cose",
+    english: "fix or build things",
+    image: "images/hobby-e-tempo-libero/01-aggiustare-o-costruire-cose.png"
+  },
+  {
+    italian: "andare al parco",
+    english: "go to the park",
+    image: "images/hobby-e-tempo-libero/02-andare-al-parco.png"
+  },
+  {
+    italian: "ascoltare la musica",
+    english: "listen to music",
+    image: "images/hobby-e-tempo-libero/03-ascoltare-la-musica.png"
+  },
+  {
+    italian: "ballare",
+    english: "dance",
+    image: "images/hobby-e-tempo-libero/04-ballare.png"
+  },
+  {
+    italian: "cantare",
+    english: "sing",
+    image: "images/hobby-e-tempo-libero/05-cantare.png"
+  },
+  {
+    italian: "fare arte",
+    english: "make art",
+    image: "images/hobby-e-tempo-libero/06-fare-arte.png"
+  },
+  {
+    italian: "fare sport",
+    english: "play sports",
+    image: "images/hobby-e-tempo-libero/07-fare-sport.png"
+  },
+  {
+    italian: "leggere",
+    english: "read",
+    image: "images/hobby-e-tempo-libero/08-leggere.png"
+  },
+  {
+    italian: "fare spese",
+    english: "go shopping",
+    image: "images/hobby-e-tempo-libero/09-fare-spese.png"
+  },
+  {
+    italian: "giocare ai videogiochi",
+    english: "play video games",
+    image: "images/hobby-e-tempo-libero/10-giocare-ai-videogiochi.png"
+  },
+  {
+    italian: "giocare ai giochi da tavolo",
+    english: "play board games",
+    image: "images/hobby-e-tempo-libero/11-giocare-ai-giochi-da-tavolo.png"
+  },
+  {
+    italian: "passare del tempo con la famiglia",
+    english: "spend time with family",
+    image: "images/hobby-e-tempo-libero/12-passare-del-tempo-con-la-famiglia.png"
+  },
+  {
+    italian: "scrivere",
+    english: "write",
+    image: "images/hobby-e-tempo-libero/13-scrivere.png"
+  },
+  {
+    italian: "suonare uno strumento",
+    english: "play an instrument",
+    image: "images/hobby-e-tempo-libero/14-suonare-uno-strumento.png"
+  },
+  {
+    italian: "usare la tecnologia",
+    english: "use technology",
+    image: "images/hobby-e-tempo-libero/15-usare-la-tecnologia.png"
+  },
+  {
+    italian: "uscire con i miei amici",
+    english: "hang out with my friends",
+    image: "images/hobby-e-tempo-libero/16-uscire-con-i-miei-amici.png"
+  }
+];
+
 const supplies = [
   {
     italian: "il foglio",

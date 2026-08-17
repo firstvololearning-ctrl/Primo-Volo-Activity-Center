@@ -1,6 +1,23 @@
 "use strict";
 
 const carrierPhrases = {
+  hobbies: [
+    {
+      id: "piace",
+      italian: "Mi piace...",
+      english: "I like...",
+      image:
+        "images/carrier-phrases/mi-piace-no-text.png"
+    },
+    {
+      id: "nonPiace",
+      italian: "Non mi piace...",
+      english: "I don't like...",
+      image:
+        "images/carrier-phrases/non-mi-piace-no-text.png"
+    }
+  ],
+
   months: [
   {
     id: "e",

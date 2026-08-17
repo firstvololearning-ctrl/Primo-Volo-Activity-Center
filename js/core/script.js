@@ -10,19 +10,19 @@ const learnActivity =
 
   document.querySelector("#learnActivity");
 
- 
+
 
 const vocabularyGrid =
 
   document.querySelector("#vocabularyGrid");
 
- 
+
 
 const chooseActivity =
 
   document.querySelector("#chooseActivity");
 
- 
+
 
 const writeActivity =
 
@@ -32,24 +32,24 @@ const matchActivity =
 
   document.querySelector("#matchActivity");
 
- 
+
 
 const listenActivity =
 
   document.querySelector("#listenActivity");
 
- 
+
 
 const completeActivity =
 
   document.querySelector("#completeActivity");
 
- 
+
 
 const memoryActivity =
 
   document.querySelector("#memoryActivity");
-  
+
 const englishToggle =
 
   document.querySelector("#englishToggle");
@@ -58,7 +58,7 @@ const englishToggleControl =
 
   document.querySelector("#englishToggleControl");
 
- 
+
 
 const learnInstructions =
 
@@ -72,19 +72,19 @@ const topicSelect =
 
   document.querySelector("#topicSelect");
 
- 
+
 
 const topicItalian =
 
   document.querySelector("#topicItalian");
 
- 
+
 
 const topicEnglish =
 
   document.querySelector("#topicEnglish");
 
- 
+
 
 const topicAvailability =
 
@@ -111,7 +111,7 @@ const changeVoloAgeButton =
   document.querySelector(
     "#changeVoloAgeButton"
   );
- 
+
 
 const aboutItalianButton =
   document.querySelector(
@@ -123,37 +123,37 @@ const aboutEnglishButton =
     "#aboutEnglishButton"
   );
 
- 
+
 
 const aboutModal =
 
   document.querySelector("#aboutModal");
 
- 
+
 
 const aboutClose =
 
   document.querySelector("#aboutClose");
 
- 
+
 
 const referenceButton =
 
   document.querySelector("#referenceButton");
 
- 
+
 
 const referenceModal =
 
   document.querySelector("#referenceModal");
 
- 
+
 
 const referenceClose =
 
   document.querySelector("#referenceClose");
 
- 
+
 
 /* ========================================
 
@@ -161,7 +161,7 @@ const referenceClose =
 
    ======================================== */
 
- 
+
 
 const PROGRESS_STORAGE_KEY =
   "primoVoloActivityCenterProgress";
@@ -189,7 +189,7 @@ function getProgressStorageKey() {
 window.getPrimoVoloProgressStorageKey =
   getProgressStorageKey;
 
- 
+
 
 const emptyProgressData = {
 
@@ -205,7 +205,7 @@ const emptyProgressData = {
 
 };
 
- 
+
 
 function cloneEmptyProgress() {
 
@@ -225,7 +225,7 @@ function cloneEmptyProgress() {
 
 }
 
- 
+
 
 function loadProgressData() {
 
@@ -235,7 +235,7 @@ function loadProgressData() {
       getProgressStorageKey()
     );
 
- 
+
 
     if (!saved) {
 
@@ -243,11 +243,11 @@ function loadProgressData() {
 
     }
 
- 
+
 
     const parsed = JSON.parse(saved);
 
- 
+
 
     return {
 
@@ -277,7 +277,7 @@ function loadProgressData() {
 
     );
 
- 
+
 
     return cloneEmptyProgress();
 
@@ -285,11 +285,11 @@ function loadProgressData() {
 
 }
 
- 
+
 
 let progressData = loadProgressData();
 
- 
+
 
 function saveProgressData() {
 
@@ -314,7 +314,7 @@ function saveProgressData() {
 
 }
 
- 
+
 
 
 window.addEventListener(
@@ -344,13 +344,13 @@ function calculateAccuracy(correct, attempts) {
 
   }
 
- 
+
 
   return Math.round((correct / attempts) * 100);
 
 }
 
- 
+
 
 function ensureProgressGroup(collection, key) {
 
@@ -366,19 +366,19 @@ function ensureProgressGroup(collection, key) {
 
   }
 
- 
+
 
   return collection[key];
 
 }
 
- 
+
 
 function recordAttempt(activity, isCorrect) {
 
   progressData.attempts += 1;
 
- 
+
 
   if (isCorrect) {
 
@@ -386,7 +386,7 @@ function recordAttempt(activity, isCorrect) {
 
   }
 
- 
+
 
   const activityData = ensureProgressGroup(
 
@@ -396,11 +396,11 @@ function recordAttempt(activity, isCorrect) {
 
   );
 
- 
+
 
   activityData.attempts += 1;
 
- 
+
 
   if (isCorrect) {
 
@@ -408,7 +408,7 @@ function recordAttempt(activity, isCorrect) {
 
   }
 
- 
+
 
   const topicData = ensureProgressGroup(
 
@@ -418,11 +418,11 @@ function recordAttempt(activity, isCorrect) {
 
   );
 
- 
+
 
   topicData.attempts += 1;
 
- 
+
 
   if (isCorrect) {
 
@@ -430,7 +430,7 @@ function recordAttempt(activity, isCorrect) {
 
   }
 
- 
+
 
   progressData.sessions.push({
 
@@ -444,7 +444,7 @@ function recordAttempt(activity, isCorrect) {
 
   });
 
- 
+
 
   if (progressData.sessions.length > 500) {
 
@@ -454,7 +454,7 @@ function recordAttempt(activity, isCorrect) {
 
   }
 
- 
+
 
   saveProgressData();
 
@@ -462,7 +462,7 @@ function recordAttempt(activity, isCorrect) {
 
 }
 
- 
+
 
 const activityLabels = {
 
@@ -480,7 +480,7 @@ const activityLabels = {
 
 };
 
- 
+
 
 function createProgressInterface() {
 
@@ -490,7 +490,7 @@ function createProgressInterface() {
 
   );
 
- 
+
 
   if (!header || document.querySelector(
 
@@ -502,13 +502,13 @@ function createProgressInterface() {
 
   }
 
- 
+
 
   const progressButton =
 
     document.createElement("button");
 
- 
+
 
   progressButton.type = "button";
 
@@ -548,7 +548,7 @@ function createProgressInterface() {
 
   `;
 
- 
+
 
   const referenceButtonElement =
 
@@ -558,7 +558,7 @@ function createProgressInterface() {
 
     );
 
- 
+
 
   if (referenceButtonElement) {
 
@@ -576,11 +576,11 @@ function createProgressInterface() {
 
   }
 
- 
+
 
   const modal = document.createElement("div");
 
- 
+
 
   modal.id = "progressModal";
 
@@ -600,7 +600,7 @@ function createProgressInterface() {
 
   );
 
- 
+
 
   modal.innerHTML = `
 
@@ -618,7 +618,7 @@ function createProgressInterface() {
 
       >×</button>
 
- 
+
 
       <div id="progressPrintable">
 
@@ -628,7 +628,7 @@ function createProgressInterface() {
 
         </h2>
 
- 
+
 
         <p class="progress-subtitle">
 
@@ -638,7 +638,7 @@ function createProgressInterface() {
 
         </p>
 
- 
+
 
         <div
 
@@ -648,7 +648,7 @@ function createProgressInterface() {
 
         ></div>
 
- 
+
 
         <div
 
@@ -658,7 +658,7 @@ function createProgressInterface() {
 
         ></div>
 
- 
+
 <div
   id="progressTopicTable"
   class="progress-table-wrap"
@@ -679,7 +679,7 @@ function createProgressInterface() {
 
       </div>
 
- 
+
 
       <div class="progress-actions">
 
@@ -693,7 +693,7 @@ function createProgressInterface() {
 
         >🖨️ Print Report</button>
 
- 
+
 
         <button
 
@@ -711,15 +711,15 @@ function createProgressInterface() {
 
   `;
 
- 
+
 
   document.body.appendChild(modal);
 
- 
+
 
   const style = document.createElement("style");
 
- 
+
 
   style.textContent = `
 
@@ -749,7 +749,7 @@ function createProgressInterface() {
 
     }
 
- 
+
 
     .progress-modal {
 
@@ -769,7 +769,7 @@ function createProgressInterface() {
 
     }
 
- 
+
 
     .progress-modal[hidden] {
 
@@ -777,7 +777,7 @@ function createProgressInterface() {
 
     }
 
- 
+
 
     .progress-card {
 
@@ -799,7 +799,7 @@ function createProgressInterface() {
 
     }
 
- 
+
 
     .progress-card h2 {
 
@@ -811,7 +811,7 @@ function createProgressInterface() {
 
     }
 
- 
+
 
     .progress-subtitle,
 
@@ -823,7 +823,7 @@ function createProgressInterface() {
 
     }
 
- 
+
 
     .progress-close {
 
@@ -853,7 +853,7 @@ function createProgressInterface() {
 
     }
 
- 
+
 
     .progress-summary {
 
@@ -869,7 +869,7 @@ function createProgressInterface() {
 
     }
 
- 
+
 
     .progress-stat {
 
@@ -885,7 +885,7 @@ function createProgressInterface() {
 
     }
 
- 
+
 
     .progress-stat strong {
 
@@ -897,7 +897,7 @@ function createProgressInterface() {
 
     }
 
- 
+
 
     .progress-stat span {
 
@@ -907,7 +907,7 @@ function createProgressInterface() {
 
     }
 
- 
+
 
     .progress-table-wrap {
 
@@ -917,7 +917,7 @@ function createProgressInterface() {
 
     }
 
- 
+
 
     .progress-table-wrap h3 {
 
@@ -927,7 +927,7 @@ function createProgressInterface() {
 
     }
 
- 
+
 
     .progress-table {
 
@@ -937,7 +937,7 @@ function createProgressInterface() {
 
     }
 
- 
+
 
     .progress-table th,
 
@@ -951,7 +951,7 @@ function createProgressInterface() {
 
     }
 
- 
+
 
     .progress-table th {
 
@@ -961,7 +961,7 @@ function createProgressInterface() {
 
     }
 
- 
+
 
     .progress-actions {
 
@@ -977,7 +977,7 @@ function createProgressInterface() {
 
     }
 
- 
+
 
     .progress-action-button {
 
@@ -997,7 +997,7 @@ function createProgressInterface() {
 
     }
 
- 
+
 
     .progress-action-button.danger {
 
@@ -1005,7 +1005,7 @@ function createProgressInterface() {
 
     }
 
- 
+
 
     @media (max-width: 620px) {
 
@@ -1015,7 +1015,7 @@ function createProgressInterface() {
 
       }
 
- 
+
 
       .progress-card {
 
@@ -1025,7 +1025,7 @@ function createProgressInterface() {
 
     }
 
- 
+
 
     @media print {
 
@@ -1035,7 +1035,7 @@ function createProgressInterface() {
 
       }
 
- 
+
 
       #progressPrintable,
 
@@ -1045,7 +1045,7 @@ function createProgressInterface() {
 
       }
 
- 
+
 
       #progressPrintable {
 
@@ -1061,7 +1061,7 @@ function createProgressInterface() {
 
       }
 
- 
+
 
       .progress-note {
 
@@ -1073,11 +1073,11 @@ function createProgressInterface() {
 
   `;
 
- 
+
 
   document.head.appendChild(style);
 
- 
+
 
   const closeButton = modal.querySelector(
 
@@ -1097,7 +1097,7 @@ function createProgressInterface() {
 
   );
 
- 
+
 
   progressButton.addEventListener(
 
@@ -1119,7 +1119,7 @@ function createProgressInterface() {
 
   );
 
- 
+
 
   function closeProgressModal() {
 
@@ -1131,7 +1131,7 @@ function createProgressInterface() {
 
   }
 
- 
+
 
   closeButton.addEventListener(
 
@@ -1141,7 +1141,7 @@ function createProgressInterface() {
 
   );
 
- 
+
 
   modal.addEventListener(
 
@@ -1159,7 +1159,7 @@ function createProgressInterface() {
 
   );
 
- 
+
 
   printButton.addEventListener(
 
@@ -1175,7 +1175,7 @@ function createProgressInterface() {
 
   );
 
- 
+
 
   clearButton.addEventListener(
 
@@ -1195,7 +1195,7 @@ function createProgressInterface() {
 
       );
 
- 
+
 
       if (!confirmed) {
 
@@ -1203,7 +1203,7 @@ function createProgressInterface() {
 
       }
 
- 
+
 
       progressData = cloneEmptyProgress();
 
@@ -1217,7 +1217,7 @@ function createProgressInterface() {
 
   );
 
- 
+
 
   document.addEventListener(
 
@@ -1241,13 +1241,13 @@ function createProgressInterface() {
 
   );
 
- 
+
 
   updateProgressBadge();
 
 }
 
- 
+
 
 function updateProgressBadge() {
 
@@ -1257,7 +1257,7 @@ function updateProgressBadge() {
 
   );
 
- 
+
 
   if (badge) {
 
@@ -1267,13 +1267,13 @@ function updateProgressBadge() {
 
 }
 
- 
+
 
 function buildProgressRows(collection, labelLookup) {
 
   const entries = Object.entries(collection);
 
- 
+
 
   if (!entries.length) {
 
@@ -1293,7 +1293,7 @@ function buildProgressRows(collection, labelLookup) {
 
   }
 
- 
+
 
   return entries
 
@@ -1311,7 +1311,7 @@ function buildProgressRows(collection, labelLookup) {
 
       );
 
- 
+
 
       return `
 
@@ -1649,6 +1649,15 @@ let currentQuestion = null;
 
 const topics = {
 
+  hobbies: {
+    icon: "🎯",
+    italian: "Hobby e tempo libero",
+    english: "Hobbies & Free Time",
+    vocabulary: hobbies,
+    available: true
+  },
+
+
   supplies: {
 
     icon: "📚",
@@ -1663,7 +1672,7 @@ const topics = {
 
   },
 
- 
+
 
   food: {
 
@@ -1752,7 +1761,7 @@ family: {
   available: true
 },
 
- 
+
 
 colors: {
 
@@ -1774,7 +1783,7 @@ feelings: {
   vocabulary: feelings,
   available: true
 },
- 
+
 
 numbers: {
 
@@ -1790,7 +1799,7 @@ numbers: {
 
 },
 
- 
+
 
 animals: {
 
@@ -1842,7 +1851,7 @@ time: {
 
 },
 
- 
+
 
 weather: {
   icon: "🌦️",
@@ -2195,13 +2204,13 @@ function addMonthEnglishSupportStyles() {
 
    ======================================== */
 
- 
+
 
 function getItalianVoice() {
 
   const voices = window.speechSynthesis.getVoices();
 
- 
+
 
   return (
 
@@ -2225,7 +2234,7 @@ function getItalianVoice() {
 
 }
 
- 
+
 
 function speakItalian(text) {
 
@@ -2237,23 +2246,23 @@ function speakItalian(text) {
 
     );
 
- 
+
 
     return;
 
   }
 
- 
+
 
   window.speechSynthesis.cancel();
 
- 
+
 
   const utterance =
 
     new SpeechSynthesisUtterance(text);
 
- 
+
 
   utterance.lang = "it-IT";
 
@@ -2261,11 +2270,11 @@ function speakItalian(text) {
 
   utterance.pitch = 1;
 
- 
+
 
   const italianVoice = getItalianVoice();
 
- 
+
 
   if (italianVoice) {
 
@@ -2273,13 +2282,13 @@ function speakItalian(text) {
 
   }
 
- 
+
 
   window.speechSynthesis.speak(utterance);
 
 }
 
- 
+
 
 /* ========================================
 
@@ -2287,7 +2296,7 @@ function speakItalian(text) {
 
    ======================================== */
 
- 
+
 
 function shuffle(items) {
 
@@ -2299,7 +2308,7 @@ function shuffle(items) {
 
 }
 
- 
+
 
 function setActiveButton(mode) {
 
@@ -2317,7 +2326,7 @@ function setActiveButton(mode) {
 
 }
 
- 
+
 
 /* ========================================
 
@@ -2325,7 +2334,7 @@ function setActiveButton(mode) {
 
    ======================================== */
 
- 
+
 
 function createVocabularyCard(item) {
   const isFeelings =
@@ -2428,7 +2437,7 @@ function renderVocabulary() {
 
   vocabularyGrid.innerHTML = "";
 
- 
+
 
   currentVocabulary.forEach(item => {
 
@@ -2442,13 +2451,13 @@ function renderVocabulary() {
 
 }
 
- 
+
 
 function showLearnMode() {
 
   setActiveButton("learn");
 
- 
+
 
   learnActivity.hidden = false;
 
@@ -2464,13 +2473,13 @@ function showLearnMode() {
 
   memoryActivity.hidden = true;
 
- 
+
 
   englishToggleControl.hidden = false;
 
   learnInstructions.hidden = false;
 
- 
+
 
   renderVocabulary();
 
@@ -2482,7 +2491,7 @@ function showLearnMode() {
 
    ======================================== */
 
- 
+
 
 let draggedWord = null;
 
@@ -2490,7 +2499,7 @@ let selectedMatchWord = null;
 
 let matchedCount = 0;
 
- 
+
 
 function createMatchRound() {
 
@@ -2498,13 +2507,13 @@ function createMatchRound() {
 
     shuffle(currentVocabulary).slice(0, 6);
 
- 
+
 
   const shuffledWords =
 
     shuffle(roundItems);
 
- 
+
 
   draggedWord = null;
 
@@ -2512,13 +2521,13 @@ function createMatchRound() {
 
   matchedCount = 0;
 
- 
+
 
   matchActivity.innerHTML = `
 
     <div class="match-card">
 
- 
+
 
       <div class="match-heading">
 
@@ -2530,7 +2539,7 @@ function createMatchRound() {
 
         </h4>
 
- 
+
 
         <p>
 
@@ -2542,7 +2551,7 @@ function createMatchRound() {
 
       </div>
 
- 
+
 
       <div
 
@@ -2576,7 +2585,7 @@ function createMatchRound() {
 
             ${createMonthEnglishLabel(item)}
 
- 
+
 
             <div
 
@@ -2610,11 +2619,11 @@ function createMatchRound() {
 
       </div>
 
- 
+
 
       <div class="match-word-bank">
 
- 
+
 
         <p class="word-bank-label">
 
@@ -2624,7 +2633,7 @@ function createMatchRound() {
 
         </p>
 
- 
+
 
         <div
 
@@ -2656,11 +2665,11 @@ function createMatchRound() {
 
         </div>
 
- 
+
 
       </div>
 
- 
+
 
       <p
 
@@ -2676,7 +2685,7 @@ function createMatchRound() {
 
         sull'immagine corretta.
 
- 
+
 
         <span>
 
@@ -2688,7 +2697,7 @@ function createMatchRound() {
 
       </p>
 
- 
+
 
       <button
 
@@ -2706,13 +2715,13 @@ function createMatchRound() {
 
       </button>
 
- 
+
 
     </div>
 
   `;
 
- 
+
 
   const wordButtons =
 
@@ -2722,7 +2731,7 @@ function createMatchRound() {
 
     );
 
- 
+
 
   const dropZones =
 
@@ -2732,7 +2741,7 @@ function createMatchRound() {
 
     );
 
- 
+
 
   const feedback =
 
@@ -2742,7 +2751,7 @@ function createMatchRound() {
 
     );
 
- 
+
 
   const newRoundButton =
 
@@ -2752,7 +2761,7 @@ function createMatchRound() {
 
     );
 
- 
+
 
   function clearSelectedWord() {
 
@@ -2762,13 +2771,13 @@ function createMatchRound() {
 
     });
 
- 
+
 
     selectedMatchWord = null;
 
   }
 
- 
+
 
   function showIncorrectFeedback(
 
@@ -2782,7 +2791,7 @@ function createMatchRound() {
 
     word.classList.add("incorrect");
 
- 
+
 
     feedback.innerHTML = `
 
@@ -2790,7 +2799,7 @@ function createMatchRound() {
 
     `;
 
- 
+
 
     window.setTimeout(() => {
 
@@ -2802,7 +2811,7 @@ function createMatchRound() {
 
   }
 
- 
+
 
   function completeMatch(dropZone, word) {
 
@@ -2810,7 +2819,7 @@ function createMatchRound() {
 
       word.dataset.answer;
 
- 
+
 
     dropZone.classList.remove(
 
@@ -2820,11 +2829,11 @@ function createMatchRound() {
 
     );
 
- 
+
 
     dropZone.classList.add("matched");
 
- 
+
 
     dropZone.innerHTML = `
 
@@ -2836,7 +2845,7 @@ function createMatchRound() {
 
     `;
 
- 
+
 
     dropZone.removeAttribute("tabindex");
 
@@ -2848,7 +2857,7 @@ function createMatchRound() {
 
     );
 
- 
+
 
     word.classList.add("matched");
 
@@ -2856,15 +2865,15 @@ function createMatchRound() {
 
     word.draggable = false;
 
- 
+
 
     speakItalian(answer);
 
- 
+
 
     matchedCount += 1;
 
- 
+
 
     feedback.innerHTML = `
 
@@ -2872,11 +2881,11 @@ function createMatchRound() {
 
     `;
 
- 
+
 
     clearSelectedWord();
 
- 
+
 
     if (matchedCount === roundItems.length) {
 
@@ -2884,7 +2893,7 @@ function createMatchRound() {
 
         🎉 Ottimo lavoro!
 
- 
+
 
         <span>
 
@@ -2894,7 +2903,7 @@ function createMatchRound() {
 
       `;
 
- 
+
 
       newRoundButton.hidden = false;
 
@@ -2902,7 +2911,7 @@ function createMatchRound() {
 
   }
 
- 
+
 
   function attemptMatch(dropZone, word) {
 
@@ -2920,7 +2929,7 @@ function createMatchRound() {
 
     }
 
- 
+
 
     const isCorrect =
 
@@ -2928,7 +2937,7 @@ function createMatchRound() {
 
       word.dataset.answer;
 
- 
+
 
     recordAttempt(
 
@@ -2938,7 +2947,7 @@ function createMatchRound() {
 
     );
 
- 
+
 
     if (isCorrect) {
 
@@ -2958,7 +2967,7 @@ function createMatchRound() {
 
   }
 
- 
+
 
   wordButtons.forEach(word => {
 
@@ -2976,21 +2985,21 @@ function createMatchRound() {
 
         }
 
- 
+
 
         draggedWord = word;
 
- 
+
 
         word.classList.add("dragging");
 
- 
+
 
         event.dataTransfer.effectAllowed =
 
           "move";
 
- 
+
 
         event.dataTransfer.setData(
 
@@ -3004,7 +3013,7 @@ function createMatchRound() {
 
     );
 
- 
+
 
     word.addEventListener(
 
@@ -3014,7 +3023,7 @@ function createMatchRound() {
 
         word.classList.remove("dragging");
 
- 
+
 
         dropZones.forEach(dropZone => {
 
@@ -3026,7 +3035,7 @@ function createMatchRound() {
 
         });
 
- 
+
 
         draggedWord = null;
 
@@ -3034,7 +3043,7 @@ function createMatchRound() {
 
     );
 
- 
+
 
     /*
 
@@ -3052,17 +3061,17 @@ function createMatchRound() {
 
       }
 
- 
+
 
       const wasSelected =
 
         word === selectedMatchWord;
 
- 
+
 
       clearSelectedWord();
 
- 
+
 
       if (!wasSelected) {
 
@@ -3070,13 +3079,13 @@ function createMatchRound() {
 
         word.classList.add("selected");
 
- 
+
 
         feedback.innerHTML = `
 
           Ora seleziona l'immagine.
 
- 
+
 
           <span>
 
@@ -3092,7 +3101,7 @@ function createMatchRound() {
 
   });
 
- 
+
 
   dropZones.forEach(dropZone => {
 
@@ -3116,17 +3125,17 @@ function createMatchRound() {
 
         }
 
- 
+
 
         event.preventDefault();
 
- 
+
 
         event.dataTransfer.dropEffect =
 
           "move";
 
- 
+
 
         dropZone.classList.add(
 
@@ -3138,7 +3147,7 @@ function createMatchRound() {
 
     );
 
- 
+
 
     dropZone.addEventListener(
 
@@ -3156,7 +3165,7 @@ function createMatchRound() {
 
     );
 
- 
+
 
     dropZone.addEventListener(
 
@@ -3166,7 +3175,7 @@ function createMatchRound() {
 
         event.preventDefault();
 
- 
+
 
         dropZone.classList.remove(
 
@@ -3174,7 +3183,7 @@ function createMatchRound() {
 
         );
 
- 
+
 
         attemptMatch(
 
@@ -3188,7 +3197,7 @@ function createMatchRound() {
 
     );
 
- 
+
 
     dropZone.addEventListener(
 
@@ -3208,7 +3217,7 @@ function createMatchRound() {
 
     );
 
- 
+
 
     dropZone.addEventListener(
 
@@ -3228,11 +3237,11 @@ function createMatchRound() {
 
         }
 
- 
+
 
         event.preventDefault();
 
- 
+
 
         attemptMatch(
 
@@ -3248,7 +3257,7 @@ function createMatchRound() {
 
   });
 
- 
+
 
   newRoundButton.addEventListener(
 
@@ -3260,13 +3269,13 @@ function createMatchRound() {
 
 }
 
- 
+
 
 function showMatchMode() {
 
   setActiveButton("match-word");
 
- 
+
 
   learnActivity.hidden = true;
 
@@ -3282,13 +3291,13 @@ function showMatchMode() {
 
   memoryActivity.hidden = true;
 
- 
+
 
   englishToggleControl.hidden = currentTopicKey !== "months";
 
   learnInstructions.hidden = true;
 
- 
+
 
   createMatchRound();
 
@@ -3300,13 +3309,13 @@ function showMatchMode() {
 
    ======================================== */
 
- 
+
 
 let currentListenItem = null;
 
 let listenAnswered = false;
 
- 
+
 
 function buildListenChoices(correctItem) {
 
@@ -3320,7 +3329,7 @@ function buildListenChoices(correctItem) {
 
   ).slice(0, 3);
 
- 
+
 
   return shuffle([
 
@@ -3332,7 +3341,7 @@ function buildListenChoices(correctItem) {
 
 }
 
- 
+
 
 function playCurrentListenWord() {
 
@@ -3342,13 +3351,13 @@ function playCurrentListenWord() {
 
   }
 
- 
+
 
   speakItalian(currentListenItem.italian);
 
 }
 
- 
+
 
 function showListenQuestion() {
 
@@ -3366,13 +3375,13 @@ function showListenQuestion() {
 
     `;
 
- 
+
 
     return;
 
   }
 
- 
+
 
   currentListenItem =
 
@@ -3388,23 +3397,23 @@ function showListenQuestion() {
 
     ];
 
- 
+
 
   listenAnswered = false;
 
- 
+
 
   const choices =
 
     buildListenChoices(currentListenItem);
 
- 
+
 
   listenActivity.innerHTML = `
 
     <div class="listen-card">
 
- 
+
 
       <div class="listen-heading">
 
@@ -3414,7 +3423,7 @@ function showListenQuestion() {
 
         </h4>
 
- 
+
 
         <p>
 
@@ -3424,7 +3433,7 @@ function showListenQuestion() {
 
       </div>
 
- 
+
 
       <button
 
@@ -3450,7 +3459,7 @@ function showListenQuestion() {
 
         </span>
 
- 
+
 
         <span>
 
@@ -3462,7 +3471,7 @@ function showListenQuestion() {
 
       </button>
 
- 
+
 
       <p class="listen-replay-message">
 
@@ -3478,7 +3487,7 @@ function showListenQuestion() {
 
       </p>
 
- 
+
 
       <div
 
@@ -3522,7 +3531,7 @@ function showListenQuestion() {
 
       </div>
 
- 
+
 
       <p
 
@@ -3534,7 +3543,7 @@ function showListenQuestion() {
 
       ></p>
 
- 
+
 
       <button
 
@@ -3552,13 +3561,13 @@ function showListenQuestion() {
 
       </button>
 
- 
+
 
     </div>
 
   `;
 
- 
+
 
   const playButton =
 
@@ -3568,7 +3577,7 @@ function showListenQuestion() {
 
     );
 
- 
+
 
   const choiceButtons =
 
@@ -3578,7 +3587,7 @@ function showListenQuestion() {
 
     );
 
- 
+
 
   const feedback =
 
@@ -3588,7 +3597,7 @@ function showListenQuestion() {
 
     );
 
- 
+
 
   const nextButton =
 
@@ -3598,7 +3607,7 @@ function showListenQuestion() {
 
     );
 
- 
+
 
   playButton.addEventListener(
 
@@ -3608,7 +3617,7 @@ function showListenQuestion() {
 
       playCurrentListenWord();
 
- 
+
 
       playButton.classList.remove(
 
@@ -3616,11 +3625,11 @@ function showListenQuestion() {
 
       );
 
- 
+
 
       void playButton.offsetWidth;
 
- 
+
 
       playButton.classList.add(
 
@@ -3632,7 +3641,7 @@ function showListenQuestion() {
 
   );
 
- 
+
 
   playButton.addEventListener(
 
@@ -3650,7 +3659,7 @@ function showListenQuestion() {
 
   );
 
- 
+
 
   choiceButtons.forEach(button => {
 
@@ -3666,7 +3675,7 @@ function showListenQuestion() {
 
         }
 
- 
+
 
         const isCorrect =
 
@@ -3674,7 +3683,7 @@ function showListenQuestion() {
 
           currentListenItem.italian;
 
- 
+
 
         recordAttempt(
 
@@ -3684,17 +3693,17 @@ function showListenQuestion() {
 
         );
 
- 
+
 
         if (isCorrect) {
 
           listenAnswered = true;
 
- 
+
 
           button.classList.add("correct");
 
- 
+
 
           feedback.innerHTML = `
 
@@ -3706,7 +3715,7 @@ function showListenQuestion() {
 
             </strong>.
 
- 
+
 
             <span>
 
@@ -3722,13 +3731,13 @@ function showListenQuestion() {
 
           `;
 
- 
+
 
           feedback.className =
 
             "listen-feedback correct-feedback";
 
- 
+
 
           choiceButtons.forEach(choice => {
 
@@ -3736,7 +3745,7 @@ function showListenQuestion() {
 
           });
 
- 
+
 
           speakItalian(
 
@@ -3744,7 +3753,7 @@ function showListenQuestion() {
 
           );
 
- 
+
 
           nextButton.hidden = false;
 
@@ -3756,13 +3765,13 @@ function showListenQuestion() {
 
           );
 
- 
+
 
           feedback.innerHTML = `
 
             Riprova. Ascolta ancora.
 
- 
+
 
             <span>
 
@@ -3772,13 +3781,13 @@ function showListenQuestion() {
 
           `;
 
- 
+
 
           feedback.className =
 
             "listen-feedback incorrect-feedback";
 
- 
+
 
           window.setTimeout(() => {
 
@@ -3798,7 +3807,7 @@ function showListenQuestion() {
 
   });
 
- 
+
 
   nextButton.addEventListener(
 
@@ -3808,7 +3817,7 @@ function showListenQuestion() {
 
   );
 
- 
+
 
   /*
 
@@ -3828,13 +3837,13 @@ function showListenQuestion() {
 
 }
 
- 
+
 
 function showListenMode() {
 
   setActiveButton("match-sound");
 
- 
+
 
   learnActivity.hidden = true;
 
@@ -3850,13 +3859,13 @@ function showListenMode() {
 
   memoryActivity.hidden = true;
 
- 
+
 
   englishToggleControl.hidden = currentTopicKey !== "months";
 
   learnInstructions.hidden = true;
 
- 
+
 
   showListenQuestion();
 
@@ -3868,13 +3877,13 @@ function showListenMode() {
 
    ======================================== */
 
- 
+
 
 let currentCompleteItem = null;
 
 let currentMissingIndexes = [];
 
- 
+
 
 /*
 
@@ -3898,7 +3907,7 @@ function normalizeAnswer(text) {
 
 }
 
- 
+
 
 function chooseMissingIndexes(word) {
 
@@ -3920,13 +3929,13 @@ function chooseMissingIndexes(word) {
 
     .map(item => item.index);
 
- 
+
 
   const missingCount =
 
     word.length <= 5 ? 1 : 2;
 
- 
+
 
   return shuffle(letterIndexes)
 
@@ -3936,7 +3945,7 @@ function chooseMissingIndexes(word) {
 
 }
 
- 
+
 
 function createIncompleteWord(
 
@@ -3956,7 +3965,7 @@ function createIncompleteWord(
 
       }
 
- 
+
 
       if (missingIndexes.includes(index)) {
 
@@ -3964,7 +3973,7 @@ function createIncompleteWord(
 
       }
 
- 
+
 
       return character;
 
@@ -3974,7 +3983,7 @@ function createIncompleteWord(
 
 }
 
- 
+
 
 function showCompleteQuestion() {
 
@@ -3986,7 +3995,7 @@ function showCompleteQuestion() {
 
         Nessun vocabolario disponibile.
 
- 
+
 
         <span>
 
@@ -3998,13 +4007,13 @@ function showCompleteQuestion() {
 
     `;
 
- 
+
 
     return;
 
   }
 
- 
+
 
   currentCompleteItem =
 
@@ -4020,7 +4029,7 @@ function showCompleteQuestion() {
 
     ];
 
- 
+
 
   currentMissingIndexes =
 
@@ -4030,7 +4039,7 @@ function showCompleteQuestion() {
 
     );
 
- 
+
 
   const incompleteWord =
 
@@ -4042,13 +4051,13 @@ function showCompleteQuestion() {
 
     );
 
- 
+
 
   completeActivity.innerHTML = `
 
     <div class="complete-card">
 
- 
+
 
       <div class="complete-heading">
 
@@ -4058,7 +4067,7 @@ function showCompleteQuestion() {
 
         </h4>
 
- 
+
 
         <p>
 
@@ -4068,11 +4077,11 @@ function showCompleteQuestion() {
 
       </div>
 
- 
+
 
       <div class="complete-prompt-row">
 
- 
+
 
         <div class="month-image-support">
 
@@ -4094,7 +4103,7 @@ function showCompleteQuestion() {
 
         </div>
 
- 
+
 
         <p
 
@@ -4108,11 +4117,11 @@ function showCompleteQuestion() {
 
         </p>
 
- 
+
 
       </div>
 
- 
+
 
       <form
 
@@ -4132,7 +4141,7 @@ function showCompleteQuestion() {
 
           Scrivi la parola completa.
 
- 
+
 
           <span>
 
@@ -4142,7 +4151,7 @@ function showCompleteQuestion() {
 
         </label>
 
- 
+
 
         <input
 
@@ -4162,7 +4171,7 @@ function showCompleteQuestion() {
 
         >
 
- 
+
 
         <button
 
@@ -4178,7 +4187,7 @@ function showCompleteQuestion() {
 
       </form>
 
- 
+
 
       <p
 
@@ -4190,7 +4199,7 @@ function showCompleteQuestion() {
 
       ></p>
 
- 
+
 
       <button
 
@@ -4208,13 +4217,13 @@ function showCompleteQuestion() {
 
       </button>
 
- 
+
 
     </div>
 
   `;
 
- 
+
 
   const form =
 
@@ -4224,7 +4233,7 @@ function showCompleteQuestion() {
 
     );
 
- 
+
 
   const input =
 
@@ -4234,7 +4243,7 @@ function showCompleteQuestion() {
 
     );
 
- 
+
 
   const feedback =
 
@@ -4244,7 +4253,7 @@ function showCompleteQuestion() {
 
     );
 
- 
+
 
   const nextButton =
 
@@ -4254,7 +4263,7 @@ function showCompleteQuestion() {
 
     );
 
- 
+
 
   const checkButton =
 
@@ -4264,7 +4273,7 @@ function showCompleteQuestion() {
 
     );
 
- 
+
 
   form.addEventListener(
 
@@ -4274,13 +4283,13 @@ function showCompleteQuestion() {
 
       event.preventDefault();
 
- 
+
 
       const studentAnswer =
 
         normalizeAnswer(input.value);
 
- 
+
 
       const correctAnswer =
 
@@ -4290,7 +4299,7 @@ function showCompleteQuestion() {
 
         );
 
- 
+
 
       if (!studentAnswer) {
 
@@ -4298,7 +4307,7 @@ function showCompleteQuestion() {
 
           Scrivi la parola completa.
 
- 
+
 
           <span>
 
@@ -4308,13 +4317,13 @@ function showCompleteQuestion() {
 
         `;
 
- 
+
 
         feedback.className =
 
           "complete-feedback incorrect-feedback";
 
- 
+
 
         input.focus();
 
@@ -4322,13 +4331,13 @@ function showCompleteQuestion() {
 
       }
 
- 
+
 
       const isCorrect =
 
         studentAnswer === correctAnswer;
 
- 
+
 
       recordAttempt(
 
@@ -4338,7 +4347,7 @@ function showCompleteQuestion() {
 
       );
 
- 
+
 
       if (isCorrect) {
 
@@ -4346,7 +4355,7 @@ function showCompleteQuestion() {
 
         checkButton.disabled = true;
 
- 
+
 
         feedback.innerHTML = `
 
@@ -4358,7 +4367,7 @@ function showCompleteQuestion() {
 
           </strong>.
 
- 
+
 
           <span>
 
@@ -4374,13 +4383,13 @@ function showCompleteQuestion() {
 
         `;
 
- 
+
 
         feedback.className =
 
           "complete-feedback correct-feedback";
 
- 
+
 
         speakItalian(
 
@@ -4388,7 +4397,7 @@ function showCompleteQuestion() {
 
         );
 
- 
+
 
         nextButton.hidden = false;
 
@@ -4396,13 +4405,13 @@ function showCompleteQuestion() {
 
         input.classList.add("incorrect");
 
- 
+
 
         feedback.innerHTML = `
 
           Riprova.
 
- 
+
 
           <span>
 
@@ -4412,13 +4421,13 @@ function showCompleteQuestion() {
 
         `;
 
- 
+
 
         feedback.className =
 
           "complete-feedback incorrect-feedback";
 
- 
+
 
         window.setTimeout(() => {
 
@@ -4430,7 +4439,7 @@ function showCompleteQuestion() {
 
         }, 500);
 
- 
+
 
         input.select();
 
@@ -4440,7 +4449,7 @@ function showCompleteQuestion() {
 
   );
 
- 
+
 
   nextButton.addEventListener(
 
@@ -4450,19 +4459,19 @@ function showCompleteQuestion() {
 
   );
 
- 
+
 
   input.focus();
 
 }
 
- 
+
 
 function showCompleteMode() {
 
   setActiveButton("complete");
 
- 
+
 
   learnActivity.hidden = true;
 
@@ -4478,19 +4487,19 @@ function showCompleteMode() {
 
   memoryActivity.hidden = true;
 
- 
+
 
   englishToggleControl.hidden = currentTopicKey !== "months";
 
   learnInstructions.hidden = true;
 
- 
+
 
   showCompleteQuestion();
 
 }
 
- 
+
 
 /* ========================================
 
@@ -4498,11 +4507,11 @@ function showCompleteMode() {
 
    ======================================== */
 
- 
+
 
 let currentWriteItem = null;
 
- 
+
 
 function showWriteQuestion() {
 
@@ -4514,7 +4523,7 @@ function showWriteQuestion() {
 
         Nessun vocabolario disponibile.
 
- 
+
 
         <span>
 
@@ -4526,13 +4535,13 @@ function showWriteQuestion() {
 
     `;
 
- 
+
 
     return;
 
   }
 
- 
+
 
   currentWriteItem =
 
@@ -4548,13 +4557,13 @@ function showWriteQuestion() {
 
     ];
 
- 
+
 
   writeActivity.innerHTML = `
 
     <div class="complete-card">
 
- 
+
 
       <div class="complete-heading">
 
@@ -4564,7 +4573,7 @@ function showWriteQuestion() {
 
         </h4>
 
- 
+
 
         <p>
 
@@ -4574,11 +4583,11 @@ function showWriteQuestion() {
 
       </div>
 
- 
+
 
       <div class="write-image-row">
 
- 
+
 
         <div class="month-image-support">
 
@@ -4600,11 +4609,11 @@ function showWriteQuestion() {
 
         </div>
 
- 
+
 
       </div>
 
- 
+
 
       <form
 
@@ -4626,7 +4635,7 @@ function showWriteQuestion() {
 
 </label>
 
- 
+
 
         <input
 
@@ -4646,7 +4655,7 @@ function showWriteQuestion() {
 
         >
 
- 
+
 
         <button
 
@@ -4662,7 +4671,7 @@ function showWriteQuestion() {
 
       </form>
 
- 
+
 
       <p
 
@@ -4674,7 +4683,7 @@ function showWriteQuestion() {
 
       ></p>
 
- 
+
 
       <button
 
@@ -4692,13 +4701,13 @@ function showWriteQuestion() {
 
       </button>
 
- 
+
 
     </div>
 
   `;
 
- 
+
 
   const form =
 
@@ -4708,7 +4717,7 @@ function showWriteQuestion() {
 
     );
 
- 
+
 
   const input =
 
@@ -4718,7 +4727,7 @@ function showWriteQuestion() {
 
     );
 
- 
+
 
   const feedback =
 
@@ -4728,7 +4737,7 @@ function showWriteQuestion() {
 
     );
 
- 
+
 
   const nextButton =
 
@@ -4738,7 +4747,7 @@ function showWriteQuestion() {
 
     );
 
- 
+
 
   const checkButton =
 
@@ -4748,7 +4757,7 @@ function showWriteQuestion() {
 
     );
 
- 
+
 
   form.addEventListener(
 
@@ -4758,13 +4767,13 @@ function showWriteQuestion() {
 
       event.preventDefault();
 
- 
+
 
       const studentAnswer =
 
         normalizeAnswer(input.value);
 
- 
+
 
       const correctAnswer =
 
@@ -4774,7 +4783,7 @@ function showWriteQuestion() {
 
         );
 
- 
+
 
       if (!studentAnswer) {
 
@@ -4782,7 +4791,7 @@ function showWriteQuestion() {
 
           Scrivi la risposta.
 
- 
+
 
           <span>
 
@@ -4792,13 +4801,13 @@ function showWriteQuestion() {
 
         `;
 
- 
+
 
         feedback.className =
 
           "complete-feedback incorrect-feedback";
 
- 
+
 
         input.focus();
 
@@ -4806,13 +4815,13 @@ function showWriteQuestion() {
 
       }
 
- 
+
 
       const isCorrect =
 
         studentAnswer === correctAnswer;
 
- 
+
 
       recordAttempt(
 
@@ -4822,7 +4831,7 @@ function showWriteQuestion() {
 
       );
 
- 
+
 
       if (isCorrect) {
 
@@ -4830,13 +4839,13 @@ function showWriteQuestion() {
 
         checkButton.disabled = true;
 
- 
+
 
         feedback.innerHTML = `
 
           Corretto!
 
- 
+
 
           <strong>
 
@@ -4844,7 +4853,7 @@ function showWriteQuestion() {
 
           </strong>
 
- 
+
 
           <span>
 
@@ -4854,13 +4863,13 @@ function showWriteQuestion() {
 
         `;
 
- 
+
 
         feedback.className =
 
           "complete-feedback correct-feedback";
 
- 
+
 
         speakItalian(
 
@@ -4868,7 +4877,7 @@ function showWriteQuestion() {
 
         );
 
- 
+
 
         nextButton.hidden = false;
 
@@ -4876,13 +4885,13 @@ function showWriteQuestion() {
 
         input.classList.add("incorrect");
 
- 
+
 
         feedback.innerHTML = `
 
           Riprova.
 
- 
+
 
           <span>
 
@@ -4892,13 +4901,13 @@ function showWriteQuestion() {
 
         `;
 
- 
+
 
         feedback.className =
 
           "complete-feedback incorrect-feedback";
 
- 
+
 
         window.setTimeout(() => {
 
@@ -4910,7 +4919,7 @@ function showWriteQuestion() {
 
         }, 500);
 
- 
+
 
         input.select();
 
@@ -4920,7 +4929,7 @@ function showWriteQuestion() {
 
   );
 
- 
+
 
   nextButton.addEventListener(
 
@@ -4930,19 +4939,19 @@ function showWriteQuestion() {
 
   );
 
- 
+
 
   input.focus();
 
 }
 
- 
+
 
 function showWriteMode() {
 
   setActiveButton("write");
 
- 
+
 
   learnActivity.hidden = true;
 
@@ -4958,13 +4967,13 @@ function showWriteMode() {
 
   memoryActivity.hidden = true;
 
- 
+
 
   englishToggleControl.hidden = currentTopicKey !== "months";
 
   learnInstructions.hidden = true;
 
- 
+
 
   showWriteQuestion();
 
@@ -4976,7 +4985,7 @@ function showWriteMode() {
 
    ======================================== */
 
- 
+
 
 let firstMemoryCard = null;
 
@@ -4988,13 +4997,13 @@ let memoryMoves = 0;
 
 let memoryMatches = 0;
 
- 
+
 
 function createMemoryDeck(items) {
 
   const cards = [];
 
- 
+
 
   items.forEach((item, index) => {
 
@@ -5008,7 +5017,7 @@ function createMemoryDeck(items) {
 
     });
 
- 
+
 
     cards.push({
 
@@ -5022,13 +5031,13 @@ function createMemoryDeck(items) {
 
   });
 
- 
+
 
   return shuffle(cards);
 
 }
 
- 
+
 
 function createMemoryGame() {
 
@@ -5040,7 +5049,7 @@ function createMemoryGame() {
 
         Nessun vocabolario disponibile.
 
- 
+
 
         <span>
 
@@ -5052,19 +5061,19 @@ function createMemoryGame() {
 
     `;
 
- 
+
 
     return;
 
   }
 
- 
+
 
   const pairCount =
 
     Math.min(6, currentVocabulary.length);
 
- 
+
 
   const gameItems =
 
@@ -5076,13 +5085,13 @@ function createMemoryGame() {
 
     );
 
- 
+
 
   const memoryDeck =
 
     createMemoryDeck(gameItems);
 
- 
+
 
   firstMemoryCard = null;
 
@@ -5094,13 +5103,13 @@ function createMemoryGame() {
 
   memoryMatches = 0;
 
- 
+
 
   memoryActivity.innerHTML = `
 
     <div class="memory-game-card">
 
- 
+
 
       <div class="memory-heading">
 
@@ -5110,7 +5119,7 @@ function createMemoryGame() {
 
         </h4>
 
- 
+
 
         <p>
 
@@ -5120,11 +5129,11 @@ function createMemoryGame() {
 
       </div>
 
- 
+
 
       <div class="memory-status">
 
- 
+
 
         <span>
 
@@ -5138,7 +5147,7 @@ function createMemoryGame() {
 
         </span>
 
- 
+
 
         <span>
 
@@ -5160,11 +5169,11 @@ function createMemoryGame() {
 
         </span>
 
- 
+
 
       </div>
 
- 
+
 
       <div
 
@@ -5192,7 +5201,7 @@ function createMemoryGame() {
 
             <span class="memory-card-inner">
 
- 
+
 
               <span class="memory-card-back">
 
@@ -5204,11 +5213,11 @@ function createMemoryGame() {
 
               </span>
 
- 
+
 
               <span class="memory-card-front">
 
- 
+
 
                 ${
 
@@ -5243,11 +5252,11 @@ function createMemoryGame() {
 
                 }
 
- 
+
 
               </span>
 
- 
+
 
             </span>
 
@@ -5257,7 +5266,7 @@ function createMemoryGame() {
 
       </div>
 
- 
+
 
       <p
 
@@ -5271,7 +5280,7 @@ function createMemoryGame() {
 
         Seleziona due carte.
 
- 
+
 
         <span>
 
@@ -5281,7 +5290,7 @@ function createMemoryGame() {
 
       </p>
 
- 
+
 
       <button
 
@@ -5299,13 +5308,13 @@ function createMemoryGame() {
 
       </button>
 
- 
+
 
     </div>
 
   `;
 
- 
+
 
   const memoryCards =
 
@@ -5315,7 +5324,7 @@ function createMemoryGame() {
 
     );
 
- 
+
 
   const moveCount =
 
@@ -5325,7 +5334,7 @@ function createMemoryGame() {
 
     );
 
- 
+
 
   const matchCount =
 
@@ -5335,7 +5344,7 @@ function createMemoryGame() {
 
     );
 
- 
+
 
   const feedback =
 
@@ -5345,7 +5354,7 @@ function createMemoryGame() {
 
     );
 
- 
+
 
   const newGameButton =
 
@@ -5355,7 +5364,7 @@ function createMemoryGame() {
 
     );
 
- 
+
 
   function resetSelectedCards() {
 
@@ -5367,7 +5376,7 @@ function createMemoryGame() {
 
   }
 
- 
+
 
   function completeMemoryMatch() {
 
@@ -5377,7 +5386,7 @@ function createMemoryGame() {
 
     );
 
- 
+
 
     secondMemoryCard.classList.add(
 
@@ -5385,13 +5394,13 @@ function createMemoryGame() {
 
     );
 
- 
+
 
     firstMemoryCard.disabled = true;
 
     secondMemoryCard.disabled = true;
 
- 
+
 
     const matchedItem =
 
@@ -5405,7 +5414,7 @@ function createMemoryGame() {
 
       ].item;
 
- 
+
 
     memoryMatches += 1;
 
@@ -5413,7 +5422,7 @@ function createMemoryGame() {
 
       memoryMatches;
 
- 
+
 
     feedback.innerHTML = `
 
@@ -5425,7 +5434,7 @@ function createMemoryGame() {
 
       </strong>
 
- 
+
 
       <span>
 
@@ -5435,17 +5444,17 @@ function createMemoryGame() {
 
     `;
 
- 
+
 
     speakItalian(matchedItem.italian);
 
- 
+
 
     window.setTimeout(() => {
 
       resetSelectedCards();
 
- 
+
 
       if (memoryMatches === pairCount) {
 
@@ -5453,7 +5462,7 @@ function createMemoryGame() {
 
           🎉 Ottimo lavoro!
 
- 
+
 
           <span>
 
@@ -5465,7 +5474,7 @@ function createMemoryGame() {
 
         `;
 
- 
+
 
         newGameButton.hidden = false;
 
@@ -5475,19 +5484,19 @@ function createMemoryGame() {
 
   }
 
- 
+
 
   function hideIncorrectCards() {
 
     memoryLocked = true;
 
- 
+
 
     feedback.innerHTML = `
 
       Riprova.
 
- 
+
 
       <span>
 
@@ -5497,7 +5506,7 @@ function createMemoryGame() {
 
     `;
 
- 
+
 
     window.setTimeout(() => {
 
@@ -5507,7 +5516,7 @@ function createMemoryGame() {
 
       );
 
- 
+
 
       secondMemoryCard.classList.remove(
 
@@ -5515,7 +5524,7 @@ function createMemoryGame() {
 
       );
 
- 
+
 
       resetSelectedCards();
 
@@ -5523,7 +5532,7 @@ function createMemoryGame() {
 
   }
 
- 
+
 
   function selectMemoryCard(card) {
 
@@ -5541,11 +5550,11 @@ function createMemoryGame() {
 
     }
 
- 
+
 
     card.classList.add("flipped");
 
- 
+
 
     card.setAttribute(
 
@@ -5555,19 +5564,19 @@ function createMemoryGame() {
 
     );
 
- 
+
 
     if (!firstMemoryCard) {
 
       firstMemoryCard = card;
 
- 
+
 
       feedback.innerHTML = `
 
         Seleziona un'altra carta.
 
- 
+
 
         <span>
 
@@ -5577,13 +5586,13 @@ function createMemoryGame() {
 
       `;
 
- 
+
 
       return;
 
     }
 
- 
+
 
     secondMemoryCard = card;
 
@@ -5591,7 +5600,7 @@ function createMemoryGame() {
 
     moveCount.textContent = memoryMoves;
 
- 
+
 
     const isMatch =
 
@@ -5599,7 +5608,7 @@ function createMemoryGame() {
 
       secondMemoryCard.dataset.matchId;
 
- 
+
 
     recordAttempt(
 
@@ -5609,7 +5618,7 @@ function createMemoryGame() {
 
     );
 
- 
+
 
     if (isMatch) {
 
@@ -5625,7 +5634,7 @@ function createMemoryGame() {
 
   }
 
- 
+
 
   memoryCards.forEach(card => {
 
@@ -5637,7 +5646,7 @@ function createMemoryGame() {
 
   });
 
- 
+
 
   newGameButton.addEventListener(
 
@@ -5649,13 +5658,13 @@ function createMemoryGame() {
 
 }
 
- 
+
 
 function showMemoryMode() {
 
   setActiveButton("memory");
 
- 
+
 
   learnActivity.hidden = true;
 
@@ -5671,13 +5680,13 @@ function showMemoryMode() {
 
   memoryActivity.hidden = false;
 
- 
+
 
   englishToggleControl.hidden = currentTopicKey !== "months";
 
   learnInstructions.hidden = true;
 
- 
+
 
   createMemoryGame();
 
@@ -5689,7 +5698,7 @@ function showMemoryMode() {
 
    ======================================== */
 
- 
+
 
 function buildChoices(correctItem) {
 
@@ -5703,7 +5712,7 @@ function buildChoices(correctItem) {
 
   ).slice(0, 3);
 
- 
+
 
   return shuffle([
 
@@ -5715,7 +5724,7 @@ function buildChoices(correctItem) {
 
 }
 
- 
+
 
 function showChooseQuestion() {
 
@@ -5731,19 +5740,19 @@ currentQuestion =
 
   ];
 
- 
+
 
   const choices =
 
     buildChoices(currentQuestion);
 
- 
+
 
   chooseActivity.innerHTML = `
 
     <div class="quiz-card">
 
- 
+
 
       <p class="quiz-label">
 
@@ -5753,7 +5762,7 @@ currentQuestion =
 
       </p>
 
- 
+
 
 <div class="quiz-image-frame">
 
@@ -5771,11 +5780,11 @@ currentQuestion =
         currentQuestion
       )}
 
- 
+
 
       <div class="choice-grid">
 
- 
+
 
         ${choices.map(item => `
 
@@ -5795,11 +5804,11 @@ currentQuestion =
 
         `).join("")}
 
- 
+
 
       </div>
 
- 
+
 
       <p
 
@@ -5813,7 +5822,7 @@ currentQuestion =
 
       </p>
 
- 
+
 
       <button
 
@@ -5831,13 +5840,13 @@ currentQuestion =
 
       </button>
 
- 
+
 
     </div>
 
   `;
 
- 
+
 
   const choiceButtons =
 
@@ -5847,7 +5856,7 @@ currentQuestion =
 
     );
 
- 
+
 
   const feedback =
 
@@ -5857,7 +5866,7 @@ currentQuestion =
 
     );
 
- 
+
 
   const nextButton =
 
@@ -5867,7 +5876,7 @@ currentQuestion =
 
     );
 
- 
+
 
   choiceButtons.forEach(button => {
 
@@ -5879,7 +5888,7 @@ currentQuestion =
 
         currentQuestion.italian;
 
- 
+
 
       recordAttempt(
 
@@ -5889,13 +5898,13 @@ currentQuestion =
 
       );
 
- 
+
 
       choiceButtons.forEach(choice => {
 
         choice.disabled = true;
 
- 
+
 
         if (
 
@@ -5911,7 +5920,7 @@ currentQuestion =
 
       });
 
- 
+
 
       if (isCorrect) {
 
@@ -5919,13 +5928,13 @@ currentQuestion =
 
           "Corretto! · Correct!";
 
- 
+
 
         feedback.className =
 
           "quiz-feedback correct-feedback";
 
- 
+
 
         speakItalian(currentQuestion.italian);
 
@@ -5933,13 +5942,13 @@ currentQuestion =
 
         button.classList.add("incorrect");
 
- 
+
 
         feedback.textContent =
 
           `La risposta corretta è ${currentQuestion.italian}.`;
 
- 
+
 
         feedback.className =
 
@@ -5947,7 +5956,7 @@ currentQuestion =
 
       }
 
- 
+
 
       nextButton.hidden = false;
 
@@ -5955,7 +5964,7 @@ currentQuestion =
 
   });
 
- 
+
 
   nextButton.addEventListener(
 
@@ -5967,13 +5976,13 @@ currentQuestion =
 
 }
 
- 
+
 
 function showChooseMode() {
 
   setActiveButton("choose");
 
- 
+
 
   learnActivity.hidden = true;
 
@@ -5993,15 +6002,15 @@ memoryActivity.hidden = true;
 
   learnInstructions.hidden = true;
 
-  
 
- 
+
+
 
   showChooseQuestion();
 
 }
 
- 
+
 
 /* ========================================
 
@@ -6057,13 +6066,13 @@ function updateTopicHeading(topic) {
 
     `${topic.icon} ${topic.italian}`;
 
- 
+
 
   topicEnglish.textContent =
 
     topic.english;
 
- 
+
 
   vocabularyGrid.setAttribute(
 
@@ -6075,7 +6084,7 @@ function updateTopicHeading(topic) {
 
 }
 
- 
+
 
 function selectTopic(topicKey) {
   if (!topicKey) {
@@ -6084,7 +6093,7 @@ function selectTopic(topicKey) {
   }
   const topic = topics[topicKey];
 
- 
+
 
   if (!topic) {
 
@@ -6092,7 +6101,7 @@ function selectTopic(topicKey) {
 
   }
 
- 
+
 
   if (!topic.available) {
 
@@ -6100,7 +6109,7 @@ function selectTopic(topicKey) {
 
       "block";
 
- 
+
 
     topicAvailability.textContent =
 
@@ -6108,17 +6117,17 @@ function selectTopic(topicKey) {
 
       `${topic.english} is coming soon.`;
 
- 
+
 
     topicSelect.value = currentTopicKey;
 
- 
+
 
     return;
 
   }
 
- 
+
 
 currentTopicKey = topicKey;
 
@@ -6128,13 +6137,13 @@ currentVocabulary =
 if (genderChoice) {
   genderChoice.hidden = true;
 }
- 
+
 
   topicAvailability.textContent = "";
 
   topicAvailability.style.display = "none";
 
- 
+
 
 updateTopicHeading(topic);
 updateVoloAgeSetup();
@@ -6149,7 +6158,7 @@ if (
 showLearnMode();
 }
 
- 
+
 
 topicSelect.addEventListener(
 
@@ -6196,7 +6205,7 @@ genderChoiceButtons.forEach(button => {
     showLearnMode();
   });
 });
- 
+
 
 /* ========================================
 
@@ -6473,7 +6482,7 @@ aboutModal.addEventListener(
 );
 
 prepareAboutLanguages();
- 
+
 
 /* ========================================
 
@@ -6481,29 +6490,29 @@ prepareAboutLanguages();
 
    ======================================== */
 
- 
+
 
 let lastReferenceFocus = null;
 
- 
+
 
 function openReferenceModal() {
 
   lastReferenceFocus = document.activeElement;
 
- 
+
 
   referenceModal.hidden = false;
 
   document.body.style.overflow = "hidden";
 
- 
+
 
   referenceClose.focus();
 
 }
 
- 
+
 
 function closeReferenceModal() {
 
@@ -6511,7 +6520,7 @@ function closeReferenceModal() {
 
   document.body.style.overflow = "";
 
- 
+
 
   if (lastReferenceFocus) {
 
@@ -6521,7 +6530,7 @@ function closeReferenceModal() {
 
 }
 
- 
+
 
 referenceButton.addEventListener(
 
@@ -6531,7 +6540,7 @@ referenceButton.addEventListener(
 
 );
 
- 
+
 
 referenceClose.addEventListener(
 
@@ -6541,7 +6550,7 @@ referenceClose.addEventListener(
 
 );
 
- 
+
 
 referenceModal.addEventListener(
 
@@ -6571,7 +6580,7 @@ document.addEventListener(
 
     }
 
- 
+
 
     if (!referenceModal.hidden) {
 
@@ -6581,7 +6590,7 @@ document.addEventListener(
 
     }
 
- 
+
 
     if (!aboutModal.hidden) {
 
@@ -6756,7 +6765,7 @@ activityButtons.forEach(button => {
 
    ======================================== */
 
- 
+
 
 englishToggle.addEventListener(
 
@@ -6776,7 +6785,7 @@ englishToggle.addEventListener(
 
 );
 
- 
+
 
 window.speechSynthesis.addEventListener(
 
@@ -6786,7 +6795,7 @@ window.speechSynthesis.addEventListener(
 
 );
 
- 
+
 
 createProgressInterface();
 addMonthEnglishSupportStyles();

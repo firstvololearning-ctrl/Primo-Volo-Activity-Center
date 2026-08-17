@@ -7,6 +7,7 @@ window.PRIMO_VOLO_TOPIC_GROUPS = [
     english: "Start & Communicate",
     topics: [
       "greetings",
+      "hobbies",
       "feelings",
       "classroom"
     ]
