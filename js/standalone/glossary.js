@@ -916,6 +916,29 @@ if (
   }
 
   createTopicOptions();
+
+  /*
+    A direct topic link such as
+    glossary.html?topic=animals
+    opens the glossary already filtered
+    to that vocabulary set.
+  */
+  const requestedTopic =
+    new URLSearchParams(
+      window.location.search
+    ).get("topic");
+
+  if (
+    requestedTopic &&
+    glossaryTopics.some(
+      topic =>
+        topic.id === requestedTopic
+    )
+  ) {
+    topicFilter.value =
+      requestedTopic;
+  }
+
   renderGlossary();
 
   searchInput.addEventListener(

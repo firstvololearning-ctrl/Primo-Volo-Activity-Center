@@ -11,7 +11,7 @@
     Materiali mensili · Monthly Curriculum Materials
   </title>
 
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="css/style.css">
 
   <style>
     * {
@@ -283,6 +283,31 @@
       display: grid;
       gap: 8px;
     }
+
+    .printable-groups {
+      display: grid;
+      gap: 14px;
+    }
+
+    .printable-group + .printable-group {
+      padding-top: 14px;
+      border-top: 1px solid #e1e8f0;
+    }
+
+    .printable-group h4 {
+      margin: 0 0 9px;
+      padding: 7px 9px;
+
+      border-radius: 8px;
+
+      color: #274b84;
+      background: #edf3fa;
+
+      font-size: .86rem;
+      font-weight: 900;
+      line-height: 1.3;
+    }
+
 
     .resource-link {
       display: flex;
@@ -654,14 +679,6 @@
       scroll-margin-top: 105px;
     }
 
-    /*
-      Games are a separate resource type rather than
-      being mixed into ordinary worksheets/printables.
-    */
-    .games-resource-box {
-      grid-column: auto;
-    }
-
     @media (max-width: 700px) {
       .monthly-page-title {
         font-size: clamp(2rem, 9vw, 2.9rem);
@@ -690,28 +707,21 @@
       text-align: center;
     }
 
-    /* THREE CORE RESOURCE COLUMNS */
+    /* TWO CORE RESOURCE COLUMNS */
 
     .resource-grid {
       grid-template-columns:
-        repeat(3, minmax(0, 1fr));
+        repeat(2, minmax(0, 1fr));
 
       align-items: start;
     }
 
     /*
-      Culture follows the three core instructional
-      resource categories and gets the full row.
+      Culture follows the instructional resources
+      and gets the full row.
     */
     .resource-grid .culture-resource-box {
       grid-column: 1 / -1;
-    }
-
-    @media (max-width: 950px) {
-      .resource-grid {
-        grid-template-columns:
-          repeat(2, minmax(0, 1fr));
-      }
     }
 
     @media (max-width: 700px) {
@@ -936,95 +946,155 @@
           </div>
         </section>
 
-        <section class="resource-box">
+                <section class="resource-box">
           <h3>🖨️ Stampabili · Printables</h3>
-          <div class="resource-links">
 
-            <a
-              class="resource-link"
-              href="images/worksheets/parlo-di-me/parlo-di-me.pdf"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <span>👋 Parlo di me · All About Me</span>
-              <span class="arrow" aria-hidden="true">→</span>
-            </a>
+          <div class="printable-groups">
+            <div class="printable-group">
+              <h4>📘 Glossario · Vocabulary Reference</h4>
 
-            <a
-              class="resource-link"
-              href="images/worksheets/hobby-e-tempo-libero/hobby-e-tempo-libero-worksheet.pdf"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <span>🎯 Hobby e tempo libero · Hobbies &amp; Free Time</span>
-              <span class="arrow" aria-hidden="true">→</span>
-            </a>
+              <div class="resource-links">
+                <a
+                  class="resource-link"
+                  href="glossary.html?topic=introductions"
+                >
+                  <span>👋 Saluti e presentazioni</span>
+                  <span class="arrow" aria-hidden="true">→</span>
+                </a>
 
+                <a
+                  class="resource-link"
+                  href="glossary.html?topic=numbers"
+                >
+                  <span>🔢 I numeri</span>
+                  <span class="arrow" aria-hidden="true">→</span>
+                </a>
 
+                <a
+                  class="resource-link"
+                  href="glossary.html?topic=colors"
+                >
+                  <span>🎨 I colori</span>
+                  <span class="arrow" aria-hidden="true">→</span>
+                </a>
 
-            <a class="resource-link" href="worksheets.html">
-              <span>📚 Materiale scolastico</span>
-              <span class="arrow" aria-hidden="true">→</span>
-            </a>
+                <a
+                  class="resource-link"
+                  href="glossary.html?topic=supplies"
+                >
+                  <span>📚 Materiale scolastico</span>
+                  <span class="arrow" aria-hidden="true">→</span>
+                </a>
 
+                <a
+                  class="resource-link"
+                  href="glossary.html?topic=hobbies"
+                >
+                  <span>🎯 Hobby e tempo libero</span>
+                  <span class="arrow" aria-hidden="true">→</span>
+                </a>
 
-            <a class="resource-link" href="worksheets.html">
-              <span>🎨 I colori</span>
-              <span class="arrow" aria-hidden="true">→</span>
-            </a>
+                <a
+                  class="resource-link"
+                  href="glossary.html?topic=classroom"
+                >
+                  <span>🏫 Espressioni in classe</span>
+                  <span class="arrow" aria-hidden="true">→</span>
+                </a>
+              </div>
+            </div>
 
-            <a
-              class="resource-link"
-              href="images/reference/classroom-expressions/classroom-expressions-01.png"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <span>📚 Italiano in classe · Classroom Expressions</span>
-              <span class="arrow" aria-hidden="true">→</span>
-            </a>
+            <div class="printable-group">
+              <h4>📝 Schede di lavoro · Worksheets</h4>
 
-            <a
-              class="resource-link"
-              href="images/worksheets/classroom-expressions/che-cosa-dice-l-insegnante.pdf"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <span>👩‍🏫 Che cosa dice l’insegnante?</span>
-              <span class="arrow" aria-hidden="true">→</span>
-            </a>
+              <div class="resource-links">
+                <a
+                              class="resource-link"
+                              href="images/worksheets/parlo-di-me/parlo-di-me.pdf"
+                              target="_blank"
+                              rel="noopener noreferrer"
+                            >
+                              <span>👋 Parlo di me · All About Me</span>
+                              <span class="arrow" aria-hidden="true">→</span>
+                            </a>
 
-            <a
-              class="resource-link"
-              href="images/worksheets/classroom-expressions/che-cosa-dice-volo.pdf"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <span>✈️ Che cosa dice Volo?</span>
-              <span class="arrow" aria-hidden="true">→</span>
-            </a>
+                <a
+                              class="resource-link"
+                              href="images/worksheets/hobby-e-tempo-libero/hobby-e-tempo-libero-worksheet.pdf"
+                              target="_blank"
+                              rel="noopener noreferrer"
+                            >
+                              <span>🎯 Hobby e tempo libero · Hobbies &amp; Free Time</span>
+                              <span class="arrow" aria-hidden="true">→</span>
+                            </a>
 
+                <a class="resource-link" href="worksheets.html">
+                              <span>📚 Materiale scolastico</span>
+                              <span class="arrow" aria-hidden="true">→</span>
+                            </a>
+
+                <a class="resource-link" href="worksheets.html">
+                              <span>🎨 I colori</span>
+                              <span class="arrow" aria-hidden="true">→</span>
+                            </a>
+
+                <a
+                              class="resource-link"
+                              href="images/worksheets/classroom-expressions/che-cosa-dice-l-insegnante.pdf"
+                              target="_blank"
+                              rel="noopener noreferrer"
+                            >
+                              <span>👩‍🏫 Che cosa dice l’insegnante?</span>
+                              <span class="arrow" aria-hidden="true">→</span>
+                            </a>
+
+                <a
+                              class="resource-link"
+                              href="images/worksheets/classroom-expressions/che-cosa-dice-volo.pdf"
+                              target="_blank"
+                              rel="noopener noreferrer"
+                            >
+                              <span>✈️ Che cosa dice Volo?</span>
+                              <span class="arrow" aria-hidden="true">→</span>
+                            </a>
+              </div>
+            </div>
+
+            <div class="printable-group">
+              <h4>🎲 Giochi · Games</h4>
+
+              <div class="resource-links">
+                <a
+                              class="resource-link"
+                              href="images/printable-games/parlo-di-me-dice-roll/dice-roll-parlo-di-me.pdf"
+                              target="_blank"
+                              rel="noopener noreferrer"
+                            >
+                              <span>🎲 Dice Roll · Parlo di me</span>
+                              <span class="arrow" aria-hidden="true">→</span>
+                            </a>
+              </div>
+            </div>
+
+            <div class="printable-group">
+              <h4>🖼️ Supporti visivi · Printable Visual Supports</h4>
+
+              <div class="resource-links">
+                <a
+                              class="resource-link"
+                              href="images/reference/classroom-expressions/classroom-expressions-01.png"
+                              target="_blank"
+                              rel="noopener noreferrer"
+                            >
+                              <span>📚 Italiano in classe · Classroom Expressions</span>
+                              <span class="arrow" aria-hidden="true">→</span>
+                            </a>
+              </div>
+            </div>
           </div>
         </section>
 
-        <section class="resource-box games-resource-box">
-          <h3>
-            🎲 Giochi e attività pratiche · Games &amp; Hands-On Activities
-          </h3>
 
-          <div class="resource-links">
-
-            <a
-              class="resource-link"
-              href="images/printable-games/parlo-di-me-dice-roll/dice-roll-parlo-di-me.pdf"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <span>🎲 Dice Roll · Parlo di me</span>
-              <span class="arrow" aria-hidden="true">→</span>
-            </a>
-
-          </div>
-        </section>
 
       </div>
 
@@ -1197,44 +1267,94 @@
               <span class="arrow" aria-hidden="true">→</span>
             </a>
 
-          </div>
-        </section>
-
-        <section class="resource-box">
-          <h3>🖨️ Stampabili · Printables</h3>
-          <div class="resource-links">
-
-            <a class="resource-link" href="worksheets.html">
-              <span>🎨 I colori</span>
-              <span class="arrow" aria-hidden="true">→</span>
-            </a>
-
 
             <a class="resource-link" href="cultural-resources/harvest/fall-vocabulary/activities.html">
-              <span>🍂 Attività e risorse d’autunno</span>
-              <span class="arrow" aria-hidden="true">→</span>
-            </a>
-
+                          <span>🍂 Attività e risorse d’autunno</span>
+                          <span class="arrow" aria-hidden="true">→</span>
+                        </a>
           </div>
         </section>
 
-        <section class="resource-box games-resource-box">
-          <h3>
-            🎲 Giochi e attività pratiche · Games &amp; Hands-On Activities
-          </h3>
+                <section class="resource-box">
+          <h3>🖨️ Stampabili · Printables</h3>
 
-          <div class="resource-links">
-            <a
-              class="resource-link"
-              href="images/printable-games/autunno-io-ho-chi-ha/Io_Ho_Chi_Ha_L_Autunno.pdf"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <span>🍂 L’autunno · Io ho… Chi ha?</span>
-              <span class="arrow" aria-hidden="true">→</span>
-            </a>
+          <div class="printable-groups">
+            <div class="printable-group">
+              <h4>📘 Glossario · Vocabulary Reference</h4>
+
+              <div class="resource-links">
+                <a
+                  class="resource-link"
+                  href="glossary.html?topic=colors"
+                >
+                  <span>🎨 I colori</span>
+                  <span class="arrow" aria-hidden="true">→</span>
+                </a>
+
+                <a
+                  class="resource-link"
+                  href="glossary.html?topic=seasons"
+                >
+                  <span>🍂 Le stagioni</span>
+                  <span class="arrow" aria-hidden="true">→</span>
+                </a>
+
+                <a
+                  class="resource-link"
+                  href="glossary.html?topic=weather"
+                >
+                  <span>🌦️ Il tempo</span>
+                  <span class="arrow" aria-hidden="true">→</span>
+                </a>
+
+                <a
+                  class="resource-link"
+                  href="glossary.html?topic=food"
+                >
+                  <span>🍎 Il cibo e le bevande</span>
+                  <span class="arrow" aria-hidden="true">→</span>
+                </a>
+
+                <a
+                  class="resource-link"
+                  href="glossary.html?topic=autumn"
+                >
+                  <span>🍂 L’autunno</span>
+                  <span class="arrow" aria-hidden="true">→</span>
+                </a>
+              </div>
+            </div>
+
+            <div class="printable-group">
+              <h4>📝 Schede di lavoro · Worksheets</h4>
+
+              <div class="resource-links">
+                <a class="resource-link" href="worksheets.html">
+                              <span>🎨 I colori</span>
+                              <span class="arrow" aria-hidden="true">→</span>
+                            </a>
+              </div>
+            </div>
+
+            <div class="printable-group">
+              <h4>🎲 Giochi · Games</h4>
+
+              <div class="resource-links">
+                <a
+                              class="resource-link"
+                              href="images/printable-games/autunno-io-ho-chi-ha/Io_Ho_Chi_Ha_L_Autunno.pdf"
+                              target="_blank"
+                              rel="noopener noreferrer"
+                            >
+                              <span>🍂 L’autunno · Io ho… Chi ha?</span>
+                              <span class="arrow" aria-hidden="true">→</span>
+                            </a>
+              </div>
+            </div>
           </div>
         </section>
+
+
 
         <section class="resource-box culture-resource-box">
           <h3>🏛️ Cultura · Culture</h3>
@@ -1422,38 +1542,65 @@
           </div>
         </section>
 
-        <section class="resource-box">
+                <section class="resource-box">
           <h3>🖨️ Stampabili · Printables</h3>
-          <div class="resource-links">
 
-            <a class="resource-link" href="worksheets.html">
-              <span>🐶 Gli animali</span>
-              <span class="arrow" aria-hidden="true">→</span>
-            </a>
+          <div class="printable-groups">
+            <div class="printable-group">
+              <h4>📘 Glossario · Vocabulary Reference</h4>
 
+              <div class="resource-links">
+                <a
+                  class="resource-link"
+                  href="glossary.html?topic=animals"
+                >
+                  <span>🐶 Gli animali</span>
+                  <span class="arrow" aria-hidden="true">→</span>
+                </a>
 
+                <a
+                  class="resource-link"
+                  href="glossary.html?topic=food"
+                >
+                  <span>🍎 Il cibo e le bevande</span>
+                  <span class="arrow" aria-hidden="true">→</span>
+                </a>
 
+                <a
+                  class="resource-link"
+                  href="glossary.html?topic=autumn"
+                >
+                  <span>🍂 L’autunno</span>
+                  <span class="arrow" aria-hidden="true">→</span>
+                </a>
+              </div>
+            </div>
 
+            <div class="printable-group">
+              <h4>📝 Schede di lavoro · Worksheets</h4>
 
-            <a class="resource-link" href="cultural-resources/harvest/la-festa-di-san-martino/il-dolce-di-san-martino-da-colorare.pdf">
-              <span>🖍️ Il dolce di San Martino</span>
-              <span class="arrow" aria-hidden="true">→</span>
-            </a>
+              <div class="resource-links">
+                <a class="resource-link" href="worksheets.html">
+                              <span>🐶 Gli animali</span>
+                              <span class="arrow" aria-hidden="true">→</span>
+                            </a>
+              </div>
+            </div>
 
-          </div>
-        </section>
+            <div class="printable-group">
+              <h4>🇮🇹 Cultura stampabile · Cultural Printables</h4>
 
-        <section class="resource-box games-resource-box">
-          <h3>
-            🎲 Giochi e attività pratiche · Games &amp; Hands-On Activities
-          </h3>
-
-          <div class="resource-links">
-            <div class="resource-coming-soon">
-              Da aggiungere · Coming Soon
+              <div class="resource-links">
+                <a class="resource-link" href="cultural-resources/harvest/la-festa-di-san-martino/il-dolce-di-san-martino-da-colorare.pdf">
+                              <span>🖍️ Il dolce di San Martino</span>
+                              <span class="arrow" aria-hidden="true">→</span>
+                            </a>
+              </div>
             </div>
           </div>
         </section>
+
+
 
         <section class="resource-box culture-resource-box">
           <h3>🏛️ Cultura · Culture</h3>
@@ -1639,7 +1786,7 @@
           </div>
         </section>
 
-        <section class="resource-box">
+                <section class="resource-box">
           <h3>🖨️ Stampabili · Printables</h3>
 
           <div class="resource-links">
@@ -1649,17 +1796,7 @@
           </div>
         </section>
 
-        <section class="resource-box games-resource-box">
-          <h3>
-            🎲 Giochi e attività pratiche · Games &amp; Hands-On Activities
-          </h3>
 
-          <div class="resource-links">
-            <div class="resource-coming-soon">
-              Da aggiungere · Coming Soon
-            </div>
-          </div>
-        </section>
 
       </div>
 
@@ -1874,38 +2011,70 @@
           </div>
         </section>
 
-        <section class="resource-box">
+                <section class="resource-box">
           <h3>🖨️ Stampabili · Printables</h3>
-          <div class="resource-links">
 
-            <a class="resource-link" href="worksheets.html">
-              <span>👕 I vestiti</span>
-              <span class="arrow" aria-hidden="true">→</span>
-            </a>
+          <div class="printable-groups">
+            <div class="printable-group">
+              <h4>📘 Glossario · Vocabulary Reference</h4>
 
+              <div class="resource-links">
+                <a
+                  class="resource-link"
+                  href="glossary.html?topic=clothing"
+                >
+                  <span>👕 L’abbigliamento</span>
+                  <span class="arrow" aria-hidden="true">→</span>
+                </a>
 
+                <a
+                  class="resource-link"
+                  href="glossary.html?topic=weather"
+                >
+                  <span>🌦️ Il tempo</span>
+                  <span class="arrow" aria-hidden="true">→</span>
+                </a>
 
+                <a
+                  class="resource-link"
+                  href="glossary.html?topic=colors"
+                >
+                  <span>🎨 I colori</span>
+                  <span class="arrow" aria-hidden="true">→</span>
+                </a>
+              </div>
+            </div>
 
+            <div class="printable-group">
+              <h4>📝 Schede di lavoro · Worksheets</h4>
+
+              <div class="resource-links">
+                <a class="resource-link" href="worksheets.html">
+                              <span>👕 I vestiti</span>
+                              <span class="arrow" aria-hidden="true">→</span>
+                            </a>
+              </div>
+            </div>
+
+            <div class="printable-group">
+              <h4>🎲 Giochi · Games</h4>
+
+              <div class="resource-links">
+                <a
+                              class="resource-link"
+                              href="images/printable-games/vestiti-io-ho-chi-ha/Io_Ho_Chi_Ha_I_Vestiti.pdf"
+                              target="_blank"
+                              rel="noopener noreferrer"
+                            >
+                              <span>👕 I vestiti · Io ho… Chi ha?</span>
+                              <span class="arrow" aria-hidden="true">→</span>
+                            </a>
+              </div>
+            </div>
           </div>
         </section>
 
-        <section class="resource-box games-resource-box">
-          <h3>
-            🎲 Giochi e attività pratiche · Games &amp; Hands-On Activities
-          </h3>
 
-          <div class="resource-links">
-            <a
-              class="resource-link"
-              href="images/printable-games/vestiti-io-ho-chi-ha/Io_Ho_Chi_Ha_I_Vestiti.pdf"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <span>👕 I vestiti · Io ho… Chi ha?</span>
-              <span class="arrow" aria-hidden="true">→</span>
-            </a>
-          </div>
-        </section>
 
       </div>
 
@@ -2113,38 +2282,62 @@
           </div>
         </section>
 
-        <section class="resource-box">
+                <section class="resource-box">
           <h3>🖨️ Stampabili · Printables</h3>
-          <div class="resource-links">
 
-            <a class="resource-link" href="worksheets.html">
-              <span>👕 I vestiti</span>
-              <span class="arrow" aria-hidden="true">→</span>
-            </a>
+          <div class="printable-groups">
+            <div class="printable-group">
+              <h4>📘 Glossario · Vocabulary Reference</h4>
 
+              <div class="resource-links">
+                <a
+                  class="resource-link"
+                  href="glossary.html?topic=clothing"
+                >
+                  <span>👕 L’abbigliamento</span>
+                  <span class="arrow" aria-hidden="true">→</span>
+                </a>
 
+                <a
+                  class="resource-link"
+                  href="glossary.html?topic=colors"
+                >
+                  <span>🎨 I colori</span>
+                  <span class="arrow" aria-hidden="true">→</span>
+                </a>
+              </div>
+            </div>
 
+            <div class="printable-group">
+              <h4>📝 Schede di lavoro · Worksheets</h4>
 
+              <div class="resource-links">
+                <a class="resource-link" href="worksheets.html">
+                              <span>👕 I vestiti</span>
+                              <span class="arrow" aria-hidden="true">→</span>
+                            </a>
+              </div>
+            </div>
+
+            <div class="printable-group">
+              <h4>🎲 Giochi · Games</h4>
+
+              <div class="resource-links">
+                <a
+                              class="resource-link"
+                              href="images/printable-games/vestiti-io-ho-chi-ha/Io_Ho_Chi_Ha_I_Vestiti.pdf"
+                              target="_blank"
+                              rel="noopener noreferrer"
+                            >
+                              <span>👕 I vestiti · Io ho… Chi ha?</span>
+                              <span class="arrow" aria-hidden="true">→</span>
+                            </a>
+              </div>
+            </div>
           </div>
         </section>
 
-        <section class="resource-box games-resource-box">
-          <h3>
-            🎲 Giochi e attività pratiche · Games &amp; Hands-On Activities
-          </h3>
 
-          <div class="resource-links">
-            <a
-              class="resource-link"
-              href="images/printable-games/vestiti-io-ho-chi-ha/Io_Ho_Chi_Ha_I_Vestiti.pdf"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <span>👕 I vestiti · Io ho… Chi ha?</span>
-              <span class="arrow" aria-hidden="true">→</span>
-            </a>
-          </div>
-        </section>
 
         <section class="resource-box culture-resource-box">
           <h3>🏛️ Cultura · Culture</h3>
@@ -2388,29 +2581,62 @@
           </div>
         </section>
 
-        <section class="resource-box">
+                <section class="resource-box">
           <h3>🖨️ Stampabili · Printables</h3>
-          <div class="resource-links">
 
-            <a class="resource-link" href="worksheets.html">
-              <span>🐶 Gli animali</span>
-              <span class="arrow" aria-hidden="true">→</span>
-            </a>
+          <div class="printable-groups">
+            <div class="printable-group">
+              <h4>📘 Glossario · Vocabulary Reference</h4>
 
-          </div>
-        </section>
+              <div class="resource-links">
+                <a
+                  class="resource-link"
+                  href="glossary.html?topic=seasons"
+                >
+                  <span>🌷 Le stagioni</span>
+                  <span class="arrow" aria-hidden="true">→</span>
+                </a>
 
-        <section class="resource-box games-resource-box">
-          <h3>
-            🎲 Giochi e attività pratiche · Games &amp; Hands-On Activities
-          </h3>
+                <a
+                  class="resource-link"
+                  href="glossary.html?topic=animals"
+                >
+                  <span>🐶 Gli animali</span>
+                  <span class="arrow" aria-hidden="true">→</span>
+                </a>
 
-          <div class="resource-links">
-            <div class="resource-coming-soon">
-              Da aggiungere · Coming Soon
+                <a
+                  class="resource-link"
+                  href="glossary.html?topic=adjectives"
+                >
+                  <span>🔎 Gli aggettivi</span>
+                  <span class="arrow" aria-hidden="true">→</span>
+                </a>
+
+                <a
+                  class="resource-link"
+                  href="glossary.html?topic=family"
+                >
+                  <span>👨‍👩‍👧 La famiglia</span>
+                  <span class="arrow" aria-hidden="true">→</span>
+                </a>
+              </div>
+            </div>
+
+            <div class="printable-group">
+              <h4>📝 Schede di lavoro · Worksheets</h4>
+
+              <div class="resource-links">
+                <a class="resource-link" href="worksheets.html">
+                              <span>🐶 Gli animali</span>
+                              <span class="arrow" aria-hidden="true">→</span>
+                            </a>
+              </div>
             </div>
           </div>
         </section>
+
+
 
         <section class="resource-box culture-resource-box">
           <h3>🏛️ Cultura · Culture</h3>
@@ -2642,27 +2868,43 @@
           </div>
         </section>
 
-                <section class="resource-box">
+                        <section class="resource-box">
           <h3>🖨️ Stampabili · Printables</h3>
 
-          <div class="resource-links">
-            <div class="resource-coming-soon">
-              Da aggiungere · Coming Soon
+          <div class="printable-groups">
+            <div class="printable-group">
+              <h4>📘 Glossario · Vocabulary Reference</h4>
+
+              <div class="resource-links">
+                <a
+                  class="resource-link"
+                  href="glossary.html?topic=seasons"
+                >
+                  <span>🌷 Le stagioni</span>
+                  <span class="arrow" aria-hidden="true">→</span>
+                </a>
+
+                <a
+                  class="resource-link"
+                  href="glossary.html?topic=food"
+                >
+                  <span>🍎 Il cibo e le bevande</span>
+                  <span class="arrow" aria-hidden="true">→</span>
+                </a>
+
+                <a
+                  class="resource-link"
+                  href="glossary.html?topic=family"
+                >
+                  <span>👨‍👩‍👧 La famiglia</span>
+                  <span class="arrow" aria-hidden="true">→</span>
+                </a>
+              </div>
             </div>
           </div>
         </section>
 
-        <section class="resource-box games-resource-box">
-          <h3>
-            🎲 Giochi e attività pratiche · Games &amp; Hands-On Activities
-          </h3>
 
-          <div class="resource-links">
-            <div class="resource-coming-soon">
-              Da aggiungere · Coming Soon
-            </div>
-          </div>
-        </section>
 
 <section class="resource-box culture-resource-box">
           <h3>🏛️ Cultura · Culture</h3>
