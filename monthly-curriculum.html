@@ -618,7 +618,111 @@
 
     /* MONTHLY LANGUAGE SUPPORT END */
 
-  </style>
+
+    /* MONTHLY CURRICULUM POLISH START */
+
+    /* Slightly tighten the large opening title. */
+    .monthly-page-title {
+      font-size: clamp(2.3rem, 4.2vw, 3.55rem);
+      line-height: 1;
+    }
+
+    /*
+      Keep the month selector readable when sticky.
+      The opaque surface prevents month headings from
+      showing through underneath it.
+    */
+    .month-jump-nav {
+      position: sticky;
+      top: 8px;
+      z-index: 50;
+
+      background: rgba(255, 255, 255, 0.97);
+
+      box-shadow:
+        0 8px 22px rgba(36, 54, 77, 0.10);
+
+      -webkit-backdrop-filter: blur(8px);
+      backdrop-filter: blur(8px);
+    }
+
+    /*
+      When a month button is selected, leave room for
+      the sticky month selector above the month heading.
+    */
+    .month-card {
+      scroll-margin-top: 105px;
+    }
+
+    /*
+      Games are a separate resource type rather than
+      being mixed into ordinary worksheets/printables.
+    */
+    .games-resource-box {
+      grid-column: auto;
+    }
+
+    @media (max-width: 700px) {
+      .monthly-page-title {
+        font-size: clamp(2rem, 9vw, 2.9rem);
+      }
+
+      .month-jump-nav {
+        top: 4px;
+      }
+
+      .month-card {
+        scroll-margin-top: 90px;
+      }
+    }
+
+    .resource-coming-soon {
+      padding: 0.72rem 0.85rem;
+
+      border: 1px dashed #cbd7e6;
+      border-radius: 10px;
+
+      color: #6f7d90;
+      background: #f8fafc;
+
+      font-size: 0.88rem;
+      font-style: italic;
+      text-align: center;
+    }
+
+    /* THREE CORE RESOURCE COLUMNS */
+
+    .resource-grid {
+      grid-template-columns:
+        repeat(3, minmax(0, 1fr));
+
+      align-items: start;
+    }
+
+    /*
+      Culture follows the three core instructional
+      resource categories and gets the full row.
+    */
+    .resource-grid .culture-resource-box {
+      grid-column: 1 / -1;
+    }
+
+    @media (max-width: 950px) {
+      .resource-grid {
+        grid-template-columns:
+          repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 700px) {
+      .resource-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* MONTHLY CURRICULUM POLISH END */
+
+</style>
   <link rel="stylesheet" href="css/activity-center-home.css">
 </head>
 
@@ -639,7 +743,7 @@
     </div>
 
     <div class="page-title">
-      <h1>
+      <h1 class="monthly-page-title">
         📅 Materiali mensili ·
         <span lang="en">Monthly Curriculum Materials</span>
       </h1>
@@ -675,7 +779,7 @@
       </p>
     </section>
 
-    <nav class="month-nav" aria-label="Vai al mese">
+    <nav class="month-nav month-jump-nav" aria-label="Vai al mese">
       <a href="#settembre">Set</a>
 <a href="#ottobre">Ott</a>
 <a href="#novembre">Nov</a>
@@ -856,15 +960,7 @@
               <span class="arrow" aria-hidden="true">→</span>
             </a>
 
-            <a
-              class="resource-link"
-              href="images/printable-games/parlo-di-me-dice-roll/dice-roll-parlo-di-me.pdf"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <span>🎲 Dice Roll · Parlo di me</span>
-              <span class="arrow" aria-hidden="true">→</span>
-            </a>
+
 
             <a class="resource-link" href="worksheets.html">
               <span>📚 Materiale scolastico</span>
@@ -904,6 +1000,26 @@
               rel="noopener noreferrer"
             >
               <span>✈️ Che cosa dice Volo?</span>
+              <span class="arrow" aria-hidden="true">→</span>
+            </a>
+
+          </div>
+        </section>
+
+        <section class="resource-box games-resource-box">
+          <h3>
+            🎲 Giochi e attività pratiche · Games &amp; Hands-On Activities
+          </h3>
+
+          <div class="resource-links">
+
+            <a
+              class="resource-link"
+              href="images/printable-games/parlo-di-me-dice-roll/dice-roll-parlo-di-me.pdf"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <span>🎲 Dice Roll · Parlo di me</span>
               <span class="arrow" aria-hidden="true">→</span>
             </a>
 
@@ -1102,7 +1218,19 @@
           </div>
         </section>
 
-        <section class="resource-box">
+        <section class="resource-box games-resource-box">
+          <h3>
+            🎲 Giochi e attività pratiche · Games &amp; Hands-On Activities
+          </h3>
+
+          <div class="resource-links">
+            <div class="resource-coming-soon">
+              Da aggiungere · Coming Soon
+            </div>
+          </div>
+        </section>
+
+        <section class="resource-box culture-resource-box">
           <h3>🏛️ Cultura · Culture</h3>
           <div class="resource-links">
 
@@ -1298,10 +1426,7 @@
             </a>
 
 
-            <a class="resource-link" href="games.html">
-              <span>🎲 Giochi stampabili</span>
-              <span class="arrow" aria-hidden="true">→</span>
-            </a>
+
 
 
             <a class="resource-link" href="cultural-resources/harvest/la-festa-di-san-martino/il-dolce-di-san-martino-da-colorare.pdf">
@@ -1312,7 +1437,20 @@
           </div>
         </section>
 
-        <section class="resource-box">
+        <section class="resource-box games-resource-box">
+          <h3>
+            🎲 Giochi e attività pratiche · Games &amp; Hands-On Activities
+          </h3>
+
+          <div class="resource-links">
+            <a class="resource-link" href="games.html">
+              <span>🎲 Giochi stampabili</span>
+              <span class="arrow" aria-hidden="true">→</span>
+            </a>
+          </div>
+        </section>
+
+        <section class="resource-box culture-resource-box">
           <h3>🏛️ Cultura · Culture</h3>
           <div class="resource-links">
 
@@ -1482,6 +1620,43 @@
       <!-- LANGUAGE SUPPORT END -->
 
 
+
+
+      <div class="resource-grid">
+
+        <section class="resource-box">
+          <h3>💻 Attività digitali · Digital Activities</h3>
+
+          <div class="resource-links">
+            <div class="resource-coming-soon">
+              Da aggiungere · Coming Soon
+            </div>
+          </div>
+        </section>
+
+        <section class="resource-box">
+          <h3>🖨️ Stampabili · Printables</h3>
+
+          <div class="resource-links">
+            <div class="resource-coming-soon">
+              Da aggiungere · Coming Soon
+            </div>
+          </div>
+        </section>
+
+        <section class="resource-box games-resource-box">
+          <h3>
+            🎲 Giochi e attività pratiche · Games &amp; Hands-On Activities
+          </h3>
+
+          <div class="resource-links">
+            <div class="resource-coming-soon">
+              Da aggiungere · Coming Soon
+            </div>
+          </div>
+        </section>
+
+      </div>
 
 
       <!-- PLANNED START -->
@@ -1704,11 +1879,21 @@
             </a>
 
 
+
+
+          </div>
+        </section>
+
+        <section class="resource-box games-resource-box">
+          <h3>
+            🎲 Giochi e attività pratiche · Games &amp; Hands-On Activities
+          </h3>
+
+          <div class="resource-links">
             <a class="resource-link" href="games.html">
               <span>🎲 Giochi sui vestiti</span>
               <span class="arrow" aria-hidden="true">→</span>
             </a>
-
           </div>
         </section>
 
@@ -1928,15 +2113,25 @@
             </a>
 
 
-            <a class="resource-link" href="games.html">
-              <span>🎲 Giochi stampabili</span>
-              <span class="arrow" aria-hidden="true">→</span>
-            </a>
+
 
           </div>
         </section>
 
-        <section class="resource-box">
+        <section class="resource-box games-resource-box">
+          <h3>
+            🎲 Giochi e attività pratiche · Games &amp; Hands-On Activities
+          </h3>
+
+          <div class="resource-links">
+            <a class="resource-link" href="games.html">
+              <span>🎲 Giochi stampabili</span>
+              <span class="arrow" aria-hidden="true">→</span>
+            </a>
+          </div>
+        </section>
+
+        <section class="resource-box culture-resource-box">
           <h3>🏛️ Cultura · Culture</h3>
           <div class="resource-links">
 
@@ -2190,7 +2385,19 @@
           </div>
         </section>
 
-        <section class="resource-box">
+        <section class="resource-box games-resource-box">
+          <h3>
+            🎲 Giochi e attività pratiche · Games &amp; Hands-On Activities
+          </h3>
+
+          <div class="resource-links">
+            <div class="resource-coming-soon">
+              Da aggiungere · Coming Soon
+            </div>
+          </div>
+        </section>
+
+        <section class="resource-box culture-resource-box">
           <h3>🏛️ Cultura · Culture</h3>
           <div class="resource-links">
 
@@ -2420,7 +2627,29 @@
           </div>
         </section>
 
-        <section class="resource-box">
+                <section class="resource-box">
+          <h3>🖨️ Stampabili · Printables</h3>
+
+          <div class="resource-links">
+            <div class="resource-coming-soon">
+              Da aggiungere · Coming Soon
+            </div>
+          </div>
+        </section>
+
+        <section class="resource-box games-resource-box">
+          <h3>
+            🎲 Giochi e attività pratiche · Games &amp; Hands-On Activities
+          </h3>
+
+          <div class="resource-links">
+            <div class="resource-coming-soon">
+              Da aggiungere · Coming Soon
+            </div>
+          </div>
+        </section>
+
+<section class="resource-box culture-resource-box">
           <h3>🏛️ Cultura · Culture</h3>
           <div class="resource-links">
 
