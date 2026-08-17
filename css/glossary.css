@@ -434,3 +434,319 @@ body.glossary-hide-english
 .glossary-card {
   height: auto;
 }
+
+/* ========================================
+   GLOSSARY TOPIC PRINTING
+   ======================================== */
+
+.glossary-print-button {
+  margin-left: auto;
+  min-height: 40px;
+  padding: 8px 14px;
+
+  border: 1px solid #c8d8e9;
+  border-radius: 999px;
+
+  color: var(--blue-dark, #274b84);
+  background: #ffffff;
+
+  font: inherit;
+  font-size: 0.86rem;
+  font-weight: 850;
+
+  cursor: pointer;
+
+  box-shadow:
+    0 3px 10px rgba(39, 75, 132, 0.08);
+
+  transition:
+    transform 0.16s ease,
+    border-color 0.16s ease,
+    box-shadow 0.16s ease;
+}
+
+.glossary-print-button:hover,
+.glossary-print-button:focus-visible {
+  transform: translateY(-1px);
+  border-color: #9fb9d8;
+  outline: none;
+
+  box-shadow:
+    0 5px 14px rgba(39, 75, 132, 0.12);
+}
+
+.glossary-print-area {
+  display: none;
+}
+
+
+@media print {
+
+  @page {
+    size: Letter portrait;
+    margin:
+      0.42in
+      0.45in
+      0.45in;
+  }
+
+  html,
+  body {
+    margin: 0 !important;
+    padding: 0 !important;
+
+    color: #000 !important;
+    background: #fff !important;
+  }
+
+  /*
+    Print ONLY the specially generated
+    vocabulary sheet.
+  */
+  body.glossary-printing > * {
+    display: none !important;
+  }
+
+  body.glossary-printing
+  #glossaryPrintArea {
+    display: block !important;
+  }
+
+  .glossary-print-area {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+
+    font-family:
+      -apple-system,
+      BlinkMacSystemFont,
+      "Segoe UI",
+      Arial,
+      sans-serif;
+  }
+
+  .glossary-print-header {
+    margin: 0 0 0.14in;
+    padding: 0 0 0.09in;
+
+    border-bottom:
+      1.5px solid #b8c8da;
+
+    text-align: center;
+  }
+
+  .glossary-print-header h1 {
+    margin: 0;
+
+    color: #274b84;
+
+    font-size: 18pt;
+    line-height: 1.1;
+  }
+
+  .glossary-print-header p {
+    margin: 3px 0 0;
+
+    color: #59697b;
+
+    font-size: 9.5pt;
+    font-weight: 700;
+  }
+
+  .glossary-print-grid {
+    display: grid;
+
+    grid-template-columns:
+      repeat(4, minmax(0, 1fr));
+
+    grid-auto-rows: 1.78in;
+
+    gap: 0.10in;
+
+    align-content: start;
+  }
+
+  .glossary-print-area.glossary-print-roomy
+  .glossary-print-grid {
+    grid-template-columns:
+      repeat(3, minmax(0, 1fr));
+
+    grid-auto-rows: 2.18in;
+
+    gap: 0.14in;
+  }
+
+  .glossary-print-area.glossary-print-roomy
+  .glossary-print-card {
+    grid-template-rows:
+      1.55in
+      0.63in;
+  }
+
+  .glossary-print-area.glossary-print-roomy
+  .glossary-print-italian {
+    font-size: 11pt;
+  }
+
+  .glossary-print-area.glossary-print-roomy
+  .glossary-print-english {
+    font-size: 8.5pt;
+  }
+
+
+  .glossary-print-area.glossary-print-medium
+  .glossary-print-grid {
+    grid-template-columns:
+      repeat(4, minmax(0, 1fr));
+
+    grid-auto-rows: 2.05in;
+
+    gap: 0.12in;
+  }
+
+  .glossary-print-area.glossary-print-medium
+  .glossary-print-card {
+    grid-template-rows:
+      1.45in
+      0.60in;
+  }
+
+  .glossary-print-area.glossary-print-medium
+  .glossary-print-italian {
+    font-size: 10.5pt;
+  }
+
+  .glossary-print-area.glossary-print-medium
+  .glossary-print-english {
+    font-size: 8.2pt;
+  }
+
+
+  .glossary-print-area.glossary-print-compact
+  .glossary-print-grid {
+    grid-auto-rows: 1.40in;
+    gap: 0.085in;
+  }
+
+  .glossary-print-area.glossary-print-compact
+  .glossary-print-card {
+    grid-template-rows:
+      0.94in
+      0.46in;
+  }
+
+  .glossary-print-card {
+    display: grid;
+
+    grid-template-rows:
+      1.22in
+      0.56in;
+
+    break-inside: avoid;
+    page-break-inside: avoid;
+
+    overflow: hidden;
+
+    border:
+      1px solid #ccd6e1;
+
+    border-radius: 8px;
+
+    background: #fff;
+  }
+
+  .glossary-print-image-wrap {
+    display: grid;
+    place-items: center;
+
+    min-width: 0;
+    min-height: 0;
+    padding: 0.06in;
+
+    overflow: hidden;
+
+    background: #fff;
+  }
+
+  .glossary-print-image {
+    display: block;
+
+    width: 100%;
+    height: 100%;
+
+    min-width: 0;
+    min-height: 0;
+    max-width: 100%;
+    max-height: 100%;
+
+    object-fit: contain;
+  }
+
+  .glossary-print-card-text {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    min-width: 0;
+    min-height: 0;
+
+    padding:
+      0.035in
+      0.045in;
+
+    overflow: hidden;
+
+    border-top:
+      1px solid #d8e0e8;
+
+    background: #fff;
+
+    text-align: center;
+  }
+
+  .glossary-print-italian {
+    margin: 0;
+
+    color: #1f3f6d;
+
+    font-size: 9.5pt;
+    font-weight: 800;
+    line-height: 1.15;
+  }
+
+  .glossary-print-english {
+    margin: 2px 0 0;
+
+    color: #555;
+
+    font-size: 7.8pt;
+    line-height: 1.15;
+  }
+
+  /*
+    No audio buttons/icons are created in the
+    print sheet. Hide them defensively as well.
+  */
+  .glossary-audio-button,
+  .glossary-print-button {
+    display: none !important;
+  }
+
+  .glossary-print-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    margin-top: 0.12in;
+    padding-top: 0.07in;
+
+    border-top:
+      1px solid #cfd8e2;
+
+    color: #555;
+
+    font-size: 7pt;
+    line-height: 1;
+  }
+}\n

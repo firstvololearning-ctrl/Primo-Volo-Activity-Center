@@ -449,6 +449,220 @@ if (
     );
   }
 
+  /* ========================================
+     PRINTABLE GLOSSARY TOPICS
+     ======================================== */
+
+  const glossaryPrintArea =
+    document.createElement(
+      "section"
+    );
+
+  glossaryPrintArea.id =
+    "glossaryPrintArea";
+
+  glossaryPrintArea.className =
+    "glossary-print-area";
+
+  glossaryPrintArea.hidden =
+    true;
+
+  document.body.appendChild(
+    glossaryPrintArea
+  );
+
+
+  function createPrintableCard(
+    item,
+    includeEnglish
+  ) {
+    const articleLabel =
+      item.english || item.italian;
+
+    return `
+      <article class="glossary-print-card">
+
+        <div class="glossary-print-image-wrap">
+          <img
+            src="${item.image}"
+            alt="${articleLabel}"
+            class="glossary-print-image"
+          >
+        </div>
+
+        <div class="glossary-print-card-text">
+          <p class="glossary-print-italian">
+            ${item.italian}
+          </p>
+
+          ${
+            includeEnglish
+              ? `
+                <p class="glossary-print-english">
+                  ${item.english}
+                </p>
+              `
+              : ""
+          }
+        </div>
+
+      </article>
+    `;
+  }
+
+
+  async function printGlossaryTopic(
+    topicId
+  ) {
+    const topic =
+      glossaryTopics.find(
+        item =>
+          item.id === topicId
+      );
+
+    if (!topic) {
+      return;
+    }
+
+    /*
+      Build the print sheet from the complete
+      topic vocabulary, not from the current
+      search/filter results.
+
+      Audio controls are intentionally omitted.
+    */
+    const includeEnglish =
+      englishToggle.checked;
+
+    glossaryPrintArea.classList.toggle(
+      "glossary-print-roomy",
+      topic.vocabulary.length <= 8
+    );
+
+    glossaryPrintArea.classList.toggle(
+      "glossary-print-medium",
+      topic.vocabulary.length >= 9 &&
+      topic.vocabulary.length <= 12
+    );
+
+    glossaryPrintArea.classList.toggle(
+      "glossary-print-compact",
+      topic.vocabulary.length > 16
+    );
+
+    glossaryPrintArea.innerHTML = `
+      <header class="glossary-print-header">
+        <h1>
+          ${topic.icon}
+          ${topic.italian}
+        </h1>
+
+        ${
+          includeEnglish
+            ? `
+              <p>
+                ${topic.english}
+              </p>
+            `
+            : ""
+        }
+      </header>
+
+      <div class="glossary-print-grid">
+        ${topic.vocabulary
+          .map(item =>
+            createPrintableCard(
+              item,
+              includeEnglish
+            )
+          )
+          .join("")}
+      </div>
+
+      <footer class="glossary-print-footer">
+        <span>
+          First Volo Learning |
+          firstvololearning.com
+        </span>
+
+        <span>
+          Primo Volo d'Italiano
+        </span>
+      </footer>
+    `;
+
+    glossaryPrintArea.hidden =
+      false;
+
+    document.body.classList.add(
+      "glossary-printing"
+    );
+
+    /*
+      Wait for the vocabulary graphics before
+      opening the browser print dialog.
+    */
+    const images =
+      [
+        ...glossaryPrintArea
+          .querySelectorAll("img")
+      ];
+
+    await Promise.all(
+      images.map(image => {
+        if (
+          image.complete &&
+          image.naturalWidth
+        ) {
+          return Promise.resolve();
+        }
+
+        return new Promise(
+          resolve => {
+            image.addEventListener(
+              "load",
+              resolve,
+              { once: true }
+            );
+
+            image.addEventListener(
+              "error",
+              resolve,
+              { once: true }
+            );
+          }
+        );
+      })
+    );
+
+    window.setTimeout(
+      () => {
+        window.print();
+      },
+      80
+    );
+  }
+
+
+  function finishGlossaryPrint() {
+    document.body.classList.remove(
+      "glossary-printing"
+    );
+
+    glossaryPrintArea.hidden =
+      true;
+
+    glossaryPrintArea.innerHTML =
+      "";
+  }
+
+
+  window.addEventListener(
+    "afterprint",
+    finishGlossaryPrint
+  );
+
+
   function createTopicOptions() {
     glossaryTopics.forEach(topic => {
       const option =
@@ -593,6 +807,14 @@ if (
               ${topic.english}
             </span>
           </h2>
+
+          <button
+            type="button"
+            class="glossary-print-button"
+            data-print-topic="${topic.id}"
+          >
+            🖨️ Stampa · Print
+          </button>
         </header>
 
         <div class="glossary-grid">
@@ -672,6 +894,21 @@ if (
           () => {
             speakItalian(
               button.dataset.speak
+            );
+          }
+        );
+      });
+
+    document
+      .querySelectorAll(
+        ".glossary-print-button"
+      )
+      .forEach(button => {
+        button.addEventListener(
+          "click",
+          () => {
+            printGlossaryTopic(
+              button.dataset.printTopic
             );
           }
         );
