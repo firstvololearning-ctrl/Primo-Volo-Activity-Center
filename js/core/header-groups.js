@@ -33,10 +33,35 @@
     )
   ].filter(Boolean);
 
+  const monthlyCurriculumLink = (() => {
+    const template =
+      document.querySelector(
+        'a[href="worksheets.html"]'
+      );
+
+    if (!template) {
+      return null;
+    }
+
+    const link =
+      template.cloneNode(true);
+
+    link.removeAttribute("id");
+
+    link.href =
+      "monthly-curriculum.html";
+
+    link.textContent =
+      "📅 Materiali mensili · Monthly Curriculum Materials";
+
+    return link;
+  })();
+
   const educatorItems = [
     document.querySelector(
       "#progressButton"
     ),
+    monthlyCurriculumLink,
     document.querySelector(
       'a[href="worksheets.html"]'
     ),
