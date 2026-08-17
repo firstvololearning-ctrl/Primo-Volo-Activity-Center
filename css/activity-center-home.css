@@ -1,0 +1,96 @@
+/* ========================================
+   PRIMO VOLO — ACTIVITY CENTER HOME LINK
+   Shared polished Home button
+   ======================================== */
+
+/*
+  Include each common page-specific class so this
+  shared treatment wins over older header styles.
+*/
+
+.activity-center-home-link,
+.header-link.activity-center-home-link,
+.back-link.activity-center-home-link,
+.book-back-link.activity-center-home-link,
+.glossary-back-link.activity-center-home-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+
+  flex: 0 0 auto;
+  width: auto;
+  max-width: 100%;
+  min-width: 0;
+  min-height: 42px;
+
+  margin: 0;
+  padding: 8px 16px;
+
+  box-sizing: border-box;
+
+  border: 1px solid #c8d8e9;
+  border-radius: 999px;
+
+  color: #274b84;
+  background: #ffffff;
+
+  font: inherit;
+  font-size: 0.9rem;
+  font-weight: 800;
+  line-height: 1.15;
+  text-align: center;
+  text-decoration: none;
+  white-space: normal;
+
+  box-shadow:
+    0 3px 10px rgba(39, 75, 132, 0.08);
+
+  transform: none;
+
+  transition:
+    transform 0.16s ease,
+    background 0.16s ease,
+    border-color 0.16s ease,
+    box-shadow 0.16s ease;
+}
+
+.activity-center-home-link:hover,
+.header-link.activity-center-home-link:hover,
+.back-link.activity-center-home-link:hover,
+.book-back-link.activity-center-home-link:hover,
+.glossary-back-link.activity-center-home-link:hover {
+  transform: translateY(-1px);
+
+  border-color: #9fb9d8;
+  background: #f4f8fc;
+
+  color: #274b84;
+
+  box-shadow:
+    0 5px 14px rgba(39, 75, 132, 0.12);
+}
+
+.activity-center-home-link:focus-visible,
+.header-link.activity-center-home-link:focus-visible,
+.back-link.activity-center-home-link:focus-visible,
+.book-back-link.activity-center-home-link:focus-visible,
+.glossary-back-link.activity-center-home-link:focus-visible {
+  outline: 3px solid rgba(72, 120, 176, 0.22);
+  outline-offset: 3px;
+
+  border-color: #7fa3cc;
+}
+
+@media (max-width: 520px) {
+  .activity-center-home-link,
+  .header-link.activity-center-home-link,
+  .back-link.activity-center-home-link,
+  .book-back-link.activity-center-home-link,
+  .glossary-back-link.activity-center-home-link {
+    width: auto;
+    min-height: 40px;
+    padding: 8px 13px;
+    font-size: 0.84rem;
+  }
+}
