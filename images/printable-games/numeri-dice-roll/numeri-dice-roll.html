@@ -1,0 +1,596 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>Dado dei numeri 1–20</title>
+
+<style>
+  * {
+    box-sizing: border-box;
+  }
+
+  @page {
+    size: Letter portrait;
+    margin: 0.22in;
+  }
+
+  html,
+  body {
+    margin: 0;
+    padding: 0;
+    background: #eef2f7;
+    font-family: Arial, Helvetica, sans-serif;
+    color: #111;
+  }
+
+  .sheet {
+    width: 8.06in;
+    min-height: 10.56in;
+    margin: 18px auto;
+    padding: 0.16in;
+
+    background: #fff;
+    border: 4px solid #1f57a5;
+    border-radius: 22px;
+  }
+
+  header {
+    text-align: center;
+    margin-bottom: 0.10in;
+  }
+
+  h1 {
+    margin: 0;
+    font-size: 29px;
+    line-height: 1.05;
+    font-weight: 900;
+  }
+
+  .subtitle {
+    margin: 5px 0 0;
+    color: #1f57a5;
+    font-size: 17px;
+    font-weight: 900;
+  }
+
+  .directions {
+    margin: 4px 0 0;
+    font-size: 13px;
+    font-weight: 800;
+  }
+
+  .dice-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px 10px;
+    margin-top: 8px;
+  }
+
+  .dice-card {
+    display: grid;
+    grid-template-columns: 52px 40px 78px 1fr;
+    align-items: center;
+    gap: 7px;
+
+    min-height: 86px;
+    padding: 7px 9px;
+
+    border: 2px solid #1f57a5;
+    border-radius: 14px;
+    background: #fff;
+  }
+
+  .die {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 48px;
+    height: 48px;
+
+    border: 2px solid #333;
+    border-radius: 8px;
+
+    font-size: 42px;
+    line-height: 1;
+  }
+
+  .number {
+    color: #1858b7;
+    font-size: 39px;
+    font-weight: 900;
+    text-align: center;
+  }
+
+  .carrier-image {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 69px;
+  }
+
+  .carrier-image img {
+    display: block;
+    max-width: 74px;
+    max-height: 68px;
+    object-fit: contain;
+  }
+
+  .carrier-text {
+    font-size: 20px;
+    line-height: 1.05;
+    font-weight: 900;
+  }
+
+  .free-choice-card {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 72px;
+    height: 62px;
+
+    border: 3px solid #7651a6;
+    border-radius: 13px;
+
+    background:
+      linear-gradient(145deg, #f4dfac, #fff3ca);
+
+    color: #6b3e94;
+    font-size: 13px;
+    line-height: 1.05;
+    font-weight: 900;
+    text-align: center;
+  }
+
+  .word-bank {
+    margin-top: 10px;
+    padding: 8px;
+
+    border: 2px solid #1f57a5;
+    border-radius: 14px;
+  }
+
+  .word-bank h2 {
+    margin: 0 0 7px;
+    color: #1f57a5;
+    font-size: 18px;
+    text-align: center;
+  }
+
+  .supply-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 5px;
+  }
+
+  .supply-card {
+    min-width: 0;
+    min-height: 112px;
+    padding: 4px 3px 5px;
+
+    border: 1.5px solid #1f57a5;
+    border-radius: 9px;
+
+    text-align: center;
+    background: #fff;
+  }
+
+  .supply-card img {
+    display: block;
+
+    width: 100%;
+    height: 70px;
+    margin: 0 auto 3px;
+
+    object-fit: contain;
+  }
+
+  .supply-label {
+    min-height: 26px;
+
+    font-size: 10px;
+    line-height: 1.1;
+    font-weight: 900;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .writing-box {
+    margin-top: 9px;
+    padding: 8px 12px 9px;
+
+    border: 2px solid #1f57a5;
+    border-radius: 14px;
+
+    background: #fff;
+  }
+
+  .writing-box h2 {
+    margin: 0 0 12px;
+
+    color: #1f57a5;
+    font-size: 16px;
+    font-weight: 900;
+  }
+
+  .writing-line {
+    display: grid;
+    grid-template-columns: 20px 1fr;
+    align-items: end;
+    gap: 4px;
+
+    margin-top: 5px;
+
+    font-size: 12px;
+    font-weight: 800;
+  }
+
+  .writing-rule {
+    height: 17px;
+    border-bottom: 1.5px solid #333;
+  }
+
+  footer {
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+
+    margin-top: 8px;
+    padding: 0 2px;
+
+    font-size: 9px;
+    font-weight: 700;
+  }
+
+  @media print {
+    html,
+    body {
+      background: #fff;
+    }
+
+    .sheet {
+      margin: 0;
+      box-shadow: none;
+      break-inside: avoid;
+    }
+  }
+
+  /* WRITING SPACE OVERRIDE */
+  .writing-box {
+    min-height: 245px;
+    padding: 12px 14px 16px;
+  }
+
+  .writing-box h2 {
+    margin: 0 0 8px;
+  }
+
+  .writing-line {
+    min-height: 58px;
+    margin-top: 0;
+    align-items: end;
+  }
+
+  .writing-rule {
+    height: 54px;
+  }
+
+
+  /* NUMBERS 1–20 BANK */
+  .number-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 5px;
+  }
+
+  .number-card {
+    min-width: 0;
+    min-height: 50px;
+    padding: 4px 3px;
+
+    border: 1.5px solid #1f57a5;
+    border-radius: 9px;
+
+    background: #fff;
+    text-align: center;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .number-numeral {
+    color: #1858b7;
+    font-size: 24px;
+    line-height: 1;
+    font-weight: 900;
+  }
+
+  .number-word {
+    margin-top: 3px;
+    font-size: 11px;
+    line-height: 1.05;
+    font-weight: 900;
+  }
+
+
+  /* NUMBER ACCENT COLORS */
+  .number-card:nth-child(5n + 1) .number-numeral {
+    color: #1858b7;
+  }
+
+  .number-card:nth-child(5n + 2) .number-numeral {
+    color: #247a45;
+  }
+
+  .number-card:nth-child(5n + 3) .number-numeral {
+    color: #c65d12;
+  }
+
+  .number-card:nth-child(5n + 4) .number-numeral {
+    color: #7046a3;
+  }
+
+  .number-card:nth-child(5n + 5) .number-numeral {
+    color: #b63d43;
+  }
+
+</style>
+</head>
+
+<body>
+
+<main class="sheet">
+
+  <header>
+    <h1>🎲 Dado dei numeri · 1–20</h1>
+
+    <div class="subtitle">
+      Versione supportata
+    </div>
+
+    <p class="directions">
+      Tira il dado. Guarda il numero. Usa la frase. Scegli un numero dalla banca.
+    </p>
+  </header>
+
+
+  <section class="dice-grid">
+
+    <div class="dice-card">
+      <div class="die">⚀</div>
+      <div class="number">1</div>
+
+      <div class="carrier-image">
+        <img
+          src="../../carrier-phrases/io-vedo-no-text.png"
+          alt=""
+        >
+      </div>
+
+      <div class="carrier-text">
+        Io vedo…
+      </div>
+    </div>
+
+
+    <div class="dice-card">
+      <div class="die">⚁</div>
+      <div class="number">2</div>
+
+      <div class="carrier-image">
+        <img
+          src="../../carrier-phrases/io-ho-no-text.png"
+          alt=""
+        >
+      </div>
+
+      <div class="carrier-text">
+        Io ho…
+      </div>
+    </div>
+
+
+    <div class="dice-card">
+      <div class="die">⚂</div>
+      <div class="number">3</div>
+
+      <div class="carrier-image">
+        <img
+          src="../../carrier-phrases/mi-piace-no-text.png"
+          alt=""
+        >
+      </div>
+
+      <div class="carrier-text">
+        Mi piace…
+      </div>
+    </div>
+
+
+    <div class="dice-card">
+      <div class="die">⚃</div>
+      <div class="number">4</div>
+
+      <div class="carrier-image">
+        <img
+          src="../../carrier-phrases/il-numero-e-no-text.png"
+          alt=""
+        >
+      </div>
+
+      <div class="carrier-text">
+        Il numero è…
+      </div>
+    </div>
+
+
+    <div class="dice-card">
+      <div class="die">⚄</div>
+      <div class="number">5</div>
+
+      <div class="carrier-image">
+        <img
+          src="../../carrier-phrases/il-mio-numero-preferito-no-text.png"
+          alt=""
+        >
+      </div>
+
+      <div class="carrier-text">
+        Il mio numero<br>preferito è…
+      </div>
+    </div>
+
+
+    <div class="dice-card">
+      <div class="die">⚅</div>
+      <div class="number">6</div>
+
+      <div class="carrier-image">
+        <img
+          src="../../carrier-phrases/scelta-libera.png"
+          alt=""
+        >
+      </div>
+
+      <div class="carrier-text">
+        Scelta libera
+      </div>
+    </div>
+
+  </section>
+
+
+  <section class="word-bank">
+
+    <h2>
+      Banca dei numeri · 1–20
+    </h2>
+
+    <div class="number-grid">
+
+      <div class="number-card">
+        <div class="number-numeral">1</div>
+        <div class="number-word">uno</div>
+      </div>
+      <div class="number-card">
+        <div class="number-numeral">2</div>
+        <div class="number-word">due</div>
+      </div>
+      <div class="number-card">
+        <div class="number-numeral">3</div>
+        <div class="number-word">tre</div>
+      </div>
+      <div class="number-card">
+        <div class="number-numeral">4</div>
+        <div class="number-word">quattro</div>
+      </div>
+      <div class="number-card">
+        <div class="number-numeral">5</div>
+        <div class="number-word">cinque</div>
+      </div>
+      <div class="number-card">
+        <div class="number-numeral">6</div>
+        <div class="number-word">sei</div>
+      </div>
+      <div class="number-card">
+        <div class="number-numeral">7</div>
+        <div class="number-word">sette</div>
+      </div>
+      <div class="number-card">
+        <div class="number-numeral">8</div>
+        <div class="number-word">otto</div>
+      </div>
+      <div class="number-card">
+        <div class="number-numeral">9</div>
+        <div class="number-word">nove</div>
+      </div>
+      <div class="number-card">
+        <div class="number-numeral">10</div>
+        <div class="number-word">dieci</div>
+      </div>
+      <div class="number-card">
+        <div class="number-numeral">11</div>
+        <div class="number-word">undici</div>
+      </div>
+      <div class="number-card">
+        <div class="number-numeral">12</div>
+        <div class="number-word">dodici</div>
+      </div>
+      <div class="number-card">
+        <div class="number-numeral">13</div>
+        <div class="number-word">tredici</div>
+      </div>
+      <div class="number-card">
+        <div class="number-numeral">14</div>
+        <div class="number-word">quattordici</div>
+      </div>
+      <div class="number-card">
+        <div class="number-numeral">15</div>
+        <div class="number-word">quindici</div>
+      </div>
+      <div class="number-card">
+        <div class="number-numeral">16</div>
+        <div class="number-word">sedici</div>
+      </div>
+      <div class="number-card">
+        <div class="number-numeral">17</div>
+        <div class="number-word">diciassette</div>
+      </div>
+      <div class="number-card">
+        <div class="number-numeral">18</div>
+        <div class="number-word">diciotto</div>
+      </div>
+      <div class="number-card">
+        <div class="number-numeral">19</div>
+        <div class="number-word">diciannove</div>
+      </div>
+      <div class="number-card">
+        <div class="number-numeral">20</div>
+        <div class="number-word">venti</div>
+      </div>
+
+    </div>
+  </section>
+
+
+  <section class="writing-box">
+    <h2>✏️ Scrivi 3 frasi che hai detto.</h2>
+
+    <div class="writing-line">
+      <span>1.</span>
+      <div class="writing-rule"></div>
+    </div>
+
+    <div class="writing-line">
+      <span>2.</span>
+      <div class="writing-rule"></div>
+    </div>
+
+    <div class="writing-line">
+      <span>3.</span>
+      <div class="writing-rule"></div>
+    </div>
+  </section>
+
+
+  <footer>
+    <span>
+      First Volo Learning | firstvololearning.com
+    </span>
+
+    <span>
+      Primo Volo d'Italiano
+    </span>
+  </footer>
+
+</main>
+
+</body>
+</html>
