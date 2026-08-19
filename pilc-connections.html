@@ -1,0 +1,1851 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1"
+  >
+
+  <title>
+    PILC Curriculum Connections · Primo Volo Italian Learning Hub
+  </title>
+
+  <link rel="stylesheet" href="css/style.css">
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    :root {
+      --blue: #274b84;
+      --blue-2: #315f9f;
+      --blue-soft: #edf4fb;
+
+      --coral: #d46c5c;
+      --coral-soft: #fff3ef;
+
+      --gold: #d9a93e;
+      --gold-soft: #fff9e9;
+
+      --green: #498565;
+      --green-soft: #eef8f2;
+
+      --purple: #72558d;
+      --purple-soft: #f5f0f9;
+
+      --ink: #34465b;
+      --muted: #65758a;
+      --line: #d9e2ed;
+
+      --page: #f5f7fa;
+      --surface: #ffffff;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      background: var(--page);
+      color: var(--ink);
+
+      font-family:
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        Arial,
+        Helvetica,
+        sans-serif;
+    }
+
+    .site-header {
+      display: grid;
+      grid-template-columns: 1fr 1.6fr 1fr;
+      align-items: center;
+      gap: 22px;
+
+      width: min(1180px, calc(100% - 32px));
+      margin: 0 auto;
+      padding: 25px 0 18px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 11px;
+    }
+
+    .brand img {
+      width: 58px;
+      height: auto;
+    }
+
+    .brand-copy {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .brand-copy strong {
+      color: var(--blue);
+      font-size: .93rem;
+    }
+
+    .brand-copy span {
+      color: #758398;
+      font-size: .76rem;
+      font-weight: 750;
+    }
+
+    .page-title {
+      text-align: center;
+    }
+
+    .page-title h1 {
+      margin: 0;
+      color: var(--blue);
+
+      font-size:
+        clamp(1.8rem, 3.7vw, 2.75rem);
+
+      line-height: 1.04;
+    }
+
+    .page-title p {
+      margin: 6px 0 0;
+
+      color: var(--coral);
+      font-size: .9rem;
+      font-weight: 900;
+    }
+
+    .pilc-back-link {
+      justify-self: end;
+
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+
+      width: auto;
+      min-width: 0;
+      min-height: 0;
+
+      padding: 9px 13px;
+
+      border: 1px solid #cfdceb;
+      border-radius: 999px;
+
+      background: #f7faff;
+      color: var(--blue);
+
+      font-size: .8rem;
+      font-weight: 850;
+      line-height: 1.1;
+      text-decoration: none;
+      white-space: nowrap;
+
+      box-shadow:
+        0 3px 10px rgba(39, 75, 132, .07);
+
+      transition:
+        transform .15s ease,
+        box-shadow .15s ease,
+        background .15s ease;
+    }
+
+    .pilc-back-link:hover,
+    .pilc-back-link:focus-visible {
+      transform: translateY(-1px);
+      background: white;
+
+      box-shadow:
+        0 5px 14px rgba(39, 75, 132, .11);
+
+      outline: none;
+    }
+
+    main {
+      width: min(1180px, calc(100% - 30px));
+      margin: 0 auto 50px;
+    }
+
+    .hero {
+      padding: 28px 30px;
+
+      border: 1px solid var(--line);
+      border-radius: 25px;
+
+      background:
+        linear-gradient(
+          135deg,
+          #f8fbff 0%,
+          #ffffff 53%,
+          #fff9e9 100%
+        );
+
+      box-shadow:
+        0 9px 26px rgba(39, 75, 132, .07);
+    }
+
+    .eyebrow {
+      margin: 0 0 7px;
+
+      color: var(--green);
+
+      font-size: .78rem;
+      font-weight: 950;
+      letter-spacing: .065em;
+      text-transform: uppercase;
+    }
+
+    .hero h2 {
+      margin: 0;
+
+      color: var(--blue);
+
+      font-size:
+        clamp(1.5rem, 3vw, 2.2rem);
+
+      line-height: 1.15;
+    }
+
+    .hero-copy {
+      max-width: 980px;
+      margin: 13px 0 0;
+
+      color: #53667b;
+      font-size: .96rem;
+      line-height: 1.63;
+    }
+
+    .three-part {
+      display: grid;
+      grid-template-columns:
+        repeat(3, minmax(0, 1fr));
+      gap: 12px;
+
+      margin-top: 21px;
+    }
+
+    .part {
+      padding: 16px 17px;
+
+      border: 1px solid var(--line);
+      border-radius: 16px;
+
+      background: white;
+    }
+
+    .part strong {
+      display: block;
+      margin-bottom: 5px;
+
+      color: var(--blue);
+      font-size: .92rem;
+    }
+
+    .part span {
+      display: block;
+
+      color: #617287;
+      font-size: .82rem;
+      line-height: 1.45;
+    }
+
+    .part.scope {
+      border-top: 4px solid var(--blue);
+    }
+
+    .part.primo {
+      border-top: 4px solid var(--coral);
+    }
+
+    .part.text {
+      border-top: 4px solid var(--gold);
+    }
+
+    .important-note {
+      margin-top: 18px;
+      padding: 13px 15px;
+
+      border-left: 4px solid var(--gold);
+      border-radius: 11px;
+
+      background: var(--gold-soft);
+      color: #65592f;
+
+      font-size: .83rem;
+      line-height: 1.5;
+    }
+
+    .grade-nav {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 9px;
+
+      margin: 20px 0;
+    }
+
+    .grade-nav a {
+      padding: 9px 14px;
+
+      border: 1px solid #d5dfeb;
+      border-radius: 999px;
+
+      background: white;
+      color: var(--blue);
+
+      font-size: .82rem;
+      font-weight: 850;
+      text-decoration: none;
+    }
+
+    .grade-section {
+      margin-top: 18px;
+      padding: 23px;
+
+      border: 1px solid var(--line);
+      border-radius: 22px;
+
+      background: white;
+
+      box-shadow:
+        0 7px 20px rgba(39, 75, 132, .05);
+    }
+
+    .grade-heading {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 18px;
+
+      margin-bottom: 15px;
+    }
+
+    .grade-heading h2 {
+      margin: 0;
+
+      color: var(--blue);
+      font-size: 1.45rem;
+    }
+
+    .grade-heading p {
+      max-width: 810px;
+      margin: 6px 0 0;
+
+      color: var(--muted);
+      font-size: .87rem;
+      line-height: 1.5;
+    }
+
+    .role-chip {
+      flex: 0 0 auto;
+
+      padding: 7px 11px;
+      border-radius: 999px;
+
+      font-size: .76rem;
+      font-weight: 900;
+    }
+
+    .role-chip.connect {
+      color: #356d50;
+      background: var(--green-soft);
+    }
+
+    .role-chip.bridge {
+      color: #8a551e;
+      background: var(--gold-soft);
+    }
+
+    .role-chip.access {
+      color: #684882;
+      background: var(--purple-soft);
+    }
+
+    .table-wrap {
+      overflow-x: auto;
+
+      border: 1px solid var(--line);
+      border-radius: 15px;
+
+      background: white;
+    }
+
+    table {
+      width: 100%;
+      min-width: 1040px;
+
+      border-collapse: collapse;
+      font-size: .8rem;
+    }
+
+    th {
+      padding: 11px 10px;
+
+      border-bottom: 2px solid #cfdbe8;
+
+      background: #f2f6fb;
+      color: var(--blue);
+
+      font-size: .75rem;
+      line-height: 1.3;
+      text-align: left;
+      vertical-align: bottom;
+    }
+
+    td {
+      padding: 11px 10px;
+
+      border-bottom: 1px solid #e3e9f0;
+
+      color: #53657a;
+      line-height: 1.43;
+      vertical-align: top;
+    }
+
+    tbody tr:last-child td {
+      border-bottom: 0;
+    }
+
+    td strong {
+      color: #344b67;
+    }
+
+    .month {
+      white-space: nowrap;
+
+      color: var(--blue);
+      font-weight: 900;
+    }
+
+    .match {
+      display: inline-block;
+
+      margin-top: 4px;
+      padding: 3px 7px;
+
+      border-radius: 999px;
+
+      font-size: .68rem;
+      font-weight: 900;
+    }
+
+    .match.strong {
+      color: #356d50;
+      background: var(--green-soft);
+    }
+
+    .match.partial {
+      color: #876523;
+      background: var(--gold-soft);
+    }
+
+    .match.limited {
+      color: #8a554b;
+      background: var(--coral-soft);
+    }
+
+    .access-intro {
+      margin: 0 0 15px;
+      padding: 14px 16px;
+
+      border-radius: 14px;
+
+      background: var(--purple-soft);
+      color: #655673;
+
+      font-size: .85rem;
+      line-height: 1.5;
+    }
+
+    .do-not-preteach {
+      margin-top: 16px;
+      padding: 16px 18px;
+
+      border: 1px solid #e2d8ec;
+      border-radius: 15px;
+
+      background: #fbf8fd;
+    }
+
+    .do-not-preteach h3 {
+      margin: 0 0 7px;
+
+      color: var(--purple);
+      font-size: .98rem;
+    }
+
+    .do-not-preteach p {
+      margin: 0;
+
+      color: #645b6d;
+      font-size: .84rem;
+      line-height: 1.55;
+    }
+
+    .source-note,
+    .disclaimer {
+      margin-top: 17px;
+      padding: 16px 18px;
+
+      border-radius: 14px;
+
+      font-size: .8rem;
+      line-height: 1.52;
+    }
+
+    .source-note {
+      border: 1px solid #dce5ee;
+      background: #f8fafc;
+      color: #637387;
+    }
+
+    .disclaimer {
+      border-left: 4px solid var(--coral);
+      background: var(--coral-soft);
+      color: #6e5b58;
+    }
+
+    .source-note strong,
+    .disclaimer strong {
+      color: var(--blue);
+    }
+
+    footer {
+      padding: 18px 16px 30px;
+
+      color: #7b8796;
+      font-size: .76rem;
+      text-align: center;
+    }
+
+    @media (max-width: 820px) {
+      .site-header {
+        grid-template-columns: 1fr;
+        justify-items: center;
+        text-align: center;
+      }
+
+      .pilc-back-link {
+        justify-self: center;
+      }
+
+      .three-part {
+        grid-template-columns: 1fr;
+      }
+
+      .grade-heading {
+        flex-direction: column;
+      }
+
+      .grade-section {
+        padding: 18px 14px;
+      }
+    }
+
+    @media (max-width: 520px) {
+      main {
+        width: min(100% - 18px, 1180px);
+      }
+
+      .hero {
+        padding: 21px 17px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <header class="site-header">
+
+    <div class="brand">
+      <img
+        src="images/logo/logo.png"
+        alt="First Volo Learning"
+      >
+
+      <div class="brand-copy">
+        <strong>First Volo Learning</strong>
+        <span>Primo Volo Italian Learning Hub</span>
+      </div>
+    </div>
+
+    <div class="page-title">
+      <h1>PILC Curriculum Connections</h1>
+      <p>
+        Scope &amp; Sequence · Primo Volo · Connection to the Text
+      </p>
+    </div>
+
+    <a
+      class="pilc-back-link"
+      href="teacher-guide.html"
+    >
+      ← Teacher Resources
+    </a>
+
+  </header>
+
+
+  <main>
+
+    <section class="hero">
+
+      <p class="eyebrow">
+        Curriculum Scope and Sequence 2025–2026
+        · PILC Elementary Italian
+      </p>
+
+      <h2>
+        Connecting the required curriculum,
+        Primo Volo practice, and the class text
+      </h2>
+
+      <p class="hero-copy">
+        This planning crosswalk is for classes using the
+        PILC Elementary Italian Scope and Sequence together
+        with Primo Volo and the Ambarabà text.
+        The three resources do not follow an identical order.
+        The connections below identify useful overlap in
+        vocabulary, communicative functions, and recurring
+        language structures.
+      </p>
+
+      <div class="three-part">
+
+        <div class="part scope">
+          <strong>1 · PILC Scope &amp; Sequence</strong>
+          <span>
+            Establishes the required themes and curricular
+            focus across the school year.
+          </span>
+        </div>
+
+        <div class="part primo">
+          <strong>2 · Primo Volo</strong>
+          <span>
+            Provides visual, oral, interactive, and printable
+            preparation and reinforcement within those themes.
+          </span>
+        </div>
+
+        <div class="part text">
+          <strong>3 · Connection to the Text</strong>
+          <span>
+            Identifies places where related language appears
+            in Ambarabà and can be understood, used, or
+            extended in a richer context.
+          </span>
+        </div>
+
+      </div>
+
+      <div class="important-note">
+        <strong>Important:</strong>
+        a connection does not mean that a PILC month and an
+        Ambarabà unit are identical. Some connections are
+        direct; others are useful linguistic bridges.
+        Where the overlap is limited, it is labeled that way.
+      </div>
+
+    </section>
+
+
+    <nav
+      class="grade-nav"
+      aria-label="Choose an elementary level"
+    >
+      <a href="#elementare-1">
+        Elementare 1 · Connect
+      </a>
+
+      <a href="#elementare-2">
+        Elementare 2 · Bridge
+      </a>
+
+      <a href="#elementare-3">
+        Elementare 3 · Provide Access
+      </a>
+    </nav>
+
+
+    <section
+      class="grade-section"
+      id="elementare-1"
+    >
+
+      <div class="grade-heading">
+
+        <div>
+          <h2>Elementare 1</h2>
+
+          <p>
+            Use the PILC monthly themes alongside closely
+            related Ambarabà 1 songs, games, stories, movement,
+            and oral activities. Primo Volo adds repeated
+            visual and language practice around the same
+            beginning concepts.
+          </p>
+        </div>
+
+        <span class="role-chip connect">
+          CONNECT
+        </span>
+
+      </div>
+
+
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Month / PILC focus</th>
+              <th>Primo Volo preparation &amp; reinforcement</th>
+              <th>Connection to the Text</th>
+              <th>Where in Ambarabà 1</th>
+              <th>How to tie them together</th>
+            </tr>
+          </thead>
+
+          <tbody>
+
+            <tr>
+              <td class="month">
+                September<br>
+                Greetings &amp; Introductions
+              </td>
+
+              <td>
+                Greetings, name, how someone is,
+                numbers 1–10, classroom expressions,
+                short introduction frames.
+              </td>
+
+              <td>
+                Beginning greetings and introduction
+                language are directly shared.
+                School language also connects naturally.
+                <br>
+                <span class="match strong">
+                  STRONG
+                </span>
+              </td>
+
+              <td>
+                <strong>Conosciamoci</strong> · p. 5+<br>
+                <strong>A scuola</strong> · p. 39+
+              </td>
+
+              <td>
+                Establish the words and short exchanges with
+                Primo Volo, then use the text's songs, games,
+                listening, and interaction as additional
+                meaningful practice.
+              </td>
+            </tr>
+
+
+            <tr>
+              <td class="month">
+                October<br>
+                Colors &amp; Autumn Nature
+              </td>
+
+              <td>
+                Colors, autumn pictures and vocabulary,
+                <em>Io vedo…</em>, <em>È…</em>,
+                simple color descriptions.
+              </td>
+
+              <td>
+                Color language is a direct connection.
+                The specific autumn-nature theme comes
+                primarily from PILC and Primo Volo.
+                <br>
+                <span class="match partial">
+                  DIRECT COLORS · PARTIAL THEME
+                </span>
+              </td>
+
+              <td>
+                <strong>Numeri e colori</strong> · p. 30+
+              </td>
+
+              <td>
+                Keep autumn as the meaningful context.
+                Use Ambarabà for additional color recognition,
+                songs, and oral color questions.
+              </td>
+            </tr>
+
+
+            <tr>
+              <td class="month">
+                November<br>
+                Farm Animals
+              </td>
+
+              <td>
+                Animal names, picture recognition,
+                sounds, <em>Io vedo…</em>,
+                simple identification and preference language.
+              </td>
+
+              <td>
+                Ambarabà 1 has an entire animal pathway
+                built around naming, guessing, sounds,
+                songs, games, and story work.
+                <br>
+                <span class="match strong">
+                  VERY STRONG
+                </span>
+              </td>
+
+              <td>
+                <strong>Animali</strong> · p. 21+
+              </td>
+
+              <td>
+                Build quick recognition and short phrases
+                with Primo Volo; use the text for richer oral,
+                musical, movement, and story-based practice.
+              </td>
+            </tr>
+
+
+            <tr>
+              <td class="month">
+                December<br>
+                Christmas
+              </td>
+
+              <td>
+                Christmas vocabulary, visual supports,
+                songs, cultural readings and activities.
+              </td>
+
+              <td>
+                The Ambarabà 1 holiday pathway includes
+                Christmas and the presepe alongside other
+                Italian celebrations.
+                <br>
+                <span class="match strong">
+                  VERY STRONG
+                </span>
+              </td>
+
+              <td>
+                <strong>Feste</strong> · p. 87+
+              </td>
+
+              <td>
+                Pair PILC's December cultural focus with
+                the related holiday language and activities
+                in the text.
+              </td>
+            </tr>
+
+
+            <tr>
+              <td class="month">
+                January<br>
+                Winter &amp; Clothing
+              </td>
+
+              <td>
+                Winter weather, seasons, clothing vocabulary,
+                colors, and short clothing phrases.
+              </td>
+
+              <td>
+                Ambarabà 1's holiday pathway includes
+                the Befana and some related clothing words,
+                but Ambarabà 1 does
+                <strong>not</strong> have a dedicated
+                clothing unit.
+                <br>
+                <span class="match partial">
+                  PARTIAL
+                </span>
+              </td>
+
+              <td>
+                <strong>Feste</strong> · p. 87+
+              </td>
+
+              <td>
+                Let Primo Volo carry the main winter/clothing
+                instruction. Use the Befana material where it
+                naturally recycles familiar clothing language.
+              </td>
+            </tr>
+
+
+            <tr>
+              <td class="month">
+                February<br>
+                Carnevale &amp; Preferences
+              </td>
+
+              <td>
+                Costume/clothing words, colors,
+                <em>Mi piace…</em> /
+                <em>Non mi piace…</em>,
+                cultural materials for Carnevale.
+              </td>
+
+              <td>
+                Carnevale connects directly to
+                <em>Feste</em>. Preference language has
+                a separate connection through play/toy
+                interaction.
+                <br>
+                <span class="match partial">
+                  SPLIT CONNECTION
+                </span>
+              </td>
+
+              <td>
+                <strong>Feste</strong> · p. 87+<br>
+                <strong>Giocattoli</strong> · p. 48+
+              </td>
+
+              <td>
+                Use the holiday pathway for Carnevale.
+                Recycle familiar preference language while
+                students talk about costumes, colors, and
+                things they like.
+              </td>
+            </tr>
+
+
+            <tr>
+              <td class="month">
+                March<br>
+                Spring, Flowers &amp; Animals
+              </td>
+
+              <td>
+                Spring nature, flowers, insects/animals,
+                colors, <em>Io vedo…</em>,
+                simple descriptions.
+              </td>
+
+              <td>
+                Animal language connects directly.
+                The specific spring-flower vocabulary is
+                primarily a PILC/Primo Volo extension.
+                <br>
+                <span class="match partial">
+                  PARTIAL
+                </span>
+              </td>
+
+              <td>
+                <strong>Animali</strong> · p. 21+
+              </td>
+
+              <td>
+                Reuse the animal language students already
+                know while expanding into the spring
+                vocabulary required by the monthly theme.
+              </td>
+            </tr>
+
+
+            <tr>
+              <td class="month">
+                April<br>
+                Easter
+              </td>
+
+              <td>
+                Easter and spring vocabulary,
+                visual/cultural supports and activities.
+              </td>
+
+              <td>
+                The holiday pathway includes Easter-related
+                language such as the egg, chick, and surprise.
+                <br>
+                <span class="match strong">
+                  STRONG
+                </span>
+              </td>
+
+              <td>
+                <strong>Feste</strong> · p. 87+
+              </td>
+
+              <td>
+                Use the PILC Easter theme as the organizing
+                context and connect directly to the related
+                Ambarabà holiday material.
+              </td>
+            </tr>
+
+          </tbody>
+        </table>
+      </div>
+
+    </section>
+
+
+
+    <section
+      class="grade-section"
+      id="elementare-2"
+    >
+
+      <div class="grade-heading">
+
+        <div>
+          <h2>Elementare 2</h2>
+
+          <p>
+            Make core vocabulary and useful sentence patterns
+            familiar first. Ambarabà 2 can then extend that
+            familiar language into questions, descriptions,
+            agreement, additional verb forms, and interaction.
+          </p>
+        </div>
+
+        <span class="role-chip bridge">
+          BRIDGE
+        </span>
+
+      </div>
+
+
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Month / PILC focus</th>
+              <th>Primo Volo preparation &amp; reinforcement</th>
+              <th>Connection to the Text</th>
+              <th>Where in Ambarabà 2</th>
+              <th>How to tie them together</th>
+            </tr>
+          </thead>
+
+          <tbody>
+
+            <tr>
+              <td class="month">
+                September<br>
+                Self, Age &amp; Colors
+              </td>
+
+              <td>
+                <em>Mi chiamo…</em>,
+                <em>Ho ___ anni.</em>,
+                colors, introductory Q&amp;A,
+                recognition followed by retrieval.
+              </td>
+
+              <td>
+                The opening unit directly uses introductions,
+                age questions/answers, school context,
+                and colors.
+                <br>
+                <span class="match strong">
+                  VERY STRONG
+                </span>
+              </td>
+
+              <td>
+                <strong>
+                  Modulo 1 · Unità 1 · Presentiamoci
+                </strong><br>
+                Student text pp. 6–10 verified
+              </td>
+
+              <td>
+                Make the high-frequency chunks familiar first
+                so students can focus on listening,
+                partner exchange, and new language in
+                the text rather than decoding every word.
+              </td>
+            </tr>
+
+
+            <tr>
+              <td class="month">
+                October<br>
+                Colors, Weather &amp; Autumn
+              </td>
+
+              <td>
+                Colors, seasons, weather expressions,
+                autumn vocabulary, simple descriptions.
+              </td>
+
+              <td>
+                Colors connect directly to
+                <em>Presentiamoci</em>.
+                Weather and the autumn theme are not major
+                Ambarabà 2 targets.
+                <br>
+                <span class="match partial">
+                  PARTIAL
+                </span>
+              </td>
+
+              <td>
+                <strong>
+                  Modulo 1 · Unità 1 · Presentiamoci
+                </strong>
+                for colors
+              </td>
+
+              <td>
+                Use the text for color recycling.
+                Keep weather and autumn nature as
+                PILC/Primo Volo thematic language.
+              </td>
+            </tr>
+
+
+            <tr>
+              <td class="month">
+                November<br>
+                Food &amp; Preferences
+              </td>
+
+              <td>
+                Food/drink vocabulary;
+                <em>Io mangio…</em>,
+                <em>Io bevo…</em>,
+                <em>Mi piace…</em>,
+                <em>Non mi piace…</em>.
+              </td>
+
+              <td>
+                The text's food unit directly includes foods,
+                drinks, asking for items, commenting, and
+                expressing likes/dislikes.
+                <br>
+                <span class="match strong">
+                  VERY STRONG
+                </span>
+              </td>
+
+              <td>
+                <strong>
+                  Modulo 2 · Unità 2 · Che buono!
+                </strong>
+              </td>
+
+              <td>
+                Make the food nouns and first-person frames
+                readily available through Primo Volo;
+                let the text extend them into requests,
+                responses, comments, and interaction.
+              </td>
+            </tr>
+
+
+            <tr>
+              <td class="month">
+                December<br>
+                Christmas &amp; Greetings
+              </td>
+
+              <td>
+                Christmas vocabulary, greetings,
+                songs, cultural language and activities.
+              </td>
+
+              <td>
+                There is no direct Christmas unit in the
+                Ambarabà 2 syllabus.
+                Later calendar/celebration language can
+                provide some linguistic recycling.
+                <br>
+                <span class="match limited">
+                  LIMITED DIRECT CONNECTION
+                </span>
+              </td>
+
+              <td>
+                Related calendar language later in
+                <strong>
+                  Modulo 3 · Unità 1 · Tanti auguri
+                </strong>
+              </td>
+
+              <td>
+                Do not force a textbook match.
+                Let the PILC cultural theme stand on its own
+                while recycling familiar dates,
+                greetings, descriptions, and actions.
+              </td>
+            </tr>
+
+
+            <tr>
+              <td class="month">
+                January<br>
+                Winter Clothing &amp; Sports
+              </td>
+
+              <td>
+                Clothing and accessory vocabulary,
+                seasons, colors,
+                <em>Mi metto…</em>,
+                simple clothing descriptions.
+              </td>
+
+              <td>
+                Clothing and seasons are direct targets.
+                The unit also extends into descriptions,
+                possessives, demonstratives, and agreement.
+                Winter sports are not the main unit focus.
+                <br>
+                <span class="match strong">
+                  VERY STRONG FOR CLOTHING
+                </span>
+              </td>
+
+              <td>
+                <strong>
+                  Modulo 2 · Unità 3 · Cosa mi metto?
+                </strong>
+              </td>
+
+              <td>
+                Make clothing nouns, colors, and
+                <em>Mi metto…</em> familiar first.
+                The text can then carry more of the
+                grammatical load.
+              </td>
+            </tr>
+
+
+            <tr>
+              <td class="month">
+                February<br>
+                Carnevale, Costumes &amp; Colors
+              </td>
+
+              <td>
+                Clothing/costume words, colors,
+                preferences, short descriptions.
+              </td>
+
+              <td>
+                There is no dedicated Carnevale unit,
+                but <em>Cosa mi metto?</em> provides a
+                strong language bridge through clothing,
+                description, color, and agreement.
+                <br>
+                <span class="match partial">
+                  STRONG LANGUAGE BRIDGE
+                </span>
+              </td>
+
+              <td>
+                <strong>
+                  Modulo 2 · Unità 3 · Cosa mi metto?
+                </strong>
+              </td>
+
+              <td>
+                Use Carnevale as the meaningful context for
+                reusing clothing and descriptive language
+                that students encounter in the text.
+              </td>
+            </tr>
+
+
+            <tr>
+              <td class="month">
+                March<br>
+                Animal Descriptions
+              </td>
+
+              <td>
+                Animal vocabulary,
+                <em>Com'è?</em>,
+                <em>È…</em>,
+                <em>Ha…</em>,
+                basic descriptive language.
+              </td>
+
+              <td>
+                Ambarabà 2 does not have a dedicated
+                animal unit in its syllabus.
+                <br>
+                <span class="match limited">
+                  LIMITED
+                </span>
+              </td>
+
+              <td>
+                No major direct Ambarabà 2 unit
+              </td>
+
+              <td>
+                Let Primo Volo/PILC carry the theme.
+                The description practice still prepares
+                students for increasingly productive
+                language in later levels.
+              </td>
+            </tr>
+
+
+            <tr>
+              <td class="month">
+                April<br>
+                Easter &amp; Spring
+              </td>
+
+              <td>
+                Spring/Easter vocabulary,
+                seasons, simple descriptions,
+                cultural activities.
+              </td>
+
+              <td>
+                The four seasons occur in the clothing unit,
+                but Easter itself is not a major Ambarabà 2
+                syllabus target.
+                <br>
+                <span class="match partial">
+                  PARTIAL
+                </span>
+              </td>
+
+              <td>
+                <strong>
+                  Modulo 2 · Unità 3 · Cosa mi metto?
+                </strong>
+                for seasons
+              </td>
+
+              <td>
+                Use the spring theme to recycle seasons,
+                colors, description, and familiar sentence
+                patterns without claiming a direct Easter unit.
+              </td>
+            </tr>
+
+          </tbody>
+        </table>
+      </div>
+
+    </section>
+
+
+
+    <section
+      class="grade-section"
+      id="elementare-3"
+    >
+
+      <div class="grade-heading">
+
+        <div>
+          <h2>Elementare 3</h2>
+
+          <p>
+            The priority changes here. Primo Volo can help
+            make enough high-frequency vocabulary, directions,
+            questions, and language patterns familiar that
+            students can access increasingly demanding
+            Ambarabà 3 tasks.
+          </p>
+        </div>
+
+        <span class="role-chip access">
+          PROVIDE ACCESS
+        </span>
+
+      </div>
+
+
+      <p class="access-intro">
+        <strong>The goal is not to preteach the Ambarabà lesson.</strong>
+        The goal is to reduce avoidable language barriers so
+        students can use their attention for the language and
+        grammar that are genuinely new in the text.
+      </p>
+
+
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Needs to be familiar</th>
+              <th>Primo Volo preparation</th>
+              <th>Connection to the Text</th>
+              <th>Where in Ambarabà 3</th>
+              <th>Why it improves access</th>
+            </tr>
+          </thead>
+
+          <tbody>
+
+            <tr>
+              <td>
+                <strong>Common task directions</strong><br>
+                ascolta, guarda, leggi, scrivi,
+                completa, abbina, scegli, cerchia, colora
+              </td>
+
+              <td>
+                Repeated classroom expressions,
+                visual direction cues, and predictable
+                activity routines.
+              </td>
+
+              <td>
+                These directions recur throughout the
+                student text and workbook.
+              </td>
+
+              <td>
+                Across Ambarabà 3
+              </td>
+
+              <td>
+                Students can begin the actual language task
+                without first decoding what they are being
+                asked to do.
+              </td>
+            </tr>
+
+
+            <tr>
+              <td>
+                <strong>Numbers and tens</strong><br>
+                especially 10, 20, 30…100
+              </td>
+
+              <td>
+                Recognition, listening, matching,
+                and increasingly quick retrieval.
+              </td>
+
+              <td>
+                Numbers and tens appear immediately and
+                support the clock work that follows.
+              </td>
+
+              <td>
+                <strong>
+                  Modulo 1 · Unità 1 · Non ho tempo
+                </strong><br>
+                Workbook begins with numbers/tens
+              </td>
+
+              <td>
+                Students do not have to relearn number words
+                while simultaneously learning to tell time.
+              </td>
+            </tr>
+
+
+            <tr>
+              <td>
+                <strong>Clock language</strong><br>
+                Che ore sono? · Sono le… ·
+                e un quarto · e mezza · meno un quarto
+              </td>
+
+              <td>
+                Visual clocks, listening,
+                Q&amp;A practice, recognition before
+                independent responses.
+              </td>
+
+              <td>
+                Clock time is central to the first unit.
+              </td>
+
+              <td>
+                <strong>
+                  Modulo 1 · Unità 1 · Non ho tempo
+                </strong><br>
+                Student text pp. 6–13;
+                workbook pp. 4–20
+              </td>
+
+              <td>
+                Time becomes usable context for routines
+                instead of a second unfamiliar system
+                students must decode.
+              </td>
+            </tr>
+
+
+            <tr>
+              <td>
+                <strong>Daily routine vocabulary</strong><br>
+                mi sveglio, mi alzo, mi lavo,
+                mi vesto, faccio colazione,
+                vado a scuola, pranzo,
+                faccio i compiti, gioco,
+                ceno, vado a letto
+              </td>
+
+              <td>
+                Picture → phrase → sequencing →
+                supported sentence → retrieval.
+              </td>
+
+              <td>
+                The first unit requires students to
+                understand and talk about routines,
+                including reflexive actions.
+              </td>
+
+              <td>
+                <strong>
+                  Modulo 1 · Unità 1 · Non ho tempo
+                </strong>
+              </td>
+
+              <td>
+                Students can focus on time, verb forms,
+                and sentence relationships rather than
+                learning every routine word at once.
+              </td>
+            </tr>
+
+
+            <tr>
+              <td>
+                <strong>High-frequency first-person verbs</strong><br>
+                vado, faccio, mangio, bevo, gioco
+              </td>
+
+              <td>
+                Reusable first-person sentence frames
+                across familiar topics.
+              </td>
+
+              <td>
+                Ambarabà 3 begins varying subjects and
+                verb forms beyond familiar first-person
+                language.
+              </td>
+
+              <td>
+                <strong>Non ho tempo</strong>
+                and later units
+              </td>
+
+              <td>
+                A stable first-person anchor makes it easier
+                to notice what changes in other forms.
+              </td>
+            </tr>
+
+
+            <tr>
+              <td>
+                <strong>Days, months &amp; seasons</strong><br>
+                plus basic <em>Quando?</em> language
+              </td>
+
+              <td>
+                Calendar recognition, sequencing,
+                short questions and responses.
+              </td>
+
+              <td>
+                Months, seasons, festivities and
+                chronological time become explicit targets.
+              </td>
+
+              <td>
+                <strong>
+                  Modulo 1 · Unità 2 · Quando?
+                </strong>
+              </td>
+
+              <td>
+                Familiar calendar vocabulary frees attention
+                for questions, rules, and new verb structures.
+              </td>
+            </tr>
+
+
+            <tr>
+              <td>
+                <strong>Weather language</strong><br>
+                Che tempo fa? · Piove · Nevica ·
+                C'è il sole · C'è vento · C'è la nebbia
+              </td>
+
+              <td>
+                Visual weather vocabulary,
+                listening, and short Q&amp;A exchanges.
+              </td>
+
+              <td>
+                Weather phenomena are an explicit unit focus.
+              </td>
+
+              <td>
+                <strong>
+                  Modulo 1 · Unità 3 · Che tempo fa?
+                </strong>
+              </td>
+
+              <td>
+                The text can extend familiar weather chunks
+                instead of introducing the entire semantic
+                field from scratch.
+              </td>
+            </tr>
+
+
+            <tr>
+              <td>
+                <strong>Feelings &amp; sensations</strong><br>
+                sto bene/male · sono felice/triste ·
+                ho caldo/freddo
+              </td>
+
+              <td>
+                Visual identification, listening,
+                personal responses, and short frames.
+              </td>
+
+              <td>
+                Weather is linked to sensations and
+                emotional states in the same unit.
+              </td>
+
+              <td>
+                <strong>
+                  Modulo 1 · Unità 3 · Che tempo fa?
+                </strong>
+              </td>
+
+              <td>
+                Students can understand the relationship
+                between weather and how someone feels.
+              </td>
+            </tr>
+
+
+            <tr>
+              <td>
+                <strong>Core question language</strong><br>
+                Che cosa fai? · Dove? · Quando? ·
+                A che ora? · Con chi? · Com'è? · Perché?
+              </td>
+
+              <td>
+                Repeated partner Q&amp;A with predictable
+                question frames and meaningful answers.
+              </td>
+
+              <td>
+                Question forms recur across the Ambarabà 3
+                syllabus and actual Unit 1 activities.
+              </td>
+
+              <td>
+                Across Modules 1–3
+              </td>
+
+              <td>
+                Understanding the question itself becomes
+                automatic enough to focus on formulating
+                the response.
+              </td>
+            </tr>
+
+
+            <tr>
+              <td>
+                <strong>Preferences</strong><br>
+                Mi piace… · Non mi piace…
+              </td>
+
+              <td>
+                Preference choices, partner questions,
+                and personal responses across topics.
+              </td>
+
+              <td>
+                Preference language is treated as recurring
+                language and used in richer contexts.
+              </td>
+
+              <td>
+                <strong>
+                  Modulo 2 · Unità 2 · Al circo
+                </strong>
+              </td>
+
+              <td>
+                A familiar high-utility chunk can support
+                description and interaction rather than
+                becoming another new structure.
+              </td>
+            </tr>
+
+
+            <tr>
+              <td>
+                <strong>C'è / Ci sono</strong>
+              </td>
+
+              <td>
+                Picture/scene description with singular
+                and plural examples.
+              </td>
+
+              <td>
+                The structures recur in descriptions
+                of places and environments.
+              </td>
+
+              <td>
+                <strong>Al parco</strong> and
+                <strong>Dove?</strong>
+              </td>
+
+              <td>
+                Students can use a familiar description
+                frame while attending to new vocabulary
+                and context.
+              </td>
+            </tr>
+
+
+            <tr>
+              <td>
+                <strong>Article + noun as a unit</strong><br>
+                and basic adjective agreement
+              </td>
+
+              <td>
+                Learn nouns with their articles;
+                compare familiar descriptive pairs such as
+                masculine/feminine and singular/plural forms.
+              </td>
+
+              <td>
+                Ambarabà 3 explicitly develops
+                animal description and noun–adjective
+                agreement.
+              </td>
+
+              <td>
+                <strong>
+                  Modulo 2 · Unità 3 ·
+                  Al museo di scienze
+                </strong>
+              </td>
+
+              <td>
+                Familiar noun/article combinations make
+                later agreement patterns easier to notice
+                and learn.
+              </td>
+            </tr>
+
+
+            <tr>
+              <td>
+                <strong>Partner Q&amp;A routine</strong>
+              </td>
+
+              <td>
+                Ask → listen → answer → switch roles
+                through short supported exchanges.
+              </td>
+
+              <td>
+                The text explicitly asks students to work
+                with partners and alternate asking and
+                answering questions.
+              </td>
+
+              <td>
+                Example in
+                <strong>Non ho tempo</strong>,
+                student text p. 13
+              </td>
+
+              <td>
+                The interactional routine itself is familiar,
+                leaving more attention available for the
+                Italian being practiced.
+              </td>
+            </tr>
+
+          </tbody>
+        </table>
+      </div>
+
+
+      <div class="do-not-preteach">
+        <h3>
+          What Primo Volo does not need to preteach
+        </h3>
+
+        <p>
+          The goal is not to teach every Ambarabà 3 grammar
+          target in advance. More complex verb paradigms,
+          expanded reflexive forms, possessives, modal verbs,
+          relative structures, passato prossimo, and other
+          new grammar can remain instructional content of
+          the text. Primo Volo's access role is to make the
+          high-frequency vocabulary, directions, questions,
+          and foundational language patterns familiar enough
+          that students have room to learn what is new.
+        </p>
+      </div>
+
+    </section>
+
+
+    <div class="source-note">
+      <strong>Alignment sources:</strong>
+      the PILC Elementary Italian Curriculum Scope and
+      Sequence 2025–2026; the Ambarabà 1 index,
+      methodological overview and Tavole sinottiche;
+      the Ambarabà 2 syllabus and verified
+      <em>Presentiamoci</em> text pages; and the
+      Ambarabà 3 syllabus together with the verified
+      Unit 1 student text and workbook pages.
+      Page numbers are included only where they were
+      verified directly.
+    </div>
+
+
+    <div class="disclaimer">
+      <strong>Third-party resource note:</strong>
+      Ambarabà is a third-party educational resource.
+      Primo Volo / First Volo Learning is not affiliated
+      with or endorsed by the authors or publisher of
+      Ambarabà. References on this page are provided only
+      to identify areas of curricular and linguistic
+      connection.
+    </div>
+
+  </main>
+
+
+  <footer>
+    First Volo Learning |
+    Primo Volo Italian Learning Hub
+  </footer>
+
+</body>
+</html>
