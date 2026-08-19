@@ -732,6 +732,210 @@
 
     /* MONTHLY CURRICULUM POLISH END */
 
+
+    /* MONTHLY CLARITY PASS START */
+
+    .monthly-section-heading {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+
+      margin: 24px 22px 12px;
+      padding-top: 18px;
+
+      border-top: 1px solid #e2e8f0;
+    }
+
+    .monthly-section-icon {
+      flex: 0 0 auto;
+
+      display: grid;
+      place-items: center;
+
+      width: 38px;
+      height: 38px;
+
+      border-radius: 12px;
+
+      background: #edf3fa;
+
+      font-size: 1.15rem;
+    }
+
+    .monthly-section-heading h3 {
+      margin: 0;
+
+      color: #274b84;
+
+      font-size: 1rem;
+      font-weight: 950;
+      line-height: 1.3;
+    }
+
+    .monthly-section-heading h3 span {
+      font-weight: 800;
+    }
+
+    .monthly-section-heading p {
+      max-width: 720px;
+
+      margin: 3px 0 0;
+
+      color: #6f7d8f;
+
+      font-size: .76rem;
+      font-weight: 650;
+      line-height: 1.45;
+    }
+
+    .monthly-section-heading p span {
+      display: block;
+      margin-top: 1px;
+    }
+
+
+    /* Learning targets */
+
+    .monthly-focus {
+      margin-top: 18px;
+
+      border-left-color: #d9a93e;
+
+      background:
+        linear-gradient(
+          180deg,
+          #fffaf0 0%,
+          #fff7e3 100%
+        );
+    }
+
+    .monthly-focus .focus-label strong {
+      font-size: .91rem;
+    }
+
+
+    /* Language section */
+
+    .language-section-heading
+    .monthly-section-icon {
+      background: #edf3fa;
+    }
+
+    .language-support {
+      margin-top: 0;
+    }
+
+
+    /* Materials section */
+
+    .materials-section-heading
+    .monthly-section-icon {
+      background: #eef7f2;
+    }
+
+    .resource-grid {
+      padding-top: 0;
+    }
+
+    .resource-grid > .resource-box:not(.culture-resource-box) {
+      box-shadow:
+        0 4px 12px rgba(39,75,132,.055);
+    }
+
+
+    /* Culture is its own monthly layer */
+
+    .culture-section-heading
+    .monthly-section-icon {
+      background: #fff4df;
+    }
+
+    .culture-monthly-wrap {
+      margin: 0 22px 24px;
+    }
+
+    .culture-monthly-wrap
+    .culture-resource-box {
+      padding: 16px;
+
+      border-color: #e4d8c2;
+
+      background:
+        linear-gradient(
+          180deg,
+          #fffdf9 0%,
+          #fbf6ec 100%
+        );
+
+      box-shadow:
+        0 4px 12px rgba(94,73,42,.06);
+    }
+
+    .culture-monthly-wrap
+    .culture-resource-box h3 {
+      margin: 0 0 11px;
+
+      color: #6f542e;
+    }
+
+
+    /* Coming Soon is clearly secondary */
+
+    .planned-box {
+      margin-top: 8px;
+
+      opacity: .86;
+    }
+
+
+    @media (max-width: 480px) {
+      .monthly-section-heading {
+        margin:
+          20px 12px
+          10px;
+
+        padding-top: 15px;
+      }
+
+      .monthly-section-icon {
+        width: 34px;
+        height: 34px;
+      }
+
+      .culture-monthly-wrap {
+        margin:
+          0 12px
+          18px;
+      }
+    }
+
+
+    .culture-coming-soon {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 3px;
+
+      min-height: 54px;
+
+      color: #806b4b;
+      text-align: center;
+    }
+
+    .culture-coming-soon strong {
+      color: #70552e;
+      font-size: .82rem;
+    }
+
+    .culture-coming-soon span {
+      color: #918571;
+      font-size: .72rem;
+      font-weight: 650;
+    }
+
+    /* MONTHLY CLARITY PASS END */
+
 </style>
   <link rel="stylesheet" href="css/activity-center-home.css">
 </head>
@@ -809,8 +1013,8 @@
 
       <section class="monthly-focus">
         <div class="focus-label">
-          <strong>Obiettivi e temi del mese</strong>
-          <span lang="en">Monthly focus</span>
+          <strong>🎯 Obiettivi del mese</strong>
+          <span lang="en">Monthly Learning Targets</span>
         </div>
 
         <ul>
@@ -819,9 +1023,25 @@
 <li>colori preferiti</li>
 <li>materiale scolastico</li>
 <li>hobby e interessi</li>
-<li>la scuola in Italia</li>
         </ul>
       </section>
+
+
+      <div class="monthly-section-heading language-section-heading">
+        <div class="monthly-section-icon" aria-hidden="true">💬</div>
+
+        <div>
+          <h3>Lingua del mese · <span lang="en">Language Targets</span></h3>
+
+          <p>
+            Frasi e strutture da usare, modellare e far notare
+            durante il mese.
+            <span lang="en">
+              Useful language to model, practice, and notice.
+            </span>
+          </p>
+        </div>
+      </div>
 
       <!-- LANGUAGE SUPPORT START -->
       <div class="language-support">
@@ -902,10 +1122,31 @@
 
 
 
+
+      <div class="monthly-section-heading materials-section-heading">
+        <div class="monthly-section-icon" aria-hidden="true">🧰</div>
+
+        <div>
+          <h3>
+            Materiali per imparare e praticare ·
+            <span lang="en">Learning &amp; Practice Materials</span>
+          </h3>
+
+          <p>
+            Scegli tra pratica interattiva e materiali stampabili
+            per lavorare sugli obiettivi e sulla lingua del mese.
+            <span lang="en">
+              Choose interactive or printable resources to practice
+              the month’s targets and language.
+            </span>
+          </p>
+        </div>
+      </div>
+
       <div class="resource-grid">
 
         <section class="resource-box">
-          <h3>💻 Attività digitali · Digital Activities</h3>
+          <h3>💻 Pratica interattiva · Interactive Practice</h3>
           <div class="resource-links">
 
             <a class="resource-link" href="index.html">
@@ -947,7 +1188,7 @@
         </section>
 
                 <section class="resource-box">
-          <h3>🖨️ Stampabili · Printables</h3>
+          <h3>🖨️ Materiali stampabili · Printable Materials</h3>
 
           <div class="printable-groups">
             <div class="printable-group">
@@ -1127,9 +1368,31 @@
 
 
 
-        <section class="resource-box culture-resource-box">
-          <h3>🏛️ Cultura · Culture</h3>
 
+
+      </div>
+
+
+
+      <div class="monthly-section-heading culture-section-heading">
+        <div class="monthly-section-icon" aria-hidden="true">🏛️</div>
+
+        <div>
+          <h3>Cultura del mese · <span lang="en">Monthly Culture</span></h3>
+
+          <p>
+            Letture, tradizioni, poesia e attività culturali
+            collegate al tema del mese.
+            <span lang="en">
+              Cultural readings, traditions, poetry, and activities
+              connected to the monthly theme.
+            </span>
+          </p>
+        </div>
+      </div>
+
+      <div class="culture-monthly-wrap">
+<section class="resource-box culture-resource-box">
           <div class="resource-links">
 
             <a
@@ -1142,32 +1405,9 @@
 
           </div>
         </section>
-
       </div>
 
 
-      <!-- PLANNED START -->
-      <section
-        class="planned-box"
-        aria-label="Da aggiungere · Coming Soon"
-      >
-        <h3>
-          🕓 Da aggiungere · Coming Soon
-        </h3>
-
-        <p class="planned-box-intro">
-          Materiali previsti per completare gli obiettivi
-          e i temi del mese.
-          <span lang="en">
-            Planned materials to complete the monthly focus.
-          </span>
-        </p>
-
-        <div class="planned-items">
-
-        </div>
-      </section>
-      <!-- PLANNED END -->
 
     </article>
 
@@ -1179,8 +1419,8 @@
 
       <section class="monthly-focus">
         <div class="focus-label">
-          <strong>Obiettivi e temi del mese</strong>
-          <span lang="en">Monthly focus</span>
+          <strong>🎯 Obiettivi del mese</strong>
+          <span lang="en">Monthly Learning Targets</span>
         </div>
 
         <ul>
@@ -1192,6 +1432,23 @@
 <li>raccolta delle olive</li>
         </ul>
       </section>
+
+
+      <div class="monthly-section-heading language-section-heading">
+        <div class="monthly-section-icon" aria-hidden="true">💬</div>
+
+        <div>
+          <h3>Lingua del mese · <span lang="en">Language Targets</span></h3>
+
+          <p>
+            Frasi e strutture da usare, modellare e far notare
+            durante il mese.
+            <span lang="en">
+              Useful language to model, practice, and notice.
+            </span>
+          </p>
+        </div>
+      </div>
 
       <!-- LANGUAGE SUPPORT START -->
       <div class="language-support">
@@ -1272,10 +1529,31 @@
 
 
 
+
+      <div class="monthly-section-heading materials-section-heading">
+        <div class="monthly-section-icon" aria-hidden="true">🧰</div>
+
+        <div>
+          <h3>
+            Materiali per imparare e praticare ·
+            <span lang="en">Learning &amp; Practice Materials</span>
+          </h3>
+
+          <p>
+            Scegli tra pratica interattiva e materiali stampabili
+            per lavorare sugli obiettivi e sulla lingua del mese.
+            <span lang="en">
+              Choose interactive or printable resources to practice
+              the month’s targets and language.
+            </span>
+          </p>
+        </div>
+      </div>
+
       <div class="resource-grid">
 
         <section class="resource-box">
-          <h3>💻 Attività digitali · Digital Activities</h3>
+          <h3>💻 Pratica interattiva · Interactive Practice</h3>
           <div class="resource-links">
 
             <a class="resource-link" href="index.html">
@@ -1310,7 +1588,7 @@
         </section>
 
                 <section class="resource-box">
-          <h3>🖨️ Stampabili · Printables</h3>
+          <h3>🖨️ Materiali stampabili · Printable Materials</h3>
 
           <div class="printable-groups">
             <div class="printable-group">
@@ -1390,8 +1668,31 @@
 
 
 
-        <section class="resource-box culture-resource-box">
-          <h3>🏛️ Cultura · Culture</h3>
+
+
+      </div>
+
+
+
+      <div class="monthly-section-heading culture-section-heading">
+        <div class="monthly-section-icon" aria-hidden="true">🏛️</div>
+
+        <div>
+          <h3>Cultura del mese · <span lang="en">Monthly Culture</span></h3>
+
+          <p>
+            Letture, tradizioni, poesia e attività culturali
+            collegate al tema del mese.
+            <span lang="en">
+              Cultural readings, traditions, poetry, and activities
+              connected to the monthly theme.
+            </span>
+          </p>
+        </div>
+      </div>
+
+      <div class="culture-monthly-wrap">
+<section class="resource-box culture-resource-box">
           <div class="resource-links">
 
             <a class="resource-link" href="cultural-resources/harvest/fall-vocabulary/index.html">
@@ -1413,9 +1714,7 @@
 
           </div>
         </section>
-
       </div>
-
 
       <!-- PLANNED START -->
       <section
@@ -1427,10 +1726,10 @@
         </h3>
 
         <p class="planned-box-intro">
-          Materiali previsti per completare gli obiettivi
-          e i temi del mese.
+          Materiali ancora da aggiungere per completare
+          gli obiettivi del mese.
           <span lang="en">
-            Planned materials to complete the monthly focus.
+            Resources still to be added to support all monthly targets.
           </span>
         </p>
 
@@ -1463,8 +1762,8 @@
 
       <section class="monthly-focus">
         <div class="focus-label">
-          <strong>Obiettivi e temi del mese</strong>
-          <span lang="en">Monthly focus</span>
+          <strong>🎯 Obiettivi del mese</strong>
+          <span lang="en">Monthly Learning Targets</span>
         </div>
 
         <ul>
@@ -1476,6 +1775,23 @@
 <li>Festa dei Morti</li>
         </ul>
       </section>
+
+
+      <div class="monthly-section-heading language-section-heading">
+        <div class="monthly-section-icon" aria-hidden="true">💬</div>
+
+        <div>
+          <h3>Lingua del mese · <span lang="en">Language Targets</span></h3>
+
+          <p>
+            Frasi e strutture da usare, modellare e far notare
+            durante il mese.
+            <span lang="en">
+              Useful language to model, practice, and notice.
+            </span>
+          </p>
+        </div>
+      </div>
 
       <!-- LANGUAGE SUPPORT START -->
       <div class="language-support">
@@ -1556,10 +1872,31 @@
 
 
 
+
+      <div class="monthly-section-heading materials-section-heading">
+        <div class="monthly-section-icon" aria-hidden="true">🧰</div>
+
+        <div>
+          <h3>
+            Materiali per imparare e praticare ·
+            <span lang="en">Learning &amp; Practice Materials</span>
+          </h3>
+
+          <p>
+            Scegli tra pratica interattiva e materiali stampabili
+            per lavorare sugli obiettivi e sulla lingua del mese.
+            <span lang="en">
+              Choose interactive or printable resources to practice
+              the month’s targets and language.
+            </span>
+          </p>
+        </div>
+      </div>
+
       <div class="resource-grid">
 
         <section class="resource-box">
-          <h3>💻 Attività digitali · Digital Activities</h3>
+          <h3>💻 Pratica interattiva · Interactive Practice</h3>
           <div class="resource-links">
 
             <a class="resource-link" href="index.html">
@@ -1577,7 +1914,7 @@
         </section>
 
                 <section class="resource-box">
-          <h3>🖨️ Stampabili · Printables</h3>
+          <h3>🖨️ Materiali stampabili · Printable Materials</h3>
 
           <div class="printable-groups">
             <div class="printable-group">
@@ -1636,8 +1973,31 @@
 
 
 
-        <section class="resource-box culture-resource-box">
-          <h3>🏛️ Cultura · Culture</h3>
+
+
+      </div>
+
+
+
+      <div class="monthly-section-heading culture-section-heading">
+        <div class="monthly-section-icon" aria-hidden="true">🏛️</div>
+
+        <div>
+          <h3>Cultura del mese · <span lang="en">Monthly Culture</span></h3>
+
+          <p>
+            Letture, tradizioni, poesia e attività culturali
+            collegate al tema del mese.
+            <span lang="en">
+              Cultural readings, traditions, poetry, and activities
+              connected to the monthly theme.
+            </span>
+          </p>
+        </div>
+      </div>
+
+      <div class="culture-monthly-wrap">
+<section class="resource-box culture-resource-box">
           <div class="resource-links">
 
             <a class="resource-link" href="cultural-resources/harvest/la-festa-di-san-martino.html">
@@ -1653,9 +2013,7 @@
 
           </div>
         </section>
-
       </div>
-
 
       <!-- PLANNED START -->
       <section
@@ -1667,10 +2025,10 @@
         </h3>
 
         <p class="planned-box-intro">
-          Materiali previsti per completare gli obiettivi
-          e i temi del mese.
+          Materiali ancora da aggiungere per completare
+          gli obiettivi del mese.
           <span lang="en">
-            Planned materials to complete the monthly focus.
+            Resources still to be added to support all monthly targets.
           </span>
         </p>
 
@@ -1729,8 +2087,8 @@
 
       <section class="monthly-focus">
         <div class="focus-label">
-          <strong>Obiettivi e temi del mese</strong>
-          <span lang="en">Monthly focus</span>
+          <strong>🎯 Obiettivi del mese</strong>
+          <span lang="en">Monthly Learning Targets</span>
         </div>
 
         <ul>
@@ -1742,6 +2100,23 @@
 <li>Santo Stefano</li>
         </ul>
       </section>
+
+
+      <div class="monthly-section-heading language-section-heading">
+        <div class="monthly-section-icon" aria-hidden="true">💬</div>
+
+        <div>
+          <h3>Lingua del mese · <span lang="en">Language Targets</span></h3>
+
+          <p>
+            Frasi e strutture da usare, modellare e far notare
+            durante il mese.
+            <span lang="en">
+              Useful language to model, practice, and notice.
+            </span>
+          </p>
+        </div>
+      </div>
 
       <!-- LANGUAGE SUPPORT START -->
       <div class="language-support">
@@ -1808,10 +2183,31 @@
 
 
 
+
+      <div class="monthly-section-heading materials-section-heading">
+        <div class="monthly-section-icon" aria-hidden="true">🧰</div>
+
+        <div>
+          <h3>
+            Materiali per imparare e praticare ·
+            <span lang="en">Learning &amp; Practice Materials</span>
+          </h3>
+
+          <p>
+            Scegli tra pratica interattiva e materiali stampabili
+            per lavorare sugli obiettivi e sulla lingua del mese.
+            <span lang="en">
+              Choose interactive or printable resources to practice
+              the month’s targets and language.
+            </span>
+          </p>
+        </div>
+      </div>
+
       <div class="resource-grid">
 
         <section class="resource-box">
-          <h3>💻 Attività digitali · Digital Activities</h3>
+          <h3>💻 Pratica interattiva · Interactive Practice</h3>
 
           <div class="resource-links">
             <div class="resource-coming-soon">
@@ -1821,7 +2217,7 @@
         </section>
 
                 <section class="resource-box">
-          <h3>🖨️ Stampabili · Printables</h3>
+          <h3>🖨️ Materiali stampabili · Printable Materials</h3>
 
           <div class="resource-links">
             <div class="resource-coming-soon">
@@ -1835,6 +2231,39 @@
       </div>
 
 
+
+      <div class="monthly-section-heading culture-section-heading">
+        <div class="monthly-section-icon" aria-hidden="true">🏛️</div>
+
+        <div>
+          <h3>
+            Cultura del mese ·
+            <span lang="en">Monthly Culture</span>
+          </h3>
+
+          <p>
+            Letture, tradizioni, poesia e attività culturali
+            collegate al tema del mese.
+            <span lang="en">
+              Cultural readings, traditions, poetry, and activities
+              connected to the monthly theme.
+            </span>
+          </p>
+        </div>
+      </div>
+
+      <div class="culture-monthly-wrap">
+        <section class="resource-box culture-resource-box">
+          <div class="culture-coming-soon">
+            <strong>🕓 Da aggiungere · Coming Soon</strong>
+            <span>
+              Risorse culturali in preparazione ·
+              Cultural resources in preparation
+            </span>
+          </div>
+        </section>
+      </div>
+
       <!-- PLANNED START -->
       <section
         class="planned-box"
@@ -1845,10 +2274,10 @@
         </h3>
 
         <p class="planned-box-intro">
-          Materiali previsti per completare gli obiettivi
-          e i temi del mese.
+          Materiali ancora da aggiungere per completare
+          gli obiettivi del mese.
           <span lang="en">
-            Planned materials to complete the monthly focus.
+            Resources still to be added to support all monthly targets.
           </span>
         </p>
 
@@ -1920,8 +2349,8 @@
 
       <section class="monthly-focus">
         <div class="focus-label">
-          <strong>Obiettivi e temi del mese</strong>
-          <span lang="en">Monthly focus</span>
+          <strong>🎯 Obiettivi del mese</strong>
+          <span lang="en">Monthly Learning Targets</span>
         </div>
 
         <ul>
@@ -1933,6 +2362,23 @@
 <li>Settimana Bianca</li>
         </ul>
       </section>
+
+
+      <div class="monthly-section-heading language-section-heading">
+        <div class="monthly-section-icon" aria-hidden="true">💬</div>
+
+        <div>
+          <h3>Lingua del mese · <span lang="en">Language Targets</span></h3>
+
+          <p>
+            Frasi e strutture da usare, modellare e far notare
+            durante il mese.
+            <span lang="en">
+              Useful language to model, practice, and notice.
+            </span>
+          </p>
+        </div>
+      </div>
 
       <!-- LANGUAGE SUPPORT START -->
       <div class="language-support">
@@ -2013,10 +2459,31 @@
 
 
 
+
+      <div class="monthly-section-heading materials-section-heading">
+        <div class="monthly-section-icon" aria-hidden="true">🧰</div>
+
+        <div>
+          <h3>
+            Materiali per imparare e praticare ·
+            <span lang="en">Learning &amp; Practice Materials</span>
+          </h3>
+
+          <p>
+            Scegli tra pratica interattiva e materiali stampabili
+            per lavorare sugli obiettivi e sulla lingua del mese.
+            <span lang="en">
+              Choose interactive or printable resources to practice
+              the month’s targets and language.
+            </span>
+          </p>
+        </div>
+      </div>
+
       <div class="resource-grid">
 
         <section class="resource-box">
-          <h3>💻 Attività digitali · Digital Activities</h3>
+          <h3>💻 Pratica interattiva · Interactive Practice</h3>
           <div class="resource-links">
 
             <a class="resource-link" href="index.html">
@@ -2046,7 +2513,7 @@
         </section>
 
                 <section class="resource-box">
-          <h3>🖨️ Stampabili · Printables</h3>
+          <h3>🖨️ Materiali stampabili · Printable Materials</h3>
 
           <div class="printable-groups">
             <div class="printable-group">
@@ -2113,6 +2580,39 @@
       </div>
 
 
+
+      <div class="monthly-section-heading culture-section-heading">
+        <div class="monthly-section-icon" aria-hidden="true">🏛️</div>
+
+        <div>
+          <h3>
+            Cultura del mese ·
+            <span lang="en">Monthly Culture</span>
+          </h3>
+
+          <p>
+            Letture, tradizioni, poesia e attività culturali
+            collegate al tema del mese.
+            <span lang="en">
+              Cultural readings, traditions, poetry, and activities
+              connected to the monthly theme.
+            </span>
+          </p>
+        </div>
+      </div>
+
+      <div class="culture-monthly-wrap">
+        <section class="resource-box culture-resource-box">
+          <div class="culture-coming-soon">
+            <strong>🕓 Da aggiungere · Coming Soon</strong>
+            <span>
+              Risorse culturali in preparazione ·
+              Cultural resources in preparation
+            </span>
+          </div>
+        </section>
+      </div>
+
       <!-- PLANNED START -->
       <section
         class="planned-box"
@@ -2123,10 +2623,10 @@
         </h3>
 
         <p class="planned-box-intro">
-          Materiali previsti per completare gli obiettivi
-          e i temi del mese.
+          Materiali ancora da aggiungere per completare
+          gli obiettivi del mese.
           <span lang="en">
-            Planned materials to complete the monthly focus.
+            Resources still to be added to support all monthly targets.
           </span>
         </p>
 
@@ -2198,8 +2698,8 @@
 
       <section class="monthly-focus">
         <div class="focus-label">
-          <strong>Obiettivi e temi del mese</strong>
-          <span lang="en">Monthly focus</span>
+          <strong>🎯 Obiettivi del mese</strong>
+          <span lang="en">Monthly Learning Targets</span>
         </div>
 
         <ul>
@@ -2211,6 +2711,23 @@
 <li>Carnevale di Venezia e Viareggio</li>
         </ul>
       </section>
+
+
+      <div class="monthly-section-heading language-section-heading">
+        <div class="monthly-section-icon" aria-hidden="true">💬</div>
+
+        <div>
+          <h3>Lingua del mese · <span lang="en">Language Targets</span></h3>
+
+          <p>
+            Frasi e strutture da usare, modellare e far notare
+            durante il mese.
+            <span lang="en">
+              Useful language to model, practice, and notice.
+            </span>
+          </p>
+        </div>
+      </div>
 
       <!-- LANGUAGE SUPPORT START -->
       <div class="language-support">
@@ -2290,10 +2807,31 @@
 
 
 
+
+      <div class="monthly-section-heading materials-section-heading">
+        <div class="monthly-section-icon" aria-hidden="true">🧰</div>
+
+        <div>
+          <h3>
+            Materiali per imparare e praticare ·
+            <span lang="en">Learning &amp; Practice Materials</span>
+          </h3>
+
+          <p>
+            Scegli tra pratica interattiva e materiali stampabili
+            per lavorare sugli obiettivi e sulla lingua del mese.
+            <span lang="en">
+              Choose interactive or printable resources to practice
+              the month’s targets and language.
+            </span>
+          </p>
+        </div>
+      </div>
+
       <div class="resource-grid">
 
         <section class="resource-box">
-          <h3>💻 Attività digitali · Digital Activities</h3>
+          <h3>💻 Pratica interattiva · Interactive Practice</h3>
           <div class="resource-links">
 
             <a class="resource-link" href="index.html">
@@ -2317,7 +2855,7 @@
         </section>
 
                 <section class="resource-box">
-          <h3>🖨️ Stampabili · Printables</h3>
+          <h3>🖨️ Materiali stampabili · Printable Materials</h3>
 
           <div class="printable-groups">
             <div class="printable-group">
@@ -2373,8 +2911,31 @@
 
 
 
-        <section class="resource-box culture-resource-box">
-          <h3>🏛️ Cultura · Culture</h3>
+
+
+      </div>
+
+
+
+      <div class="monthly-section-heading culture-section-heading">
+        <div class="monthly-section-icon" aria-hidden="true">🏛️</div>
+
+        <div>
+          <h3>Cultura del mese · <span lang="en">Monthly Culture</span></h3>
+
+          <p>
+            Letture, tradizioni, poesia e attività culturali
+            collegate al tema del mese.
+            <span lang="en">
+              Cultural readings, traditions, poetry, and activities
+              connected to the monthly theme.
+            </span>
+          </p>
+        </div>
+      </div>
+
+      <div class="culture-monthly-wrap">
+<section class="resource-box culture-resource-box">
           <div class="resource-links">
 
             <a class="resource-link" href="cultural-resources/carnevale.html">
@@ -2384,9 +2945,7 @@
 
           </div>
         </section>
-
       </div>
-
 
       <!-- PLANNED START -->
       <section
@@ -2398,10 +2957,10 @@
         </h3>
 
         <p class="planned-box-intro">
-          Materiali previsti per completare gli obiettivi
-          e i temi del mese.
+          Materiali ancora da aggiungere per completare
+          gli obiettivi del mese.
           <span lang="en">
-            Planned materials to complete the monthly focus.
+            Resources still to be added to support all monthly targets.
           </span>
         </p>
 
@@ -2486,8 +3045,8 @@
 
       <section class="monthly-focus">
         <div class="focus-label">
-          <strong>Obiettivi e temi del mese</strong>
-          <span lang="en">Monthly focus</span>
+          <strong>🎯 Obiettivi del mese</strong>
+          <span lang="en">Monthly Learning Targets</span>
         </div>
 
         <ul>
@@ -2499,6 +3058,23 @@
 <li>Festa del Papà e San Giuseppe</li>
         </ul>
       </section>
+
+
+      <div class="monthly-section-heading language-section-heading">
+        <div class="monthly-section-icon" aria-hidden="true">💬</div>
+
+        <div>
+          <h3>Lingua del mese · <span lang="en">Language Targets</span></h3>
+
+          <p>
+            Frasi e strutture da usare, modellare e far notare
+            durante il mese.
+            <span lang="en">
+              Useful language to model, practice, and notice.
+            </span>
+          </p>
+        </div>
+      </div>
 
       <!-- LANGUAGE SUPPORT START -->
       <div class="language-support">
@@ -2583,10 +3159,31 @@
 
 
 
+
+      <div class="monthly-section-heading materials-section-heading">
+        <div class="monthly-section-icon" aria-hidden="true">🧰</div>
+
+        <div>
+          <h3>
+            Materiali per imparare e praticare ·
+            <span lang="en">Learning &amp; Practice Materials</span>
+          </h3>
+
+          <p>
+            Scegli tra pratica interattiva e materiali stampabili
+            per lavorare sugli obiettivi e sulla lingua del mese.
+            <span lang="en">
+              Choose interactive or printable resources to practice
+              the month’s targets and language.
+            </span>
+          </p>
+        </div>
+      </div>
+
       <div class="resource-grid">
 
         <section class="resource-box">
-          <h3>💻 Attività digitali · Digital Activities</h3>
+          <h3>💻 Pratica interattiva · Interactive Practice</h3>
           <div class="resource-links">
 
             <a class="resource-link" href="index.html">
@@ -2616,7 +3213,7 @@
         </section>
 
                 <section class="resource-box">
-          <h3>🖨️ Stampabili · Printables</h3>
+          <h3>🖨️ Materiali stampabili · Printable Materials</h3>
 
           <div class="printable-groups">
             <div class="printable-group">
@@ -2672,8 +3269,31 @@
 
 
 
-        <section class="resource-box culture-resource-box">
-          <h3>🏛️ Cultura · Culture</h3>
+
+
+      </div>
+
+
+
+      <div class="monthly-section-heading culture-section-heading">
+        <div class="monthly-section-icon" aria-hidden="true">🏛️</div>
+
+        <div>
+          <h3>Cultura del mese · <span lang="en">Monthly Culture</span></h3>
+
+          <p>
+            Letture, tradizioni, poesia e attività culturali
+            collegate al tema del mese.
+            <span lang="en">
+              Cultural readings, traditions, poetry, and activities
+              connected to the monthly theme.
+            </span>
+          </p>
+        </div>
+      </div>
+
+      <div class="culture-monthly-wrap">
+<section class="resource-box culture-resource-box">
           <div class="resource-links">
 
             <a class="resource-link" href="cultural-resources/poetry/primavera/la-prima-margherita.html">
@@ -2683,9 +3303,7 @@
 
           </div>
         </section>
-
       </div>
-
 
       <!-- PLANNED START -->
       <section
@@ -2697,10 +3315,10 @@
         </h3>
 
         <p class="planned-box-intro">
-          Materiali previsti per completare gli obiettivi
-          e i temi del mese.
+          Materiali ancora da aggiungere per completare
+          gli obiettivi del mese.
           <span lang="en">
-            Planned materials to complete the monthly focus.
+            Resources still to be added to support all monthly targets.
           </span>
         </p>
 
@@ -2785,8 +3403,8 @@
 
       <section class="monthly-focus">
         <div class="focus-label">
-          <strong>Obiettivi e temi del mese</strong>
-          <span lang="en">Monthly focus</span>
+          <strong>🎯 Obiettivi del mese</strong>
+          <span lang="en">Monthly Learning Targets</span>
         </div>
 
         <ul>
@@ -2798,6 +3416,23 @@
 <li>attività per la Festa della Mamma</li>
         </ul>
       </section>
+
+
+      <div class="monthly-section-heading language-section-heading">
+        <div class="monthly-section-icon" aria-hidden="true">💬</div>
+
+        <div>
+          <h3>Lingua del mese · <span lang="en">Language Targets</span></h3>
+
+          <p>
+            Frasi e strutture da usare, modellare e far notare
+            durante il mese.
+            <span lang="en">
+              Useful language to model, practice, and notice.
+            </span>
+          </p>
+        </div>
+      </div>
 
       <!-- LANGUAGE SUPPORT START -->
       <div class="language-support">
@@ -2876,10 +3511,31 @@
 
 
 
+
+      <div class="monthly-section-heading materials-section-heading">
+        <div class="monthly-section-icon" aria-hidden="true">🧰</div>
+
+        <div>
+          <h3>
+            Materiali per imparare e praticare ·
+            <span lang="en">Learning &amp; Practice Materials</span>
+          </h3>
+
+          <p>
+            Scegli tra pratica interattiva e materiali stampabili
+            per lavorare sugli obiettivi e sulla lingua del mese.
+            <span lang="en">
+              Choose interactive or printable resources to practice
+              the month’s targets and language.
+            </span>
+          </p>
+        </div>
+      </div>
+
       <div class="resource-grid">
 
         <section class="resource-box">
-          <h3>💻 Attività digitali · Digital Activities</h3>
+          <h3>💻 Pratica interattiva · Interactive Practice</h3>
           <div class="resource-links">
 
             <a class="resource-link" href="index.html">
@@ -2903,7 +3559,7 @@
         </section>
 
                         <section class="resource-box">
-          <h3>🖨️ Stampabili · Printables</h3>
+          <h3>🖨️ Materiali stampabili · Printable Materials</h3>
 
           <div class="printable-groups">
             <div class="printable-group">
@@ -2938,10 +3594,29 @@
           </div>
         </section>
 
+      </div>
 
 
+
+      <div class="monthly-section-heading culture-section-heading">
+        <div class="monthly-section-icon" aria-hidden="true">🏛️</div>
+
+        <div>
+          <h3>Cultura del mese · <span lang="en">Monthly Culture</span></h3>
+
+          <p>
+            Letture, tradizioni, poesia e attività culturali
+            collegate al tema del mese.
+            <span lang="en">
+              Cultural readings, traditions, poetry, and activities
+              connected to the monthly theme.
+            </span>
+          </p>
+        </div>
+      </div>
+
+      <div class="culture-monthly-wrap">
 <section class="resource-box culture-resource-box">
-          <h3>🏛️ Cultura · Culture</h3>
           <div class="resource-links">
 
             <a class="resource-link" href="cultural-resources/poetry/primavera/aprile.html">
@@ -2957,9 +3632,7 @@
 
           </div>
         </section>
-
       </div>
-
 
       <!-- PLANNED START -->
       <section
@@ -2971,10 +3644,10 @@
         </h3>
 
         <p class="planned-box-intro">
-          Materiali previsti per completare gli obiettivi
-          e i temi del mese.
+          Materiali ancora da aggiungere per completare
+          gli obiettivi del mese.
           <span lang="en">
-            Planned materials to complete the monthly focus.
+            Resources still to be added to support all monthly targets.
           </span>
         </p>
 
