@@ -1,0 +1,360 @@
+
+/* =========================================
+   Primo Volo — Mappa di Volo
+   City-unlock journey replacing Passport UI
+   ========================================= */
+
+.volo-city-map-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 12000;
+  display: grid;
+  place-items: center;
+  padding: 16px;
+  background: rgba(31, 37, 43, .58);
+}
+
+.volo-city-map-modal[hidden] {
+  display: none !important;
+}
+
+.volo-city-map-window {
+  position: relative;
+  width: min(1120px, 97vw);
+  max-height: 95vh;
+  overflow: auto;
+  border: 1px solid #dac9ab;
+  border-radius: 26px;
+  background: #fffaf0;
+  box-shadow: 0 26px 76px rgba(29, 33, 38, .28);
+}
+
+.volo-city-map-close {
+  position: sticky;
+  top: 10px;
+  float: right;
+  z-index: 50;
+  width: 42px;
+  height: 42px;
+  margin: 10px 10px -52px 0;
+  border: 1px solid #d5c4a7;
+  border-radius: 50%;
+  background: rgba(255,255,255,.96);
+  color: #4b4339;
+  font-size: 1.5rem;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.volo-city-map-header {
+  padding: 22px 76px 12px 26px;
+}
+
+.volo-city-map-header h2 {
+  margin: 0;
+  color: #245d91;
+  font-size: clamp(1.8rem, 4vw, 2.7rem);
+}
+
+.volo-city-map-header p {
+  margin: 6px 0 0;
+  color: #6d6256;
+  line-height: 1.45;
+}
+
+.volo-city-map-summary {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 9px;
+  padding: 0 26px 16px;
+}
+
+.volo-city-map-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 7px 11px;
+  border-radius: 999px;
+  background: #edf5fb;
+  color: #245d91;
+  font-size: .9rem;
+  font-weight: 850;
+}
+
+.volo-city-map-board-wrap {
+  padding: 0 18px 22px;
+}
+
+.volo-city-map-board {
+  position: relative;
+  width: min(1050px, 100%);
+  aspect-ratio: 1664 / 928;
+  margin: 0 auto;
+  overflow: hidden;
+  border: 1px solid #d7c4a4;
+  border-radius: 20px;
+  background: #efe1c1;
+  box-shadow: inset 0 0 0 1px rgba(255,255,255,.42);
+}
+
+.volo-city-map-underlay {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  user-select: none;
+  pointer-events: none;
+}
+
+.volo-city-map-route {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 4;
+  overflow: visible;
+  pointer-events: none;
+}
+
+.volo-city-route-base {
+  fill: none;
+  stroke: #8d887d;
+  stroke-width: .8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-dasharray: 2.2 2.2;
+  opacity: .74;
+}
+
+.volo-city-route-progress {
+  fill: none;
+  stroke: #2876bb;
+  stroke-width: 1.25;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.volo-city-stop {
+  position: absolute;
+  z-index: 10;
+  transform: translate(-50%, -50%);
+  width: 31px;
+  height: 31px;
+  display: grid;
+  place-items: center;
+  border: 3px solid #fffaf0;
+  border-radius: 50%;
+  background: #aaa49a;
+  color: white;
+  box-shadow: 0 3px 9px rgba(40, 42, 45, .24);
+  font-size: .76rem;
+  font-weight: 900;
+}
+
+button.volo-city-stop {
+  cursor: pointer;
+}
+
+button.volo-city-stop:disabled {
+  cursor: default;
+}
+
+.volo-city-stop.is-unlocked {
+  background: #2876bb;
+}
+
+.volo-city-stop.is-current {
+  width: 37px;
+  height: 37px;
+  background: #d8792e;
+  box-shadow:
+    0 0 0 5px rgba(216,121,46,.18),
+    0 4px 12px rgba(40,42,45,.26);
+}
+
+.volo-city-stop-label {
+  position: absolute;
+  z-index: 9;
+  transform: translate(-50%, 0);
+  padding: 3px 8px;
+  border: 1px solid rgba(201,184,155,.96);
+  border-radius: 999px;
+  background: rgba(255,250,240,.95);
+  color: #51483d;
+  font-size: clamp(.61rem, 1.3vw, .79rem);
+  font-weight: 900;
+  white-space: nowrap;
+  pointer-events: none;
+  box-shadow: 0 1px 4px rgba(40,42,45,.10);
+}
+
+.volo-city-plane {
+  position: absolute;
+  z-index: 13;
+  transform: translate(-50%, -50%) rotate(-10deg);
+  font-size: clamp(1.5rem, 3vw, 2.25rem);
+  filter: drop-shadow(0 2px 3px rgba(40,42,45,.24));
+  pointer-events: none;
+}
+
+.volo-city-arrival {
+  position: absolute;
+  z-index: 30;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: min(560px, calc(100% - 26px));
+  max-height: calc(100% - 24px);
+  overflow: auto;
+  padding: 18px;
+  border: 1px solid #d5c1a0;
+  border-radius: 24px;
+  background: rgba(255,252,245,.985);
+  box-shadow: 0 24px 72px rgba(31, 35, 40, .30);
+}
+
+.volo-city-arrival[hidden] {
+  display: none !important;
+}
+
+.volo-city-arrival-close {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 36px;
+  height: 36px;
+  border: 1px solid #d7c7ae;
+  border-radius: 50%;
+  background: white;
+  cursor: pointer;
+  font-size: 1.2rem;
+}
+
+.volo-city-arrival-diorama {
+  display: block;
+  width: min(390px, 90%);
+  max-height: 320px;
+  object-fit: contain;
+  margin: 0 auto 10px;
+}
+
+.volo-city-arrival-copy {
+  text-align: center;
+}
+
+.volo-city-arrival-copy h3 {
+  margin: 3px 0 4px;
+  color: #245d91;
+  font-size: clamp(1.45rem, 4vw, 2.05rem);
+}
+
+.volo-city-arrival-region {
+  margin: 0 0 9px;
+  color: #74695c;
+  font-weight: 800;
+}
+
+.volo-city-culture-row {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+  margin-top: 13px;
+}
+
+.volo-city-culture-card {
+  min-width: 0;
+  padding: 10px;
+  border: 1px solid #e2d4bf;
+  border-radius: 16px;
+  background: #fffdf8;
+  text-align: center;
+}
+
+.volo-city-culture-card img {
+  width: 100%;
+  height: 112px;
+  object-fit: contain;
+  border-radius: 12px;
+}
+
+.volo-city-culture-card strong {
+  display: block;
+  margin-top: 5px;
+  color: #50483f;
+  font-size: .88rem;
+}
+
+.volo-city-arrival-badge {
+  display: inline-flex;
+  margin-top: 11px;
+  padding: 6px 10px;
+  border-radius: 999px;
+  background: #eef5e8;
+  color: #4d6d38;
+  font-size: .85rem;
+  font-weight: 900;
+}
+
+.volo-city-map-note {
+  margin: 0;
+  padding: 0 24px 24px;
+  color: #766c61;
+  text-align: center;
+  font-size: .88rem;
+  line-height: 1.4;
+}
+
+@media (max-width: 720px) {
+  .volo-city-map-modal {
+    padding: 6px;
+  }
+
+  .volo-city-map-window {
+    width: 100%;
+    max-height: 98vh;
+    border-radius: 18px;
+  }
+
+  .volo-city-map-header {
+    padding-left: 16px;
+    padding-right: 62px;
+  }
+
+  .volo-city-map-summary {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+
+  .volo-city-map-board-wrap {
+    padding-left: 7px;
+    padding-right: 7px;
+  }
+
+  .volo-city-stop {
+    width: 25px;
+    height: 25px;
+    border-width: 2px;
+    font-size: .62rem;
+  }
+
+  .volo-city-stop.is-current {
+    width: 30px;
+    height: 30px;
+  }
+
+  .volo-city-stop-label {
+    padding: 2px 5px;
+    font-size: .55rem;
+  }
+
+  .volo-city-culture-row {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .volo-city-culture-card img {
+    height: 88px;
+  }
+}
+
