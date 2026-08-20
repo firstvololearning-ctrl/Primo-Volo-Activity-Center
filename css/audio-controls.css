@@ -1,0 +1,39 @@
+.pv-audio-button {
+  display: inline-grid;
+  place-items: center;
+  flex: 0 0 auto;
+  width: 34px;
+  height: 34px;
+  padding: 0;
+  border: 1px solid #cbdceb;
+  border-radius: 50%;
+  background: #f7fbff;
+  color: #245d91;
+  font: inherit;
+  font-size: 1rem;
+  line-height: 1;
+  cursor: pointer;
+  box-shadow: 0 2px 6px rgba(39, 75, 132, .10);
+}
+
+.pv-audio-button:hover {
+  background: #edf7ff;
+  transform: translateY(-1px);
+}
+
+.pv-audio-button:focus-visible {
+  outline: 3px solid rgba(40,118,187,.25);
+  outline-offset: 2px;
+}
+
+.pv-audio-button.pv-audio-small {
+  width: 28px;
+  height: 28px;
+  font-size: .84rem;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pv-audio-button:hover {
+    transform: none;
+  }
+}
