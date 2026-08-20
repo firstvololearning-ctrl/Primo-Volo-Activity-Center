@@ -2488,9 +2488,32 @@ let matchedCount = 0;
 
 function createMatchRound() {
 
-  const roundItems =
+  const matchDraw =
+    window.PrimoVoloPracticeRounds
+      .nextBatch(
+        "match-word",
+        currentTopicKey,
+        currentVocabulary,
+        6
+      );
 
-    shuffle(currentVocabulary).slice(0, 6);
+  if (matchDraw.complete) {
+    window.PrimoVoloPracticeRounds
+      .renderComplete(
+        matchActivity,
+        {
+          activity: "match-word",
+          topicKey: currentTopicKey,
+          total: matchDraw.total,
+          onRestart: createMatchRound
+        }
+      );
+
+    return;
+  }
+
+  const roundItems =
+    matchDraw.items;
 
 
 
@@ -2696,7 +2719,11 @@ function createMatchRound() {
 
       >
 
-        Gioca ancora · Play Again
+        ${
+          matchDraw.remaining > 0
+            ? "Continua · Continue"
+            : "Termina il giro · Finish Round"
+        }
 
       </button>
 
@@ -3368,19 +3395,31 @@ function showListenQuestion() {
 
 
 
+  const listenDraw =
+    window.PrimoVoloPracticeRounds
+      .next(
+        "match-sound",
+        currentTopicKey,
+        currentVocabulary
+      );
+
+  if (listenDraw.complete) {
+    window.PrimoVoloPracticeRounds
+      .renderComplete(
+        listenActivity,
+        {
+          activity: "match-sound",
+          topicKey: currentTopicKey,
+          total: listenDraw.total,
+          onRestart: showListenQuestion
+        }
+      );
+
+    return;
+  }
+
   currentListenItem =
-
-    currentVocabulary[
-
-      Math.floor(
-
-        Math.random() *
-
-        currentVocabulary.length
-
-      )
-
-    ];
+    listenDraw.item;
 
 
 
@@ -4000,19 +4039,31 @@ function showCompleteQuestion() {
 
 
 
+  const completeDraw =
+    window.PrimoVoloPracticeRounds
+      .next(
+        "complete",
+        currentTopicKey,
+        currentVocabulary
+      );
+
+  if (completeDraw.complete) {
+    window.PrimoVoloPracticeRounds
+      .renderComplete(
+        completeActivity,
+        {
+          activity: "complete",
+          topicKey: currentTopicKey,
+          total: completeDraw.total,
+          onRestart: showCompleteQuestion
+        }
+      );
+
+    return;
+  }
+
   currentCompleteItem =
-
-    currentVocabulary[
-
-      Math.floor(
-
-        Math.random() *
-
-        currentVocabulary.length
-
-      )
-
-    ];
+    completeDraw.item;
 
 
 
@@ -4528,19 +4579,31 @@ function showWriteQuestion() {
 
 
 
+  const writeDraw =
+    window.PrimoVoloPracticeRounds
+      .next(
+        "write",
+        currentTopicKey,
+        currentVocabulary
+      );
+
+  if (writeDraw.complete) {
+    window.PrimoVoloPracticeRounds
+      .renderComplete(
+        writeActivity,
+        {
+          activity: "write",
+          topicKey: currentTopicKey,
+          total: writeDraw.total,
+          onRestart: showWriteQuestion
+        }
+      );
+
+    return;
+  }
+
   currentWriteItem =
-
-    currentVocabulary[
-
-      Math.floor(
-
-        Math.random() *
-
-        currentVocabulary.length
-
-      )
-
-    ];
+    writeDraw.item;
 
 
 
@@ -5054,21 +5117,35 @@ function createMemoryGame() {
 
 
 
-  const pairCount =
+  const memoryDraw =
+    window.PrimoVoloPracticeRounds
+      .nextBatch(
+        "memory",
+        currentTopicKey,
+        currentVocabulary,
+        6
+      );
 
-    Math.min(6, currentVocabulary.length);
+  if (memoryDraw.complete) {
+    window.PrimoVoloPracticeRounds
+      .renderComplete(
+        memoryActivity,
+        {
+          activity: "memory",
+          topicKey: currentTopicKey,
+          total: memoryDraw.total,
+          onRestart: createMemoryGame
+        }
+      );
 
-
+    return;
+  }
 
   const gameItems =
+    memoryDraw.items;
 
-    shuffle(currentVocabulary).slice(
-
-      0,
-
-      pairCount
-
-    );
+  const pairCount =
+    gameItems.length;
 
 
 
@@ -5289,7 +5366,11 @@ function createMemoryGame() {
 
       >
 
-        Gioca ancora · Play Again
+        ${
+          memoryDraw.remaining > 0
+            ? "Continua · Continue"
+            : "Termina il giro · Finish Round"
+        }
 
       </button>
 
@@ -5713,17 +5794,31 @@ function buildChoices(correctItem) {
 
 function showChooseQuestion() {
 
-currentQuestion =
+  const chooseDraw =
+    window.PrimoVoloPracticeRounds
+      .next(
+        "choose",
+        currentTopicKey,
+        currentVocabulary
+      );
 
-  currentVocabulary[
+  if (chooseDraw.complete) {
+    window.PrimoVoloPracticeRounds
+      .renderComplete(
+        chooseActivity,
+        {
+          activity: "choose",
+          topicKey: currentTopicKey,
+          total: chooseDraw.total,
+          onRestart: showChooseQuestion
+        }
+      );
 
-    Math.floor(
+    return;
+  }
 
-      Math.random() * currentVocabulary.length
-
-    )
-
-  ];
+  currentQuestion =
+    chooseDraw.item;
 
 
 
