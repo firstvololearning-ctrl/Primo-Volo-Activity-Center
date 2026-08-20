@@ -1908,11 +1908,8 @@ correctTokens =
  
 
     nextButton.addEventListener(
-
       "click",
-
-      showAssemblyQuestion
-
+      () => showAssemblyQuestion(false)
     );
 
   }
