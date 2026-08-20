@@ -852,6 +852,15 @@
 
   let lastFocused = null;
 
+  /*
+    A city can be earned while the map is closed.
+    Keep that newly unlocked city pending until its arrival
+    postcard is actually displayed. This prevents an earned
+    celebration from being lost between the practice event
+    and the learner opening the Journey map.
+  */
+  let pendingCelebrationCityId = null;
+
   function routePoints(cities) {
     return cities
       .map(
@@ -1225,6 +1234,25 @@
       return;
     }
 
+    if (pendingCelebrationCityId) {
+      const pendingCity =
+        unlockedCities().find(
+          city =>
+            city.id ===
+            pendingCelebrationCityId
+        );
+
+      pendingCelebrationCityId = null;
+
+      if (pendingCity) {
+        showArrival(
+          pendingCity,
+          true
+        );
+        return;
+      }
+    }
+
     const unlocked =
       unlockedCities();
 
@@ -1340,8 +1368,32 @@
   document.addEventListener(
     "voloflightpathchange",
     () => {
+      const unlockedBefore =
+        new Set(
+          unlockedCities().map(
+            city => city.id
+          )
+        );
+
       const changed =
         syncExploredTopics();
+
+      if (changed) {
+        const newlyUnlocked =
+          unlockedCities().filter(
+            city =>
+              !unlockedBefore.has(
+                city.id
+              )
+          );
+
+        if (newlyUnlocked.length) {
+          pendingCelebrationCityId =
+            newlyUnlocked[
+              newlyUnlocked.length - 1
+            ].id;
+        }
+      }
 
       renderJourneyCard();
 
@@ -1358,6 +1410,8 @@
   window.addEventListener(
     "primo-volo-student-changed",
     () => {
+      pendingCelebrationCityId = null;
+
       journeyData =
         loadJourneyData();
 
