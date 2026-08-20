@@ -1,12 +1,21 @@
 (function () {
   "use strict";
 
-  const STUDENTS_KEY = "primoVoloStudentsV1";
-  const CURRENT_KEY = "primoVoloCurrentStudentV1";
+  const storage = window.PrimoVoloStorage;
+
+  if (!storage) {
+    console.error(
+      "Student Manager could not start because PrimoVoloStorage was not found."
+    );
+    return;
+  }
+
+  const STUDENTS_KEY = storage.keys.students;
+  const CURRENT_KEY = storage.keys.currentStudent;
 
   function loadStudents() {
     try {
-      const value = JSON.parse(localStorage.getItem(STUDENTS_KEY) || "[]");
+      const value = JSON.parse(storage.getItem(STUDENTS_KEY) || "[]");
       return Array.isArray(value) ? value : [];
     } catch {
       return [];
@@ -14,11 +23,11 @@
   }
 
   function saveStudents(students) {
-    localStorage.setItem(STUDENTS_KEY, JSON.stringify(students));
+    storage.setItem(STUDENTS_KEY, JSON.stringify(students));
   }
 
   function currentId() {
-    return localStorage.getItem(CURRENT_KEY) || "";
+    return storage.getItem(CURRENT_KEY) || "";
   }
 
   function currentStudent() {
@@ -28,9 +37,9 @@
 
   function setCurrent(id) {
     if (id) {
-      localStorage.setItem(CURRENT_KEY, id);
+      storage.setItem(CURRENT_KEY, id);
     } else {
-      localStorage.removeItem(CURRENT_KEY);
+      storage.removeItem(CURRENT_KEY);
     }
 
     renderSelect();
@@ -137,23 +146,11 @@
     );
 
     /*
-      Student learning data uses the same
-      student-ID suffix across Progress,
-      Practice Path, Italy Journey, and the
-      legacy Passport migration store.
+      Centralized student-data cleanup.
+      The storage adapter owns the list of
+      student-scoped data domains.
     */
-    [
-      "primoVoloActivityCenterProgress",
-      "primoVoloFlightPathPractice",
-      "primoVoloCityJourneyV1",
-      "primoVoloPassportAchievements"
-    ].forEach(baseKey => {
-      localStorage.removeItem(
-        baseKey +
-        ":student:" +
-        id
-      );
-    });
+    storage.removeStudentData(id);
 
     if (currentId() === id) {
       setCurrent("");

@@ -12,27 +12,19 @@
 */
 
 (function initializeVoloFlightPath() {
-  const STORAGE_KEY =
-    "primoVoloFlightPathPractice";
+  const storage = window.PrimoVoloStorage;
 
-  const CURRENT_STUDENT_STORAGE_KEY =
-    "primoVoloCurrentStudentV1";
+  if (!storage) {
+    console.error(
+      "Volo Flight Path could not start because PrimoVoloStorage was not found."
+    );
+    return;
+  }
+
+  const STORAGE_KEY = storage.keys.practice;
 
   function getPracticeStorageKey() {
-    const studentId =
-      window.localStorage.getItem(
-        CURRENT_STUDENT_STORAGE_KEY
-      );
-
-    if (!studentId) {
-      return STORAGE_KEY;
-    }
-
-    return (
-      STORAGE_KEY +
-      ":student:" +
-      studentId
-    );
+    return storage.studentKey(STORAGE_KEY);
   }
 
   window.getPrimoVoloFlightPathStorageKey =
@@ -79,7 +71,7 @@
   function loadPracticeData() {
     try {
       const saved =
-        window.localStorage.getItem(
+        storage.getItem(
           getPracticeStorageKey()
         );
 
@@ -114,7 +106,7 @@
 
   function savePracticeData() {
     try {
-      window.localStorage.setItem(
+      storage.setItem(
         getPracticeStorageKey(),
         JSON.stringify(practiceData)
       );

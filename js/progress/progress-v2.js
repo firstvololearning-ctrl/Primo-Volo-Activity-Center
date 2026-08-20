@@ -14,6 +14,15 @@
 */
 
 (function initializePrimoVoloProgressV2() {
+  const storage = window.PrimoVoloStorage;
+
+  if (!storage) {
+    console.error(
+      "Progress V2 could not start because PrimoVoloStorage was not found."
+    );
+    return;
+  }
+
   if (
     typeof progressData === "undefined" ||
     typeof saveProgressData !== "function" ||
@@ -353,8 +362,10 @@
       }
 
       const saved =
-        window.localStorage.getItem(
-          "primoVoloFlightPathPractice"
+        storage.getItem(
+          storage.studentKey(
+            storage.keys.practice
+          )
         );
 
       if (!saved) {

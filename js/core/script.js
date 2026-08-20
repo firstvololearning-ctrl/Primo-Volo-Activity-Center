@@ -164,26 +164,11 @@ const referenceClose =
 
 
 const PROGRESS_STORAGE_KEY =
-  "primoVoloActivityCenterProgress";
-
-const CURRENT_STUDENT_STORAGE_KEY =
-  "primoVoloCurrentStudentV1";
+  window.PrimoVoloStorage.keys.progress;
 
 function getProgressStorageKey() {
-  const studentId =
-    window.localStorage.getItem(
-      CURRENT_STUDENT_STORAGE_KEY
-    );
-
-  if (!studentId) {
-    return PROGRESS_STORAGE_KEY;
-  }
-
-  return (
-    PROGRESS_STORAGE_KEY +
-    ":student:" +
-    studentId
-  );
+  return window.PrimoVoloStorage
+    .studentKey(PROGRESS_STORAGE_KEY);
 }
 
 window.getPrimoVoloProgressStorageKey =
@@ -231,7 +216,7 @@ function loadProgressData() {
 
   try {
 
-    const saved = window.localStorage.getItem(
+    const saved = window.PrimoVoloStorage.getItem(
       getProgressStorageKey()
     );
 
@@ -295,7 +280,7 @@ function saveProgressData() {
 
   try {
 
-    window.localStorage.setItem(
+    window.PrimoVoloStorage.setItem(
       getProgressStorageKey(),
       JSON.stringify(progressData)
     );

@@ -13,6 +13,15 @@
 */
 
 (function initializeVoloCityJourney() {
+  const storage = window.PrimoVoloStorage;
+
+  if (!storage) {
+    console.error(
+      "Mappa di Volo could not start because PrimoVoloStorage was not found."
+    );
+    return;
+  }
+
   const headerUtilities =
     document.querySelector(".header-utilities");
 
@@ -33,14 +42,11 @@
     return;
   }
 
-  const CURRENT_STUDENT_STORAGE_KEY =
-    "primoVoloCurrentStudentV1";
-
   const JOURNEY_STORAGE_KEY =
-    "primoVoloCityJourneyV1";
+    storage.keys.journey;
 
   const OLD_PASSPORT_STORAGE_KEY =
-    "primoVoloPassportAchievements";
+    storage.keys.legacyPassport;
 
   const EXPLORED_RATIO = 0.70;
 
@@ -105,23 +111,12 @@
       : null;
   })();
 
-  function studentSuffix() {
-    const studentId =
-      window.localStorage.getItem(
-        CURRENT_STUDENT_STORAGE_KEY
-      );
-
-    return studentId
-      ? ":student:" + studentId
-      : "";
-  }
-
   function journeyStorageKey() {
-    return JOURNEY_STORAGE_KEY + studentSuffix();
+    return storage.studentKey(JOURNEY_STORAGE_KEY);
   }
 
   function oldPassportStorageKey() {
-    return OLD_PASSPORT_STORAGE_KEY + studentSuffix();
+    return storage.studentKey(OLD_PASSPORT_STORAGE_KEY);
   }
 
   function emptyJourneyData() {
@@ -136,7 +131,7 @@
   function loadJourneyData() {
     try {
       const saved =
-        window.localStorage.getItem(
+        storage.getItem(
           journeyStorageKey()
         );
 
@@ -173,7 +168,7 @@
 
   function saveJourneyData() {
     try {
-      window.localStorage.setItem(
+      storage.setItem(
         journeyStorageKey(),
         JSON.stringify(journeyData)
       );
@@ -192,7 +187,7 @@
 
     try {
       const saved =
-        window.localStorage.getItem(
+        storage.getItem(
           oldPassportStorageKey()
         );
 
