@@ -756,3 +756,29 @@ button.volo-city-stop.is-unlocked:hover {
 @media (prefers-reduced-motion: reduce) {
   .volo-city-arrival { animation: none; }
 }
+
+
+/* === MAP VISUAL TUNE V6 === */
+
+.volo-city-route-base {
+  stroke: #a9a091;
+  stroke-width: .58;
+  stroke-dasharray: 1.15 2.45;
+  opacity: .46;
+}
+
+.volo-city-route-progress {
+  stroke: #39a8d2;
+  stroke-width: 1.45;
+  opacity: .96;
+}
+
+.volo-city-stop:not(.is-unlocked) {
+  background: #b8b2a8;
+  opacity: .88;
+}
+
+.volo-city-stop-label {
+  padding: 3px 7px;
+  background: rgba(255,253,244,.97);
+}

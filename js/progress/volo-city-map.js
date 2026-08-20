@@ -50,15 +50,15 @@
     Route is geographically readable across the underlay.
   */
   const CITY_STOPS = [
-    { id:"genova", name:"Genova", regionId:"liguria", x:39.0, y:34.0, labelDx:-18, labelDy:19, unlockAt:2 },
-    { id:"torino", name:"Torino", regionId:"piemonte", x:35.5, y:27.0, labelDx:-27, labelDy:18, unlockAt:4 },
-    { id:"milano", name:"Milano", regionId:"lombardia", x:40.5, y:26.0, labelDx:30, labelDy:10, unlockAt:6 },
-    { id:"venezia", name:"Venezia", regionId:"veneto", x:50.5, y:27.5, labelDx:27, labelDy:18, unlockAt:8 },
+    { id:"genova", name:"Genova", regionId:"liguria", x:38.2, y:35.0, labelDx:-19, labelDy:20, unlockAt:2 },
+    { id:"torino", name:"Torino", regionId:"piemonte", x:34.8, y:27.0, labelDx:-34, labelDy:18, unlockAt:4 },
+    { id:"milano", name:"Milano", regionId:"lombardia", x:40.5, y:25.7, labelDx:35, labelDy:8, unlockAt:6 },
+    { id:"venezia", name:"Venezia", regionId:"veneto", x:51.8, y:27.0, labelDx:30, labelDy:18, unlockAt:8 },
     { id:"firenze", name:"Firenze", regionId:"toscana", x:45.0, y:40.0, labelDx:20, labelDy:19, unlockAt:10 },
     { id:"roma", name:"Roma", regionId:"lazio", x:52.0, y:51.0, labelDx:-10, labelDy:20, unlockAt:12 },
-    { id:"napoli", name:"Napoli", regionId:"campania", x:60.0, y:59.0, labelDx:4, labelDy:20, unlockAt:14 },
-    { id:"lecce", name:"Lecce", regionId:"puglia", x:72.0, y:61.0, labelDx:17, labelDy:20, unlockAt:16 },
-    { id:"palermo", name:"Palermo", regionId:"sicilia", x:50.5, y:83.0, labelDx:-8, labelDy:21, unlockAt:18 },
+    { id:"napoli", name:"Napoli", regionId:"campania", x:59.2, y:59.8, labelDx:0, labelDy:21, unlockAt:14 },
+    { id:"lecce", name:"Lecce", regionId:"puglia", x:73.0, y:62.0, labelDx:20, labelDy:20, unlockAt:16 },
+    { id:"palermo", name:"Palermo", regionId:"sicilia", x:49.0, y:82.3, labelDx:-9, labelDy:21, unlockAt:18 },
     { id:"cagliari", name:"Cagliari", regionId:"sardegna", x:29.0, y:69.0, labelDx:-9, labelDy:21, unlockAt:20 }
   ];
 
