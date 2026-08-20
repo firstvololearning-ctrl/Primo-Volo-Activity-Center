@@ -20,7 +20,7 @@
 
   const learnerItems = [
     document.querySelector(
-      "#passportButton"
+      "#voloCityMapButton"
     ),
     document.querySelector(
       'a[href="glossary.html"]'
