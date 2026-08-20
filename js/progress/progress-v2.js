@@ -659,7 +659,13 @@
     }
 
     if (!selected.length) {
-      return "More evidence needed";
+      if (!evaluated.length) {
+        return "More evidence needed";
+      }
+
+      return type === "higher"
+        ? "No higher-accuracy signal yet"
+        : "No additional-practice signal";
     }
 
     return selected
@@ -1498,7 +1504,15 @@
           </div>
         </div>
 
-        <div class="pv2-next-grid">
+        <div
+          class="pv2-next-grid ${
+            recommendations.length === 1
+              ? "is-single"
+              : recommendations.length === 2
+                ? "is-double"
+                : ""
+          }"
+        >
           ${cards}
         </div>
       </section>
@@ -2232,6 +2246,16 @@
           repeat(3, minmax(0, 1fr));
         gap: 12px;
         margin-top: 15px;
+      }
+
+      .pv2-next-grid.is-single {
+        grid-template-columns:
+          minmax(0, 520px);
+      }
+
+      .pv2-next-grid.is-double {
+        grid-template-columns:
+          repeat(2, minmax(0, 1fr));
       }
 
       .pv2-next-card {

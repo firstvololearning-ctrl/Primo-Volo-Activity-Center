@@ -125,7 +125,7 @@
     }
 
     const ok = window.confirm(
-      `Remove ${student.name} from this device?\n\nThis will remove the student profile and all saved Progress, Flight Path, and Passport data for this student.`
+      `Remove ${student.name} from this device?\n\nThis will remove the student profile and all saved Progress, Practice Path, and Italy Journey data for this student.`
     );
 
     if (!ok) {
@@ -139,11 +139,13 @@
     /*
       Student learning data uses the same
       student-ID suffix across Progress,
-      Flight Path, and Passport.
+      Practice Path, Italy Journey, and the
+      legacy Passport migration store.
     */
     [
       "primoVoloActivityCenterProgress",
       "primoVoloFlightPathPractice",
+      "primoVoloCityJourneyV1",
       "primoVoloPassportAchievements"
     ].forEach(baseKey => {
       localStorage.removeItem(
