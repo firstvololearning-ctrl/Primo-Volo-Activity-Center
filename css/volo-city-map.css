@@ -605,3 +605,154 @@ button.volo-city-stop.is-unlocked:hover {
   .volo-city-stop.is-current,
   .volo-city-plane { animation: none; }
 }
+
+
+/* === SCRAPBOOK ARRIVAL V5 === */
+
+.volo-city-map-board-wrap {
+  width: min(1190px, calc(100% - 8px));
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: minmax(0,1fr);
+  gap: 18px;
+  align-items: start;
+}
+
+.volo-city-map-board-wrap.has-arrival {
+  grid-template-columns: minmax(0,1fr) minmax(330px,380px);
+}
+
+.volo-city-map-board-wrap.has-arrival .volo-city-map-board {
+  width: 100%;
+}
+
+.volo-city-arrival {
+  position: relative;
+  z-index: 30;
+  left: auto;
+  top: auto;
+  transform: rotate(1deg);
+  width: 100%;
+  max-height: min(72vh,720px);
+  overflow: auto;
+  padding: 17px;
+  border: 2px solid #e0c995;
+  border-radius: 15px 22px 18px 24px;
+  background: linear-gradient(rgba(255,254,248,.97),rgba(255,250,237,.99));
+  box-shadow: 0 16px 34px rgba(71,55,35,.20);
+  animation: volo-postcard-arrive .32s ease-out both;
+}
+
+.volo-city-arrival::before {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: -7px;
+  width: 84px;
+  height: 24px;
+  transform: translateX(-50%) rotate(-2deg);
+  background: rgba(244,216,139,.72);
+  border: 1px solid rgba(190,154,80,.24);
+}
+
+.volo-city-arrival.is-new::after {
+  content: "✨  ✨  ✨";
+  position: absolute;
+  right: 48px;
+  top: 11px;
+  letter-spacing: 4px;
+}
+
+.volo-city-postcard-photo {
+  margin: 9px 0 13px;
+  padding: 8px 8px 12px;
+  border: 1px solid #e7dac4;
+  background: white;
+  box-shadow: 0 4px 10px rgba(68,53,35,.12);
+  transform: rotate(-1deg);
+}
+
+.volo-city-arrival-diorama {
+  width: 100%;
+  max-height: 250px;
+  margin: 0;
+}
+
+.volo-city-arrival-kicker {
+  display: inline-flex;
+  color: #c36b34;
+  font-size: .77rem;
+  font-weight: 950;
+  letter-spacing: .05em;
+  text-transform: uppercase;
+}
+
+.volo-city-region-stamp {
+  display: inline-grid;
+  place-items: center;
+  min-width: 116px;
+  min-height: 66px;
+  padding: 8px 14px;
+  border: 3px double #d86f49;
+  border-radius: 50%;
+  color: #b65e3d;
+  font-weight: 950;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  transform: rotate(-4deg);
+}
+
+.volo-city-region-stamp small {
+  display: block;
+  margin-top: 5px;
+  font-size: .62rem;
+  letter-spacing: .02em;
+  text-transform: none;
+}
+
+.volo-city-region-discovery {
+  margin: 12px 0 4px;
+  color: #5f564c;
+  font-weight: 900;
+}
+
+.volo-city-culture-card {
+  box-shadow: 0 4px 10px rgba(66,51,34,.10);
+}
+
+.volo-city-culture-card:first-child { transform: rotate(-1.4deg); }
+.volo-city-culture-card:last-child { transform: rotate(1.5deg); }
+
+.volo-city-continue {
+  display: block;
+  width: 100%;
+  margin-top: 12px;
+  padding: 10px 12px;
+  border: 0;
+  border-radius: 12px;
+  background: #2876bb;
+  color: #fff;
+  font: inherit;
+  font-weight: 900;
+  cursor: pointer;
+}
+
+@keyframes volo-postcard-arrive {
+  from { opacity: 0; transform: translateX(24px) rotate(3deg) scale(.96); }
+  to { opacity: 1; transform: translateX(0) rotate(1deg) scale(1); }
+}
+
+@media (max-width: 900px) {
+  .volo-city-map-board-wrap.has-arrival {
+    grid-template-columns: 1fr;
+  }
+
+  .volo-city-arrival {
+    max-height: none;
+    transform: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .volo-city-arrival { animation: none; }
+}

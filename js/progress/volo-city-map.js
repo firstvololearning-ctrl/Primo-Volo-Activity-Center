@@ -574,42 +574,65 @@
             ></polyline>
           </svg>
 
-          <div
-            id="voloCityArrival"
-            class="volo-city-arrival"
-            hidden
-          >
-            <button
-              type="button"
-              class="volo-city-arrival-close"
-              aria-label="Chiudi · Close"
-            >×</button>
+        </div>
 
+        <aside
+          id="voloCityArrival"
+          class="volo-city-arrival"
+          hidden
+          aria-live="polite"
+        >
+          <button
+            type="button"
+            class="volo-city-arrival-close"
+            aria-label="Chiudi · Close"
+          >×</button>
+
+          <div class="volo-city-postcard-photo">
             <img
               id="voloCityArrivalDiorama"
               class="volo-city-arrival-diorama"
               alt=""
             >
-
-            <div class="volo-city-arrival-copy">
-              <h3 id="voloCityArrivalTitle"></h3>
-              <p
-                id="voloCityArrivalRegion"
-                class="volo-city-arrival-region"
-              ></p>
-
-              <div
-                id="voloCityCultureRow"
-                class="volo-city-culture-row"
-              ></div>
-
-              <span
-                id="voloCityArrivalBadge"
-                class="volo-city-arrival-badge"
-              ></span>
-            </div>
           </div>
-        </div>
+
+          <div class="volo-city-arrival-copy">
+            <span class="volo-city-arrival-kicker">
+              🎉 Nuova tappa · New Stop
+            </span>
+
+            <h3 id="voloCityArrivalTitle"></h3>
+
+            <span
+              id="voloCityArrivalRegion"
+              class="volo-city-region-stamp"
+            ></span>
+
+            <p class="volo-city-region-discovery">
+              Scopri la regione
+              <span lang="en">· Explore the Region</span>
+            </p>
+
+            <div
+              id="voloCityCultureRow"
+              class="volo-city-culture-row"
+            ></div>
+
+            <span
+              id="voloCityArrivalBadge"
+              class="volo-city-arrival-badge"
+            ></span>
+
+            <button
+              type="button"
+              class="volo-city-continue"
+            >
+              Continua il viaggio
+              <span lang="en">· Continue Journey</span>
+              <span aria-hidden="true">→</span>
+            </button>
+          </div>
+        </aside>
       </div>
 
       <p class="volo-city-map-note">
@@ -630,6 +653,11 @@
       "#voloCityMapBoard"
     );
 
+  const boardWrap =
+    modal.querySelector(
+      ".volo-city-map-board-wrap"
+    );
+
   const closeButton =
     modal.querySelector(
       ".volo-city-map-close"
@@ -643,6 +671,11 @@
   const arrivalClose =
     modal.querySelector(
       ".volo-city-arrival-close"
+    );
+
+  const continueButton =
+    modal.querySelector(
+      ".volo-city-continue"
     );
 
   const arrivalDiorama =
@@ -771,24 +804,28 @@
     arrivalTitle.textContent =
       `Sei arrivato a ${city.name}!`;
 
-    arrivalRegion.textContent =
+    arrivalRegion.innerHTML =
       region
-        ? `${region.region} · ${region.english}`
+        ? `${region.region}<small>${region.english}</small>`
         : "";
 
     cultureRow.innerHTML =
       cultureCard(
-        "Luogo",
+        "🏛️ Luogo della regione",
         landmark
       ) +
       cultureCard(
-        "Cibo",
+        "🍴 Cibo della regione",
         food
       );
 
     arrivalBadge.textContent =
-      `${exploredCount()} argomenti esplorati · topics explored`;
+      automatic
+        ? `✨ Nuova città! · New City!`
+        : `🧳 ${exploredCount()} argomenti esplorati · topics explored`;
 
+    arrival.classList.toggle("is-new", automatic);
+    boardWrap.classList.add("has-arrival");
     arrival.hidden = false;
 
     if (automatic) {
@@ -812,6 +849,8 @@
 
   function hideArrival() {
     arrival.hidden = true;
+    arrival.classList.remove("is-new");
+    boardWrap.classList.remove("has-arrival");
   }
 
   function renderMap() {
@@ -1031,6 +1070,11 @@
   );
 
   arrivalClose.addEventListener(
+    "click",
+    hideArrival
+  );
+
+  continueButton.addEventListener(
     "click",
     hideArrival
   );
