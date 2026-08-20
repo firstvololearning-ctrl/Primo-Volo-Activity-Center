@@ -230,6 +230,68 @@
       background: var(--green-soft);
     }
 
+    /* WHY PRIMO VOLO */
+
+    .why-primo {
+      margin: 18px 0 0;
+      padding: 22px 24px;
+      border: 1px solid var(--line);
+      border-radius: 22px;
+      background: white;
+      box-shadow: 0 8px 22px rgba(39, 75, 132, .06);
+    }
+
+    .why-primo h2 {
+      margin: 0;
+      color: var(--blue);
+      font-size: 1.35rem;
+      text-align: center;
+    }
+
+    .why-primo-intro {
+      max-width: 820px;
+      margin: 7px auto 17px;
+      color: #68798c;
+      font-size: .9rem;
+      line-height: 1.55;
+      text-align: center;
+    }
+
+    .why-primo-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .why-primo-card {
+      padding: 17px 16px;
+      border: 1px solid #dfe6ee;
+      border-radius: 15px;
+      background: #fafbfd;
+    }
+
+    .why-primo-card h3 {
+      margin: 0;
+      color: var(--blue);
+      font-size: 1rem;
+    }
+
+    .why-primo-card p {
+      margin: 8px 0 0;
+      color: #596b80;
+      font-size: .86rem;
+      line-height: 1.5;
+    }
+
+    .why-primo-note {
+      display: block;
+      margin-top: 9px;
+      color: #748297;
+      font-size: .74rem;
+      font-weight: 800;
+      line-height: 1.35;
+    }
+
     /* QUICK LINKS */
 
     .quick-links {
@@ -564,6 +626,10 @@
         grid-template-columns: 1fr;
       }
 
+      .why-primo-grid {
+        grid-template-columns: 1fr;
+      }
+
       .progression {
         grid-template-columns: 1fr;
       }
@@ -699,6 +765,56 @@
 
       </div>
 
+    </section>
+
+
+    <section class="why-primo" aria-labelledby="whyPrimoTitle">
+      <h2 id="whyPrimoTitle">Why Primo Volo?</h2>
+
+      <p class="why-primo-intro">
+        The materials are designed as more than a collection of activities.
+        The instructional logic underneath the practice is meant to help
+        students encounter the full target set, build language with decreasing
+        support, and give teachers useful evidence about what may help next.
+      </p>
+
+      <div class="why-primo-grid">
+        <article class="why-primo-card">
+          <h3>🎯 Complete, purposeful practice</h3>
+          <p>
+            Online activities vary the order of practice while ensuring
+            eligible instructional targets are presented before a round is
+            complete. Students get variety without important targets
+            disappearing through random selection.
+          </p>
+          <span class="why-primo-note">
+            Round completion represents instructional coverage, not mastery.
+          </span>
+        </article>
+
+        <article class="why-primo-card">
+          <h3>🧭 Suggested Next Practice</h3>
+          <p>
+            Saved practice and scored response patterns can point toward a
+            useful next step—such as returning to a more-supported activity,
+            broadening practice, or trying a later activity when the available
+            evidence supports it.
+          </p>
+          <span class="why-primo-note">
+            Suggestions guide practice; they are not proficiency or mastery decisions.
+          </span>
+        </article>
+
+        <article class="why-primo-card">
+          <h3>💬 Vocabulary becomes usable language</h3>
+          <p>
+            New vocabulary is repeatedly connected to reusable phrases and
+            sentence structures. Students move from understanding and supported
+            practice toward retrieval, sentence building, speaking, writing,
+            and interaction with increasing independence.
+          </p>
+        </article>
+      </div>
     </section>
 
 
