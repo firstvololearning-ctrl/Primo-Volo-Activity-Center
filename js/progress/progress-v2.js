@@ -1099,6 +1099,11 @@
             score: item.accuracy,
             attempts: item.attempts,
             activity: item.activity,
+            targetMode:
+              activityToMode(
+                supportActivity ||
+                item.activity
+              ),
             action:
               supportActivity
                 ? `Revisit ${
@@ -1141,7 +1146,7 @@
           stretch.push({
             type: "stretch",
             typeLabel:
-              "Ready for a next step",
+              "Try a next step",
             topicKey,
             topicIcon: label.icon,
             topicItalian: label.italian,
@@ -1150,6 +1155,7 @@
             attempts: item.attempts,
             activity: item.activity,
             nextMode,
+            targetMode: nextMode,
             action:
               `Try ${
                 LABELS[nextMode] ||
@@ -1186,6 +1192,8 @@
           topicIcon: label.icon,
           topicItalian: label.italian,
           topicEnglish: label.english,
+          targetMode:
+            nextUnpracticed,
           action:
             `Try ${
               LABELS[nextUnpracticed] ||
@@ -1282,6 +1290,122 @@
   window.getPrimoVoloNextPracticeRecommendations =
     getNextPracticeRecommendations;
 
+  function navigateToRecommendedPractice(
+    topicKey,
+    mode
+  ) {
+    const topicSelect =
+      document.querySelector(
+        "#topicSelect"
+      );
+
+    if (
+      !topicSelect ||
+      !topicKey ||
+      !mode
+    ) {
+      return false;
+    }
+
+    const optionExists =
+      [...topicSelect.options]
+        .some(
+          option =>
+            option.value === topicKey
+        );
+
+    if (!optionExists) {
+      return false;
+    }
+
+    topicSelect.value =
+      topicKey;
+
+    topicSelect.dispatchEvent(
+      new Event(
+        "change",
+        { bubbles: true }
+      )
+    );
+
+    const progressModal =
+      document.querySelector(
+        "#progressModal"
+      );
+
+    if (progressModal) {
+      progressModal.hidden = true;
+    }
+
+    window.setTimeout(
+      () => {
+        const activityButton =
+          [
+            ...document.querySelectorAll(
+              ".activity-button"
+            )
+          ].find(
+            button =>
+              button.dataset.mode ===
+                mode &&
+              !button.hidden &&
+              !button.disabled &&
+              button.getAttribute(
+                "aria-disabled"
+              ) !== "true"
+          );
+
+        if (activityButton) {
+          activityButton.click();
+
+          activityButton
+            .scrollIntoView({
+              behavior: "smooth",
+              block: "center"
+            });
+
+          return;
+        }
+
+        const topicHeader =
+          document.querySelector(
+            ".topic-header"
+          );
+
+        topicHeader
+          ?.scrollIntoView({
+            behavior: "smooth",
+            block: "start"
+          });
+      },
+      120
+    );
+
+    return true;
+  }
+
+  window.navigatePrimoVoloRecommendation =
+    navigateToRecommendedPractice;
+
+  document.addEventListener(
+    "click",
+    event => {
+      const button =
+        event.target.closest(
+          ".pv2-next-action-button"
+        );
+
+      if (!button) {
+        return;
+      }
+
+      navigateToRecommendedPractice(
+        button.dataset.topic,
+        button.dataset.mode
+      );
+    }
+  );
+
   function buildNextPracticeSection() {
     const recommendations =
       getNextPracticeRecommendations();
@@ -1319,9 +1443,29 @@
                 : ""
             }
 
-            <strong class="pv2-next-action">
-              ${escapeHtml(item.action)}
-            </strong>
+            ${
+              item.topicKey &&
+              item.targetMode
+                ? `
+                  <button
+                    type="button"
+                    class="pv2-next-action pv2-next-action-button"
+                    data-topic="${escapeHtml(item.topicKey)}"
+                    data-mode="${escapeHtml(item.targetMode)}"
+                    aria-label="${escapeHtml(
+                      `${item.action} — ${item.topicItalian}`
+                    )}"
+                  >
+                    ${escapeHtml(item.action)}
+                    <span aria-hidden="true">→</span>
+                  </button>
+                `
+                : `
+                  <strong class="pv2-next-action">
+                    ${escapeHtml(item.action)}
+                  </strong>
+                `
+            }
 
             <p class="pv2-next-detail">
               ${escapeHtml(item.detail)}
@@ -2154,6 +2298,41 @@
         line-height: 1.35;
       }
 
+      .pv2-next-action-button {
+        width: 100%;
+        padding: 9px 11px;
+        border: 1px solid #cad8e7;
+        border-radius: 12px;
+        background: #f7fbff;
+        font: inherit;
+        font-weight: 850;
+        text-align: left;
+        cursor: pointer;
+        transition:
+          transform .15s ease,
+          border-color .15s ease,
+          background .15s ease;
+      }
+
+      .pv2-next-action-button span {
+        float: right;
+        margin-left: 8px;
+        font-size: 1rem;
+      }
+
+      .pv2-next-action-button:hover,
+      .pv2-next-action-button:focus-visible {
+        transform: translateY(-1px);
+        border-color: #91aed0;
+        background: #eef6ff;
+      }
+
+      .pv2-next-action-button:focus-visible {
+        outline: 3px solid
+          rgba(39, 75, 132, .18);
+        outline-offset: 2px;
+      }
+
       .pv2-next-detail {
         margin: 7px 0 0;
         color: #617188;
@@ -2404,6 +2583,17 @@
       }
 
       @media print {
+        .pv2-next-action-button {
+          padding: 0;
+          border: 0;
+          background: transparent;
+          pointer-events: none;
+        }
+
+        .pv2-next-action-button span {
+          display: none;
+        }
+
         .pv2-topic-grid {
           grid-template-columns: 1fr 1fr;
         }
