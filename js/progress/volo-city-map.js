@@ -50,86 +50,16 @@
     Route is geographically readable across the underlay.
   */
   const CITY_STOPS = [
-    {
-      id: "genova",
-      name: "Genova",
-      regionId: "liguria",
-      x: 40.0,
-      y: 34.0,
-      unlockAt: 2
-    },
-    {
-      id: "torino",
-      name: "Torino",
-      regionId: "piemonte",
-      x: 37.0,
-      y: 29.0,
-      unlockAt: 4
-    },
-    {
-      id: "milano",
-      name: "Milano",
-      regionId: "lombardia",
-      x: 42.0,
-      y: 28.0,
-      unlockAt: 6
-    },
-    {
-      id: "venezia",
-      name: "Venezia",
-      regionId: "veneto",
-      x: 51.0,
-      y: 28.0,
-      unlockAt: 8
-    },
-    {
-      id: "firenze",
-      name: "Firenze",
-      regionId: "toscana",
-      x: 46.0,
-      y: 39.0,
-      unlockAt: 10
-    },
-    {
-      id: "roma",
-      name: "Roma",
-      regionId: "lazio",
-      x: 52.0,
-      y: 50.0,
-      unlockAt: 12
-    },
-    {
-      id: "napoli",
-      name: "Napoli",
-      regionId: "campania",
-      x: 59.0,
-      y: 58.0,
-      unlockAt: 14
-    },
-    {
-      id: "lecce",
-      name: "Lecce",
-      regionId: "puglia",
-      x: 71.0,
-      y: 59.0,
-      unlockAt: 16
-    },
-    {
-      id: "palermo",
-      name: "Palermo",
-      regionId: "sicilia",
-      x: 53.0,
-      y: 78.0,
-      unlockAt: 18
-    },
-    {
-      id: "cagliari",
-      name: "Cagliari",
-      regionId: "sardegna",
-      x: 31.0,
-      y: 63.0,
-      unlockAt: 20
-    }
+    { id:"genova", name:"Genova", regionId:"liguria", x:39.0, y:34.0, labelDx:-18, labelDy:19, unlockAt:2 },
+    { id:"torino", name:"Torino", regionId:"piemonte", x:35.5, y:27.0, labelDx:-27, labelDy:18, unlockAt:4 },
+    { id:"milano", name:"Milano", regionId:"lombardia", x:40.5, y:26.0, labelDx:30, labelDy:10, unlockAt:6 },
+    { id:"venezia", name:"Venezia", regionId:"veneto", x:50.5, y:27.5, labelDx:27, labelDy:18, unlockAt:8 },
+    { id:"firenze", name:"Firenze", regionId:"toscana", x:45.0, y:40.0, labelDx:20, labelDy:19, unlockAt:10 },
+    { id:"roma", name:"Roma", regionId:"lazio", x:52.0, y:51.0, labelDx:-10, labelDy:20, unlockAt:12 },
+    { id:"napoli", name:"Napoli", regionId:"campania", x:60.0, y:59.0, labelDx:4, labelDy:20, unlockAt:14 },
+    { id:"lecce", name:"Lecce", regionId:"puglia", x:72.0, y:61.0, labelDx:17, labelDy:20, unlockAt:16 },
+    { id:"palermo", name:"Palermo", regionId:"sicilia", x:50.5, y:83.0, labelDx:-8, labelDy:21, unlockAt:18 },
+    { id:"cagliari", name:"Cagliari", regionId:"sardegna", x:29.0, y:69.0, labelDx:-9, labelDy:21, unlockAt:20 }
   ];
 
   function studentSuffix() {
@@ -989,10 +919,10 @@
           "volo-city-stop-label";
 
         label.style.left =
-          `${city.x}%`;
+          `calc(${city.x}% + ${city.labelDx || 0}px)`;
 
         label.style.top =
-          `calc(${city.y}% + 18px)`;
+          `calc(${city.y}% + ${city.labelDy || 18}px)`;
 
         label.textContent =
           city.name;
