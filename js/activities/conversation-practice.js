@@ -668,7 +668,9 @@
     `;
   }
 
-  function renderQuestion() {
+  function renderQuestion(
+    reuseCurrent = false
+  ) {
     const config =
       getCurrentConfig();
 
@@ -680,13 +682,41 @@
       return;
     }
 
-    currentItem =
-      vocabulary[
-        Math.floor(
-          Math.random() *
-          vocabulary.length
-        )
-      ];
+    if (
+      !reuseCurrent ||
+      !currentItem
+    ) {
+      const conversationDraw =
+        window.PrimoVoloPracticeRounds
+          .next(
+            "conversation-practice",
+            getCurrentTopicKey(),
+            vocabulary
+          );
+
+      if (conversationDraw.complete) {
+        window.PrimoVoloPracticeRounds
+          .renderComplete(
+            conversationActivity,
+            {
+              activity:
+                "conversation-practice",
+              topicKey:
+                getCurrentTopicKey(),
+              total:
+                conversationDraw.total,
+              onRestart:
+                () =>
+                  renderQuestion(false)
+            }
+          );
+
+        return;
+      }
+
+      currentItem =
+        conversationDraw.item;
+    }
 
     questionComplete = false;
     questionHadError = false;
@@ -868,10 +898,18 @@
       button.addEventListener(
         "click",
         () => {
+          /*
+            Switching Choose/Write changes the
+            response format, not the target.
+          */
+          if (questionComplete) {
+            return;
+          }
+
           responseMode =
             button.dataset.responseMode;
 
-          renderQuestion();
+          renderQuestion(true);
         }
       );
     });
@@ -885,7 +923,7 @@
 
     nextButton.addEventListener(
       "click",
-      renderQuestion
+      () => renderQuestion(false)
     );
 
     if (responseMode === "choose") {

@@ -2,17 +2,17 @@
 
 ## Instructional rule
 
-A practice round should use:
+Primo Volo interactive practice now follows:
 
 **random order → guaranteed target coverage → finite endpoint**
 
-Completing a round means that every eligible target was presented at
-least once. It does **not** mean mastery, proficiency, or that every
-first response was correct.
+Completing a round means every eligible instructional target was
+presented at least once. It does **not** mean mastery, proficiency, or
+that every first response was correct.
 
-## Implemented in this pass
+## Coverage-first activities
 
-The following activities now use coverage-first rounds:
+The shared coverage-round system is now used by:
 
 - Scegli · Choose
 - Ascolta · Listen
@@ -20,59 +20,37 @@ The following activities now use coverage-first rounds:
 - Memoria · Memory
 - Completa · Complete
 - Scrivi · Write
+- Parole in azione · Words in Action
+- Assembla · Assemble
+- Conversiamo · Conversation
 
-For Scegli, Ascolta, Completa, and Scrivi, every vocabulary target is
-drawn once from a shuffled deck before the round ends.
+For single-target activities, targets are drawn from a shuffled deck
+without replacement.
 
-For Abbina and Memoria, the activity still uses manageable boards of up
-to six items, but later boards draw from the remaining targets instead
-of reshuffling the full vocabulary again. For example, a 14-item topic
-runs as 6 → 6 → 2 → Round Complete.
+For Abbina and Memoria, boards remain manageable at up to six items, but
+later boards use the remaining targets before anything repeats.
 
-A new round reshuffles the full set. The first item of a new round is
-also prevented from immediately repeating the item that ended the
-previous round when more than one target is available.
+For Parole in azione and Assembla, the vocabulary target is coverage
+controlled while compatible carrier-phrase variation may remain random.
+This preserves language variety without sacrificing target coverage.
 
-## Audit of the remaining language-use activities
+For Conversiamo, the target is coverage controlled across the activity.
+Switching between Scegli and Scrivi changes only the response format and
+does not silently consume a new target.
 
-### Parole in azione · Words in Action — needs the same coverage rule
+## Already finite
 
-Current target selection is still random in several branches, including
-the general vocabulary path and special topic paths such as Greetings,
-Seasons, Places, and Daily Routines.
+### Presentiamoci! · Introductions
 
-Carrier-phrase variation and optional expansion-detail variation may
-remain random because those are supports/variations rather than the
-primary vocabulary target. The primary target should move to the shared
-coverage-round system.
+Presentiamoci already progresses through its fixed question sequence,
+shows `Domanda X di Y`, reaches a completion screen, and offers a
+play-again action. It does not need the shared shuffled-deck system.
 
-### Assembla · Assemble — needs the same coverage rule
+## Meaning of Round Complete
 
-The current target noun/item is randomly selected from the compatible
-vocabulary pool. It can therefore repeat before all compatible targets
-have been represented.
+`Giro completato · Round Complete` means **practice coverage**:
+the learner was presented with every eligible target in that round.
 
-Recommendation: use the shared coverage-round system over the compatible
-target pool, with its own `assemble-sentences` round.
-
-### Conversiamo · Conversation — needs the same coverage rule
-
-Weather/Classroom conversation practice currently chooses its picture /
-target randomly from the topic vocabulary. It can repeat indefinitely.
-
-Recommendation: use the shared coverage-round system while keeping the
-student's Choose/Write response-mode switch intact.
-
-### Presentiamoci! · Introductions — already finite; no change needed
-
-Presentiamoci already progresses by question index through its fixed
-question set, displays `Domanda X di Y`, reaches a completion screen,
-and offers a play-again action. It already has the finite coverage
-behavior we want.
-
-## Next refactor
-
-Move the primary targets in Parole in azione, Assembla, and Conversiamo
-onto `window.PrimoVoloPracticeRounds`. Do not convert random distractor
-order or optional language-expansion variation into fixed sequences;
-the coverage guarantee is for instructional targets.
+It must not be interpreted as mastery, proficiency, or readiness to move
+on. Accuracy evidence and Suggested Next Practice remain separate from
+round coverage.

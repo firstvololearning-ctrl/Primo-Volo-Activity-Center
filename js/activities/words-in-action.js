@@ -589,6 +589,107 @@ function getCarrierPhrase() {
     )
   ];
 }
+
+function isPluralWordsItem(item) {
+  const italian =
+    String(item?.italian || "")
+      .trim()
+      .toLowerCase();
+
+  return /^(i|gli|le)\s/.test(italian);
+}
+
+function chooseCarrierPhraseForWordsItem(
+  item
+) {
+  if (
+    typeof carrierPhrases === "undefined"
+  ) {
+    return null;
+  }
+
+  const phrases =
+    carrierPhrases[currentTopicKey];
+
+  if (
+    !Array.isArray(phrases) ||
+    !phrases.length
+  ) {
+    return null;
+  }
+
+  const compatible =
+    phrases.filter(carrier => {
+      if (
+        currentTopicKey === "food"
+      ) {
+        if (
+          carrier.id === "bevo" &&
+          item?.type !== "drink"
+        ) {
+          return false;
+        }
+
+        if (
+          carrier.id === "mangio" &&
+          item?.type !== "food"
+        ) {
+          return false;
+        }
+      }
+
+      if (
+        carrier.id === "piace" &&
+        isPluralWordsItem(item)
+      ) {
+        return false;
+      }
+
+      return true;
+    });
+
+  const pool =
+    compatible.length
+      ? compatible
+      : phrases;
+
+  return pool[
+    Math.floor(
+      Math.random() * pool.length
+    )
+  ];
+}
+
+function drawWordsTarget(
+  items,
+  onRestart
+) {
+  const draw =
+    window.PrimoVoloPracticeRounds
+      .next(
+        "words-in-action",
+        currentTopicKey,
+        items
+      );
+
+  if (draw.complete) {
+    window.PrimoVoloPracticeRounds
+      .renderComplete(
+        wordsActivity,
+        {
+          activity: "words-in-action",
+          topicKey: currentTopicKey,
+          total: draw.total,
+          onRestart
+        }
+      );
+
+    return null;
+  }
+
+  return draw.item;
+}
+
   function speakSentence(sentence) {
     if (
       typeof speakItalian === "function"
@@ -671,11 +772,14 @@ function showGreetingsWordsQuestion() {
   ];
 
   const currentQuestion =
-    questions[
-      Math.floor(
-        Math.random() * questions.length
-      )
-    ];
+    drawWordsTarget(
+      questions,
+      showGreetingsWordsQuestion
+    );
+
+  if (!currentQuestion) {
+    return;
+  }
 
   const choices =
     shuffleWordsAction(responses);
@@ -889,12 +993,14 @@ function showSeasonsWordsQuestion() {
   }
 
   const currentSeason =
-    seasonsVocabulary[
-      Math.floor(
-        Math.random() *
-        seasonsVocabulary.length
-      )
-    ];
+    drawWordsTarget(
+      seasonsVocabulary,
+      showSeasonsWordsQuestion
+    );
+
+  if (!currentSeason) {
+    return;
+  }
 
   const choices =
     shuffleWordsAction(
@@ -1097,12 +1203,14 @@ function showPlacesWordsQuestion() {
   }
 
   const currentPlace =
-    vocabulary[
-      Math.floor(
-        Math.random() *
-        vocabulary.length
-      )
-    ];
+    drawWordsTarget(
+      vocabulary,
+      showPlacesWordsQuestion
+    );
+
+  if (!currentPlace) {
+    return;
+  }
 
   const choices =
     buildWordsChoices(currentPlace);
@@ -1309,11 +1417,14 @@ function showRoutinesWordsQuestion() {
   }
 
   const currentItem =
-    vocabulary[
-      Math.floor(
-        Math.random() * vocabulary.length
-      )
-    ];
+    drawWordsTarget(
+      vocabulary,
+      showRoutinesWordsQuestion
+    );
+
+  if (!currentItem) {
+    return;
+  }
 
   const choices =
     buildWordsChoices(
@@ -2566,8 +2677,20 @@ function showWordsQuestion() {
       return;
     }
 
-    const carrier =
-  getCarrierPhrase();
+    currentWordsItem =
+  drawWordsTarget(
+    vocabulary,
+    showWordsQuestion
+  );
+
+if (!currentWordsItem) {
+  return;
+}
+
+const carrier =
+  chooseCarrierPhraseForWordsItem(
+    currentWordsItem
+  );
 
 if (!carrier) {
   wordsActivity.innerHTML = `
@@ -2586,65 +2709,67 @@ if (!carrier) {
 }
 
 /*
-  Food and drink compatibility:
-
-  Io mangio → food only
-  Io bevo → drinks only
-  Other carrier phrases → all items
+  The primary vocabulary target comes from
+  the coverage-first deck. Carrier-phrase
+  variation stays random, but is filtered
+  so it is compatible with that target.
 */
-let compatibleVocabulary = [...vocabulary];
+const compatibleVocabulary =
+  (() => {
+    let compatible = [...vocabulary];
 
-if (currentTopicKey === "food") {
-  if (carrier.id === "bevo") {
-    compatibleVocabulary =
-      vocabulary.filter(
-        item => item.type === "drink"
-      );
-  }
+    if (currentTopicKey === "food") {
+      if (carrier.id === "bevo") {
+        compatible =
+          compatible.filter(
+            item => item.type === "drink"
+          );
+      }
 
-  if (carrier.id === "mangio") {
-    compatibleVocabulary =
-      vocabulary.filter(
-        item => item.type === "food"
-      );
-  }
-}
-/*
-  We are not introducing Mi piacciono yet,
-  so Mi piace uses singular vocabulary only.
-*/
-if (carrier.id === "piace") {
-  compatibleVocabulary =
-    compatibleVocabulary.filter(item => {
-      const italian =
-        item.italian.trim().toLowerCase();
+      if (carrier.id === "mangio") {
+        compatible =
+          compatible.filter(
+            item => item.type === "food"
+          );
+      }
+    }
 
-      return !/^(i|gli|le)\s/.test(italian);
-    });
-}
-if (!compatibleVocabulary.length) {
+    if (carrier.id === "piace") {
+      compatible =
+        compatible.filter(item => {
+          const italian =
+            item.italian
+              .trim()
+              .toLowerCase();
+
+          return !/^(i|gli|le)\s/.test(
+            italian
+          );
+        });
+    }
+
+    return compatible;
+  })();
+
+if (
+  !compatibleVocabulary.includes(
+    currentWordsItem
+  )
+) {
   wordsActivity.innerHTML = `
     <div class="words-action-empty">
-      Nessuna parola compatibile
-      con questa frase.
+      Nessuna frase compatibile
+      con questa parola.
 
       <span>
-        No vocabulary is compatible
-        with this sentence.
+        No compatible sentence is
+        available for this word.
       </span>
     </div>
   `;
 
   return;
 }
-
-currentWordsItem =
-  compatibleVocabulary[
-    Math.floor(
-      Math.random() *
-      compatibleVocabulary.length
-    )
-  ];
 
 wordsAnswered = false;
 

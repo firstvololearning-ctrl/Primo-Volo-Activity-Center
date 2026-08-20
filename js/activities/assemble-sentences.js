@@ -1121,6 +1121,37 @@ function getCompatibleVocabulary(
   return compatible;
 }
 
+function chooseCompatibleCarrierPhrase(
+  item
+) {
+  if (currentTopicKey === "weather") {
+    return chooseCarrierPhrase();
+  }
+
+  const phrases =
+    getTopicCarrierPhrases();
+
+  const compatible =
+    phrases.filter(
+      carrier =>
+        getCompatibleVocabulary(
+          [item],
+          carrier
+        ).length > 0
+    );
+
+  if (compatible.length) {
+    return compatible[
+      Math.floor(
+        Math.random() *
+        compatible.length
+      )
+    ];
+  }
+
+  return chooseCarrierPhrase();
+}
+
 function getSentenceItemText(item) {
   if (
   currentTopicKey === "prepositions" &&
@@ -1243,7 +1274,9 @@ sentenceArea.innerHTML =
 
  
 
-  function showAssemblyQuestion() {
+  function showAssemblyQuestion(
+    reuseCurrent = false
+  ) {
 
     const vocabulary =
 
@@ -1277,8 +1310,49 @@ sentenceArea.innerHTML =
 
  
 
-    currentCarrierPhrase =
-  chooseCarrierPhrase();
+    if (
+      !reuseCurrent ||
+      !currentItem ||
+      !currentCarrierPhrase
+    ) {
+      const assembleDraw =
+        window.PrimoVoloPracticeRounds
+          .next(
+            "assemble-sentences",
+            currentTopicKey,
+            vocabulary
+          );
+
+      if (assembleDraw.complete) {
+        window.PrimoVoloPracticeRounds
+          .renderComplete(
+            assembleActivity,
+            {
+              activity:
+                "assemble-sentences",
+              topicKey:
+                currentTopicKey,
+              total:
+                assembleDraw.total,
+              onRestart:
+                () =>
+                  showAssemblyQuestion(
+                    false
+                  )
+            }
+          );
+
+        return;
+      }
+
+      currentItem =
+        assembleDraw.item;
+
+      currentCarrierPhrase =
+        chooseCompatibleCarrierPhrase(
+          currentItem
+        );
+    }
 
 const compatibleVocabulary =
   getCompatibleVocabulary(
@@ -1286,29 +1360,26 @@ const compatibleVocabulary =
     currentCarrierPhrase
   );
 
-if (!compatibleVocabulary.length) {
+if (
+  !currentCarrierPhrase ||
+  !compatibleVocabulary.includes(
+    currentItem
+  )
+) {
   assembleActivity.innerHTML = `
     <div class="assemble-empty">
-      Nessuna parola compatibile
-      con questa frase.
+      Nessuna frase compatibile
+      con questa parola.
 
       <span>
-        No vocabulary is compatible
-        with this sentence.
+        No compatible sentence is
+        available for this word.
       </span>
     </div>
   `;
 
   return;
 }
-
-currentItem =
-  compatibleVocabulary[
-    Math.floor(
-      Math.random() *
-      compatibleVocabulary.length
-    )
-  ];
 
 correctTokens =
   createSentenceTokens(
@@ -1823,16 +1894,15 @@ correctTokens =
  
 
     resetButton.addEventListener(
-
       "click",
-
       () => {
-
-
-        showAssemblyQuestion();
-
+        /*
+          Start Over rebuilds the same target.
+          It must not consume a new item from
+          the coverage-first deck.
+        */
+        showAssemblyQuestion(true);
       }
-
     );
 
  
