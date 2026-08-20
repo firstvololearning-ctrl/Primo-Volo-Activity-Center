@@ -457,9 +457,25 @@
   function getExpectedModesWithFutureEvidence(
     topicKey
   ) {
+    const flightTopic =
+      getFlightData().byTopic?.[topicKey];
+
+    const savedAvailable =
+      Array.isArray(
+        flightTopic?.available
+      )
+        ? flightTopic.available.filter(
+            mode =>
+              mode &&
+              mode !== "sentences"
+          )
+        : [];
+
     const expected =
       new Set(
-        getExpectedModes(topicKey)
+        savedAvailable.length
+          ? savedAvailable
+          : getExpectedModes(topicKey)
       );
 
     getTopicPracticeSet(topicKey)
@@ -846,6 +862,503 @@
         minute: "2-digit"
       }
     );
+  }
+
+  /* ========================================
+     SUGGESTED NEXT PRACTICE
+     ======================================== */
+
+  const SUPPORT_FALLBACKS = {
+    choose: [
+      "learn"
+    ],
+    "match-word": [
+      "choose",
+      "learn"
+    ],
+    "match-sound": [
+      "learn",
+      "match-word",
+      "choose"
+    ],
+    "words-in-action": [
+      "match-word",
+      "choose",
+      "learn"
+    ],
+    "conversation-choice": [
+      "words-in-action",
+      "match-word",
+      "choose",
+      "learn"
+    ],
+    "conversation-write": [
+      "conversation-choice",
+      "words-in-action",
+      "match-word",
+      "choose",
+      "learn"
+    ],
+    "introductions-practice": [
+      "words-in-action",
+      "match-word",
+      "choose",
+      "learn"
+    ],
+    "assemble-sentences": [
+      "words-in-action",
+      "match-word",
+      "choose",
+      "learn"
+    ],
+    complete: [
+      "match-word",
+      "choose",
+      "learn"
+    ],
+    write: [
+      "complete",
+      "assemble-sentences",
+      "words-in-action",
+      "match-word",
+      "choose",
+      "learn"
+    ]
+  };
+
+  function activityAvailableForTopic(
+    activity,
+    availableModes
+  ) {
+    if (
+      activity === "conversation-choice" ||
+      activity === "conversation-write"
+    ) {
+      return availableModes.includes(
+        "conversation-practice"
+      );
+    }
+
+    return availableModes.includes(
+      activityToMode(activity)
+    );
+  }
+
+  function findSupportActivity(
+    activity,
+    availableModes
+  ) {
+    const candidates =
+      SUPPORT_FALLBACKS[activity] || [
+        "learn"
+      ];
+
+    return (
+      candidates.find(
+        candidate =>
+          activityAvailableForTopic(
+            candidate,
+            availableModes
+          )
+      ) ||
+      (availableModes.includes("learn")
+        ? "learn"
+        : null)
+    );
+  }
+
+  function getTopicEvidence(topicKey) {
+    const scored =
+      progressData.sessions.filter(
+        session =>
+          session.topic === topicKey &&
+          isScoredSession(session)
+      );
+
+    const stats =
+      aggregateByActivity(scored);
+
+    return Object.entries(stats)
+      .map(([activity, value]) => ({
+        activity,
+        attempts: value.attempts,
+        correct: value.correct,
+        accuracy: calculateAccuracy(
+          value.correct,
+          value.attempts
+        )
+      }));
+  }
+
+  function getNextUnpracticedMode(
+    topicKey,
+    sourceActivity
+  ) {
+    const availableModes =
+      getExpectedModesWithFutureEvidence(
+        topicKey
+      );
+
+    const practiceSet =
+      getTopicPracticeSet(topicKey);
+
+    const sourceMode =
+      activityToMode(sourceActivity);
+
+    const sourceIndex =
+      availableModes.indexOf(sourceMode);
+
+    if (sourceIndex < 0) {
+      return (
+        availableModes.find(
+          mode =>
+            !practiceSet.has(mode) &&
+            mode !== "sentences"
+        ) || null
+      );
+    }
+
+    return (
+      availableModes
+        .slice(sourceIndex + 1)
+        .find(
+          mode =>
+            !practiceSet.has(mode) &&
+            mode !== "sentences"
+        ) || null
+    );
+  }
+
+  function getNextPracticeRecommendations() {
+    const topicKeys =
+      getPracticedTopicKeys();
+
+    if (!topicKeys.length) {
+      return [
+        {
+          type: "evidence",
+          typeLabel: "Start building evidence",
+          topicIcon: "🧭",
+          topicItalian: "Scegli un argomento",
+          topicEnglish: "Choose a topic",
+          action: "Begin with Impara · Learn",
+          detail:
+            "No saved practice is available yet. Start with a topic and use the Practice Path to build a first picture of what has been practiced."
+        }
+      ];
+    }
+
+    const support = [];
+    const stretch = [];
+    const breadth = [];
+
+    topicKeys.forEach(topicKey => {
+      const label =
+        getTopicLabel(topicKey);
+
+      const evidence =
+        getTopicEvidence(topicKey);
+
+      const availableModes =
+        getExpectedModesWithFutureEvidence(
+          topicKey
+        );
+
+      const practiceSet =
+        getTopicPracticeSet(topicKey);
+
+      const practicedCount =
+        availableModes.filter(
+          mode => practiceSet.has(mode)
+        ).length;
+
+      const lastPracticed =
+        getTopicLastPracticed(topicKey);
+
+      evidence
+        .filter(
+          item =>
+            item.attempts >= 3 &&
+            item.accuracy < 70
+        )
+        .forEach(item => {
+          const supportActivity =
+            findSupportActivity(
+              item.activity,
+              availableModes
+            );
+
+          support.push({
+            type: "support",
+            typeLabel:
+              "A little more support may help",
+            topicKey,
+            topicIcon: label.icon,
+            topicItalian: label.italian,
+            topicEnglish: label.english,
+            score: item.accuracy,
+            attempts: item.attempts,
+            activity: item.activity,
+            action:
+              supportActivity
+                ? `Revisit ${
+                    LABELS[supportActivity] ||
+                    supportActivity
+                  }`
+                : `Revisit ${
+                    LABELS[item.activity] ||
+                    item.activity
+                  }`,
+            detail:
+              `Scored responses in ${
+                LABELS[item.activity] ||
+                item.activity
+              } are ${item.accuracy}% across ${
+                item.attempts
+              } responses. A more-supported activity may be useful before trying this demand again.`,
+            sortTime:
+              lastPracticed?.getTime() || 0
+          });
+        });
+
+      evidence
+        .filter(
+          item =>
+            item.attempts >= 3 &&
+            item.accuracy >= 85
+        )
+        .forEach(item => {
+          const nextMode =
+            getNextUnpracticedMode(
+              topicKey,
+              item.activity
+            );
+
+          if (!nextMode) {
+            return;
+          }
+
+          stretch.push({
+            type: "stretch",
+            typeLabel:
+              "Ready for a next step",
+            topicKey,
+            topicIcon: label.icon,
+            topicItalian: label.italian,
+            topicEnglish: label.english,
+            score: item.accuracy,
+            attempts: item.attempts,
+            activity: item.activity,
+            nextMode,
+            action:
+              `Try ${
+                LABELS[nextMode] ||
+                nextMode
+              } next`,
+            detail:
+              `Higher accuracy in ${
+                LABELS[item.activity] ||
+                item.activity
+              } (${item.accuracy}% across ${
+                item.attempts
+              } responses) supports trying another available step in the Practice Path.`,
+            sortTime:
+              lastPracticed?.getTime() || 0
+          });
+        });
+
+      const nextUnpracticed =
+        availableModes.find(
+          mode =>
+            !practiceSet.has(mode) &&
+            mode !== "sentences"
+        );
+
+      if (
+        practicedCount > 0 &&
+        nextUnpracticed
+      ) {
+        breadth.push({
+          type: "breadth",
+          typeLabel:
+            "Build practice breadth",
+          topicKey,
+          topicIcon: label.icon,
+          topicItalian: label.italian,
+          topicEnglish: label.english,
+          action:
+            `Try ${
+              LABELS[nextUnpracticed] ||
+              nextUnpracticed
+            }`,
+          detail:
+            `${practicedCount} of ${
+              availableModes.length
+            } currently available activities have been practiced in this topic. Trying another available activity broadens the practice picture without requiring a mastery threshold.`,
+          practicedCount,
+          availableCount:
+            availableModes.length,
+          sortTime:
+            lastPracticed?.getTime() || 0
+        });
+      }
+    });
+
+    support.sort(
+      (a, b) =>
+        a.score - b.score ||
+        b.sortTime - a.sortTime
+    );
+
+    stretch.sort(
+      (a, b) =>
+        b.score - a.score ||
+        b.sortTime - a.sortTime
+    );
+
+    breadth.sort(
+      (a, b) =>
+        b.sortTime - a.sortTime ||
+        a.practicedCount -
+          b.practicedCount
+    );
+
+    const selected = [];
+    const usedTopics = new Set();
+
+    function addDistinct(items) {
+      for (const item of items) {
+        if (
+          selected.length >= 3
+        ) {
+          break;
+        }
+
+        if (
+          item.topicKey &&
+          usedTopics.has(
+            item.topicKey
+          )
+        ) {
+          continue;
+        }
+
+        selected.push(item);
+
+        if (item.topicKey) {
+          usedTopics.add(
+            item.topicKey
+          );
+        }
+      }
+    }
+
+    addDistinct(support);
+    addDistinct(stretch);
+    addDistinct(breadth);
+
+    if (!selected.length) {
+      return [
+        {
+          type: "evidence",
+          typeLabel:
+            "Keep building evidence",
+          topicIcon: "🌱",
+          topicItalian:
+            "Continua la pratica",
+          topicEnglish:
+            "Keep practicing",
+          action:
+            "Use the Practice Path to try another available activity",
+          detail:
+            "There is not enough scored evidence yet to identify a higher-accuracy or additional-practice signal. More practice will build a clearer picture."
+        }
+      ];
+    }
+
+    return selected;
+  }
+
+  window.getPrimoVoloNextPracticeRecommendations =
+    getNextPracticeRecommendations;
+
+  function buildNextPracticeSection() {
+    const recommendations =
+      getNextPracticeRecommendations();
+
+    const cards =
+      recommendations
+        .map(item => `
+          <article
+            class="pv2-next-card is-${escapeHtml(item.type)}"
+          >
+            <div class="pv2-next-card-top">
+              <span class="pv2-next-type">
+                ${escapeHtml(item.typeLabel)}
+              </span>
+
+              <span
+                class="pv2-next-topic-icon"
+                aria-hidden="true"
+              >
+                ${escapeHtml(item.topicIcon)}
+              </span>
+            </div>
+
+            <h4>
+              ${escapeHtml(item.topicItalian)}
+            </h4>
+
+            ${
+              item.topicEnglish
+                ? `
+                  <p class="pv2-next-topic-english">
+                    ${escapeHtml(item.topicEnglish)}
+                  </p>
+                `
+                : ""
+            }
+
+            <strong class="pv2-next-action">
+              ${escapeHtml(item.action)}
+            </strong>
+
+            <p class="pv2-next-detail">
+              ${escapeHtml(item.detail)}
+            </p>
+          </article>
+        `)
+        .join("");
+
+    return `
+      <section
+        class="pv2-report-section pv2-next-section"
+        aria-labelledby="pv2NextPracticeTitle"
+      >
+        <div class="pv2-next-heading">
+          <div>
+            <span class="pv2-next-kicker">
+              Suggested Next Practice
+            </span>
+
+            <h3 id="pv2NextPracticeTitle">
+              What could help next?
+            </h3>
+
+            <p>
+              Suggestions combine saved Practice Path
+              completion with scored response patterns.
+              They guide practice; they are not mastery
+              decisions.
+            </p>
+          </div>
+        </div>
+
+        <div class="pv2-next-grid">
+          ${cards}
+        </div>
+      </section>
+    `;
   }
 
   /* ========================================
@@ -1326,6 +1839,8 @@
     `;
 
     activityTable.innerHTML = `
+      ${buildNextPracticeSection()}
+
       <section class="pv2-report-section pv2-actfl-section">
         <div class="pv2-section-heading">
           <div>
@@ -1518,6 +2033,138 @@
         margin: 4px 0 0;
         color: #66758d;
         line-height: 1.45;
+      }
+
+      .pv2-next-section {
+        margin-top: 22px;
+        padding: 20px;
+        border: 1px solid #d8e4f0;
+        border-radius: 22px;
+        background:
+          linear-gradient(
+            135deg,
+            #f7fbff 0%,
+            #ffffff 58%,
+            #fffaf1 100%
+          );
+        box-shadow:
+          0 7px 20px rgba(36, 57, 87, .06);
+      }
+
+      .pv2-next-heading {
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+        gap: 16px;
+      }
+
+      .pv2-next-kicker {
+        display: block;
+        margin-bottom: 4px;
+        color: #d46c5c;
+        font-size: .75rem;
+        font-weight: 900;
+        letter-spacing: .065em;
+        text-transform: uppercase;
+      }
+
+      .pv2-next-heading h3 {
+        margin: 0;
+        color: #274b84;
+        font-size: 1.28rem;
+      }
+
+      .pv2-next-heading p {
+        max-width: 760px;
+        margin: 6px 0 0;
+        color: #66758d;
+        font-size: .86rem;
+        line-height: 1.48;
+      }
+
+      .pv2-next-grid {
+        display: grid;
+        grid-template-columns:
+          repeat(3, minmax(0, 1fr));
+        gap: 12px;
+        margin-top: 15px;
+      }
+
+      .pv2-next-card {
+        min-width: 0;
+        padding: 15px 16px 16px;
+        border: 1px solid #dbe4ee;
+        border-radius: 17px;
+        background: #ffffff;
+      }
+
+      .pv2-next-card.is-support {
+        border-top: 4px solid #d46c5c;
+      }
+
+      .pv2-next-card.is-stretch {
+        border-top: 4px solid #498565;
+      }
+
+      .pv2-next-card.is-breadth {
+        border-top: 4px solid #d9a93e;
+      }
+
+      .pv2-next-card.is-evidence {
+        border-top: 4px solid #6f83a0;
+      }
+
+      .pv2-next-card-top {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 8px;
+      }
+
+      .pv2-next-type {
+        color: #66758d;
+        font-size: .7rem;
+        font-weight: 900;
+        letter-spacing: .025em;
+        text-transform: uppercase;
+      }
+
+      .pv2-next-topic-icon {
+        font-size: 1.2rem;
+        line-height: 1;
+      }
+
+      .pv2-next-card h4 {
+        margin: 9px 0 0;
+        color: #274b84;
+        font-size: 1rem;
+      }
+
+      .pv2-next-topic-english {
+        margin: 2px 0 0;
+        color: #7a8798;
+        font-size: .76rem;
+      }
+
+      .pv2-next-action {
+        display: block;
+        margin-top: 12px;
+        color: #344f70;
+        font-size: .92rem;
+        line-height: 1.35;
+      }
+
+      .pv2-next-detail {
+        margin: 7px 0 0;
+        color: #617188;
+        font-size: .79rem;
+        line-height: 1.45;
+      }
+
+      @media (max-width: 900px) {
+        .pv2-next-grid {
+          grid-template-columns: 1fr;
+        }
       }
 
       .pv2-actfl-grid {
