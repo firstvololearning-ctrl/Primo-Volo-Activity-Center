@@ -843,3 +843,112 @@ button.volo-city-stop-label:hover {
     font-size: .65em;
   }
 }
+
+
+/* === COMPACT SCRAPBOOK ARRIVAL V8 === */
+
+@media (min-width: 901px) {
+  .volo-city-arrival {
+    max-height: none;
+    overflow: visible;
+    padding: 12px 13px 13px;
+  }
+
+  .volo-city-arrival-close {
+    top: 7px;
+    right: 7px;
+    width: 32px;
+    height: 32px;
+    font-size: 1rem;
+  }
+
+  .volo-city-postcard-photo {
+    margin: 5px 0 7px;
+    padding: 5px 5px 7px;
+  }
+
+  .volo-city-arrival-diorama {
+    max-height: 165px;
+  }
+
+  .volo-city-arrival-kicker {
+    font-size: .68rem;
+  }
+
+  .volo-city-arrival-title-row {
+    justify-content: center;
+    gap: 7px;
+  }
+
+  .volo-city-arrival-copy h3 {
+    margin: 2px 0 3px;
+    font-size: clamp(1.45rem, 2.3vw, 1.8rem);
+    line-height: 1.04;
+  }
+
+  .volo-city-region-audio-row {
+    gap: 7px;
+  }
+
+  .volo-city-region-stamp {
+    min-width: 106px;
+    min-height: 50px;
+    padding: 5px 11px;
+    font-size: .88rem;
+  }
+
+  .volo-city-region-stamp small {
+    margin-top: 2px;
+    font-size: .56rem;
+  }
+
+  .volo-city-region-discovery {
+    margin: 6px 0 3px;
+    font-size: .82rem;
+  }
+
+  .volo-city-culture-row {
+    gap: 8px;
+    margin-top: 6px;
+  }
+
+  .volo-city-culture-card {
+    padding: 6px;
+    border-radius: 13px;
+  }
+
+  .volo-city-culture-card img {
+    height: 67px;
+  }
+
+  .volo-city-culture-card strong {
+    margin-top: 2px;
+    font-size: .74rem;
+    line-height: 1.12;
+  }
+
+  .volo-city-culture-audio {
+    margin: 3px auto 0;
+  }
+
+  .volo-city-arrival-badge {
+    margin-top: 6px;
+    padding: 4px 8px;
+    font-size: .73rem;
+  }
+
+  .volo-city-continue {
+    margin-top: 7px;
+    padding: 8px 10px;
+    font-size: .88rem;
+  }
+}
+
+.volo-city-culture-label {
+  display: block;
+  margin-top: 2px;
+  color: #7a6d5f;
+  font-size: .68rem;
+  font-weight: 850;
+  line-height: 1.1;
+}

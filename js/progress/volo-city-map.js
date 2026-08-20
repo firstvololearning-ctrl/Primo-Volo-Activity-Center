@@ -898,8 +898,12 @@
           src="${item.image}"
           alt="${item.name || label}"
         >
+        <span class="volo-city-culture-label">
+          ${label}
+        </span>
+
         <strong>
-          ${label}: ${item.name || ""}
+          ${item.name || ""}
         </strong>
 
         ${
@@ -964,9 +968,16 @@
     arrivalTitleAudio.dataset.speakIt =
       arrivalPhrase;
 
+    const regionEnglish =
+      region?.english &&
+      region.english.trim().toLocaleLowerCase() !==
+        region.region.trim().toLocaleLowerCase()
+        ? `<small lang="en">${region.english}</small>`
+        : "";
+
     arrivalRegion.innerHTML =
       region
-        ? `${region.region}<small>${region.english}</small>`
+        ? `${region.region}${regionEnglish}`
         : "";
 
     if (region?.region) {
