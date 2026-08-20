@@ -62,6 +62,49 @@
     { id:"cagliari", name:"Cagliari", regionId:"sardegna", x:29.0, y:69.0, labelDx:-9, labelDy:21, unlockAt:20 }
   ];
 
+  /*
+    LOCAL PREVIEW MODE
+    ------------------
+    For visual testing only on localhost / 127.0.0.1.
+
+    Example:
+      index.html?journeyPreview=genova
+
+    It never changes saved Journey data and is ignored on the
+    published site.
+  */
+  const journeyPreview = (() => {
+    const localHost =
+      window.location.hostname === "127.0.0.1" ||
+      window.location.hostname === "localhost";
+
+    if (!localHost) {
+      return null;
+    }
+
+    const requestedCityId =
+      new URLSearchParams(
+        window.location.search
+      ).get("journeyPreview");
+
+    if (!requestedCityId) {
+      return null;
+    }
+
+    const city =
+      CITY_STOPS.find(
+        stop =>
+          stop.id === requestedCityId
+      );
+
+    return city
+      ? {
+          cityId: city.id,
+          exploredCount: city.unlockAt
+        }
+      : null;
+  })();
+
   function studentSuffix() {
     const studentId =
       window.localStorage.getItem(
@@ -297,8 +340,21 @@
     ).length;
   }
 
+  function effectiveExploredCount() {
+    const realCount =
+      exploredCount();
+
+    return journeyPreview
+      ? Math.max(
+          realCount,
+          journeyPreview.exploredCount
+        )
+      : realCount;
+  }
+
   function unlockedCities() {
-    const count = exploredCount();
+    const count =
+      effectiveExploredCount();
 
     return CITY_STOPS.filter(
       city =>
@@ -434,13 +490,13 @@
     syncExploredTopics();
 
     const count =
-      exploredCount();
+      effectiveExploredCount();
 
     const unlocked =
       unlockedCities();
 
     journeyHomeTopics.textContent =
-      `✓ ${count} argomenti esplorati · topics explored`;
+      `${journeyPreview ? "🧪 Preview · " : "✓ "}${count} argomenti esplorati · topics explored`;
 
     journeyHomeCities.textContent =
       `📍 ${unlocked.length} / ${CITY_STOPS.length} città raggiunte · cities reached`;
@@ -937,13 +993,16 @@
     arrivalBadge.textContent =
       automatic
         ? `✨ Nuova città! · New City!`
-        : `🧳 ${exploredCount()} argomenti esplorati · topics explored`;
+        : `🧳 ${effectiveExploredCount()} argomenti esplorati · topics explored`;
 
     arrival.classList.toggle("is-new", automatic);
     boardWrap.classList.add("has-arrival");
     arrival.hidden = false;
 
-    if (automatic) {
+    if (
+      automatic &&
+      !journeyPreview
+    ) {
       const celebrated =
         new Set(
           journeyData.celebratedCities
@@ -972,7 +1031,7 @@
     syncExploredTopics();
 
     const count =
-      exploredCount();
+      effectiveExploredCount();
 
     const unlocked =
       unlockedCities();
@@ -990,7 +1049,7 @@
       ] || null;
 
     topicCountNode.textContent =
-      `✓ ${count} argomenti esplorati · topics explored`;
+      `${journeyPreview ? "🧪 Preview · " : "✓ "}${count} argomenti esplorati · topics explored`;
 
     unlockCountNode.textContent =
       `📍 ${unlocked.length} / ${CITY_STOPS.length} città · cities`;
@@ -1137,6 +1196,24 @@
   }
 
   function celebrateNewestUnseenCity() {
+    if (journeyPreview) {
+      const previewCity =
+        CITY_STOPS.find(
+          city =>
+            city.id ===
+            journeyPreview.cityId
+        );
+
+      if (previewCity) {
+        showArrival(
+          previewCity,
+          true
+        );
+      }
+
+      return;
+    }
+
     const unlocked =
       unlockedCities();
 
