@@ -2567,7 +2567,274 @@
         color: #718096;
       }
 
+      /* =====================================
+         PROGRESS VISUAL POLISH
+         Keeps reporting logic unchanged.
+         ===================================== */
+
+      .progress-card {
+        width: min(1120px, 96vw);
+        max-height: 94vh;
+        padding: 34px;
+        border: 1px solid #dce6f2;
+        border-radius: 30px;
+        background:
+          linear-gradient(
+            180deg,
+            #ffffff 0%,
+            #fbfdff 100%
+          );
+        box-shadow:
+          0 24px 70px
+          rgba(25, 42, 68, .28);
+      }
+
+      .progress-card h2 {
+        margin: 2px 56px 3px;
+        color: #274b84;
+        font-size: 1.72rem;
+        line-height: 1.15;
+        letter-spacing: -.015em;
+      }
+
+      .progress-subtitle {
+        width: fit-content;
+        margin: 0 auto 4px;
+        padding: 5px 11px;
+        border: 1px solid #dfe8f3;
+        border-radius: 999px;
+        background: #f6f9fd;
+        color: #60718a;
+        font-size: .8rem;
+        font-weight: 800;
+      }
+
+      .progress-close {
+        top: 15px;
+        right: 16px;
+        width: 40px;
+        height: 40px;
+        border: 1px solid #d7e2ef;
+        background: #f6f9fd;
+        box-shadow:
+          0 3px 10px
+          rgba(39, 75, 132, .08);
+      }
+
+      .progress-close:hover,
+      .progress-close:focus-visible {
+        background: #edf4fc;
+      }
+
+      .progress-summary {
+        gap: 11px;
+        margin: 22px 0 8px;
+      }
+
+      .pv2-student-heading {
+        width: fit-content;
+        margin: 0 0 3px;
+        padding: 7px 11px;
+        border: 1px solid #dce6f2;
+        border-radius: 999px;
+        background: #f8fbff;
+        color: #52647c;
+        font-size: .86rem;
+        font-weight: 750;
+      }
+
+      .progress-stat {
+        min-height: 86px;
+        display: grid;
+        align-content: center;
+        padding: 13px 12px;
+        border: 1px solid #dde6f0;
+        border-top: 4px solid #7aa5cc;
+        border-radius: 17px;
+        background: #ffffff;
+        box-shadow:
+          0 4px 13px
+          rgba(36, 57, 87, .045);
+      }
+
+      .progress-stat strong {
+        color: #274b84;
+        font-size: 1.48rem;
+        line-height: 1.05;
+      }
+
+      .progress-stat span {
+        margin-top: 4px;
+        color: #66758d;
+        font-size: .77rem;
+        font-weight: 800;
+        line-height: 1.2;
+      }
+
+      .pv2-date-stat {
+        font-size: 1.03rem !important;
+      }
+
+      .progress-table-wrap {
+        margin-top: 18px;
+      }
+
+      .pv2-report-section:not(.pv2-next-section) {
+        margin-top: 20px;
+        padding: 20px;
+        border: 1px solid #e0e7f0;
+        border-radius: 20px;
+        background: #ffffff;
+        box-shadow:
+          0 4px 14px
+          rgba(36, 57, 87, .04);
+      }
+
+      .pv2-report-section > h3,
+      .pv2-section-heading h3 {
+        margin-bottom: 5px;
+        font-size: 1.08rem;
+        letter-spacing: -.008em;
+      }
+
+      .pv2-next-section {
+        margin-top: 20px;
+        padding: 21px;
+        border-color: #d6e3ef;
+        box-shadow:
+          0 7px 20px
+          rgba(36, 57, 87, .055);
+      }
+
+      .pv2-next-grid {
+        gap: 10px;
+      }
+
+      .pv2-next-card {
+        padding: 14px 15px 15px;
+        border-radius: 16px;
+        box-shadow:
+          0 3px 10px
+          rgba(36, 57, 87, .035);
+      }
+
+      .pv2-next-action-button {
+        background:
+          linear-gradient(
+            180deg,
+            #f9fcff 0%,
+            #f1f7fd 100%
+          );
+      }
+
+      .pv2-actfl-grid {
+        gap: 10px;
+      }
+
+      .pv2-actfl-card {
+        padding: 15px;
+        border-radius: 16px;
+        background: #f9fbfe;
+      }
+
+      .pv2-bridge-box,
+      .pv2-memory-box {
+        border-color: #e5ddcf;
+        background: #fffaf4;
+      }
+
+      .pv2-topic-grid {
+        gap: 12px;
+      }
+
+      .pv2-topic-card {
+        padding: 16px;
+        border-radius: 16px;
+        box-shadow:
+          0 3px 11px
+          rgba(36, 57, 87, .045);
+      }
+
+      .pv2-topic-metrics > div {
+        border: 1px solid #e8edf4;
+        background: #f8fafc;
+      }
+
+      .pv2-productive-chip {
+        background: #f9fafc;
+      }
+
+      .progress-table {
+        border: 1px solid #e0e7f0;
+        border-radius: 14px;
+        border-collapse: separate;
+        border-spacing: 0;
+        overflow: hidden;
+        background: #ffffff;
+      }
+
+      .progress-table th,
+      .progress-table td {
+        padding: 9px 11px;
+      }
+
+      .progress-table th {
+        border-bottom: 1px solid #dbe4ee;
+        background: #f3f7fb;
+        color: #35577e;
+        font-size: .78rem;
+        letter-spacing: .01em;
+      }
+
+      .progress-table tbody tr:nth-child(even) td {
+        background: #fbfcfe;
+      }
+
+      .progress-table tbody tr:last-child td {
+        border-bottom: 0;
+      }
+
+      .progress-note {
+        margin: 5px 0 11px;
+        color: #718096;
+        font-size: .8rem;
+        line-height: 1.42;
+        text-align: left;
+      }
+
+      .pv2-tracking-note {
+        margin-bottom: 12px;
+        border-left-color: #8eb2d2;
+        background: #f7faff;
+      }
+
+      .progress-actions {
+        gap: 9px;
+        margin-top: 18px;
+        padding-top: 16px;
+        border-top: 1px solid #e5ebf2;
+      }
+
+      .progress-action-button {
+        padding: 10px 16px;
+        border-color: #cfdbe9;
+        background: #f8fbff;
+        box-shadow:
+          0 2px 7px
+          rgba(36, 57, 87, .04);
+      }
+
+      .progress-action-button:hover,
+      .progress-action-button:focus-visible {
+        background: #eef5fc;
+      }
+
       @media (max-width: 800px) {
+        .progress-card {
+          padding: 26px 20px;
+          border-radius: 24px;
+        }
+
         .pv2-actfl-grid,
         .pv2-topic-grid {
           grid-template-columns: 1fr;
