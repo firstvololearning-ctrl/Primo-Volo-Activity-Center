@@ -672,6 +672,15 @@
                 </span>
               `;
 
+          feedback.insertAdjacentHTML(
+            "beforeend",
+            window.PrimoVoloAudio
+              .replayButtonMarkup(
+                italianSentence,
+                "Ascolta la frase di nuovo · Listen again"
+              )
+          );
+
           nextButton.hidden = false;
           speak(italianSentence);
         }
@@ -1049,6 +1058,15 @@
             tileButton => {
               tileButton.disabled = true;
             }
+          );
+
+          feedback.insertAdjacentHTML(
+            "beforeend",
+            window.PrimoVoloAudio
+              .replayButtonMarkup(
+                italianSentence,
+                "Ascolta la frase di nuovo · Listen again"
+              )
           );
 
           resetButton.hidden = true;

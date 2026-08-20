@@ -2859,6 +2859,15 @@ function createMatchRound() {
 
 
 
+    dropZone.insertAdjacentHTML(
+      "beforeend",
+      window.PrimoVoloAudio
+        .replayButtonMarkup(
+          answer,
+          "Ascolta la parola di nuovo · Listen again"
+        )
+    );
+
     dropZone.removeAttribute("tabindex");
 
     dropZone.setAttribute(
@@ -4427,6 +4436,15 @@ function showCompleteQuestion() {
 
 
 
+        feedback.insertAdjacentHTML(
+          "beforeend",
+          window.PrimoVoloAudio
+            .replayButtonMarkup(
+              currentCompleteItem.italian,
+              "Ascolta la parola di nuovo · Listen again"
+            )
+        );
+
         speakItalian(
 
           currentCompleteItem.italian
@@ -4918,6 +4936,15 @@ function showWriteQuestion() {
           "complete-feedback correct-feedback";
 
 
+
+        feedback.insertAdjacentHTML(
+          "beforeend",
+          window.PrimoVoloAudio
+            .replayButtonMarkup(
+              currentWriteItem.italian,
+              "Ascolta la risposta di nuovo · Listen again"
+            )
+        );
 
         speakItalian(
 
@@ -5512,6 +5539,15 @@ function createMemoryGame() {
 
 
 
+    feedback.insertAdjacentHTML(
+      "beforeend",
+      window.PrimoVoloAudio
+        .replayButtonMarkup(
+          matchedItem.italian,
+          "Ascolta la parola di nuovo · Listen again"
+        )
+    );
+
     speakItalian(matchedItem.italian);
 
 
@@ -6035,6 +6071,15 @@ function showChooseQuestion() {
           "quiz-feedback incorrect-feedback";
 
       }
+
+      feedback.insertAdjacentHTML(
+        "beforeend",
+        window.PrimoVoloAudio
+          .replayButtonMarkup(
+            currentQuestion.italian,
+            "Ascolta la risposta di nuovo · Listen again"
+          )
+      );
 
 
 

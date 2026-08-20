@@ -24,6 +24,42 @@
       .trim();
   }
 
+  function escapeAttribute(text) {
+    return String(text || "")
+      .replace(/&/g, "&amp;")
+      .replace(/"/g, "&quot;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;");
+  }
+
+  function replayButtonMarkup(
+    text,
+    label = "Ascolta di nuovo · Listen again"
+  ) {
+    const cleanText =
+      cleanSpeechText(text);
+
+    if (!cleanText) {
+      return "";
+    }
+
+    const safeText =
+      escapeAttribute(cleanText);
+
+    const safeLabel =
+      escapeAttribute(label);
+
+    return `
+      <button
+        type="button"
+        class="pv-audio-button pv-audio-replay"
+        data-speak-it="${safeText}"
+        aria-label="${safeLabel}"
+        title="${safeLabel}"
+      >🔊</button>
+    `;
+  }
+
   function refreshVoices() {
     if (!("speechSynthesis" in window)) {
       cachedVoices = [];
@@ -263,6 +299,7 @@
 
   window.PrimoVoloAudio = {
     speakItalian: speakItalianText,
+    replayButtonMarkup,
     stop: stopSpeech,
     getStatus() {
       return {

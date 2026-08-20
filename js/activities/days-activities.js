@@ -353,6 +353,15 @@
               </span>
             `;
 
+        feedback.insertAdjacentHTML(
+          "beforeend",
+          window.PrimoVoloAudio
+            .replayButtonMarkup(
+              sentence,
+              "Ascolta la frase di nuovo · Listen again"
+            )
+        );
+
         nextButton.hidden = false;
         speak(sentence);
       }, { once: true });
@@ -603,6 +612,15 @@
         });
 
         resetButton.hidden = true;
+        feedback.insertAdjacentHTML(
+          "beforeend",
+          window.PrimoVoloAudio
+            .replayButtonMarkup(
+              sentence,
+              "Ascolta la frase di nuovo · Listen again"
+            )
+        );
+
         nextButton.hidden = false;
         speak(sentence);
       });

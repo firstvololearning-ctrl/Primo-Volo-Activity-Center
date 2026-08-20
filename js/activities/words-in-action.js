@@ -961,6 +961,15 @@ function showGreetingsWordsQuestion() {
           </span>
         `;
 
+        feedback.insertAdjacentHTML(
+          "beforeend",
+          window.PrimoVoloAudio
+            .replayButtonMarkup(
+              completeExchange,
+              "Ascolta lo scambio di nuovo · Listen again"
+            )
+        );
+
         nextButton.hidden = false;
 
         speakSentence(
@@ -1171,6 +1180,15 @@ function showSeasonsWordsQuestion() {
           </span>
         `;
 
+        feedback.insertAdjacentHTML(
+          "beforeend",
+          window.PrimoVoloAudio
+            .replayButtonMarkup(
+              completeExchange,
+              "Ascolta lo scambio di nuovo · Listen again"
+            )
+        );
+
         nextButton.hidden = false;
 
         speakSentence(
@@ -1376,6 +1394,15 @@ function showPlacesWordsQuestion() {
             complete exchange.
           </span>
         `;
+
+        feedback.insertAdjacentHTML(
+          "beforeend",
+          window.PrimoVoloAudio
+            .replayButtonMarkup(
+              `Che luogo è? ${answer}`,
+              "Ascolta lo scambio di nuovo · Listen again"
+            )
+        );
 
         nextButton.hidden = false;
 
@@ -1590,6 +1617,15 @@ function showRoutinesWordsQuestion() {
             complete exchange.
           </span>
         `;
+
+        feedback.insertAdjacentHTML(
+          "beforeend",
+          window.PrimoVoloAudio
+            .replayButtonMarkup(
+              `${question} ${currentItem.italian}`,
+              "Ascolta lo scambio di nuovo · Listen again"
+            )
+        );
 
         nextButton.hidden = false;
 
@@ -3023,6 +3059,15 @@ const sentence =
 
             speakSentence(sentence);
           }
+
+          feedback.insertAdjacentHTML(
+            "beforeend",
+            window.PrimoVoloAudio
+              .replayButtonMarkup(
+                sentence,
+                "Ascolta la frase di nuovo · Listen again"
+              )
+          );
 
           nextButton.hidden = false;
         }

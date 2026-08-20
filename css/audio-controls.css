@@ -37,3 +37,14 @@
     transform: none;
   }
 }
+
+.pv-audio-button.pv-audio-replay {
+  display: grid;
+  margin: 10px auto 0;
+}
+
+.match-drop-zone .pv-audio-replay {
+  display: inline-grid;
+  margin: 0 0 0 7px;
+  vertical-align: middle;
+}

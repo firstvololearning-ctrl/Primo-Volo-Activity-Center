@@ -999,6 +999,15 @@
               </span>
             `;
 
+            feedback.insertAdjacentHTML(
+              "beforeend",
+              window.PrimoVoloAudio
+                .replayButtonMarkup(
+                  `${config.promptItalian} ${currentItem.italian}`,
+                  "Ascolta lo scambio di nuovo · Listen again"
+                )
+            );
+
             nextButton.hidden = false;
             speak(currentItem.italian);
           }
@@ -1095,6 +1104,15 @@
               Correct! Listen to the response.
             </span>
           `;
+
+          feedback.insertAdjacentHTML(
+            "beforeend",
+            window.PrimoVoloAudio
+              .replayButtonMarkup(
+                `${config.promptItalian} ${currentItem.italian}`,
+                "Ascolta lo scambio di nuovo · Listen again"
+              )
+          );
 
           nextButton.hidden = false;
           speak(currentItem.italian);

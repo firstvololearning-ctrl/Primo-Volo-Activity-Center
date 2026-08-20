@@ -1710,6 +1710,15 @@ correctTokens =
 
  
 
+      feedback.insertAdjacentHTML(
+        "beforeend",
+        window.PrimoVoloAudio
+          .replayButtonMarkup(
+            sentence,
+            "Ascolta la frase di nuovo · Listen again"
+          )
+      );
+
       wordTiles.forEach(tile => {
 
         tile.disabled = true;
