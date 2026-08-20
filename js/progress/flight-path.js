@@ -292,11 +292,21 @@
     <div class="flight-path-heading">
 
       <div>
-        <strong
-          class="flight-path-title"
-        >
-          🧭 Percorso di pratica
-        </strong>
+        <span class="flight-path-title-audio-row">
+          <strong
+            class="flight-path-title"
+          >
+            🧭 Percorso di pratica
+          </strong>
+
+          <button
+            type="button"
+            class="pv-audio-button pv-audio-small"
+            data-speak-it="Percorso di pratica"
+            aria-label="Ascolta: Percorso di pratica"
+            title="Ascolta"
+          >🔊</button>
+        </span>
 
         <span
           class="flight-path-subtitle"

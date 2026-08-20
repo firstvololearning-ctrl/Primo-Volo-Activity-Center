@@ -782,3 +782,64 @@ button.volo-city-stop.is-unlocked:hover {
   padding: 3px 7px;
   background: rgba(255,253,244,.97);
 }
+
+
+/* === JOURNEY AUDIO V7 === */
+
+.volo-journey-home-title-row,
+.volo-city-map-title-row,
+.volo-city-arrival-title-row,
+.volo-city-region-audio-row,
+.volo-journey-home-next-row {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+}
+
+.volo-journey-home-title-row {
+  align-items: flex-start;
+}
+
+.volo-journey-home-next-row {
+  flex-wrap: wrap;
+}
+
+.volo-city-region-audio-row {
+  justify-content: center;
+}
+
+button.volo-city-stop-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font: inherit;
+  cursor: pointer;
+  pointer-events: auto;
+}
+
+button.volo-city-stop-label:hover {
+  background: #fff;
+}
+
+.volo-city-label-speaker {
+  font-size: .74em;
+  opacity: .72;
+}
+
+.volo-city-culture-card {
+  position: relative;
+}
+
+.volo-city-culture-audio {
+  margin: 8px auto 0;
+}
+
+@media (max-width: 720px) {
+  button.volo-city-stop-label {
+    gap: 2px;
+  }
+
+  .volo-city-label-speaker {
+    font-size: .65em;
+  }
+}

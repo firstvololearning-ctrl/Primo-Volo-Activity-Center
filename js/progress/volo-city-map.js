@@ -332,12 +332,22 @@
         🗺️ Viaggio in Italia
       </span>
 
-      <h2 id="voloJourneyHomeTitle">
-        Il tuo viaggio in Italia
-        <span lang="en">
-          Your Italy Journey
-        </span>
-      </h2>
+      <div class="volo-journey-home-title-row">
+        <h2 id="voloJourneyHomeTitle">
+          Il tuo viaggio in Italia
+          <span lang="en">
+            Your Italy Journey
+          </span>
+        </h2>
+
+        <button
+          type="button"
+          class="pv-audio-button"
+          data-speak-it="Il tuo viaggio in Italia"
+          aria-label="Ascolta: Il tuo viaggio in Italia"
+          title="Ascolta"
+        >🔊</button>
+      </div>
 
       <p class="volo-journey-home-description">
         Pratica gli argomenti e raggiungi nuove città.
@@ -353,10 +363,20 @@
         <span id="voloJourneyHomeCities"></span>
       </div>
 
-      <p
-        id="voloJourneyHomeNext"
-        class="volo-journey-home-next"
-      ></p>
+      <div class="volo-journey-home-next-row">
+        <p
+          id="voloJourneyHomeNext"
+          class="volo-journey-home-next"
+        ></p>
+
+        <button
+          type="button"
+          id="voloJourneyHomeNextAudio"
+          class="pv-audio-button pv-audio-small"
+          aria-label="Ascolta la prossima città"
+          title="Ascolta la prossima città"
+        >🔊</button>
+      </div>
 
       <button
         type="button"
@@ -405,6 +425,11 @@
       "#voloJourneyHomeNext"
     );
 
+  const journeyHomeNextAudio =
+    journeyCard.querySelector(
+      "#voloJourneyHomeNextAudio"
+    );
+
   function renderJourneyCard() {
     syncExploredTopics();
 
@@ -428,8 +453,14 @@
     if (!nextCity) {
       journeyHomeNext.textContent =
         `🎉 Tutte le ${CITY_STOPS.length} città raggiunte! · All cities reached!`;
+      journeyHomeNextAudio.hidden = true;
+      journeyHomeNextAudio.removeAttribute("data-speak-it");
       return;
     }
+
+    journeyHomeNextAudio.hidden = false;
+    journeyHomeNextAudio.dataset.speakIt =
+      nextCity.name;
 
     const remaining =
       nextCity.unlockAt - count;
@@ -522,9 +553,19 @@
       >×</button>
 
       <header class="volo-city-map-header">
-        <h2 id="voloCityMapTitle">
-          🗺️ Il tuo viaggio in Italia
-        </h2>
+        <div class="volo-city-map-title-row">
+          <h2 id="voloCityMapTitle">
+            🗺️ Il tuo viaggio in Italia
+          </h2>
+
+          <button
+            type="button"
+            class="pv-audio-button"
+            data-speak-it="Il tuo viaggio in Italia"
+            aria-label="Ascolta: Il tuo viaggio in Italia"
+            title="Ascolta"
+          >🔊</button>
+        </div>
         <p>
           Esplora gli argomenti e raggiungi nuove città in tutta Italia.
           <span lang="en">
@@ -601,12 +642,32 @@
               🎉 Nuova tappa · New Stop
             </span>
 
-            <h3 id="voloCityArrivalTitle"></h3>
+            <div class="volo-city-arrival-title-row">
+              <h3 id="voloCityArrivalTitle"></h3>
 
-            <span
-              id="voloCityArrivalRegion"
-              class="volo-city-region-stamp"
-            ></span>
+              <button
+                type="button"
+                id="voloCityArrivalTitleAudio"
+                class="pv-audio-button pv-audio-small"
+                aria-label="Ascolta il messaggio di arrivo"
+                title="Ascolta"
+              >🔊</button>
+            </div>
+
+            <div class="volo-city-region-audio-row">
+              <span
+                id="voloCityArrivalRegion"
+                class="volo-city-region-stamp"
+              ></span>
+
+              <button
+                type="button"
+                id="voloCityArrivalRegionAudio"
+                class="pv-audio-button pv-audio-small"
+                aria-label="Ascolta il nome della regione"
+                title="Ascolta la regione"
+              >🔊</button>
+            </div>
 
             <p class="volo-city-region-discovery">
               Scopri la regione
@@ -693,6 +754,16 @@
       "#voloCityArrivalRegion"
     );
 
+  const arrivalTitleAudio =
+    modal.querySelector(
+      "#voloCityArrivalTitleAudio"
+    );
+
+  const arrivalRegionAudio =
+    modal.querySelector(
+      "#voloCityArrivalRegionAudio"
+    );
+
   const cultureRow =
     modal.querySelector(
       "#voloCityCultureRow"
@@ -744,6 +815,14 @@
       .forEach(node => node.remove());
   }
 
+  function escapeAttribute(value) {
+    return String(value || "")
+      .replaceAll("&", "&amp;")
+      .replaceAll('"', "&quot;")
+      .replaceAll("<", "&lt;")
+      .replaceAll(">", "&gt;");
+  }
+
   function cultureCard(
     label,
     item
@@ -751,6 +830,11 @@
     if (!item?.image) {
       return "";
     }
+
+    const spokenName =
+      escapeAttribute(
+        item.name || ""
+      );
 
     return `
       <div class="volo-city-culture-card">
@@ -761,6 +845,20 @@
         <strong>
           ${label}: ${item.name || ""}
         </strong>
+
+        ${
+          spokenName
+            ? `
+              <button
+                type="button"
+                class="pv-audio-button pv-audio-small volo-city-culture-audio"
+                data-speak-it="${spokenName}"
+                aria-label="Ascolta: ${spokenName}"
+                title="Ascolta"
+              >🔊</button>
+            `
+            : ""
+        }
       </div>
     `;
   }
@@ -801,13 +899,30 @@
     arrivalDiorama.alt =
       `Diorama di ${city.name}`;
 
-    arrivalTitle.textContent =
+    const arrivalPhrase =
       `Sei arrivato a ${city.name}!`;
+
+    arrivalTitle.textContent =
+      arrivalPhrase;
+
+    arrivalTitleAudio.dataset.speakIt =
+      arrivalPhrase;
 
     arrivalRegion.innerHTML =
       region
         ? `${region.region}<small>${region.english}</small>`
         : "";
+
+    if (region?.region) {
+      arrivalRegionAudio.hidden = false;
+      arrivalRegionAudio.dataset.speakIt =
+        region.region;
+    } else {
+      arrivalRegionAudio.hidden = true;
+      arrivalRegionAudio.removeAttribute(
+        "data-speak-it"
+      );
+    }
 
     cultureRow.innerHTML =
       cultureCard(
@@ -951,9 +1066,10 @@
 
         const label =
           document.createElement(
-            "span"
+            "button"
           );
 
+        label.type = "button";
         label.className =
           "volo-city-stop-label";
 
@@ -963,8 +1079,37 @@
         label.style.top =
           `calc(${city.y}% + ${city.labelDy || 18}px)`;
 
-        label.textContent =
+        label.dataset.speakIt =
           city.name;
+
+        label.setAttribute(
+          "aria-label",
+          `Ascolta: ${city.name}`
+        );
+
+        const cityName =
+          document.createElement("span");
+
+        cityName.textContent =
+          city.name;
+
+        const speaker =
+          document.createElement("span");
+
+        speaker.className =
+          "volo-city-label-speaker";
+
+        speaker.setAttribute(
+          "aria-hidden",
+          "true"
+        );
+
+        speaker.textContent = "🔊";
+
+        label.append(
+          cityName,
+          speaker
+        );
 
         board.appendChild(label);
       }
