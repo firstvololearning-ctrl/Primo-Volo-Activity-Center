@@ -486,7 +486,7 @@ button.volo-city-stop:disabled {
       rgba(255,250,240,.18),
       rgba(255,250,240,.02)
     ),
-    url("../images/progress/italy-journey/italy-underlay.png")
+    url("../images/progress/italy-journey/italy-underlay-watercolor.png")
       center / cover no-repeat;
   border-left: 1px solid rgba(196,170,127,.55);
 }

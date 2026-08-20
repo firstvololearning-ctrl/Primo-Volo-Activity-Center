@@ -621,7 +621,7 @@
         >
           <img
             class="volo-city-map-underlay"
-            src="images/progress/italy-journey/italy-underlay.png"
+            src="images/progress/italy-journey/italy-underlay-watercolor.png"
             alt="Mappa illustrata dell'Italia"
           >
 
