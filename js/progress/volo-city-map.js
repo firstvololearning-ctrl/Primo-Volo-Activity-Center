@@ -19,7 +19,16 @@
   const topicSelect =
     document.querySelector("#topicSelect");
 
-  if (!headerUtilities || !topicSelect) {
+  const topicSelectorSection =
+    document.querySelector(
+      ".topic-selector-section"
+    );
+
+  if (
+    !headerUtilities ||
+    !topicSelect ||
+    !topicSelectorSection
+  ) {
     console.error("Mappa di Volo could not start.");
     return;
   }
@@ -365,6 +374,142 @@
       city =>
         count >= city.unlockAt
     );
+  }
+
+  /* ========================================
+     HOME-SCREEN ITALY JOURNEY CARD
+     ======================================== */
+
+  const journeyCard =
+    document.createElement(
+      "section"
+    );
+
+  journeyCard.id =
+    "voloItalyJourneyCard";
+
+  journeyCard.className =
+    "volo-journey-home-card";
+
+  journeyCard.setAttribute(
+    "aria-labelledby",
+    "voloJourneyHomeTitle"
+  );
+
+  journeyCard.innerHTML = `
+    <div class="volo-journey-home-copy">
+      <span class="volo-journey-home-kicker">
+        🗺️ Viaggio in Italia
+      </span>
+
+      <h2 id="voloJourneyHomeTitle">
+        Il tuo viaggio in Italia
+        <span lang="en">
+          Your Italy Journey
+        </span>
+      </h2>
+
+      <p class="volo-journey-home-description">
+        Pratica gli argomenti e raggiungi nuove città.
+        Ogni due argomenti esplorati sblocchi una nuova tappa.
+        <span lang="en">
+          Practice across topics and unlock a new Italian city
+          for every two topics explored.
+        </span>
+      </p>
+
+      <div class="volo-journey-home-stats">
+        <span id="voloJourneyHomeTopics"></span>
+        <span id="voloJourneyHomeCities"></span>
+      </div>
+
+      <p
+        id="voloJourneyHomeNext"
+        class="volo-journey-home-next"
+      ></p>
+
+      <button
+        type="button"
+        id="voloJourneyCardButton"
+        class="volo-journey-home-button"
+        aria-haspopup="dialog"
+        aria-controls="voloCityMapModal"
+      >
+        Apri la mappa
+        <span lang="en">Open Map</span>
+        <span aria-hidden="true">→</span>
+      </button>
+    </div>
+
+    <div
+      class="volo-journey-home-preview"
+      aria-hidden="true"
+    >
+      <span>10 città · 10 cities</span>
+    </div>
+  `;
+
+  topicSelectorSection
+    .insertAdjacentElement(
+      "beforebegin",
+      journeyCard
+    );
+
+  const journeyCardButton =
+    journeyCard.querySelector(
+      "#voloJourneyCardButton"
+    );
+
+  const journeyHomeTopics =
+    journeyCard.querySelector(
+      "#voloJourneyHomeTopics"
+    );
+
+  const journeyHomeCities =
+    journeyCard.querySelector(
+      "#voloJourneyHomeCities"
+    );
+
+  const journeyHomeNext =
+    journeyCard.querySelector(
+      "#voloJourneyHomeNext"
+    );
+
+  function renderJourneyCard() {
+    syncExploredTopics();
+
+    const count =
+      exploredCount();
+
+    const unlocked =
+      unlockedCities();
+
+    journeyHomeTopics.textContent =
+      `✓ ${count} argomenti esplorati · topics explored`;
+
+    journeyHomeCities.textContent =
+      `📍 ${unlocked.length} / ${CITY_STOPS.length} città raggiunte · cities reached`;
+
+    const nextCity =
+      CITY_STOPS.find(
+        city => count < city.unlockAt
+      );
+
+    if (!nextCity) {
+      journeyHomeNext.textContent =
+        `🎉 Tutte le ${CITY_STOPS.length} città raggiunte! · All cities reached!`;
+      return;
+    }
+
+    const remaining =
+      nextCity.unlockAt - count;
+
+    journeyHomeNext.textContent =
+      `Prossima tappa · Next stop: ${nextCity.name} — ${remaining} ${
+        remaining === 1 ? "argomento" : "argomenti"
+      } ancora · ${remaining} more ${
+        remaining === 1 ? "topic" : "topics"
+      }`;
   }
 
   /* ========================================
@@ -945,6 +1090,11 @@
     openMap
   );
 
+  journeyCardButton.addEventListener(
+    "click",
+    openMap
+  );
+
   closeButton.addEventListener(
     "click",
     closeMap
@@ -986,6 +1136,8 @@
       const changed =
         syncExploredTopics();
 
+      renderJourneyCard();
+
       if (!modal.hidden) {
         renderMap();
 
@@ -1002,12 +1154,16 @@
       journeyData =
         loadJourneyData();
 
+      renderJourneyCard();
+
       if (!modal.hidden) {
         hideArrival();
         renderMap();
       }
     }
   );
+
+  renderJourneyCard();
 
   window.getVoloCityJourneyData =
     function getVoloCityJourneyData() {

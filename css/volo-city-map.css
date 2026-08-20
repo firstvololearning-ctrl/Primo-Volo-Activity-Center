@@ -358,3 +358,167 @@ button.volo-city-stop:disabled {
   }
 }
 
+
+
+/* =========================================
+   Home-screen Italy Journey card
+   ========================================= */
+
+.volo-journey-home-card {
+  position: relative;
+  width: min(1180px, calc(100% - 28px));
+  margin: 16px auto 20px;
+  display: grid;
+  grid-template-columns: minmax(0, 1.45fr) minmax(260px, .55fr);
+  overflow: hidden;
+  border: 1px solid #d8c29b;
+  border-radius: 24px;
+  background: #fffaf0;
+  box-shadow: 0 10px 28px rgba(80, 63, 38, .12);
+}
+
+.volo-journey-home-copy {
+  padding: 22px 24px 23px;
+}
+
+.volo-journey-home-kicker {
+  display: inline-flex;
+  align-items: center;
+  padding: 5px 10px;
+  border-radius: 999px;
+  background: #eef5fb;
+  color: #245d91;
+  font-size: .78rem;
+  font-weight: 900;
+  letter-spacing: .03em;
+  text-transform: uppercase;
+}
+
+.volo-journey-home-card h2 {
+  margin: 8px 0 6px;
+  color: #245d91;
+  font-size: clamp(1.45rem, 3vw, 2rem);
+  line-height: 1.08;
+}
+
+.volo-journey-home-card h2 span[lang="en"] {
+  display: block;
+  margin-top: 4px;
+  color: #6b6257;
+  font-size: .72em;
+  font-weight: 750;
+}
+
+.volo-journey-home-description {
+  max-width: 720px;
+  margin: 0;
+  color: #5f574d;
+  line-height: 1.48;
+}
+
+.volo-journey-home-description span[lang="en"] {
+  color: #756b60;
+}
+
+.volo-journey-home-stats {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 14px;
+}
+
+.volo-journey-home-stats span {
+  display: inline-flex;
+  align-items: center;
+  padding: 6px 10px;
+  border: 1px solid #d7e4ef;
+  border-radius: 999px;
+  background: rgba(255,255,255,.84);
+  color: #365f83;
+  font-size: .82rem;
+  font-weight: 850;
+}
+
+.volo-journey-home-next {
+  margin: 11px 0 0;
+  color: #6d5b42;
+  font-size: .88rem;
+  font-weight: 800;
+}
+
+.volo-journey-home-button {
+  margin-top: 14px;
+  padding: 10px 15px;
+  border: 0;
+  border-radius: 12px;
+  background: #2876bb;
+  color: #fff;
+  font: inherit;
+  font-weight: 900;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(40,118,187,.2);
+}
+
+.volo-journey-home-button span[lang="en"] {
+  margin-left: 4px;
+  font-weight: 750;
+  opacity: .9;
+}
+
+.volo-journey-home-button:hover {
+  transform: translateY(-1px);
+}
+
+.volo-journey-home-button:focus-visible {
+  outline: 3px solid rgba(40,118,187,.28);
+  outline-offset: 3px;
+}
+
+.volo-journey-home-preview {
+  min-height: 190px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-end;
+  padding: 16px;
+  background:
+    linear-gradient(
+      90deg,
+      rgba(255,250,240,.18),
+      rgba(255,250,240,.02)
+    ),
+    url("../images/progress/italy-journey/italy-underlay.png")
+      center / cover no-repeat;
+  border-left: 1px solid rgba(196,170,127,.55);
+}
+
+.volo-journey-home-preview span {
+  padding: 6px 9px;
+  border: 1px solid rgba(211,192,159,.95);
+  border-radius: 999px;
+  background: rgba(255,250,240,.94);
+  color: #5d5142;
+  font-size: .78rem;
+  font-weight: 900;
+  box-shadow: 0 2px 7px rgba(64,51,35,.12);
+}
+
+@media (max-width: 760px) {
+  .volo-journey-home-card {
+    grid-template-columns: 1fr;
+  }
+
+  .volo-journey-home-copy {
+    padding: 18px;
+  }
+
+  .volo-journey-home-preview {
+    min-height: 125px;
+    border-left: 0;
+    border-top: 1px solid rgba(196,170,127,.55);
+    background-position: center 48%;
+  }
+
+  .volo-journey-home-button {
+    width: 100%;
+  }
+}
