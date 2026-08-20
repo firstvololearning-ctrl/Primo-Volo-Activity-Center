@@ -394,7 +394,7 @@
       "voloCityMapModal"
     );
     mapButton.innerHTML =
-      "🗺️ Mappa di Volo";
+      "🗺️ Viaggio in Italia";
 
     const progressButton =
       document.querySelector(
@@ -448,12 +448,12 @@
 
       <header class="volo-city-map-header">
         <h2 id="voloCityMapTitle">
-          ✈️ Il viaggio di Volo
+          🗺️ Il tuo viaggio in Italia
         </h2>
         <p>
-          Esplora gli argomenti e raggiungi nuove città.
+          Esplora gli argomenti e raggiungi nuove città in tutta Italia.
           <span lang="en">
-            Explore topics and unlock new cities across Italy.
+            Your Italy Journey: explore topics and unlock new cities.
           </span>
         </p>
       </header>

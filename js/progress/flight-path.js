@@ -295,17 +295,17 @@
         <strong
           class="flight-path-title"
         >
-          ✈️ Il viaggio di Volo
+          🧭 Percorso di pratica
         </strong>
 
         <span
           class="flight-path-subtitle"
         >
-          Volo's Learning Journey
+          Practice Path
         </span>
 
         <span class="flight-path-instruction">
-          Le tappe del tuo percorso · Your practice stops
+          Le attività di questo argomento · Steps for this topic
         </span>
       </div>
 
@@ -329,7 +329,7 @@
     <div
       id="flightPathTrack"
       class="flight-path-track"
-      aria-label="Learning activity path"
+      aria-label="Practice activity path"
     ></div>
   `;
 
