@@ -860,6 +860,8 @@
     and the learner opening the Journey map.
   */
   let pendingCelebrationCityId = null;
+  let activeArrivalCityId = null;
+  let activeArrivalIsNew = false;
 
   function routePoints(cities) {
     return cities
@@ -936,6 +938,9 @@
     city,
     automatic = false
   ) {
+    activeArrivalCityId = city.id;
+    activeArrivalIsNew = automatic;
+
     const region =
       typeof window.getPassportRegionById ===
         "function"
@@ -1042,6 +1047,36 @@
   }
 
   function hideArrival() {
+    if (
+      activeArrivalIsNew &&
+      activeArrivalCityId &&
+      !journeyPreview
+    ) {
+      const celebrated =
+        new Set(
+          journeyData.celebratedCities
+        );
+
+      celebrated.add(
+        activeArrivalCityId
+      );
+
+      journeyData.celebratedCities =
+        [...celebrated];
+
+      if (
+        pendingCelebrationCityId ===
+        activeArrivalCityId
+      ) {
+        pendingCelebrationCityId = null;
+      }
+
+      saveJourneyData();
+    }
+
+    activeArrivalCityId = null;
+    activeArrivalIsNew = false;
+
     arrival.hidden = true;
     arrival.classList.remove("is-new");
     boardWrap.classList.remove("has-arrival");
@@ -1411,6 +1446,8 @@
     "primo-volo-student-changed",
     () => {
       pendingCelebrationCityId = null;
+      activeArrivalCityId = null;
+      activeArrivalIsNew = false;
 
       journeyData =
         loadJourneyData();
