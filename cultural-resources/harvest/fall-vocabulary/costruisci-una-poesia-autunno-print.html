@@ -1,0 +1,935 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<title>Costruisci una poesia d'autunno</title>
+
+<style>
+@page {
+  size: Letter;
+  margin: 0;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  background: white;
+  color: #344252;
+  font-family:
+    "Avenir Next",
+    "Segoe UI",
+    Arial,
+    sans-serif;
+  -webkit-print-color-adjust: exact;
+  print-color-adjust: exact;
+}
+
+.page {
+  position: relative;
+
+  width: 8.5in;
+  height: 11in;
+
+  padding: .38in .42in .32in;
+
+  overflow: hidden;
+  page-break-after: always;
+
+  background:
+    radial-gradient(
+      circle at 94% 2%,
+      rgba(217,120,40,.10),
+      transparent 17%
+    ),
+    linear-gradient(
+      180deg,
+      #fffdf9 0%,
+      #fffaf3 100%
+    );
+}
+
+.page:last-child {
+  page-break-after: auto;
+}
+
+.page::before {
+  content: "";
+
+  position: absolute;
+  inset: 0 0 auto 0;
+
+  height: 7px;
+
+  background:
+    linear-gradient(
+      90deg,
+      #d97828,
+      #daa93c,
+      #779b58
+    );
+}
+
+.header {
+  display: grid;
+  grid-template-columns: 70px 1fr 150px;
+  gap: 13px;
+  align-items: center;
+
+  margin-bottom: 11px;
+}
+
+.month-image {
+  width: 62px;
+  height: 62px;
+
+  object-fit: contain;
+
+  border-radius: 16px;
+}
+
+.kicker {
+  margin-bottom: 3px;
+
+  color: #a35420;
+
+  font-size: 9px;
+  font-weight: 900;
+  letter-spacing: .09em;
+}
+
+h1 {
+  margin: 0;
+
+  color: #934a17;
+
+  font-size: 25px;
+  line-height: 1.02;
+}
+
+.subtitle {
+  margin-top: 3px;
+
+  color: #77818c;
+
+  font-size: 10px;
+  font-weight: 650;
+}
+
+.name {
+  align-self: start;
+
+  padding-top: 7px;
+
+  color: #566473;
+
+  font-size: 9px;
+  font-weight: 800;
+}
+
+.name-line {
+  display: inline-block;
+
+  width: 105px;
+
+  margin-left: 5px;
+
+  border-bottom: 1px solid #9d9d96;
+}
+
+.instructions {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+
+  margin: 5px 0 13px;
+  padding: 9px 12px;
+
+  border: 1px solid #efd2ae;
+  border-radius: 14px;
+
+  background: #fff4e4;
+}
+
+.instructions img {
+  width: 43px;
+  height: 43px;
+
+  object-fit: contain;
+}
+
+.instructions strong {
+  display: block;
+
+  color: #934a17;
+
+  font-size: 11px;
+}
+
+.instructions p {
+  margin: 2px 0 0;
+
+  color: #626f7c;
+
+  font-size: 8.2px;
+  line-height: 1.3;
+}
+
+.step {
+  margin-top: 11px;
+}
+
+.step-heading {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  margin-bottom: 6px;
+}
+
+.step-number {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 27px;
+  height: 27px;
+
+  border-radius: 50%;
+
+  color: white;
+
+  font-size: 12px;
+  font-weight: 900;
+}
+
+.step-1 .step-number {
+  background: #d97828;
+}
+
+.step-2 .step-number {
+  background: #729752;
+}
+
+.step-3 .step-number {
+  background: #6f8492;
+}
+
+.step-title {
+  font-size: 11.5px;
+  font-weight: 900;
+}
+
+.step-note {
+  margin-left: 4px;
+
+  color: #7a8490;
+
+  font-size: 8px;
+  font-weight: 650;
+}
+
+.choices {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 6px 8px;
+}
+
+.choice {
+  display: grid;
+  grid-template-columns: 17px 48px 1fr;
+  gap: 8px;
+  align-items: center;
+
+  min-height: 51px;
+  padding: 4px 8px 4px 6px;
+
+  border: 1px solid #e7ddd2;
+  border-radius: 12px;
+
+  background: rgba(255,255,255,.93);
+}
+
+.step-2 .choice {
+  border-color: #d8e4d0;
+  background: #fbfdf9;
+}
+
+.step-3 .choice {
+  border-color: #dce3e7;
+  background: #fbfcfd;
+}
+
+.check {
+  width: 13px;
+  height: 13px;
+
+  border: 1.5px solid #9c9c95;
+  border-radius: 50%;
+
+  background: white;
+}
+
+.thumb {
+  position: relative;
+
+  width: 46px;
+  height: 46px;
+
+  overflow: hidden;
+
+  border-radius: 9px;
+
+  background: #faf8f4;
+}
+
+.thumb img {
+  width: 100%;
+  height: 100%;
+
+  object-fit: contain;
+}
+
+.thumb.truffle img {
+  position: absolute;
+  top: 0;
+  left: 50%;
+
+  width: 160%;
+  height: auto;
+  max-width: none;
+
+  transform: translate(-50%, -13%);
+}
+
+.choice-text {
+  color: #374859;
+
+  font-size: 9px;
+  font-weight: 800;
+  line-height: 1.2;
+}
+
+.reminder {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  margin-top: 11px;
+  padding: 7px 11px;
+
+  border: 1px solid #ecd5b0;
+  border-radius: 12px;
+
+  background: #fff9eb;
+}
+
+.reminder img {
+  width: 37px;
+  height: 37px;
+
+  object-fit: contain;
+}
+
+.reminder strong {
+  display: block;
+
+  color: #934a17;
+
+  font-size: 9px;
+}
+
+.reminder span {
+  color: #687582;
+
+  font-size: 7.6px;
+}
+
+.footer {
+  position: absolute;
+  right: .42in;
+  bottom: .19in;
+  left: .42in;
+
+  display: flex;
+  justify-content: space-between;
+
+  padding-top: 6px;
+
+  border-top: 1px solid #ede3d8;
+
+  color: #7f8790;
+
+  font-size: 6.5px;
+}
+
+/* PAGE 2 */
+
+.write-header {
+  display: grid;
+  grid-template-columns: 70px 1fr 150px;
+  gap: 13px;
+  align-items: center;
+
+  margin-bottom: 13px;
+}
+
+.opening {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+
+  margin: 5px 0 12px;
+  padding: 10px 13px;
+
+  border: 1px solid #edbd82;
+  border-radius: 14px;
+
+  background: #fff0dc;
+}
+
+.opening img {
+  width: 49px;
+  height: 49px;
+
+  object-fit: contain;
+}
+
+.opening strong {
+  color: #934a17;
+
+  font-size: 18px;
+}
+
+.writing {
+  display: grid;
+  gap: 7px;
+}
+
+.write-row {
+  display: grid;
+  grid-template-columns: 90px 1fr;
+  align-items: stretch;
+
+  min-height: 49px;
+
+  overflow: hidden;
+
+  border: 1px solid #e5ddd4;
+  border-radius: 11px;
+
+  background: white;
+}
+
+.write-label {
+  display: flex;
+  align-items: center;
+
+  padding: 7px 9px;
+
+  font-size: 7.8px;
+  font-weight: 900;
+}
+
+.write-row:nth-child(-n+3) .write-label {
+  color: #974d1c;
+  background: #fff1df;
+}
+
+.write-row:nth-child(4) .write-label,
+.write-row:nth-child(5) .write-label {
+  color: #58773f;
+  background: #eff6e9;
+}
+
+.write-row:nth-child(6) .write-label {
+  color: #536874;
+  background: #eef3f5;
+}
+
+.line-area {
+  position: relative;
+}
+
+.line-area::before,
+.line-area::after {
+  content: "";
+
+  position: absolute;
+  right: 12px;
+  left: 12px;
+
+  border-bottom: 1px dashed #d4d1cc;
+}
+
+.line-area::before {
+  top: 18px;
+}
+
+.line-area::after {
+  top: 35px;
+}
+
+.illustrate {
+  position: relative;
+
+  height: 270px;
+
+  margin-top: 13px;
+  padding: 15px;
+
+  overflow: hidden;
+
+  border: 1.5px solid #cda87e;
+  border-radius: 17px;
+
+  background:
+    linear-gradient(
+      180deg,
+      #fffefa 0%,
+      #fffaf2 100%
+    );
+}
+
+.illustrate-title {
+  display: inline-block;
+
+  padding: 5px 9px;
+
+  border-radius: 999px;
+
+  background: #edf5e8;
+  color: #55743e;
+
+  font-size: 8px;
+  font-weight: 900;
+}
+
+.optional {
+  margin-left: 5px;
+
+  color: #858a8f;
+
+  font-size: 7px;
+}
+
+.decor {
+  position: absolute;
+
+  width: 58px;
+  height: 58px;
+
+  object-fit: contain;
+
+  opacity: .92;
+}
+
+.d1 { left: 11px; bottom: 10px; }
+.d2 { left: 64px; bottom: 5px; }
+.d3 { right: 62px; bottom: 5px; }
+.d4 { right: 10px; bottom: 10px; }
+
+.art-note {
+  position: absolute;
+
+  top: 50%;
+  left: 50%;
+
+  color: #d2c2ae;
+
+  font-size: 13px;
+  font-weight: 750;
+
+  transform: translate(-50%, -50%);
+}
+
+@media print {
+  body {
+    background: white;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<section class="page">
+
+  <header class="header">
+    <img
+      class="month-image"
+      src="ottobre.png"
+      alt=""
+    >
+
+    <div>
+      <div class="kicker">
+        OTTOBRE · ATTIVITÀ CREATIVA
+      </div>
+
+      <h1>
+        Costruisci una poesia d’autunno
+      </h1>
+
+      <div class="subtitle">
+        Build an autumn poem
+      </div>
+    </div>
+
+    <div class="name">
+      Nome
+      <span class="name-line"></span>
+    </div>
+  </header>
+
+  <div class="instructions">
+    <img src="autunno.png" alt="">
+
+    <div>
+      <strong>
+        Scegli le righe della tua poesia.
+      </strong>
+
+      <p>
+        Cerchia 3 righe nel primo gruppo,
+        2 nel secondo e 1 riga finale.
+        Poi scrivi la poesia a pagina 2.
+      </p>
+
+      <p>
+        Circle 3 + 2 + 1 lines.
+        Then write your poem on page 2.
+      </p>
+    </div>
+  </div>
+
+  <section class="step step-1">
+    <div class="step-heading">
+      <span class="step-number">1</span>
+
+      <span class="step-title">
+        Scegli 3 righe con “Io vedo…”
+      </span>
+
+      <span class="step-note">
+        Choose 3.
+      </span>
+    </div>
+
+    <div class="choices">
+      
+          <div class="choice">
+            <span class="check"></span>
+            <div class="thumb ">
+              <img src="foglie.png" alt="">
+            </div>
+            <span class="choice-text">Io vedo le foglie.</span>
+          </div>
+        
+
+          <div class="choice">
+            <span class="check"></span>
+            <div class="thumb ">
+              <img src="funghi.png" alt="">
+            </div>
+            <span class="choice-text">Io vedo i funghi.</span>
+          </div>
+        
+
+          <div class="choice">
+            <span class="check"></span>
+            <div class="thumb ">
+              <img src="ghianda.png" alt="">
+            </div>
+            <span class="choice-text">Io vedo la ghianda.</span>
+          </div>
+        
+
+          <div class="choice">
+            <span class="check"></span>
+            <div class="thumb ">
+              <img src="nebbia.png" alt="">
+            </div>
+            <span class="choice-text">Io vedo la nebbia.</span>
+          </div>
+        
+
+          <div class="choice">
+            <span class="check"></span>
+            <div class="thumb ">
+              <img src="pioggia.png" alt="">
+            </div>
+            <span class="choice-text">Io vedo la pioggia.</span>
+          </div>
+        
+
+          <div class="choice">
+            <span class="check"></span>
+            <div class="thumb ">
+              <img src="uva.png" alt="">
+            </div>
+            <span class="choice-text">Io vedo l’uva.</span>
+          </div>
+        
+
+          <div class="choice">
+            <span class="check"></span>
+            <div class="thumb ">
+              <img src="zucca.png" alt="">
+            </div>
+            <span class="choice-text">Io vedo la zucca.</span>
+          </div>
+        
+    </div>
+  </section>
+
+  <section class="step step-2">
+    <div class="step-heading">
+      <span class="step-number">2</span>
+
+      <span class="step-title">
+        Scegli 2 righe
+      </span>
+
+      <span class="step-note">
+        Choose 2.
+      </span>
+    </div>
+
+    <div class="choices">
+      
+          <div class="choice">
+            <span class="check"></span>
+            <div class="thumb ">
+              <img src="funghi.png" alt="">
+            </div>
+            <span class="choice-text">Io mangio i funghi.</span>
+          </div>
+        
+
+          <div class="choice">
+            <span class="check"></span>
+            <div class="thumb ">
+              <img src="uva.png" alt="">
+            </div>
+            <span class="choice-text">Io mangio l’uva.</span>
+          </div>
+        
+
+          <div class="choice">
+            <span class="check"></span>
+            <div class="thumb ">
+              <img src="succo-d-uva.png" alt="">
+            </div>
+            <span class="choice-text">Io bevo il succo d’uva.</span>
+          </div>
+        
+
+          <div class="choice">
+            <span class="check"></span>
+            <div class="thumb ">
+              <img src="zucca.png" alt="">
+            </div>
+            <span class="choice-text">Mi piace la zucca.</span>
+          </div>
+        
+
+          <div class="choice">
+            <span class="check"></span>
+            <div class="thumb ">
+              <img src="uva.png" alt="">
+            </div>
+            <span class="choice-text">Mi piace l’uva.</span>
+          </div>
+        
+
+          <div class="choice">
+            <span class="check"></span>
+            <div class="thumb ">
+              <img src="autunno.png" alt="">
+            </div>
+            <span class="choice-text">Mi piace l’autunno.</span>
+          </div>
+        
+    </div>
+  </section>
+
+  <section class="step step-3">
+    <div class="step-heading">
+      <span class="step-number">3</span>
+
+      <span class="step-title">
+        Scegli 1 riga finale
+      </span>
+
+      <span class="step-note">
+        Choose 1.
+      </span>
+    </div>
+
+    <div class="choices">
+      
+          <div class="choice">
+            <span class="check"></span>
+            <div class="thumb ">
+              <img src="le-foglie-cadono.png" alt="">
+            </div>
+            <span class="choice-text">In autunno le foglie cadono.</span>
+          </div>
+        
+
+          <div class="choice">
+            <span class="check"></span>
+            <div class="thumb ">
+              <img src="vendemmia.png" alt="">
+            </div>
+            <span class="choice-text">In autunno facciamo la vendemmia.</span>
+          </div>
+        
+
+          <div class="choice">
+            <span class="check"></span>
+            <div class="thumb truffle">
+              <img src="../tartufo.png" alt="">
+            </div>
+            <span class="choice-text">In autunno cerchiamo i tartufi.</span>
+          </div>
+        
+    </div>
+  </section>
+
+  <div class="reminder">
+    <img src="foglie.png" alt="">
+
+    <div>
+      <strong>
+        La tua poesia avrà 7 righe.
+      </strong>
+
+      <span>
+        È autunno. + 3 “Io vedo…” +
+        2 righe a scelta + 1 riga finale.
+      </span>
+    </div>
+  </div>
+
+  <footer class="footer">
+    <span>First Volo Learning</span>
+    <span>firstvololearning.com · 1/2</span>
+  </footer>
+
+</section>
+
+
+<section class="page">
+
+  <header class="write-header">
+    <img
+      class="month-image"
+      src="foglie.png"
+      alt=""
+    >
+
+    <div>
+      <div class="kicker">
+        LA MIA POESIA
+      </div>
+
+      <h1>
+        Poesia d’autunno
+      </h1>
+
+      <div class="subtitle">
+        Scrivi le righe che hai scelto.
+      </div>
+    </div>
+
+    <div class="name">
+      Nome
+      <span class="name-line"></span>
+    </div>
+  </header>
+
+  <div class="opening">
+    <img src="autunno.png" alt="">
+    <strong>È autunno.</strong>
+  </div>
+
+  <div class="writing">
+
+    <div class="write-row">
+      <div class="write-label">
+        1 · Io vedo…
+      </div>
+      <div class="line-area"></div>
+    </div>
+
+    <div class="write-row">
+      <div class="write-label">
+        2 · Io vedo…
+      </div>
+      <div class="line-area"></div>
+    </div>
+
+    <div class="write-row">
+      <div class="write-label">
+        3 · Io vedo…
+      </div>
+      <div class="line-area"></div>
+    </div>
+
+    <div class="write-row">
+      <div class="write-label">
+        4 · Scelta
+      </div>
+      <div class="line-area"></div>
+    </div>
+
+    <div class="write-row">
+      <div class="write-label">
+        5 · Scelta
+      </div>
+      <div class="line-area"></div>
+    </div>
+
+    <div class="write-row">
+      <div class="write-label">
+        6 · Finale
+      </div>
+      <div class="line-area"></div>
+    </div>
+
+  </div>
+
+  <div class="illustrate">
+    <span class="illustrate-title">
+      ILLUSTRA LA TUA POESIA
+    </span>
+
+    <span class="optional">
+      Facoltativo · Optional
+    </span>
+
+    <div class="art-note">
+      Disegna qui.
+    </div>
+
+    <img class="decor d1" src="ghianda.png" alt="">
+    <img class="decor d2" src="funghi.png" alt="">
+    <img class="decor d3" src="uva.png" alt="">
+    <img class="decor d4" src="zucca.png" alt="">
+  </div>
+
+  <footer class="footer">
+    <span>First Volo Learning</span>
+    <span>firstvololearning.com · 2/2</span>
+  </footer>
+
+</section>
+
+</body>
+</html>
