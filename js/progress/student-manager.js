@@ -629,7 +629,7 @@
     const note = document.createElement("p");
     note.className = "pv-student-note";
     note.textContent =
-      "Student profiles are stored only in this browser on this device. You can also use Primo Volo without selecting a student.";
+      "Student profiles are saved on this device. When Cloud Save is on, student profiles, Progress, Practice Path, and Italy Journey data can also sync across devices. You can also use Primo Volo without selecting a student.";
 
     dialog.append(
       head,
