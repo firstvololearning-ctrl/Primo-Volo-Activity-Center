@@ -27,6 +27,17 @@
     return storage.studentKey(STORAGE_KEY);
   }
 
+  function normalizePracticeMode(mode) {
+    if (
+      mode === "conversation-choice" ||
+      mode === "conversation-write"
+    ) {
+      return "conversation-practice";
+    }
+
+    return mode;
+  }
+
   window.getPrimoVoloFlightPathStorageKey =
     getPracticeStorageKey;
 
@@ -82,14 +93,38 @@
       const parsed =
         JSON.parse(saved);
 
+      const byTopic =
+        parsed &&
+        typeof parsed.byTopic ===
+          "object"
+          ? parsed.byTopic
+          : {};
+
+      Object.values(byTopic)
+        .forEach(topicData => {
+          if (
+            !topicData ||
+            !Array.isArray(
+              topicData.practiced
+            )
+          ) {
+            return;
+          }
+
+          topicData.practiced = [
+            ...new Set(
+              topicData.practiced
+                .map(
+                  normalizePracticeMode
+                )
+                .filter(Boolean)
+            )
+          ];
+        });
+
       return {
         version: 1,
-        byTopic:
-          parsed &&
-          typeof parsed.byTopic ===
-            "object"
-            ? parsed.byTopic
-            : {}
+        byTopic
       };
     } catch (error) {
       console.warn(
@@ -181,6 +216,9 @@
   }
 
   function markPracticed(mode) {
+    mode =
+      normalizePracticeMode(mode);
+
     const topicKey =
       topicSelect.value;
 

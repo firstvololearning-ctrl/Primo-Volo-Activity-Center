@@ -11,6 +11,42 @@
     return;
   }
 
+  let timeWorkspace =
+    document.querySelector(
+      "#timeInstructionWorkspace"
+    );
+
+  if (!timeWorkspace) {
+    timeWorkspace =
+      document.createElement("div");
+
+    timeWorkspace.id =
+      "timeInstructionWorkspace";
+
+    timeWorkspace.className =
+      "time-instruction-workspace";
+
+    timeWorkspace.hidden = true;
+
+    learnActivity.appendChild(
+      timeWorkspace
+    );
+  }
+
+  function setTimeInstructionActive(active) {
+    learnActivity.classList.toggle(
+      "time-instruction-active",
+      Boolean(active)
+    );
+
+    timeWorkspace.hidden =
+      !active;
+
+    if (!active) {
+      timeWorkspace.innerHTML = "";
+    }
+  }
+
   function isTimeTopic() {
     return (
       typeof currentTopicKey !== "undefined" &&
@@ -112,9 +148,9 @@
       `,
       models: [],
       challengePool: [
-        { phrase: "È l'una.", correct: "È l’una", choices: ["È l’una", "Sono le"] },
-        { phrase: "Sono le tre.", correct: "Sono le", choices: ["È l’una", "Sono le"] },
-        { phrase: "Sono le sei.", correct: "Sono le", choices: ["È l’una", "Sono le"] }
+        { phrase: "È l'una.", correct: "È l’", choices: ["È l’", "Sono le"] },
+        { phrase: "Sono le tre.", correct: "Sono le", choices: ["È l’", "Sono le"] },
+        { phrase: "Sono le sei.", correct: "Sono le", choices: ["È l’", "Sono le"] }
       ],
       question: "Quale inizio serve?",
       questionEnglish: "Which beginning do you need?"
@@ -264,7 +300,13 @@
     const style = document.createElement("style");
     style.id = "timeInstructionStyles";
     style.textContent = `
+      #learnActivity.time-instruction-active
+      > :not(#timeInstructionWorkspace) {
+        display: none !important;
+      }
+
       .time-instruction {
+
         width: min(980px, 100%);
         margin: 0 auto;
       }
@@ -695,6 +737,7 @@
 
     learnButton.classList.add("active");
     learnActivity.hidden = false;
+    setTimeInstructionActive(true);
 
     if (learnInstructions) {
       learnInstructions.innerHTML = `
@@ -703,7 +746,7 @@
       `;
     }
 
-    learnActivity.innerHTML = `
+    timeWorkspace.innerHTML = `
       <div class="time-instruction">
         <nav class="time-step-tabs" aria-label="Passaggi per imparare l’ora">
           ${steps.map((item, index) => `
@@ -768,11 +811,11 @@
       </div>
     `;
 
-    learnActivity.querySelectorAll("[data-speak]").forEach(button => {
+    timeWorkspace.querySelectorAll("[data-speak]").forEach(button => {
       button.addEventListener("click", () => speak(button.dataset.speak));
     });
 
-    learnActivity.querySelectorAll("[data-time-step]").forEach(button => {
+    timeWorkspace.querySelectorAll("[data-time-step]").forEach(button => {
       button.addEventListener("click", () => {
         currentStepIndex = Number(button.dataset.timeStep);
         challengeIndex = 0;
@@ -780,7 +823,7 @@
       });
     });
 
-    learnActivity.querySelectorAll("[data-time-action]").forEach(button => {
+    timeWorkspace.querySelectorAll("[data-time-action]").forEach(button => {
       button.addEventListener("click", () => {
         if (button.dataset.timeAction === "previous") {
           currentStepIndex = Math.max(0, currentStepIndex - 1);
@@ -792,11 +835,17 @@
       });
     });
 
-    const feedback = learnActivity.querySelector(".time-feedback");
-    const choiceButtons = learnActivity.querySelectorAll(".time-choice");
+    const feedback = timeWorkspace.querySelector(".time-feedback");
+    const choiceButtons = timeWorkspace.querySelectorAll(".time-choice");
 
     choiceButtons.forEach(button => {
       button.addEventListener("click", () => {
+        if (
+          typeof window.markVoloPractice === "function"
+        ) {
+          window.markVoloPractice("learn");
+        }
+
         if (button.dataset.answer === challenge.correct) {
           button.classList.add("correct");
           feedback.textContent = "✓ Esatto!";
@@ -822,6 +871,7 @@
 
   topicSelect.addEventListener("change", () => {
     if (!isTimeTopic()) {
+      setTimeInstructionActive(false);
       currentStepIndex = 0;
       challengeIndex = 0;
       return;
