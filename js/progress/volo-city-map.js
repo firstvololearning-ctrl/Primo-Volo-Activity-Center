@@ -56,16 +56,16 @@
     Route is geographically readable across the underlay.
   */
   const CITY_STOPS = [
-    { id:"genova", name:"Genova", regionId:"liguria", x:38.2, y:35.0, labelDx:-19, labelDy:20, unlockAt:2 },
-    { id:"torino", name:"Torino", regionId:"piemonte", x:34.8, y:27.0, labelDx:-34, labelDy:18, unlockAt:4 },
-    { id:"milano", name:"Milano", regionId:"lombardia", x:40.5, y:25.7, labelDx:35, labelDy:8, unlockAt:6 },
-    { id:"venezia", name:"Venezia", regionId:"veneto", x:51.8, y:27.0, labelDx:30, labelDy:18, unlockAt:8 },
-    { id:"firenze", name:"Firenze", regionId:"toscana", x:45.0, y:40.0, labelDx:20, labelDy:19, unlockAt:10 },
-    { id:"roma", name:"Roma", regionId:"lazio", x:52.0, y:51.0, labelDx:-10, labelDy:20, unlockAt:12 },
-    { id:"napoli", name:"Napoli", regionId:"campania", x:59.2, y:59.8, labelDx:0, labelDy:21, unlockAt:14 },
-    { id:"lecce", name:"Lecce", regionId:"puglia", x:73.0, y:62.0, labelDx:20, labelDy:20, unlockAt:16 },
-    { id:"palermo", name:"Palermo", regionId:"sicilia", x:49.0, y:82.3, labelDx:-9, labelDy:21, unlockAt:18 },
-    { id:"cagliari", name:"Cagliari", regionId:"sardegna", x:29.0, y:69.0, labelDx:-9, labelDy:21, unlockAt:20 }
+    { id:"genova", name:"Genova", regionId:"liguria", x:29.0, y:26.2, labelDx:-24, labelDy:22, unlockAt:2 },
+    { id:"torino", name:"Torino", regionId:"piemonte", x:22.0, y:20.7, labelDx:-22, labelDy:18, unlockAt:4 },
+    { id:"milano", name:"Milano", regionId:"lombardia", x:30.2, y:17.5, labelDx:18, labelDy:12, unlockAt:6 },
+    { id:"venezia", name:"Venezia", regionId:"veneto", x:47.0, y:17.7, labelDx:34, labelDy:18, unlockAt:8 },
+    { id:"firenze", name:"Firenze", regionId:"toscana", x:41.2, y:31.4, labelDx:22, labelDy:23, unlockAt:10 },
+    { id:"roma", name:"Roma", regionId:"lazio", x:48.0, y:46.7, labelDx:-18, labelDy:22, unlockAt:12 },
+    { id:"napoli", name:"Napoli", regionId:"campania", x:57.5, y:55.3, labelDx:-8, labelDy:25, unlockAt:14 },
+    { id:"lecce", name:"Lecce", regionId:"puglia", x:74.5, y:59.4, labelDx:20, labelDy:20, unlockAt:16 },
+    { id:"palermo", name:"Palermo", regionId:"sicilia", x:52.7, y:77.7, labelDx:-10, labelDy:22, unlockAt:18 },
+    { id:"cagliari", name:"Cagliari", regionId:"sardegna", x:29.8, y:68.6, labelDx:-12, labelDy:22, unlockAt:20 }
   ];
 
   /*
@@ -446,7 +446,14 @@
       class="volo-journey-home-preview"
       aria-hidden="true"
     >
-      <span>10 città · 10 cities</span>
+      <div
+        id="voloJourneyHomeMapLayer"
+        class="volo-journey-home-map-layer"
+      ></div>
+
+      <span class="volo-journey-home-city-count">
+        10 città · 10 cities
+      </span>
     </div>
   `;
 
@@ -481,6 +488,120 @@
       "#voloJourneyHomeNextAudio"
     );
 
+  const journeyHomeMapLayer =
+    journeyCard.querySelector(
+      "#voloJourneyHomeMapLayer"
+    );
+
+  function cityArtworkPath(city) {
+    return (
+      "images/progress/italy-journey/cities/" +
+      city.id +
+      ".png"
+    );
+  }
+
+  function renderJourneyHomeMap() {
+    if (!journeyHomeMapLayer) {
+      return;
+    }
+
+    const count =
+      effectiveExploredCount();
+
+    const unlocked =
+      unlockedCities();
+
+    const unlockedIds =
+      new Set(
+        unlocked.map(
+          city => city.id
+        )
+      );
+
+    const currentCity =
+      unlocked[
+        unlocked.length - 1
+      ] || null;
+
+    const nextCity =
+      CITY_STOPS.find(
+        city => count < city.unlockAt
+      ) || null;
+
+    journeyHomeMapLayer.innerHTML = "";
+
+    CITY_STOPS.forEach(
+      (city, index) => {
+        const reached =
+          unlockedIds.has(city.id);
+
+        const current =
+          currentCity?.id === city.id;
+
+        const next =
+          nextCity?.id === city.id;
+
+        const marker =
+          document.createElement("span");
+
+        marker.className =
+          "volo-journey-mini-stop" +
+          (reached ? " is-reached" : "") +
+          (current ? " is-current" : "") +
+          (next ? " is-next" : "");
+
+        marker.dataset.city =
+          city.id;
+
+        marker.style.left =
+          `${city.x}%`;
+
+        marker.style.top =
+          `${city.y}%`;
+
+        if (reached) {
+          const image =
+            document.createElement("img");
+
+          image.src =
+            cityArtworkPath(city);
+
+          image.alt = "";
+
+          marker.appendChild(image);
+        } else {
+          marker.textContent =
+            String(index + 1);
+        }
+
+        journeyHomeMapLayer.appendChild(
+          marker
+        );
+      }
+    );
+
+    if (currentCity) {
+      const plane =
+        document.createElement("span");
+
+      plane.className =
+        "volo-journey-mini-plane";
+
+      plane.style.left =
+        `calc(${currentCity.x}% + 18px)`;
+
+      plane.style.top =
+        `calc(${currentCity.y}% - 15px)`;
+
+      plane.textContent = "✈️";
+
+      journeyHomeMapLayer.appendChild(
+        plane
+      );
+    }
+  }
+
   function renderJourneyCard() {
     syncExploredTopics();
 
@@ -489,6 +610,8 @@
 
     const unlocked =
       unlockedCities();
+
+    renderJourneyHomeMap();
 
     journeyHomeTopics.textContent =
       `${journeyPreview ? "🧪 Preview · " : "✓ "}${count} argomenti esplorati · topics explored`;
@@ -1128,6 +1251,12 @@
 
         marker.type = "button";
 
+        const nextCity =
+          CITY_STOPS.find(
+            stop =>
+              count < stop.unlockAt
+          ) || null;
+
         marker.className =
           "volo-city-stop" +
           (
@@ -1140,7 +1269,16 @@
               city.id
               ? " is-current"
               : ""
+          ) +
+          (
+            nextCity?.id ===
+              city.id
+              ? " is-next"
+              : ""
           );
+
+        marker.dataset.city =
+          city.id;
 
         marker.style.left =
           `${city.x}%`;
@@ -1148,13 +1286,36 @@
         marker.style.top =
           `${city.y}%`;
 
-        marker.textContent =
-          String(index + 1);
+        if (unlockedNow) {
+          const landmark =
+            document.createElement(
+              "img"
+            );
+
+          landmark.className =
+            "volo-city-stop-art";
+
+          landmark.src =
+            cityArtworkPath(city);
+
+          landmark.alt = "";
+
+          marker.appendChild(
+            landmark
+          );
+        } else {
+          marker.textContent =
+            String(index + 1);
+        }
 
         marker.setAttribute(
           "aria-label",
           unlockedNow
-            ? `${city.name} — città raggiunta`
+            ? (
+                currentCity?.id === city.id
+                  ? `${city.name} — tappa attuale, città raggiunta`
+                  : `${city.name} — città raggiunta`
+              )
             : `${city.name} — si sblocca dopo ${city.unlockAt} argomenti esplorati`
         );
 

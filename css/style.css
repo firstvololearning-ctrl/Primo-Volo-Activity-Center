@@ -1235,7 +1235,7 @@ button {
   .listen-image-frame {
     height: 150px;
   }
-  } 
+  }
 /* ========================================
    COMPLETE MODE
    ======================================== */
@@ -3074,7 +3074,7 @@ body.hide-english .gender-choice-note span {
   white-space: nowrap;
 }
 
-.about-table-activity-list + 
+.about-table-activity-list +
 .about-table-activity-list {
   margin-top: 4px;
 }
@@ -10424,3 +10424,144 @@ p + p {
     white-space: normal;
   }
 }
+
+
+/* =========================================================
+   HOME ORIENTATION
+   ========================================================= */
+
+.home-tagline {
+  max-width: 620px;
+
+  margin:
+    7px auto 0 !important;
+
+  color: #596b82 !important;
+
+  font-size:
+    clamp(.78rem, 1.25vw, .9rem) !important;
+
+  font-weight: 600;
+
+  line-height: 1.45;
+}
+
+
+.home-entry {
+  width: min(960px, 96%);
+
+  margin:
+    0 auto 18px;
+}
+
+
+.home-learning-path {
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  flex-wrap: wrap;
+
+  gap: 6px 8px;
+
+  margin-top: 11px;
+
+  padding: 8px 12px;
+
+  border:
+    1px solid #e0e6ee;
+
+  border-radius: 999px;
+
+  color: #53647a;
+
+  background:
+    rgba(255, 255, 255, .72);
+
+  font-size: .72rem;
+
+  font-weight: 800;
+
+  line-height: 1.25;
+}
+
+
+.home-path-arrow {
+  color: #9aa9ba;
+}
+
+
+.home-path-note {
+  margin:
+    5px 0 0;
+
+  color: var(--muted);
+
+  font-size: .68rem;
+
+  line-height: 1.35;
+
+  text-align: center;
+}
+
+
+#practiceItalian {
+  scroll-margin-top: 18px;
+}
+
+
+@media (max-width: 700px) {
+
+
+
+  .home-entry {
+    width: min(94%, 580px);
+  }
+
+  .home-learning-path {
+    border-radius: 15px;
+
+    padding:
+      9px 10px;
+  }
+}
+
+
+@media (max-width: 500px) {
+
+  .home-path-arrow {
+    display: none;
+  }
+
+  .home-learning-path {
+    gap: 5px 12px;
+  }
+
+  .home-learning-path span:not(.home-path-arrow) {
+    white-space: nowrap;
+  }
+}
+
+
+@media (prefers-reduced-motion: reduce) {
+
+
+}
+
+/* HOME ORIENTATION END */
+
+
+/* HOME LEARNING PATH READABILITY TUNE START */
+
+.home-learning-path {
+  color: #465a72;
+  font-size: .80rem;
+}
+
+.home-path-note {
+  color: #64758a;
+  font-size: .74rem;
+}
+
+/* HOME LEARNING PATH READABILITY TUNE END */
