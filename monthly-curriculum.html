@@ -271,6 +271,37 @@
       background: #fbfcfe;
     }
 
+    .starting-check-box {
+      grid-column: 1 / -1;
+    }
+
+    .starting-check-intro {
+      margin: -2px 0 12px;
+      color: #66778b;
+      font-size: .8rem;
+      line-height: 1.45;
+    }
+
+    .starting-check-groups {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .starting-check-topic {
+      padding: 11px;
+      border: 1px solid #e0e7ef;
+      border-radius: 12px;
+      background: white;
+    }
+
+    .starting-check-topic h4 {
+      margin: 0 0 8px;
+      color: #274b84;
+      font-size: .87rem;
+      line-height: 1.3;
+    }
+
     .resource-box h3 {
       margin: 0 0 11px;
 
@@ -370,6 +401,10 @@
     }
 
     @media (max-width: 760px) {
+      .starting-check-groups {
+        grid-template-columns: 1fr;
+      }
+
       .monthly-header {
         grid-template-columns: 1fr;
         justify-items: center;
@@ -1171,6 +1206,59 @@
 
       <div class="resource-grid">
 
+
+        <section class="resource-box starting-check-box">
+          <h3>&#129517; Prove iniziali &#183; Starting Checks</h3>
+          <p class="starting-check-intro">
+            Scegli la versione interattiva o stampabile della prova iniziale.
+            Choose the interactive or printable version of each Starting Check.
+          </p>
+
+          <div class="starting-check-groups">
+            <div class="starting-check-topic">
+              <h4>&#128290; I numeri</h4>
+              <div class="resource-links">
+                <a class="resource-link" href="index.html?topic=numbers&amp;startingCheck=1">
+                  <span>&#128187; Prova interattiva</span>
+                  <span class="arrow" aria-hidden="true">&#8594;</span>
+                </a>
+                <a class="resource-link" href="printables/starting-checks/numbers-starting-check.html" target="_blank" rel="noopener noreferrer">
+                  <span>&#128424;&#65039; Prova stampabile</span>
+                  <span class="arrow" aria-hidden="true">&#8594;</span>
+                </a>
+              </div>
+            </div>
+
+            <div class="starting-check-topic">
+              <h4>&#127912; I colori</h4>
+              <div class="resource-links">
+                <a class="resource-link" href="index.html?topic=colors&amp;startingCheck=1">
+                  <span>&#128187; Prova interattiva</span>
+                  <span class="arrow" aria-hidden="true">&#8594;</span>
+                </a>
+                <a class="resource-link" href="printables/starting-checks/colors-starting-check.html" target="_blank" rel="noopener noreferrer">
+                  <span>&#128424;&#65039; Prova stampabile</span>
+                  <span class="arrow" aria-hidden="true">&#8594;</span>
+                </a>
+              </div>
+            </div>
+
+            <div class="starting-check-topic">
+              <h4>&#128218; Materiale scolastico</h4>
+              <div class="resource-links">
+                <a class="resource-link" href="index.html?topic=supplies&amp;startingCheck=1">
+                  <span>&#128187; Prova interattiva</span>
+                  <span class="arrow" aria-hidden="true">&#8594;</span>
+                </a>
+                <a class="resource-link" href="printables/starting-checks/school-supplies-starting-check.html" target="_blank" rel="noopener noreferrer">
+                  <span>&#128424;&#65039; Prova stampabile</span>
+                  <span class="arrow" aria-hidden="true">&#8594;</span>
+                </a>
+              </div>
+            </div>
+          </div>
+        </section>
+
         <section class="resource-box">
           <h3>💻 Pratica interattiva · Interactive Practice</h3>
           <div class="resource-links">
@@ -1185,16 +1273,6 @@
               <span class="arrow" aria-hidden="true">→</span>
             </a>
 
-
-            <a
-              class="resource-link"
-              href="index.html?topic=numbers&amp;startingCheck=1"
-            >
-              <span>🧭 Prova iniziale · I numeri</span>
-              <span class="arrow" aria-hidden="true">→</span>
-            </a>
-            <a class="resource-link" href="printables/starting-checks/numbers-starting-check.html" target="_blank" rel="noopener noreferrer"><span>🖨️ Prova iniziale stampabile · I numeri</span><span class="arrow" aria-hidden="true">→</span></a>
-
             <a
               class="resource-link"
               href="index.html?topic=numbers"
@@ -1203,16 +1281,6 @@
               <span class="arrow" aria-hidden="true">→</span>
             </a>
 
-
-            <a
-              class="resource-link"
-              href="index.html?topic=colors&amp;startingCheck=1"
-            >
-              <span>🧭 Prova iniziale · I colori</span>
-              <span class="arrow" aria-hidden="true">→</span>
-            </a>
-            <a class="resource-link" href="printables/starting-checks/colors-starting-check.html" target="_blank" rel="noopener noreferrer"><span>🖨️ Prova iniziale stampabile · I colori</span><span class="arrow" aria-hidden="true">→</span></a>
-
             <a
               class="resource-link"
               href="index.html?topic=colors"
@@ -1220,16 +1288,6 @@
               <span>🎨 I colori</span>
               <span class="arrow" aria-hidden="true">→</span>
             </a>
-
-
-            <a
-              class="resource-link"
-              href="index.html?topic=supplies&amp;startingCheck=1"
-            >
-              <span>🧭 Prova iniziale · Materiale scolastico</span>
-              <span class="arrow" aria-hidden="true">→</span>
-            </a>
-            <a class="resource-link" href="printables/starting-checks/school-supplies-starting-check.html" target="_blank" rel="noopener noreferrer"><span>🖨️ Prova iniziale stampabile · Materiale scolastico</span><span class="arrow" aria-hidden="true">→</span></a>
 
             <a
               class="resource-link"
