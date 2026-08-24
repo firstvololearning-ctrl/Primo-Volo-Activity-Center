@@ -372,14 +372,16 @@
 
 /* ========================================
    SCHOOL SUPPLIES STARTING CHECK
-   Vocabulary-only diagnostic using existing assets
+   Part 1: Vocabulary · Part 2: Carrier Phrases
+   Reuses existing supply + carrier phrase assets
    ======================================== */
 
 (() => {
   const TOPIC_KEY = "supplies";
-  const TOTAL_ITEMS = 12;
-  const STORAGE_FALLBACK_KEY =
-    "primoVoloStartingChecksV1";
+  const VOCAB_TOTAL = 12;
+  const CARRIER_TOTAL = 6;
+  const TOTAL_ITEMS = VOCAB_TOTAL + CARRIER_TOTAL;
+  const STORAGE_FALLBACK_KEY = "primoVoloStartingChecksV1";
 
   const PRETEST_ITEMS = [
     { id: "01", italian: "il foglio", english: "sheet of paper", image: "images/classroom/supplies/supplies-01.png" },
@@ -398,9 +400,13 @@
     { id: "14", italian: "il quaderno", english: "notebook", image: "images/classroom/supplies/supplies-14.png" }
   ];
 
-  const TARGET_IDS = [
+  const VOCAB_TARGET_IDS = [
     "01", "02", "03", "04", "05", "06",
     "08", "09", "11", "12", "13", "14"
+  ];
+
+  const CARRIER_SUPPLY_IDS = [
+    "04", "05", "08", "09", "13", "14"
   ];
 
   const DISTRACTORS = {
@@ -420,7 +426,7 @@
     "14": ["01", "13", "09"]
   };
 
-  const TASK_TYPES = [
+  const VOCAB_TASK_TYPES = [
     "italian-to-picture",
     "italian-to-picture",
     "italian-to-picture",
@@ -438,7 +444,8 @@
   const TASK_LABELS = {
     "italian-to-picture": "Italiano → immagine",
     "picture-to-italian": "Immagine → italiano",
-    "listen-to-picture": "Ascolto → immagine"
+    "listen-to-picture": "Ascolto → immagine",
+    "carrier-meaning": "Ascolto → frase utile"
   };
 
   const itemById = new Map(
@@ -452,18 +459,12 @@
 
   function shuffle(items) {
     const result = [...items];
-
     for (let index = result.length - 1; index > 0; index -= 1) {
-      const randomIndex = Math.floor(
-        Math.random() * (index + 1)
-      );
-
+      const randomIndex = Math.floor(Math.random() * (index + 1));
       [result[index], result[randomIndex]] = [
-        result[randomIndex],
-        result[index]
+        result[randomIndex], result[index]
       ];
     }
-
     return result;
   }
 
@@ -481,13 +482,34 @@
       speakItalian(text);
       return;
     }
-
     if (
       window.PrimoVoloAudio &&
       typeof window.PrimoVoloAudio.speak === "function"
     ) {
       window.PrimoVoloAudio.speak(text);
     }
+  }
+
+  function getSupplyCarriers() {
+    const all = Array.isArray(
+      window.carrierPhrases?.[TOPIC_KEY]
+    )
+      ? window.carrierPhrases[TOPIC_KEY]
+      : [];
+
+    const wanted = ["vedo", "ho", "piace"];
+
+    return wanted
+      .map(id => all.find(carrier => carrier.id === id))
+      .filter(Boolean);
+  }
+
+  function carrierSentence(carrier, supply) {
+    const stem = String(carrier?.italian || "")
+      .replace(/[.…]+$/u, "")
+      .trim();
+
+    return `${stem} ${supply.italian}.`;
   }
 
   function storageKey() {
@@ -528,7 +550,7 @@
         !Array.isArray(parsed)
       ) {
         return {
-          version: 1,
+          version: 2,
           byTopic:
             parsed.byTopic &&
             typeof parsed.byTopic === "object"
@@ -544,7 +566,7 @@
     }
 
     return {
-      version: 1,
+      version: 2,
       byTopic: {}
     };
   }
@@ -583,9 +605,18 @@
         history: []
       };
 
-    const byWord = {};
+    const vocabularyResults =
+      session.results.filter(
+        result => result.section === "vocabulary"
+      );
 
-    session.results.forEach(result => {
+    const carrierResults =
+      session.results.filter(
+        result => result.section === "carrier"
+      );
+
+    const byWord = {};
+    vocabularyResults.forEach(result => {
       byWord[result.itemId] = {
         italian: result.italian,
         english: result.english,
@@ -598,21 +629,52 @@
       };
     });
 
+    const byCarrier = {};
+    carrierResults.forEach(result => {
+      const group =
+        byCarrier[result.carrierId] || {
+          italian: result.carrierItalian,
+          attempts: 0,
+          correct: 0
+        };
+
+      group.attempts += 1;
+      if (result.correct) group.correct += 1;
+      byCarrier[result.carrierId] = group;
+    });
+
     const savedSession = {
       id: session.id,
+      version: 2,
       startedAt: session.startedAt,
       completedAt: session.completedAt,
       total: session.results.length,
       correct: session.results.filter(
         result => result.correct
       ).length,
+      vocabularyTotal: vocabularyResults.length,
+      vocabularyCorrect: vocabularyResults.filter(
+        result => result.correct
+      ).length,
+      carrierTotal: carrierResults.length,
+      carrierCorrect: carrierResults.filter(
+        result => result.correct
+      ).length,
       byWord,
+      byCarrier,
       results: session.results.map(result => ({
+        section: result.section,
         itemId: result.itemId,
         italian: result.italian,
         english: result.english,
         taskType: result.taskType,
-        selectedItemId: result.selectedItemId,
+        selectedItemId:
+          result.selectedItemId || null,
+        carrierId: result.carrierId || null,
+        carrierItalian:
+          result.carrierItalian || null,
+        selectedCarrierId:
+          result.selectedCarrierId || null,
         status: result.correct
           ? "correct"
           : "incorrect"
@@ -627,6 +689,7 @@
       savedSession
     ].slice(-10);
 
+    data.version = 2;
     data.byTopic[TOPIC_KEY] = topicData;
     saveStartingChecks(data);
 
@@ -711,6 +774,23 @@
         line-height: 1.45;
       }
 
+      .supplies-check-section-summary {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 7px;
+        margin-top: 10px;
+      }
+
+      .supplies-check-section-chip {
+        padding: 5px 9px;
+        border: 1px solid #cbd8ea;
+        border-radius: 999px;
+        background: white;
+        color: #405d7f;
+        font-size: .78rem;
+        font-weight: 850;
+      }
+
       .supplies-check-actions {
         display: flex;
         gap: 10px;
@@ -759,7 +839,7 @@
 
       .supplies-check-dialog {
         position: relative;
-        width: min(780px, 100%);
+        width: min(820px, 100%);
         max-height: 92vh;
         overflow-y: auto;
         padding: 26px;
@@ -789,99 +869,179 @@
         font-weight: 800;
       }
 
+      .supplies-check-part-label,
       .supplies-check-task-label {
         display: inline-block;
-        margin-bottom: 8px;
+        margin: 0 7px 8px 0;
         padding: 5px 9px;
         border-radius: 999px;
-        background: #f3f6fb;
-        color: #52647e;
         font-size: .78rem;
-        font-weight: 800;
+        font-weight: 850;
       }
 
-      .supplies-check-question h2 {
+      .supplies-check-part-label {
+        background: #eef8f1;
+        color: #337a4d;
+      }
+
+      .supplies-check-task-label {
+        background: #f3f6fb;
+        color: #52647e;
+      }
+
+      .supplies-check-question h2,
+      .supplies-check-interstitial h2 {
         margin: 0;
         color: #274b84;
         font-size: clamp(1.45rem, 4vw, 2rem);
         line-height: 1.25;
       }
 
-      .supplies-check-question-note {
+      .supplies-check-question-note,
+      .supplies-check-interstitial p {
         margin: 8px 0 0;
         color: #6c788a;
+        line-height: 1.5;
       }
 
       .supplies-check-target-image {
         display: block;
-        width: min(260px, 60vw);
-        height: 220px;
-        margin: 18px auto;
+        width: min(220px, 60vw);
+        aspect-ratio: 1;
         object-fit: contain;
+        margin: 18px auto 8px;
+        padding: 10px;
+        border: 1px solid #e0e7ef;
+        border-radius: 20px;
+        background: #fffaf3;
       }
 
       .supplies-check-options {
         display: grid;
-        grid-template-columns: repeat(2, minmax(0, 1fr));
+        grid-template-columns:
+          repeat(2, minmax(0, 1fr));
         gap: 12px;
-        margin-top: 22px;
+        margin-top: 20px;
+      }
+
+      .supplies-check-options.carrier-options {
+        grid-template-columns:
+          repeat(3, minmax(0, 1fr));
       }
 
       .supplies-check-option {
-        min-height: 92px;
+        min-height: 118px;
         padding: 12px;
         border: 2px solid #d9e2ef;
-        border-radius: 16px;
+        border-radius: 18px;
         background: white;
-        color: #263b5d;
+        color: #274b84;
         font-weight: 850;
       }
 
       .supplies-check-option:hover,
       .supplies-check-option:focus-visible {
-        border-color: #8fb0db;
+        border-color: #a9bdd6;
         outline: none;
       }
 
       .supplies-check-option.is-selected {
-        border-color: #4f78b4;
-        background: #eef5ff;
-        box-shadow: 0 0 0 2px rgba(79, 120, 180, .13);
+        border-color: #337a4d;
+        background: #f1faf4;
+        box-shadow:
+          0 0 0 3px rgba(51, 122, 77, .12);
       }
 
       .supplies-check-option img {
         display: block;
         width: 100%;
-        height: 135px;
+        max-height: 150px;
         object-fit: contain;
       }
 
       .supplies-check-option-text {
-        min-height: 70px;
+        min-height: 74px;
+        font-size: 1.05rem;
+      }
+
+      .supplies-carrier-composite {
         display: grid;
-        place-items: center;
-        padding: 16px;
-        font-size: 1.08rem;
+        grid-template-columns: 1fr .82fr;
+        align-items: center;
+        gap: 6px;
+      }
+
+      .supplies-carrier-composite img {
+        width: 100%;
+        height: 120px;
+        object-fit: contain;
+      }
+
+      .supplies-carrier-plus {
+        display: none;
       }
 
       .supplies-check-footer {
         display: flex;
         justify-content: space-between;
         align-items: center;
-        gap: 12px;
-        margin-top: 22px;
+        gap: 14px;
+        flex-wrap: wrap;
+        margin-top: 20px;
       }
 
       .supplies-check-next:disabled {
         opacity: .45;
-        cursor: not-allowed;
+        cursor: default;
       }
 
-      .supplies-check-result-score {
-        margin: 12px 0 4px;
+      .supplies-check-interstitial {
+        text-align: center;
+        padding: 16px 4px 4px;
+      }
+
+      .supplies-check-interstitial-badge {
+        display: inline-block;
+        margin-bottom: 12px;
+        padding: 6px 10px;
+        border-radius: 999px;
+        background: #eef8f1;
+        color: #337a4d;
+        font-size: .8rem;
+        font-weight: 900;
+      }
+
+      .supplies-check-interstitial-actions {
+        margin-top: 22px;
+      }
+
+      .supplies-check-result-grid {
+        display: grid;
+        grid-template-columns:
+          repeat(2, minmax(0, 1fr));
+        gap: 12px;
+        margin: 18px 0;
+      }
+
+      .supplies-check-result-stat {
+        padding: 18px;
+        border: 1px solid #d9e2ef;
+        border-radius: 18px;
+        background: #f8fbff;
+        text-align: center;
+      }
+
+      .supplies-check-result-stat strong {
+        display: block;
         color: #274b84;
-        font-size: clamp(2rem, 7vw, 3.2rem);
-        font-weight: 950;
+        font-size: 1.8rem;
+      }
+
+      .supplies-check-result-stat span {
+        display: block;
+        margin-top: 4px;
+        color: #65758a;
+        font-weight: 800;
       }
 
       .supplies-check-result-note {
@@ -891,60 +1051,55 @@
 
       .supplies-check-results-table {
         width: 100%;
-        margin-top: 20px;
+        margin-top: 14px;
         border-collapse: collapse;
       }
 
       .supplies-check-results-table th,
       .supplies-check-results-table td {
         padding: 9px 10px;
-        border-bottom: 1px solid #e1e7ef;
+        border-bottom: 1px solid #e0e6ee;
         text-align: left;
         vertical-align: top;
       }
 
       .supplies-check-results-table th {
         color: #274b84;
-        background: #f6f8fb;
+        background: #f5f8fc;
       }
 
       .supplies-check-status-correct {
-        color: #2f7247;
-        font-weight: 900;
+        color: #337a4d;
+        font-weight: 850;
       }
 
       .supplies-check-status-review {
-        color: #8b5a35;
-        font-weight: 900;
+        color: #a45b45;
+        font-weight: 850;
       }
 
-      @media (max-width: 620px) {
-        .supplies-starting-check {
-          width: min(100% - 20px, 980px);
-          padding: 16px;
+      .supplies-check-results-heading {
+        margin: 24px 0 8px;
+        color: #274b84;
+        font-size: 1rem;
+      }
+
+      @media (max-width: 680px) {
+        .supplies-check-options,
+        .supplies-check-options.carrier-options {
+          grid-template-columns: 1fr;
+        }
+
+        .supplies-carrier-composite {
+          grid-template-columns: 1fr 1fr;
+        }
+
+        .supplies-check-result-grid {
+          grid-template-columns: 1fr;
         }
 
         .supplies-check-dialog {
           padding: 22px 16px;
-        }
-
-        .supplies-check-options {
-          grid-template-columns: 1fr 1fr;
-          gap: 9px;
-        }
-
-        .supplies-check-option img {
-          height: 110px;
-        }
-
-        .supplies-check-footer {
-          align-items: stretch;
-          flex-direction: column;
-        }
-
-        .supplies-check-next,
-        .supplies-check-secondary {
-          width: 100%;
         }
       }
     `;
@@ -1026,9 +1181,7 @@
       typeof window.PrimoVoloAudio.stop === "function"
     ) {
       window.PrimoVoloAudio.stop();
-    } else if (
-      "speechSynthesis" in window
-    ) {
+    } else if ("speechSynthesis" in window) {
       window.speechSynthesis.cancel();
     }
   }
@@ -1040,6 +1193,21 @@
     const latest = latestResult();
     const hasResult = Boolean(latest);
 
+    const latestSummary = hasResult
+      ? `
+        <p>
+          <strong>Ultima prova:</strong>
+          Vocabolario
+          ${Number(latest.vocabularyCorrect ?? latest.correct ?? 0)}/
+          ${Number(latest.vocabularyTotal ?? latest.total ?? VOCAB_TOTAL)}
+          · Frasi utili
+          ${Number(latest.carrierCorrect ?? 0)}/
+          ${Number(latest.carrierTotal ?? 0)}
+          · ${escapeHtml(formatDate(latest.completedAt))}
+        </p>
+      `
+      : "";
+
     card.innerHTML = `
       <div class="supplies-check-card-row">
         <div class="supplies-check-copy">
@@ -1050,18 +1218,21 @@
             📚 Prova iniziale · School Supplies Starting Check
           </h3>
           <p>
-            12 domande brevi: parole, immagini e ascolto.
+            Due parti brevi per vedere che cosa lo studente
+            riconosce già.
             <span lang="en">
-              No hints or translations during the check.
+              Two short sections with no hints or translations.
             </span>
           </p>
-          ${hasResult ? `
-            <p>
-              <strong>Ultima prova:</strong>
-              ${latest.correct}/${latest.total}
-              · ${escapeHtml(formatDate(latest.completedAt))}
-            </p>
-          ` : ""}
+          <div class="supplies-check-section-summary">
+            <span class="supplies-check-section-chip">
+              1 · Vocabolario · Vocabulary · 12
+            </span>
+            <span class="supplies-check-section-chip">
+              2 · Frasi utili · Carrier Phrases · 6
+            </span>
+          </div>
+          ${latestSummary}
         </div>
         <div class="supplies-check-actions">
           <button
@@ -1120,12 +1291,13 @@
     }
   }
 
-  function buildQuestions() {
-    const targets = shuffle(TARGET_IDS)
-      .slice(0, TOTAL_ITEMS)
+  function buildVocabularyQuestions() {
+    const targets = shuffle(VOCAB_TARGET_IDS)
+      .slice(0, VOCAB_TOTAL)
       .map(id => itemById.get(id));
 
-    const taskTypes = shuffle(TASK_TYPES);
+    const taskTypes =
+      shuffle(VOCAB_TASK_TYPES);
 
     return targets.map((target, index) => {
       const optionIds = shuffle([
@@ -1134,6 +1306,7 @@
       ]);
 
       return {
+        section: "vocabulary",
         target,
         taskType: taskTypes[index],
         options: optionIds.map(
@@ -1143,15 +1316,78 @@
     });
   }
 
+  function buildCarrierQuestions() {
+    const carriers = getSupplyCarriers();
+
+    if (carriers.length !== 3) {
+      console.warn(
+        "School Supplies carrier phrases are incomplete.",
+        carriers
+      );
+      return [];
+    }
+
+    const supplies = shuffle(
+      CARRIER_SUPPLY_IDS
+    ).slice(0, CARRIER_TOTAL);
+
+    const carrierTargets = shuffle([
+      carriers.find(c => c.id === "vedo"),
+      carriers.find(c => c.id === "vedo"),
+      carriers.find(c => c.id === "ho"),
+      carriers.find(c => c.id === "ho"),
+      carriers.find(c => c.id === "piace"),
+      carriers.find(c => c.id === "piace")
+    ]);
+
+    return supplies.map((supplyId, index) => {
+      const supply = itemById.get(supplyId);
+      const carrier = carrierTargets[index];
+
+      return {
+        section: "carrier",
+        target: supply,
+        carrier,
+        taskType: "carrier-meaning",
+        options: shuffle(carriers)
+      };
+    });
+  }
+
   function startCheck() {
     createModal();
+
+    const carrierQuestions =
+      buildCarrierQuestions();
+
+    if (carrierQuestions.length !== CARRIER_TOTAL) {
+      modal.hidden = false;
+      modalBody.innerHTML = `
+        <h2 id="suppliesCheckDialogTitle">
+          La prova non è pronta.
+        </h2>
+        <p>
+          Non riesco a trovare tutte le frasi utili
+          del materiale scolastico.
+          <span lang="en">
+            The School Supplies carrier phrase data is incomplete.
+          </span>
+        </p>
+      `;
+      return;
+    }
 
     activeSession = {
       id: `supplies-${Date.now()}`,
       startedAt: new Date().toISOString(),
       index: 0,
       selectedItemId: null,
-      questions: buildQuestions(),
+      selectedCarrierId: null,
+      awaitingCarrierIntro: false,
+      questions: [
+        ...buildVocabularyQuestions(),
+        ...carrierQuestions
+      ],
       results: []
     };
 
@@ -1159,7 +1395,11 @@
     renderQuestion();
   }
 
-  function optionButtonHtml(item, taskType, index) {
+  function vocabularyOptionHtml(
+    item,
+    taskType,
+    index
+  ) {
     if (taskType === "picture-to-italian") {
       return `
         <button
@@ -1187,6 +1427,36 @@
     `;
   }
 
+  function carrierOptionHtml(
+    carrier,
+    supply,
+    index
+  ) {
+    return `
+      <button
+        type="button"
+        class="supplies-check-option"
+        data-carrier-id="${escapeHtml(carrier.id)}"
+        aria-label="Opzione ${index + 1}"
+      >
+        <span class="supplies-carrier-composite">
+          <img
+            src="${escapeHtml(carrier.image)}"
+            alt=""
+          >
+          <span
+            class="supplies-carrier-plus"
+            aria-hidden="true"
+          >+</span>
+          <img
+            src="${escapeHtml(supply.image)}"
+            alt=""
+          >
+        </span>
+      </button>
+    `;
+  }
+
   function renderQuestion() {
     if (!activeSession || !modalBody) return;
 
@@ -1201,7 +1471,17 @@
     }
 
     activeSession.selectedItemId = null;
+    activeSession.selectedCarrierId = null;
 
+    if (question.section === "carrier") {
+      renderCarrierQuestion(question);
+      return;
+    }
+
+    renderVocabularyQuestion(question);
+  }
+
+  function renderVocabularyQuestion(question) {
     const number = activeSession.index + 1;
     const target = question.target;
     const taskType = question.taskType;
@@ -1251,11 +1531,14 @@
 
     modalBody.innerHTML = `
       <p class="supplies-check-progress">
-        Domanda ${number} di ${TOTAL_ITEMS}
-        · Question ${number} of ${TOTAL_ITEMS}
+        Parte 1 · Vocabolario ·
+        Domanda ${number} di ${VOCAB_TOTAL}
       </p>
 
       <section class="supplies-check-question">
+        <span class="supplies-check-part-label">
+          1 · Vocabolario · Vocabulary
+        </span>
         <span class="supplies-check-task-label">
           ${TASK_LABELS[taskType]}
         </span>
@@ -1272,7 +1555,7 @@
         <div class="supplies-check-options">
           ${question.options
             .map((item, index) =>
-              optionButtonHtml(
+              vocabularyOptionHtml(
                 item,
                 taskType,
                 index
@@ -1295,8 +1578,8 @@
             data-action="next"
             disabled
           >
-            ${number === TOTAL_ITEMS
-              ? "Finisci · Finish"
+            ${number === VOCAB_TOTAL
+              ? "Continua · Continue"
               : "Avanti · Next"}
           </button>
         </div>
@@ -1363,32 +1646,253 @@
     }
   }
 
+  function renderCarrierIntro() {
+    if (!activeSession || !modalBody) return;
+
+    modalBody.innerHTML = `
+      <section class="supplies-check-interstitial">
+        <span class="supplies-check-interstitial-badge">
+          Parte 1 completata · Part 1 complete
+        </span>
+
+        <h2 id="suppliesCheckDialogTitle">
+          💬 Parte 2 · Frasi utili
+          <span lang="en">· Carrier Phrases</span>
+        </h2>
+
+        <p>
+          Ora ascolta una frase completa.
+          L'oggetto scolastico rimane uguale in tutte
+          le risposte: scegli l'immagine della frase
+          che corrisponde a ciò che senti.
+        </p>
+
+        <p lang="en">
+          Now listen to a complete sentence. The school-supply
+          picture stays the same in every choice, so choose the
+          carrier-phrase image that matches what you hear.
+        </p>
+
+        <div class="supplies-check-section-summary">
+          <span class="supplies-check-section-chip">
+            Io vedo…
+          </span>
+          <span class="supplies-check-section-chip">
+            Io ho…
+          </span>
+          <span class="supplies-check-section-chip">
+            Mi piace…
+          </span>
+        </div>
+
+        <div class="supplies-check-interstitial-actions">
+          <button
+            type="button"
+            class="supplies-check-button"
+            data-action="begin-carriers"
+          >
+            ▶ Continua · Continue
+          </button>
+        </div>
+      </section>
+    `;
+
+    modalBody
+      .querySelector('[data-action="begin-carriers"]')
+      .addEventListener(
+        "click",
+        renderQuestion
+      );
+  }
+
+  function renderCarrierQuestion(question) {
+    const carrierIndex =
+      activeSession.index - VOCAB_TOTAL + 1;
+
+    const sentence =
+      carrierSentence(
+        question.carrier,
+        question.target
+      );
+
+    modalBody.innerHTML = `
+      <p class="supplies-check-progress">
+        Parte 2 · Frasi utili ·
+        Domanda ${carrierIndex} di ${CARRIER_TOTAL}
+      </p>
+
+      <section class="supplies-check-question">
+        <span class="supplies-check-part-label">
+          2 · Frasi utili · Carrier Phrases
+        </span>
+        <span class="supplies-check-task-label">
+          ${TASK_LABELS["carrier-meaning"]}
+        </span>
+
+        <h2 id="suppliesCheckDialogTitle">
+          Ascolta la frase. Quale immagine mostra il significato?
+        </h2>
+
+        <p>
+          <button
+            type="button"
+            class="supplies-check-audio"
+            data-action="replay-audio"
+          >
+            🔊 Ascolta di nuovo · Listen again
+          </button>
+        </p>
+
+        <p class="supplies-check-question-note">
+          L'oggetto è lo stesso in ogni risposta.
+          <span lang="en">
+            The school-supply picture is the same in every choice.
+          </span>
+        </p>
+
+        <div class="supplies-check-options carrier-options">
+          ${question.options
+            .map((carrier, index) =>
+              carrierOptionHtml(
+                carrier,
+                question.target,
+                index
+              )
+            )
+            .join("")}
+        </div>
+
+        <div class="supplies-check-footer">
+          <span class="supplies-check-question-note">
+            Nessun feedback fino alla fine.
+            <span lang="en">
+              Feedback is saved until the end.
+            </span>
+          </span>
+
+          <button
+            type="button"
+            class="supplies-check-next"
+            data-action="next"
+            disabled
+          >
+            ${carrierIndex === CARRIER_TOTAL
+              ? "Finisci · Finish"
+              : "Avanti · Next"}
+          </button>
+        </div>
+      </section>
+    `;
+
+    const nextButton = modalBody.querySelector(
+      '[data-action="next"]'
+    );
+
+    modalBody
+      .querySelectorAll("[data-carrier-id]")
+      .forEach(button => {
+        button.addEventListener(
+          "click",
+          () => {
+            modalBody
+              .querySelectorAll("[data-carrier-id]")
+              .forEach(option =>
+                option.classList.remove(
+                  "is-selected"
+                )
+              );
+
+            button.classList.add(
+              "is-selected"
+            );
+
+            activeSession.selectedCarrierId =
+              button.dataset.carrierId;
+
+            nextButton.disabled = false;
+          }
+        );
+      });
+
+    nextButton.addEventListener(
+      "click",
+      recordAndAdvance
+    );
+
+    modalBody
+      .querySelector('[data-action="replay-audio"]')
+      .addEventListener(
+        "click",
+        () => speak(sentence)
+      );
+
+    window.setTimeout(
+      () => {
+        if (
+          activeSession &&
+          activeSession.questions[
+            activeSession.index
+          ] === question &&
+          !modal.hidden
+        ) {
+          speak(sentence);
+        }
+      },
+      250
+    );
+  }
+
   function recordAndAdvance() {
-    if (
-      !activeSession ||
-      !activeSession.selectedItemId
-    ) {
-      return;
-    }
+    if (!activeSession) return;
 
     const question =
       activeSession.questions[
         activeSession.index
       ];
 
-    activeSession.results.push({
-      itemId: question.target.id,
-      italian: question.target.italian,
-      english: question.target.english,
-      taskType: question.taskType,
-      selectedItemId:
-        activeSession.selectedItemId,
-      correct:
-        activeSession.selectedItemId ===
-        question.target.id
-    });
+    if (!question) return;
+
+    if (question.section === "vocabulary") {
+      if (!activeSession.selectedItemId) return;
+
+      activeSession.results.push({
+        section: "vocabulary",
+        itemId: question.target.id,
+        italian: question.target.italian,
+        english: question.target.english,
+        taskType: question.taskType,
+        selectedItemId:
+          activeSession.selectedItemId,
+        correct:
+          activeSession.selectedItemId ===
+          question.target.id
+      });
+    } else {
+      if (!activeSession.selectedCarrierId) return;
+
+      activeSession.results.push({
+        section: "carrier",
+        itemId: question.target.id,
+        italian: question.target.italian,
+        english: question.target.english,
+        taskType: question.taskType,
+        carrierId: question.carrier.id,
+        carrierItalian:
+          question.carrier.italian,
+        selectedCarrierId:
+          activeSession.selectedCarrierId,
+        correct:
+          activeSession.selectedCarrierId ===
+          question.carrier.id
+      });
+    }
 
     activeSession.index += 1;
+
+    if (activeSession.index === VOCAB_TOTAL) {
+      renderCarrierIntro();
+      return;
+    }
 
     if (
       activeSession.index >=
@@ -1420,7 +1924,11 @@
     createModal();
     modal.hidden = false;
 
-    const rows = result.results
+    const vocabularyRows = result.results
+      .filter(entry =>
+        (entry.section || "vocabulary") ===
+        "vocabulary"
+      )
       .map(entry => {
         const correct =
           entry.status === "correct";
@@ -1450,23 +1958,97 @@
       })
       .join("");
 
+    const carrierGroups =
+      result.byCarrier || {};
+
+    const carrierRows =
+      Object.values(carrierGroups)
+        .map(group => {
+          const strong =
+            Number(group.correct) ===
+            Number(group.attempts);
+
+          return `
+            <tr>
+              <td>
+                <strong>
+                  ${escapeHtml(group.italian)}
+                </strong>
+              </td>
+              <td>
+                ${Number(group.correct)}/
+                ${Number(group.attempts)}
+              </td>
+              <td class="${strong
+                ? "supplies-check-status-correct"
+                : "supplies-check-status-review"}">
+                ${strong
+                  ? "✓ Riconosciuta · Recognized"
+                  : "○ Da insegnare/ripassare · Review"}
+              </td>
+            </tr>
+          `;
+        })
+        .join("");
+
+    const vocabularyCorrect =
+      Number(
+        result.vocabularyCorrect ??
+        result.correct ??
+        0
+      );
+
+    const vocabularyTotal =
+      Number(
+        result.vocabularyTotal ??
+        result.total ??
+        VOCAB_TOTAL
+      );
+
+    const carrierCorrect =
+      Number(result.carrierCorrect ?? 0);
+
+    const carrierTotal =
+      Number(result.carrierTotal ?? 0);
+
     modalBody.innerHTML = `
       <h2 id="suppliesCheckDialogTitle">
         📚 Risultati della prova iniziale
         <span lang="en">· Starting Check Results</span>
       </h2>
 
-      <div class="supplies-check-result-score">
-        ${result.correct}/${result.total}
+      <div class="supplies-check-result-grid">
+        <div class="supplies-check-result-stat">
+          <strong>
+            ${vocabularyCorrect}/${vocabularyTotal}
+          </strong>
+          <span>
+            Vocabolario · Vocabulary
+          </span>
+        </div>
+
+        <div class="supplies-check-result-stat">
+          <strong>
+            ${carrierCorrect}/${carrierTotal}
+          </strong>
+          <span>
+            Frasi utili · Carrier Phrases
+          </span>
+        </div>
       </div>
 
       <p class="supplies-check-result-note">
         Questa è una fotografia di partenza, non un voto e
         non una misura di padronanza.
         <span lang="en">
-          Use it to see which words may need teaching or review.
+          Use the two sections separately to decide what
+          may need teaching or review.
         </span>
       </p>
+
+      <h3 class="supplies-check-results-heading">
+        Parte 1 · Vocabolario · Vocabulary
+      </h3>
 
       <table class="supplies-check-results-table">
         <thead>
@@ -1477,9 +2059,35 @@
           </tr>
         </thead>
         <tbody>
-          ${rows}
+          ${vocabularyRows}
         </tbody>
       </table>
+
+      <h3 class="supplies-check-results-heading">
+        Parte 2 · Frasi utili · Carrier Phrases
+      </h3>
+
+      ${carrierTotal ? `
+        <table class="supplies-check-results-table">
+          <thead>
+            <tr>
+              <th>Frase · Phrase</th>
+              <th>Risultato · Result</th>
+              <th>Stato · Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            ${carrierRows}
+          </tbody>
+        </table>
+      ` : `
+        <p class="supplies-check-result-note">
+          Questa prova precedente includeva solo il vocabolario.
+          <span lang="en">
+            This earlier result was from the vocabulary-only version.
+          </span>
+        </p>
+      `}
 
       <div class="supplies-check-footer">
         <span class="supplies-check-question-note">

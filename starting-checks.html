@@ -161,6 +161,46 @@
       font-weight: 750;
     }
 
+    .related-language {
+      margin-top: 14px;
+      padding-top: 13px;
+      border-top: 1px solid #e2e8f0;
+    }
+
+    .related-language-label {
+      display: block;
+      margin-bottom: 7px;
+      color: #53657a;
+      font-size: .79rem;
+      font-weight: 900;
+    }
+
+    .related-language-chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 7px;
+    }
+
+    .related-language-chip {
+      display: inline-flex;
+      align-items: center;
+      min-height: 30px;
+      padding: 5px 10px;
+      border: 1px solid #bfd4e7;
+      border-radius: 999px;
+      color: #355a7c;
+      background: #f8fbff;
+      font-size: .79rem;
+      font-weight: 850;
+    }
+
+    .related-language-note {
+      margin-top: 8px !important;
+      color: #7a8798 !important;
+      font-size: .76rem;
+      line-height: 1.4 !important;
+    }
+
     .check-start {
       display: inline-flex;
       align-items: center;
@@ -289,16 +329,39 @@
             <span lang="en">School Supplies</span>
           </h2>
           <p>
-            12 domande brevi con parole, immagini e ascolto.
+            18 domande in due parti: 12 sul vocabolario e
+            6 sulle frasi utili collegate.
             <span lang="en">
-              Checks Italian-to-picture, picture-to-Italian,
-              and listening recognition using the existing Primo Volo visuals.
+              Two sections: 12 vocabulary items and 6 carrier-phrase
+              comprehension items using existing Primo Volo visuals.
             </span>
           </p>
           <p class="check-meta">
             Nessun suggerimento o traduzione durante la prova ·
             <span lang="en">No hints or translations during the check</span>
           </p>
+
+          <div class="related-language">
+            <span class="related-language-label">
+              💬 Parte 2 · Frasi utili ·
+              <span lang="en">Carrier Phrases</span>
+            </span>
+
+            <div class="related-language-chips">
+              <span class="related-language-chip">Io vedo…</span>
+              <span class="related-language-chip">Io ho…</span>
+              <span class="related-language-chip">Mi piace…</span>
+            </div>
+
+            <p class="related-language-note">
+              La seconda parte verifica la comprensione di queste frasi
+              mantenendo uguale l’oggetto scolastico nelle risposte.
+              <span lang="en">
+                Part 2 checks these carrier phrases while holding the
+                school-supply noun constant across the answer choices.
+              </span>
+            </p>
+          </div>
         </div>
 
         <a
