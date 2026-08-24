@@ -7,6 +7,7 @@
     index.html?topic=supplies
     index.html?topic=supplies&startingCheck=1
     index.html?topic=numbers&startingCheck=1
+    index.html?topic=colors&startingCheck=1
 */
 (() => {
   const params = new URLSearchParams(
@@ -51,6 +52,9 @@
       '[data-action="start"]',
     numbers:
       ".numbers-starting-check:not([hidden]) " +
+      '[data-action="start"]',
+    colors:
+      ".colors-starting-check:not([hidden]) " +
       '[data-action="start"]'
   };
 
