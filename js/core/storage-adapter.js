@@ -17,6 +17,7 @@
     currentStudent: "primoVoloCurrentStudentV1",
     progress: "primoVoloActivityCenterProgress",
     practice: "primoVoloFlightPathPractice",
+    startingChecks: "primoVoloStartingChecksV1",
     journey: "primoVoloCityJourneyV1",
     legacyPassport: "primoVoloPassportAchievements"
   });
@@ -26,6 +27,7 @@
     { id: "current-student", baseKey: KEYS.currentStudent, scope: "device", cloudCandidate: false },
     { id: "progress", baseKey: KEYS.progress, scope: "student", cloudCandidate: true },
     { id: "practice", baseKey: KEYS.practice, scope: "student", cloudCandidate: true },
+    { id: "starting-checks", baseKey: KEYS.startingChecks, scope: "student", cloudCandidate: true },
     { id: "journey", baseKey: KEYS.journey, scope: "student", cloudCandidate: true },
     { id: "legacy-passport", baseKey: KEYS.legacyPassport, scope: "student", cloudCandidate: false, legacy: true }
   ].map(item => Object.freeze({ ...item, schemaVersion: 1 })));
