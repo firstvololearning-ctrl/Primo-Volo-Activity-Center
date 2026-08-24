@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="utf-8">
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1"
+  >
+  <title>Prove iniziali · Starting Checks — Primo Volo d'Italiano</title>
+  <meta
+    name="description"
+    content="Short Primo Volo starting checks that show what learners already know before practice begins."
+  >
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      color: #34465b;
+      background: #f5f7fa;
+    }
+
+    .checks-header {
+      display: grid;
+      grid-template-columns: 1fr 1.7fr 1fr;
+      align-items: center;
+      gap: 24px;
+      width: min(1120px, calc(100% - 32px));
+      margin: 0 auto;
+      padding: 26px 0 18px;
+    }
+
+    .checks-brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .checks-brand img {
+      width: 62px;
+      height: auto;
+    }
+
+    .checks-brand-copy {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .checks-brand-copy strong {
+      color: #274b84;
+      font-size: .95rem;
+    }
+
+    .checks-brand-copy span {
+      color: #67768a;
+      font-size: .78rem;
+      font-weight: 700;
+    }
+
+    .checks-title {
+      text-align: center;
+    }
+
+    .checks-title h1 {
+      margin: 0;
+      color: #274b84;
+      font-size: clamp(2rem, 4vw, 3rem);
+      line-height: 1.05;
+    }
+
+    .checks-title p {
+      margin: 8px 0 0;
+      color: #d46c5c;
+      font-weight: 900;
+    }
+
+    .checks-home {
+      justify-self: end;
+      padding: 10px 15px;
+      border: 1px solid #d6e0ec;
+      border-radius: 999px;
+      color: #274b84;
+      background: white;
+      font-size: .85rem;
+      font-weight: 800;
+      text-decoration: none;
+    }
+
+    main {
+      width: min(920px, calc(100% - 32px));
+      margin: 0 auto 48px;
+    }
+
+    .checks-intro {
+      padding: 22px 28px;
+      border: 1px solid #d9e2ed;
+      border-radius: 20px;
+      background: white;
+      box-shadow: 0 7px 20px rgba(39,75,132,.06);
+    }
+
+    .checks-intro p {
+      max-width: 760px;
+      margin: 0 auto;
+      color: #53657a;
+      line-height: 1.65;
+      text-align: center;
+    }
+
+    .checks-intro strong {
+      color: #274b84;
+    }
+
+    .checks-grid {
+      display: grid;
+      gap: 16px;
+      margin-top: 22px;
+    }
+
+    .check-card {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      align-items: center;
+      gap: 22px;
+      padding: 22px;
+      border: 1px solid #d9e2ed;
+      border-radius: 20px;
+      background: white;
+      box-shadow: 0 7px 20px rgba(39,75,132,.06);
+    }
+
+    .check-badge {
+      display: inline-block;
+      margin-bottom: 7px;
+      padding: 5px 9px;
+      border-radius: 999px;
+      color: #337a4d;
+      background: #eef8f1;
+      font-size: .74rem;
+      font-weight: 900;
+      letter-spacing: .03em;
+      text-transform: uppercase;
+    }
+
+    .check-card h2 {
+      margin: 0;
+      color: #274b84;
+      font-size: 1.35rem;
+    }
+
+    .check-card p {
+      margin: 8px 0 0;
+      color: #627187;
+      line-height: 1.5;
+    }
+
+    .check-meta {
+      font-size: .84rem;
+      font-weight: 750;
+    }
+
+    .check-start {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 145px;
+      min-height: 44px;
+      padding: 10px 17px;
+      border: 1px solid #a8c8b2;
+      border-radius: 999px;
+      color: #286440;
+      background: #eef8f1;
+      font-weight: 900;
+      text-decoration: none;
+    }
+
+    .checks-note {
+      margin-top: 20px;
+      padding: 16px 20px;
+      border-radius: 15px;
+      color: #5b6877;
+      background: #edf3f9;
+      font-size: .86rem;
+      line-height: 1.5;
+      text-align: center;
+    }
+
+    .checks-note strong {
+      color: #274b84;
+    }
+
+    .checks-links {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 18px;
+    }
+
+    .checks-links a {
+      padding: 9px 13px;
+      border: 1px solid #d6e0ec;
+      border-radius: 999px;
+      color: #274b84;
+      background: white;
+      font-size: .82rem;
+      font-weight: 800;
+      text-decoration: none;
+    }
+
+    footer {
+      padding: 20px 16px 30px;
+      color: #7b8796;
+      font-size: .78rem;
+      text-align: center;
+    }
+
+    @media (max-width: 760px) {
+      .checks-header {
+        grid-template-columns: 1fr;
+        justify-items: center;
+        text-align: center;
+      }
+
+      .checks-home {
+        justify-self: center;
+      }
+
+      .check-card {
+        grid-template-columns: 1fr;
+      }
+
+      .check-start {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="checks-header">
+    <div class="checks-brand">
+      <img
+        src="images/logo/logo.png"
+        alt="First Volo Learning"
+      >
+      <div class="checks-brand-copy">
+        <strong>First Volo Learning</strong>
+        <span>firstvololearning.com</span>
+      </div>
+    </div>
+
+    <div class="checks-title">
+      <h1>
+        🧭 Prove iniziali ·
+        <span lang="en">Starting Checks</span>
+      </h1>
+      <p>Primo Volo d’Italiano</p>
+    </div>
+
+    <a class="checks-home" href="index.html">
+      ✈️ Primo Volo · Home
+    </a>
+  </header>
+
+  <main>
+    <section class="checks-intro">
+      <p>
+        Le prove iniziali sono brevi attività da usare
+        <strong>prima della pratica</strong> per vedere che cosa
+        lo studente riconosce già.
+        <span lang="en">
+          Starting Checks are short pre-assessments used before
+          practice to identify what a learner already recognizes.
+          They provide a starting point, not a grade or a mastery score.
+        </span>
+      </p>
+    </section>
+
+    <section class="checks-grid" aria-label="Prove iniziali disponibili">
+      <article class="check-card">
+        <div>
+          <span class="check-badge">
+            Settembre · September
+          </span>
+          <h2>
+            📚 Materiale scolastico ·
+            <span lang="en">School Supplies</span>
+          </h2>
+          <p>
+            12 domande brevi con parole, immagini e ascolto.
+            <span lang="en">
+              Checks Italian-to-picture, picture-to-Italian,
+              and listening recognition using the existing Primo Volo visuals.
+            </span>
+          </p>
+          <p class="check-meta">
+            Nessun suggerimento o traduzione durante la prova ·
+            <span lang="en">No hints or translations during the check</span>
+          </p>
+        </div>
+
+        <a
+          class="check-start"
+          href="index.html?topic=supplies&amp;startingCheck=1"
+        >
+          ▶ Inizia · Start
+        </a>
+      </article>
+    </section>
+
+    <p class="checks-note">
+      <strong>Altre prove iniziali verranno aggiunte qui.</strong>
+      <span lang="en">
+        Additional Starting Checks will be added as they are developed.
+      </span>
+    </p>
+
+    <div class="checks-links">
+      <a href="monthly-curriculum.html#settembre">
+        📅 Materiali di settembre · September Materials
+      </a>
+      <a href="index.html?topic=supplies">
+        📚 Materiale scolastico · Practice
+      </a>
+    </div>
+  </main>
+
+  <footer>
+    © 2026 Alexis Sacco / First Volo Learning. All rights reserved.
+  </footer>
+</body>
+</html>

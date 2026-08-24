@@ -23,6 +23,9 @@
       "#voloCityMapButton"
     ),
     document.querySelector(
+      'a[href="starting-checks.html"]'
+    ),
+    document.querySelector(
       'a[href="glossary.html"]'
     ),
     document.querySelector(
