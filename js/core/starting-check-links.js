@@ -6,6 +6,7 @@
   Examples:
     index.html?topic=supplies
     index.html?topic=supplies&startingCheck=1
+    index.html?topic=numbers&startingCheck=1
 */
 (() => {
   const params = new URLSearchParams(
@@ -44,22 +45,29 @@
     return;
   }
 
-  /*
-    The School Supplies Starting Check is created
-    by impara-supplies.js. Wait briefly for its
-    topic-specific card to become available, then
-    use the same Start control a learner would use.
-  */
+  const STARTING_CHECK_SELECTORS = {
+    supplies:
+      ".supplies-starting-check:not([hidden]) " +
+      '[data-action="start"]',
+    numbers:
+      ".numbers-starting-check:not([hidden]) " +
+      '[data-action="start"]'
+  };
+
+  const selector =
+    STARTING_CHECK_SELECTORS[topic];
+
+  if (!selector) {
+    return;
+  }
+
   let attempts = 0;
 
   const openStartingCheck = () => {
     attempts += 1;
 
     const startButton =
-      document.querySelector(
-        ".supplies-starting-check:not([hidden]) " +
-        '[data-action="start"]'
-      );
+      document.querySelector(selector);
 
     if (startButton) {
       /*
