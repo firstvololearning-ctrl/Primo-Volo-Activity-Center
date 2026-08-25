@@ -1718,5 +1718,19 @@ const introductions = [
     english: "I am well, thank you.",
     image:
       "images/introductions/introductions-05.png"
+  },
+
+  {
+    italian: "Sto così così.",
+    english: "I am so-so.",
+    image:
+      "images/introductions/introductions-06.png"
+  },
+
+  {
+    italian: "Sto male.",
+    english: "I am not well.",
+    image:
+      "images/introductions/introductions-07.png"
   }
 ];
