@@ -1,0 +1,327 @@
+/*
+  Carnevale print pages
+  ---------------------
+  This creates an explicit three-page print composition from
+  the existing Carnevale article. The screen page is unchanged.
+*/
+
+.carnevale-print-stage {
+  display: none;
+}
+
+@media print {
+  body > main.carnevale-page {
+    display: none !important;
+  }
+
+  .carnevale-print-stage {
+    display: block !important;
+    width: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  .carnevale-print-page {
+    display: flex !important;
+    flex-direction: column !important;
+
+    width: 100% !important;
+    height: 10in !important;
+    min-height: 10in !important;
+    max-height: 10in !important;
+
+    margin: 0 !important;
+    padding: 0 !important;
+
+    overflow: hidden !important;
+
+    break-after: page !important;
+    page-break-after: always !important;
+  }
+
+  .carnevale-print-page:last-child {
+    break-after: auto !important;
+    page-break-after: auto !important;
+  }
+
+  .carnevale-print-page .back-link,
+  .carnevale-print-page .full-link {
+    display: none !important;
+  }
+
+  .carnevale-print-page .culture-header,
+  .carnevale-print-page .hero-section,
+  .carnevale-print-page .info-card,
+  .carnevale-print-page .did-you-know,
+  .carnevale-print-page .costume-section,
+  .carnevale-print-page .source-box {
+    flex: 0 0 auto !important;
+  }
+
+  /*
+    Page 1: title + introduction + origins.
+    Reuse the compact hero arrangement already established
+    for the working Carnevale printout.
+  */
+  .carnevale-print-page .hero-section {
+    display: grid !important;
+    grid-template-columns: minmax(0, 1fr) 2.35in !important;
+    align-items: center !important;
+    gap: 0.16in !important;
+
+    padding: 0.20in !important;
+
+    break-inside: avoid !important;
+    page-break-inside: avoid !important;
+  }
+
+  .carnevale-print-page .hero-copy {
+    min-width: 0 !important;
+    position: relative !important;
+    z-index: 5 !important;
+  }
+
+  .carnevale-print-page .hero-figures {
+    position: relative !important;
+    width: 2.35in !important;
+    min-height: 3.05in !important;
+    height: 3.05in !important;
+    overflow: hidden !important;
+  }
+
+  .carnevale-print-page .hero-person {
+    bottom: 0 !important;
+    height: 2.75in !important;
+    max-width: 1.55in !important;
+    object-fit: contain !important;
+  }
+
+  .carnevale-print-page .hero-person-left {
+    left: -0.05in !important;
+    transform: rotate(-3deg) scale(.76) !important;
+  }
+
+  .carnevale-print-page .hero-person-center {
+    left: 50% !important;
+    transform: translateX(-50%) scale(.84) !important;
+  }
+
+  .carnevale-print-page .hero-person-right {
+    right: -0.05in !important;
+    transform: rotate(3deg) scale(.76) !important;
+  }
+
+  /*
+    Pages 1 and 2 use full-width cards, so no browser grid
+    can split a rounded border between pages.
+  */
+  .carnevale-print-page .info-card,
+  .carnevale-print-page .did-you-know {
+    width: 100% !important;
+
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+
+    break-inside: avoid !important;
+    page-break-inside: avoid !important;
+  }
+
+  .carnevale-print-page-two .info-card {
+    margin-bottom: 0.14in !important;
+  }
+
+  /*
+    Page 3: the eight costumes stay in the successful 4 x 2
+    grid, but there is no page-break rule because this whole
+    section already lives inside its own explicit page.
+  */
+  .carnevale-print-page .costume-section {
+    margin-top: 0 !important;
+    padding: 0.18in !important;
+
+    break-before: auto !important;
+    page-break-before: auto !important;
+
+    break-inside: avoid !important;
+    page-break-inside: avoid !important;
+
+    box-shadow: none !important;
+  }
+
+  .carnevale-print-page .costume-grid {
+    display: grid !important;
+    grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
+    gap: 0.10in !important;
+    margin-top: 0.14in !important;
+  }
+
+  .carnevale-print-page .costume-card {
+    display: grid !important;
+    place-items: center !important;
+
+    min-height: 0 !important;
+    height: 2.42in !important;
+    margin: 0 !important;
+    padding: 0.05in !important;
+
+    overflow: hidden !important;
+
+    break-inside: avoid !important;
+    page-break-inside: avoid !important;
+
+    border-radius: 10px !important;
+    box-shadow: none !important;
+  }
+
+  .carnevale-print-page .costume-card img {
+    display: block !important;
+    width: 100% !important;
+    height: 2.28in !important;
+    max-height: 2.28in !important;
+    object-fit: contain !important;
+  }
+
+  .carnevale-print-page .costume-section .section-heading-icon {
+    font-size: 18pt !important;
+  }
+
+  .carnevale-print-page .costume-section .section-heading h2 {
+    font-size: 17pt !important;
+  }
+
+  .carnevale-print-page .costume-section .section-heading p,
+  .carnevale-print-page .costume-intro,
+  .carnevale-print-page .costume-intro-en {
+    font-size: 9.5pt !important;
+    line-height: 1.25 !important;
+  }
+
+  .carnevale-print-page .costume-intro {
+    margin: 0.08in 0 0 !important;
+  }
+
+  .carnevale-print-page .costume-intro-en {
+    margin: 0.02in 0 0 !important;
+  }
+
+  .carnevale-print-page .illustration-note {
+    margin-top: 0.08in !important;
+    font-size: 8.5pt !important;
+    line-height: 1.25 !important;
+  }
+
+  .carnevale-print-page .illustration-note +
+  .illustration-note {
+    margin-top: 0.02in !important;
+  }
+
+  .carnevale-print-page .source-box {
+    margin-top: 0.10in !important;
+    padding: 0.10in 0.12in !important;
+
+    box-shadow: none !important;
+
+    break-inside: avoid !important;
+    page-break-inside: avoid !important;
+  }
+
+  .carnevale-print-page .source-box a {
+    display: none !important;
+  }
+
+  /*
+    The footer is ordinary content at the bottom of EACH
+    explicit page. It is not fixed, so Chrome cannot move it
+    to the top of another page.
+  */
+  .carnevale-print-page-footer {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    gap: 18px !important;
+
+    width: 100% !important;
+    margin: auto 0 0 !important;
+    padding: 0.07in 0 0 !important;
+
+    border-top: 1px solid #d9dfe6 !important;
+
+    color: #607080 !important;
+    background: #ffffff !important;
+
+    font-size: 8pt !important;
+    line-height: 1.1 !important;
+  }
+
+  .carnevale-print-page-footer span:first-child {
+    text-align: left !important;
+  }
+
+  .carnevale-print-page-footer span:last-child {
+    text-align: right !important;
+  }
+}
+
+/* BEGIN CARNEVALE PAGE FOOTER GUARANTEE */
+
+@media print {
+  /*
+    Each print page is already an explicit 10-inch page.
+    Anchor that page's own footer to its bottom edge instead
+    of relying on flex flow. This guarantees a footer on
+    pages 1, 2, and 3 without browser fixed-position behavior.
+  */
+  .carnevale-print-page {
+    position: relative !important;
+    box-sizing: border-box !important;
+    padding-bottom: 0.30in !important;
+  }
+
+  .carnevale-print-page-footer {
+    position: absolute !important;
+    left: 0 !important;
+    right: 0 !important;
+    bottom: 0 !important;
+
+    width: 100% !important;
+    margin: 0 !important;
+    padding: 0.06in 0 0 !important;
+
+    border-top: 1px solid #d9dfe6 !important;
+
+    color: #607080 !important;
+    background: #ffffff !important;
+
+    font-size: 8pt !important;
+    line-height: 1.1 !important;
+  }
+
+  /*
+    Page 2 was the only page whose content consumed the footer
+    space. Tighten only that page slightly while preserving the
+    same content and visual hierarchy.
+  */
+  .carnevale-print-page-two .info-card {
+    padding: 0.16in 0.20in !important;
+    margin-bottom: 0.10in !important;
+  }
+
+  .carnevale-print-page-two .info-card p {
+    margin-top: 0.07in !important;
+    margin-bottom: 0.07in !important;
+    line-height: 1.28 !important;
+  }
+
+  .carnevale-print-page-two .did-you-know {
+    padding: 0.15in 0.20in !important;
+    margin-top: 0 !important;
+  }
+
+  .carnevale-print-page-two .did-you-know p,
+  .carnevale-print-page-two .did-you-know blockquote {
+    margin-top: 0.055in !important;
+    margin-bottom: 0.055in !important;
+  }
+}
+
+/* END CARNEVALE PAGE FOOTER GUARANTEE */
