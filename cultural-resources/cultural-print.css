@@ -1,0 +1,394 @@
+/* Primo Volo cultural readings - shared screen/print support */
+
+.pv-print-button {
+  position: fixed;
+  top: 16px;
+  right: 16px;
+  z-index: 9999;
+
+  min-height: 42px;
+  padding: 9px 14px;
+
+  border: 1px solid #d6e0ec;
+  border-radius: 999px;
+
+  color: #274b84;
+  background: #ffffff;
+  box-shadow: 0 5px 16px rgba(39, 75, 132, .14);
+
+  font: inherit;
+  font-size: .86rem;
+  font-weight: 850;
+  line-height: 1.2;
+  cursor: pointer;
+}
+
+.pv-print-button:hover,
+.pv-print-button:focus-visible {
+  border-color: #9fb5cf;
+  background: #f5f8fc;
+  outline: none;
+}
+
+@page {
+  size: Letter;
+  margin: 0.5in;
+}
+
+@media print {
+  html,
+  body {
+    color: #111 !important;
+    background: #fff !important;
+  }
+
+  body {
+    margin: 0 !important;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  .pv-print-button,
+  .pv-print-hide,
+  .back-link,
+  .nav,
+  nav,
+  .full-link {
+    display: none !important;
+  }
+
+  .resource-shell,
+  .carnevale-page,
+  main {
+    width: 100% !important;
+    max-width: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  a,
+  a:visited {
+    color: inherit !important;
+    text-decoration: none !important;
+  }
+
+  a[href]::after {
+    content: none !important;
+  }
+
+  img {
+    max-width: 100% !important;
+    height: auto !important;
+  }
+
+  /* --------------------------------------------------
+     Illustrated cultural readings
+     Their images already contain the reading title, so
+     the web-only heading is redundant in print.
+     -------------------------------------------------- */
+
+  .pv-print-illustrated .resource-heading {
+    display: none !important;
+  }
+
+  .pv-print-illustrated .resource-image-frame {
+    width: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+
+    border: 0 !important;
+    border-radius: 0 !important;
+    background: #fff !important;
+    box-shadow: none !important;
+
+    break-inside: avoid !important;
+    page-break-inside: avoid !important;
+    break-after: page !important;
+    page-break-after: always !important;
+  }
+
+  .pv-print-illustrated .resource-image-frame img {
+    display: block !important;
+    width: auto !important;
+    max-width: 7.5in !important;
+    max-height: 10in !important;
+    margin: 0 auto !important;
+    object-fit: contain !important;
+  }
+
+  .pv-print-illustrated .context-card {
+    width: 100% !important;
+    margin: 0 !important;
+    padding: 0.25in !important;
+
+    border: 1px solid #d4dae2 !important;
+    border-radius: 12px !important;
+    background: #fff !important;
+    box-shadow: none !important;
+
+    break-inside: auto !important;
+    page-break-inside: auto !important;
+  }
+
+  .pv-print-illustrated .context-block {
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+
+  /* --------------------------------------------------
+     Single illustrated sheet: La scuola in Italia
+     The artwork already contains its own title/footer.
+     Print exactly the illustrated sheet, not empty
+     webpage title/footer pages around it.
+     -------------------------------------------------- */
+
+  .pv-print-single-image > header,
+  .pv-print-single-image > footer {
+    display: none !important;
+  }
+
+  .pv-print-single-image .article-card {
+    width: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+
+    border: 0 !important;
+    border-radius: 0 !important;
+    background: #fff !important;
+    box-shadow: none !important;
+  }
+
+  .pv-print-single-image .article-card img {
+    display: block !important;
+    width: auto !important;
+    max-width: 7.5in !important;
+    max-height: 10in !important;
+    margin: 0 auto !important;
+    object-fit: contain !important;
+  }
+
+  /* --------------------------------------------------
+     Multi-page illustrated reading: San Martino
+     Each designed image becomes exactly one Letter page.
+     -------------------------------------------------- */
+
+  .pv-print-multipage-images .resource-pages {
+    display: block !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  .pv-print-multipage-images .resource-page-frame {
+    width: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+
+    border: 0 !important;
+    border-radius: 0 !important;
+    background: #fff !important;
+    box-shadow: none !important;
+
+    break-inside: avoid !important;
+    page-break-inside: avoid !important;
+    break-after: page !important;
+    page-break-after: always !important;
+  }
+
+  .pv-print-multipage-images .resource-page-frame img {
+    display: block !important;
+    width: auto !important;
+    max-width: 7.5in !important;
+    max-height: 10in !important;
+    margin: 0 auto !important;
+    object-fit: contain !important;
+  }
+
+  /* --------------------------------------------------
+     HTML article pages such as Carnevale
+     Preserve cards/content but remove web-only chrome.
+     -------------------------------------------------- */
+
+  .culture-header,
+  .hero-section,
+  .info-card,
+  .did-you-know,
+  .question-box,
+  .unesco-note,
+  .costume-card,
+  .tradition-card {
+    box-shadow: none !important;
+  }
+
+  .culture-header {
+    break-inside: avoid !important;
+    page-break-inside: avoid !important;
+  }
+
+  footer,
+  .footer {
+    margin-top: 0.18in !important;
+    padding: 0.08in 0 0 !important;
+    border-top: 1px solid #d9dfe6;
+    color: #555 !important;
+    font-size: 9pt !important;
+    text-align: center !important;
+
+    break-before: avoid !important;
+    page-break-before: avoid !important;
+  }
+}
+
+/* BEGIN CARNEVALE PRINT FIX */
+@media print {
+
+  /* Keep the opening text and costume art side-by-side.
+     This prevents the large hero figures from covering the text. */
+  .carnevale-page .hero-section {
+    display: grid !important;
+    grid-template-columns: minmax(0, 1fr) 2.35in !important;
+    align-items: center !important;
+    gap: 0.16in !important;
+
+    padding: 0.20in !important;
+
+    break-inside: avoid !important;
+    page-break-inside: avoid !important;
+  }
+
+  .carnevale-page .hero-copy {
+    min-width: 0 !important;
+    position: relative !important;
+    z-index: 5 !important;
+  }
+
+  .carnevale-page .hero-figures {
+    position: relative !important;
+    width: 2.35in !important;
+    min-height: 3.05in !important;
+    height: 3.05in !important;
+    overflow: hidden !important;
+  }
+
+  .carnevale-page .hero-person {
+    bottom: 0 !important;
+    height: 2.75in !important;
+    max-width: 1.55in !important;
+    object-fit: contain !important;
+  }
+
+  .carnevale-page .hero-person-left {
+    left: -0.05in !important;
+    transform: rotate(-3deg) scale(.76) !important;
+  }
+
+  .carnevale-page .hero-person-center {
+    left: 50% !important;
+    transform: translateX(-50%) scale(.84) !important;
+  }
+
+  .carnevale-page .hero-person-right {
+    right: -0.05in !important;
+    transform: rotate(3deg) scale(.76) !important;
+  }
+
+  /* The screen breakpoint turns the gallery into two columns in print.
+     Force a compact 4 x 2 gallery instead so the cards do not fragment
+     into empty boxes across multiple pages. */
+  .carnevale-page .costume-section {
+    margin-top: 0 !important;
+    padding: 0.18in !important;
+
+    break-before: page !important;
+    page-break-before: always !important;
+
+    break-inside: avoid !important;
+    page-break-inside: avoid !important;
+
+    box-shadow: none !important;
+  }
+
+  .carnevale-page .costume-grid {
+    display: grid !important;
+    grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
+    gap: 0.10in !important;
+    margin-top: 0.14in !important;
+  }
+
+  .carnevale-page .costume-card {
+    display: grid !important;
+    place-items: center !important;
+
+    min-height: 0 !important;
+    height: 2.42in !important;
+    margin: 0 !important;
+    padding: 0.05in !important;
+
+    overflow: hidden !important;
+
+    break-inside: avoid !important;
+    page-break-inside: avoid !important;
+
+    border-radius: 10px !important;
+    box-shadow: none !important;
+  }
+
+  .carnevale-page .costume-card img {
+    display: block !important;
+    width: 100% !important;
+    height: 2.28in !important;
+    max-height: 2.28in !important;
+    object-fit: contain !important;
+  }
+
+  .carnevale-page .costume-section .section-heading-icon {
+    font-size: 18pt !important;
+  }
+
+  .carnevale-page .costume-section .section-heading h2 {
+    font-size: 17pt !important;
+  }
+
+  .carnevale-page .costume-section .section-heading p,
+  .carnevale-page .costume-intro,
+  .carnevale-page .costume-intro-en {
+    font-size: 9.5pt !important;
+    line-height: 1.25 !important;
+  }
+
+  .carnevale-page .costume-intro {
+    margin: 0.08in 0 0 !important;
+  }
+
+  .carnevale-page .costume-intro-en {
+    margin: 0.02in 0 0 !important;
+  }
+
+  .carnevale-page .illustration-note {
+    margin-top: 0.08in !important;
+    font-size: 8.5pt !important;
+    line-height: 1.25 !important;
+  }
+
+  .carnevale-page .illustration-note + .illustration-note {
+    margin-top: 0.02in !important;
+  }
+
+  .carnevale-page .source-box {
+    margin-top: 0.10in !important;
+    padding: 0.10in 0.12in !important;
+
+    box-shadow: none !important;
+
+    break-inside: avoid !important;
+    page-break-inside: avoid !important;
+  }
+
+  .carnevale-page .source-box a {
+    display: none !important;
+  }
+
+  .carnevale-page .page-footer {
+    margin-top: 0.08in !important;
+  }
+}
+/* END CARNEVALE PRINT FIX */
