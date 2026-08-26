@@ -10565,3 +10565,465 @@ p + p {
 }
 
 /* HOME LEARNING PATH READABILITY TUNE END */
+
+
+/* ========================================================
+   PRIMO VOLO · CHAT MATS
+   ======================================================== */
+
+.home-chat-mats {
+  width: min(1040px, calc(100% - 32px));
+  margin: 28px auto 32px;
+  padding: 22px;
+
+  border: 1px solid #d8d3f3;
+  border-radius: 24px;
+
+  background:
+    linear-gradient(
+      135deg,
+      #f7f3ff 0%,
+      #eef8ff 100%
+    );
+
+  box-shadow:
+    0 10px 28px
+    rgba(54, 72, 110, 0.08);
+}
+
+.home-chat-mats-heading {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+}
+
+.home-chat-mats-icon {
+  display: grid;
+  place-items: center;
+
+  flex: 0 0 50px;
+  width: 50px;
+  height: 50px;
+
+  border-radius: 16px;
+  background: #ffffff;
+
+  box-shadow:
+    0 5px 15px
+    rgba(54, 72, 110, 0.10);
+
+  font-size: 1.6rem;
+}
+
+.home-chat-mats-copy {
+  min-width: 0;
+}
+
+.home-chat-mats-eyebrow {
+  margin: 0 0 3px;
+
+  color: #6d55c7;
+
+  font-size: 0.78rem;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.home-chat-mats h2 {
+  margin: 0;
+}
+
+.home-chat-mats-copy > p:last-child {
+  margin: 7px 0 0;
+
+  color: #657187;
+  line-height: 1.5;
+}
+
+.home-chat-mats-grid {
+  display: grid;
+  gap: 12px;
+  margin-top: 18px;
+}
+
+.home-chat-mat-card {
+  display: grid;
+  grid-template-columns:
+    auto
+    minmax(0, 1fr)
+    auto;
+
+  align-items: center;
+  gap: 14px;
+
+  padding: 15px 17px;
+
+  border: 1px solid #d9e2ef;
+  border-radius: 18px;
+
+  color: inherit;
+  background: #ffffff;
+  text-decoration: none;
+
+  box-shadow:
+    0 5px 16px
+    rgba(54, 72, 110, 0.08);
+
+  transition:
+    transform 0.15s ease,
+    box-shadow 0.15s ease,
+    border-color 0.15s ease;
+}
+
+.home-chat-mat-card:hover {
+  transform: translateY(-2px);
+
+  border-color: #b8abe9;
+
+  box-shadow:
+    0 9px 22px
+    rgba(54, 72, 110, 0.12);
+}
+
+.home-chat-mat-card:focus-visible {
+  outline:
+    3px solid
+    rgba(109, 85, 199, 0.25);
+
+  outline-offset: 3px;
+}
+
+.home-chat-mat-topic-icon {
+  font-size: 2rem;
+}
+
+.home-chat-mat-text {
+  min-width: 0;
+}
+
+.home-chat-mat-text strong {
+  display: block;
+
+  color: #263b59;
+  font-size: 1rem;
+}
+
+.home-chat-mat-text > span {
+  display: block;
+
+  margin-top: 3px;
+
+  color: #69788d;
+  font-size: 0.87rem;
+}
+
+.home-chat-mat-arrow {
+  color: #5c49b4;
+
+  font-size: 1.2rem;
+  font-weight: 900;
+}
+
+.chat-mat-box {
+  border-color: #d9d1f4 !important;
+
+  background:
+    linear-gradient(
+      145deg,
+      #ffffff 0%,
+      #faf8ff 100%
+    );
+}
+
+.chat-mat-box .chat-mat-intro {
+  margin: 0 0 12px;
+
+  color: #69788d;
+  font-size: 0.88rem;
+  line-height: 1.45;
+}
+
+@media (max-width: 700px) {
+  .home-chat-mats {
+    width: min(100% - 20px, 1040px);
+    padding: 18px;
+  }
+
+  .home-chat-mat-card {
+    grid-template-columns:
+      auto
+      minmax(0, 1fr);
+  }
+
+  .home-chat-mat-arrow {
+    display: none;
+  }
+}
+
+/* END PRIMO VOLO · CHAT MATS */
+
+
+/* ========================================================
+   MONTHLY CURRICULUM · STRONG RESOURCE SECTION HEADS
+   ======================================================== */
+
+/*
+  Make the major resource types read as true section heads:
+  Starting Checks
+  Interactive Practice
+  Reading & Reference
+  Chat Mats
+  Printable Materials
+*/
+
+.month-card .resource-grid > .resource-box > h3 {
+  display: flex;
+  align-items: center;
+
+  width: 100%;
+  box-sizing: border-box;
+
+  margin: 0 0 14px;
+  padding: 11px 14px;
+
+  border-radius: 12px;
+
+  background:
+    linear-gradient(
+      135deg,
+      #244f7a 0%,
+      #3574a8 100%
+    );
+
+  color: #ffffff;
+
+  font-size: 1rem;
+  font-weight: 850;
+  line-height: 1.25;
+
+  letter-spacing: 0.005em;
+
+  box-shadow:
+    0 4px 10px
+    rgba(41, 72, 110, 0.12);
+}
+
+/* Starting Check gets its own warm identity. */
+.month-card
+.resource-grid
+> .starting-check-box
+> h3 {
+  background:
+    linear-gradient(
+      135deg,
+      #f5c85c 0%,
+      #f0aa48 100%
+    );
+
+  color: #253a52;
+}
+
+/* Reading / Reference */
+.month-card
+.resource-grid
+> .reference-box
+> h3 {
+  background:
+    linear-gradient(
+      135deg,
+      #247c83 0%,
+      #36a3a4 100%
+    );
+}
+
+/* Chat Mats */
+.month-card
+.resource-grid
+> .chat-mat-box
+> h3 {
+  background:
+    linear-gradient(
+      135deg,
+      #6552b7 0%,
+      #8068d5 100%
+    );
+}
+
+/*
+  Smaller divisions INSIDE Printable Materials remain
+  clearly subordinate to the major section heading.
+*/
+.month-card .printable-group > h4 {
+  margin: 0 0 9px;
+  padding: 8px 11px;
+
+  border-left: 4px solid #8ea6c5;
+  border-radius: 8px;
+
+  background: #edf3fa;
+
+  color: #294d73;
+
+  font-size: 0.88rem;
+  font-weight: 800;
+  line-height: 1.25;
+}
+
+/* Chat Mat intro sits neatly below its strong heading. */
+.month-card .chat-mat-box .chat-mat-intro {
+  margin-top: 0;
+}
+
+/* Keep the hierarchy clear on phones too. */
+@media (max-width: 700px) {
+  .month-card .resource-grid > .resource-box > h3 {
+    padding: 10px 12px;
+    font-size: 0.94rem;
+  }
+
+  .month-card .printable-group > h4 {
+    font-size: 0.84rem;
+  }
+}
+
+/* END MONTHLY CURRICULUM · STRONG RESOURCE SECTION HEADS */
+
+
+/* ========================================================
+   MONTHLY CURRICULUM · MONTH-LEVEL SECTION HEADINGS
+   ======================================================== */
+
+/*
+  These are the three major divisions within each month:
+  Language Targets
+  Learning & Practice Materials
+  Monthly Culture
+*/
+
+.month-card .monthly-section-heading {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+
+  margin: 22px 0 16px;
+  padding: 15px 17px;
+
+  border: 1px solid #d8e3ef;
+  border-left: 5px solid #527fb1;
+  border-radius: 15px;
+
+  background:
+    linear-gradient(
+      135deg,
+      #f4f8fc 0%,
+      #eef4fa 100%
+    );
+}
+
+.month-card .monthly-section-heading
+.monthly-section-icon {
+  display: grid;
+  place-items: center;
+
+  flex: 0 0 42px;
+  width: 42px;
+  height: 42px;
+
+  border-radius: 12px;
+
+  background: #ffffff;
+
+  box-shadow:
+    0 3px 9px
+    rgba(42, 70, 105, 0.08);
+
+  font-size: 1.25rem;
+}
+
+.month-card .monthly-section-heading > div:last-child {
+  min-width: 0;
+}
+
+.month-card .monthly-section-heading h3 {
+  margin: 0;
+
+  color: #244b7f;
+
+  font-size: 1.06rem;
+  font-weight: 900;
+  line-height: 1.25;
+}
+
+.month-card .monthly-section-heading p {
+  margin: 5px 0 0;
+
+  color: #6f7f92;
+
+  font-size: 0.86rem;
+  font-weight: 600;
+  line-height: 1.45;
+}
+
+/* Language */
+.month-card .language-section-heading {
+  border-left-color: #7665c7;
+
+  background:
+    linear-gradient(
+      135deg,
+      #f8f6ff 0%,
+      #f2f0fb 100%
+    );
+}
+
+/* Learning & Practice Materials */
+.month-card .materials-section-heading {
+  border-left-color: #2f8c91;
+
+  background:
+    linear-gradient(
+      135deg,
+      #f2fbfa 0%,
+      #edf7f6 100%
+    );
+}
+
+/* Monthly Culture */
+.month-card .culture-section-heading {
+  border-left-color: #d09a35;
+
+  background:
+    linear-gradient(
+      135deg,
+      #fff9ec 0%,
+      #fbf4e4 100%
+    );
+}
+
+@media (max-width: 700px) {
+  .month-card .monthly-section-heading {
+    gap: 11px;
+    margin: 18px 0 13px;
+    padding: 13px 14px;
+  }
+
+  .month-card .monthly-section-heading
+  .monthly-section-icon {
+    flex-basis: 38px;
+    width: 38px;
+    height: 38px;
+
+    font-size: 1.1rem;
+  }
+
+  .month-card .monthly-section-heading h3 {
+    font-size: 0.98rem;
+  }
+
+  .month-card .monthly-section-heading p {
+    font-size: 0.82rem;
+  }
+}
+
+/* END MONTHLY CURRICULUM · MONTH-LEVEL SECTION HEADINGS */
