@@ -18,6 +18,38 @@
     return;
   }
 
+  const cultureSource =
+    document.querySelector(
+      ".culture-link"
+    );
+
+  function makeCultureHeaderLink() {
+    const template =
+      document.querySelector(
+        'a[href="books.html"]'
+      ) ||
+      document.querySelector(
+        'a[href="worksheets.html"]'
+      );
+
+    if (!template) {
+      return null;
+    }
+
+    const link =
+      template.cloneNode(true);
+
+    link.removeAttribute("id");
+
+    link.href =
+      "cultural-resources/";
+
+    link.textContent =
+      "🏛️ Cultura · Culture";
+
+    return link;
+  }
+
   const learnerItems = [
     document.querySelector(
       "#voloCityMapButton"
@@ -31,6 +63,7 @@
     document.querySelector(
       'a[href="books.html"]'
     ),
+    makeCultureHeaderLink(),
     document.querySelector(
       "#referenceButton"
     )
@@ -116,7 +149,8 @@
     ),
     document.querySelector(
       'a[href="printables/Che-cosa-mangi-Primo-Volo.pdf"]'
-    )
+    ),
+    makeCultureHeaderLink()
   ].filter(Boolean);
 
   const educatorProgressItems = [
@@ -376,4 +410,11 @@
     educatorGroup,
     infoRow
   );
+
+  /*
+    Culture now lives inside both audience-specific
+    resource groups, so the old standalone button below
+    the groups is no longer needed.
+  */
+  cultureSource?.remove();
 })();
