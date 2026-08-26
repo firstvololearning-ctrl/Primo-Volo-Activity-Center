@@ -95,6 +95,9 @@
     ),
     document.querySelector(
       'a[href="games.html"]'
+    ),
+    document.querySelector(
+      'a[href="printables/Che-cosa-mangi-Primo-Volo.pdf"]'
     )
   ].filter(Boolean);
 
