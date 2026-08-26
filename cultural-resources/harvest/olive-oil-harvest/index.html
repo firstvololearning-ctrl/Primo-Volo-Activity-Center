@@ -1,0 +1,966 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta
+  name="viewport"
+  content="width=device-width, initial-scale=1.0"
+>
+
+<title>La raccolta delle olive | Primo Volo d'Italiano</title>
+
+<style>
+:root {
+  --blue: #274b84;
+  --brown: #775126;
+  --orange: #b66e3d;
+  --olive: #657738;
+  --olive-dark: #465528;
+  --olive-light: #f2f5e7;
+  --cream: #fffaf2;
+  --border: #e5d5bd;
+  --text: #4f4a43;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  color: var(--text);
+  background:
+    linear-gradient(
+      180deg,
+      #fffaf2 0%,
+      #f5f8fc 52%,
+      #ffffff 100%
+    );
+  font-family:
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    sans-serif;
+}
+
+.resource-shell {
+  width: min(1080px, calc(100% - 32px));
+  margin: 0 auto;
+  padding: 34px 0 56px;
+}
+
+.back-link {
+  display: inline-block;
+  margin-bottom: 20px;
+  color: var(--blue);
+  font-weight: 800;
+  text-decoration: none;
+}
+
+.resource-heading {
+  margin-bottom: 24px;
+  text-align: center;
+}
+
+.resource-kicker {
+  display: inline-block;
+  margin-bottom: 8px;
+  padding: 6px 12px;
+  border-radius: 999px;
+  color: var(--olive-dark);
+  background: var(--olive-light);
+  font-size: 0.84rem;
+  font-weight: 800;
+}
+
+.resource-heading h1 {
+  margin: 4px 0;
+  color: var(--brown);
+  font-size: clamp(2rem, 5vw, 3.25rem);
+  line-height: 1.05;
+}
+
+.resource-heading p {
+  margin: 8px 0 0;
+  color: #756d64;
+  font-size: 1.05rem;
+  font-weight: 700;
+}
+
+.hero-frame {
+  overflow: hidden;
+  margin-bottom: 30px;
+  padding: 16px;
+  border: 2px solid var(--border);
+  border-radius: 24px;
+  background: #fffdf8;
+  box-shadow:
+    0 10px 30px rgba(70, 54, 35, 0.09);
+}
+
+.hero-frame img {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-height: 650px;
+  object-fit: contain;
+  border-radius: 16px;
+}
+
+.context-card {
+  width: min(930px, 100%);
+  margin: 30px auto 0;
+  padding: 26px;
+  border: 1px solid #dce4ed;
+  border-radius: 22px;
+  background: rgba(255, 255, 255, 0.97);
+  box-shadow:
+    0 8px 24px rgba(39, 75, 132, 0.09);
+}
+
+.context-card > h2 {
+  margin: 0 0 20px;
+  color: var(--blue);
+  font-size: clamp(1.35rem, 3vw, 1.85rem);
+  text-align: center;
+}
+
+.context-block + .context-block {
+  margin-top: 22px;
+  padding-top: 20px;
+  border-top: 1px solid #e1e7ef;
+}
+
+.context-block h3 {
+  margin: 0 0 9px;
+  color: var(--blue);
+  font-size: 1.08rem;
+}
+
+.context-block p {
+  margin: 7px 0;
+  line-height: 1.68;
+}
+
+.feature-grid {
+  display: grid;
+  grid-template-columns:
+    repeat(2, minmax(0, 1fr));
+  gap: 18px;
+  margin-top: 20px;
+}
+
+.feature-card {
+  overflow: hidden;
+  border: 1px solid #e0e5da;
+  border-radius: 18px;
+  background: #fff;
+}
+
+.feature-card img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  object-fit: contain;
+  background: #fff;
+}
+
+.feature-copy {
+  padding: 16px 17px 18px;
+}
+
+.feature-copy h3 {
+  margin: 0 0 7px;
+  color: var(--olive-dark);
+  font-size: 1.02rem;
+}
+
+.feature-copy p {
+  margin: 0;
+  line-height: 1.58;
+}
+
+.word-grid {
+  display: grid;
+  grid-template-columns:
+    repeat(2, minmax(0, 1fr));
+  gap: 10px 16px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.word-grid li {
+  padding: 10px 12px;
+  border-radius: 12px;
+  background: #f7f9f2;
+  line-height: 1.45;
+}
+
+.word-grid strong {
+  color: var(--olive-dark);
+}
+
+.path-list {
+  display: grid;
+  gap: 10px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.path-list li {
+  display: grid;
+  grid-template-columns: 34px 1fr;
+  gap: 10px;
+  align-items: start;
+  padding: 10px 12px;
+  border-radius: 12px;
+  background: #f7f9f2;
+  line-height: 1.5;
+}
+
+.path-number {
+  display: grid;
+  place-items: center;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  color: white;
+  background: var(--olive);
+  font-weight: 900;
+}
+
+.machine-overview {
+  margin: 18px 0 24px;
+  padding: 14px;
+  border: 1px solid #dce4ed;
+  border-radius: 18px;
+  background: #fff;
+}
+
+.machine-overview img {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-height: 600px;
+  object-fit: contain;
+  border-radius: 12px;
+}
+
+.machine-grid {
+  display: grid;
+  grid-template-columns:
+    repeat(2, minmax(0, 1fr));
+  gap: 18px;
+}
+
+.machine-card {
+  overflow: hidden;
+  border: 1px solid #dce4ed;
+  border-radius: 18px;
+  background: #fff;
+}
+
+.machine-card img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: contain;
+  background: #fff;
+}
+
+.machine-copy {
+  padding: 14px 16px 17px;
+}
+
+.machine-copy h3 {
+  margin: 0 0 6px;
+  color: var(--blue);
+  font-size: 1.02rem;
+}
+
+.machine-copy p {
+  margin: 0;
+  line-height: 1.56;
+}
+
+.accuracy-note {
+  margin: 18px 0 0;
+  padding: 14px 16px;
+  border-left: 4px solid var(--olive);
+  border-radius: 0 14px 14px 0;
+  background: var(--olive-light);
+  line-height: 1.6;
+}
+
+.culture-feature {
+  display: grid;
+  grid-template-columns:
+    minmax(0, 0.95fr)
+    minmax(0, 1.05fr);
+  gap: 22px;
+  align-items: center;
+}
+
+.culture-feature img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 18px;
+  background: #fff;
+}
+
+.culture-copy p {
+  line-height: 1.68;
+}
+
+.did-you-know {
+  margin-top: 16px;
+  padding: 15px 17px;
+  border-left: 4px solid #d69a32;
+  border-radius: 0 14px 14px 0;
+  background: #fff8e8;
+  line-height: 1.62;
+}
+
+.question-box {
+  margin-top: 10px !important;
+  padding: 15px 17px;
+  border-radius: 15px;
+  color: #243447;
+  background: #f5f8fc;
+  font-weight: 700;
+}
+
+.sources {
+  margin: 8px 0 0;
+  padding-left: 21px;
+  line-height: 1.6;
+}
+
+.sources li + li {
+  margin-top: 10px;
+}
+
+.sources a {
+  color: var(--blue);
+  font-weight: 750;
+}
+
+.footer {
+  margin-top: 30px;
+  color: #756d64;
+  font-size: 0.84rem;
+  text-align: center;
+}
+
+@media (max-width: 760px) {
+  .feature-grid,
+  .machine-grid,
+  .word-grid,
+  .culture-feature {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 600px) {
+  .resource-shell {
+    width: min(100% - 20px, 1080px);
+    padding-top: 20px;
+  }
+
+  .hero-frame,
+  .context-card {
+    padding: 16px;
+    border-radius: 18px;
+  }
+}
+
+@media print {
+  .context-card,
+  .feature-card,
+  .machine-card,
+  .machine-overview,
+  .culture-feature {
+    break-inside: avoid;
+    box-shadow: none;
+  }
+
+  .machine-grid,
+  .feature-grid {
+    grid-template-columns:
+      repeat(2, minmax(0, 1fr));
+  }
+
+  .sources a {
+    color: inherit;
+    text-decoration: none;
+  }
+}
+
+/* OLIVE HARVEST · PRINT LAYOUT FIX */
+.olive-print-footer {
+  display: none;
+}
+
+@media print {
+  @page {
+    margin: 0.48in 0.48in 0.68in;
+  }
+
+  .culture-card {
+    break-before: page;
+    page-break-before: always;
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+
+  .culture-card > h2 {
+    margin: 0 0 12px !important;
+  }
+
+  .culture-card .culture-feature {
+    display: grid !important;
+    grid-template-columns: minmax(0, 0.88fr) minmax(0, 1.12fr) !important;
+    gap: 16px !important;
+    align-items: center !important;
+    break-inside: avoid !important;
+    page-break-inside: avoid !important;
+  }
+
+  .culture-card .culture-feature img {
+    width: 100% !important;
+    max-height: 6.1in !important;
+    object-fit: contain !important;
+  }
+
+  .culture-card .culture-copy p {
+    margin: 0 0 10px !important;
+    font-size: 10.4pt !important;
+    line-height: 1.46 !important;
+  }
+
+  .culture-card .did-you-know {
+    margin-top: 10px !important;
+    padding: 10px 12px !important;
+    font-size: 10.2pt !important;
+    line-height: 1.42 !important;
+  }
+
+  .footer {
+    display: none !important;
+  }
+
+  .olive-print-footer {
+    display: flex !important;
+    position: fixed;
+    left: 0.48in;
+    right: 0.48in;
+    bottom: 0.14in;
+    z-index: 9999;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 5px;
+    border-top: 1px solid #cfd7df;
+    background: #fff;
+    color: #6b6b6b;
+    font-family:
+      -apple-system,
+      BlinkMacSystemFont,
+      "Segoe UI",
+      sans-serif;
+    font-size: 8.4pt;
+    line-height: 1.2;
+  }
+}
+/* END OLIVE HARVEST · PRINT LAYOUT FIX */
+
+</style>
+
+<link
+  rel="stylesheet"
+  href="../../cultural-print.css"
+  data-primo-cultural-print
+>
+</head>
+
+<body>
+
+<main class="resource-shell">
+
+  <a
+    class="back-link"
+    href="../index.html"
+  >
+    ← Il raccolto e le tradizioni alimentari
+  </a>
+
+  <header class="resource-heading">
+    <div class="resource-kicker">
+      🍂 Sapori e tradizioni d'autunno
+    </div>
+
+    <h1>
+      🫒 La raccolta delle olive
+    </h1>
+
+    <p>
+      Dall'ulivo all'olio · From the olive tree to olive oil
+    </p>
+  </header>
+
+  <section class="hero-frame">
+    <img
+      src="images/harvest-and-culture/07_raccolta_reti_sotto_ulivi.png"
+      alt="Two Primo Volo figures holding a harvest net under olive trees"
+    >
+  </section>
+
+  <section class="context-card">
+    <h2>
+      🌿 La raccolta · The Olive Harvest
+    </h2>
+
+    <div class="context-block">
+      <p>
+        <strong>Italiano:</strong>
+        In autunno, in molte zone d'Italia, si raccolgono le
+        <strong>olive</strong>. Le olive crescono sugli
+        <strong>ulivi</strong>. Si possono raccogliere a mano
+        oppure con pettini e altri strumenti.
+      </p>
+
+      <p>
+        Sotto gli alberi si stendono grandi <strong>reti</strong>.
+        Le olive cadono sulle reti e poi vengono messe nelle
+        <strong>cassette</strong>. Le cassette vanno al
+        <strong>frantoio</strong>, dove dalle olive si produce
+        l'olio.
+      </p>
+
+      <p lang="en">
+        <strong>English:</strong>
+        In autumn, olives are harvested in many parts of Italy.
+        They may be picked by hand or with tools. Nets catch the
+        olives under the trees, and the fruit is placed in crates
+        before going to the olive mill.
+      </p>
+    </div>
+
+    <div class="feature-grid">
+
+      <article class="feature-card">
+        <img
+          src="images/harvest-and-culture/08_raccolta_a_mano_con_cesto.png"
+          alt="Primo Volo figures picking olives by hand and placing them in a basket"
+        >
+        <div class="feature-copy">
+          <h3>🖐️ A mano · By hand</h3>
+          <p>
+            Le olive si staccano dai rami e si mettono in
+            cesti o cassette.
+          </p>
+        </div>
+      </article>
+
+      <article class="feature-card">
+        <img
+          src="images/harvest-and-culture/06_raccolta_rastrello_e_cassetta.png"
+          alt="Primo Volo figures using a harvesting comb and collecting olives in a crate"
+        >
+        <div class="feature-copy">
+          <h3>🧺 Con gli strumenti · With tools</h3>
+          <p>
+            Pettini e altri strumenti aiutano a far cadere
+            le olive sulle reti.
+          </p>
+        </div>
+      </article>
+
+    </div>
+
+    <div class="context-block">
+      <h3>
+        🌿 Parole importanti · Important Words
+      </h3>
+
+      <ul class="word-grid">
+        <li><strong>l'ulivo</strong> — olive tree</li>
+        <li><strong>l'oliva</strong> — olive</li>
+        <li><strong>la raccolta</strong> — harvest</li>
+        <li><strong>la rete</strong> — net</li>
+        <li><strong>la cassetta</strong> — crate</li>
+        <li><strong>il frantoio</strong> — olive mill</li>
+        <li><strong>l'olio d'oliva</strong> — olive oil</li>
+        <li><strong>raccogliere</strong> — to harvest / collect</li>
+      </ul>
+    </div>
+
+    <div class="context-block">
+      <h3>
+        👀 Segui il percorso · Follow the Path
+      </h3>
+
+      <ol class="path-list">
+        <li>
+          <span class="path-number">1</span>
+          <span>Le olive crescono sull'ulivo.</span>
+        </li>
+        <li>
+          <span class="path-number">2</span>
+          <span>Si stendono le reti sotto gli alberi.</span>
+        </li>
+        <li>
+          <span class="path-number">3</span>
+          <span>Si raccolgono le olive.</span>
+        </li>
+        <li>
+          <span class="path-number">4</span>
+          <span>Le olive vanno nelle cassette.</span>
+        </li>
+        <li>
+          <span class="path-number">5</span>
+          <span>Le olive arrivano al frantoio.</span>
+        </li>
+        <li>
+          <span class="path-number">6</span>
+          <span>Nel frantoio si produce l'olio.</span>
+        </li>
+        <li>
+          <span class="path-number">7</span>
+          <span>L'olio viene conservato e poi imbottigliato.</span>
+        </li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="context-card">
+    <h2>
+      ⚙️ Nel frantoio moderno · Inside a Modern Olive Mill
+    </h2>
+
+    <div class="context-block">
+      <p>
+        Oggi molti frantoi usano macchine collegate tra loro.
+        Ogni macchina svolge una parte del lavoro.
+      </p>
+
+      <p lang="en">
+        In many modern olive mills, connected machines carry out
+        the different steps of the process.
+      </p>
+    </div>
+
+    <div class="machine-overview">
+      <img
+        src="images/harvest-and-culture/05_frantoio_moderno_linea.png"
+        alt="Primo Volo illustration of a modern olive mill production line"
+      >
+    </div>
+
+    <div class="machine-grid">
+
+      <article class="machine-card">
+        <img
+          src="images/modern-frantoio/01_lavaggio_lavatrice_olive.png"
+          alt="Olive cleaning and washing equipment"
+        >
+        <div class="machine-copy">
+          <h3>1 · Pulizia e lavaggio</h3>
+          <p>
+            Si tolgono foglie e rametti. Poi le olive
+            vengono lavate.
+          </p>
+        </div>
+      </article>
+
+      <article class="machine-card">
+        <img
+          src="images/modern-frantoio/02_frangitura_frangitore.png"
+          alt="Modern olive crusher"
+        >
+        <div class="machine-copy">
+          <h3>2 · Frangitura</h3>
+          <p>
+            Il <strong>frangitore</strong> rompe le olive
+            e crea una pasta.
+          </p>
+        </div>
+      </article>
+
+      <article class="machine-card">
+        <img
+          src="images/modern-frantoio/03_gramolatura_gramolatrice.png"
+          alt="Modern olive paste malaxer"
+        >
+        <div class="machine-copy">
+          <h3>3 · Gramolatura</h3>
+          <p>
+            La <strong>gramolatrice</strong> mescola lentamente
+            la pasta e aiuta le gocce d'olio a unirsi.
+          </p>
+        </div>
+      </article>
+
+      <article class="machine-card">
+        <img
+          src="images/modern-frantoio/04_estrazione_decanter_orizzontale.png"
+          alt="Horizontal decanter centrifuge used in olive oil production"
+        >
+        <div class="machine-copy">
+          <h3>4 · Estrazione</h3>
+          <p>
+            Il <strong>decanter orizzontale</strong> gira
+            velocemente e separa l'olio dall'acqua e dalla
+            parte solida.
+          </p>
+        </div>
+      </article>
+
+      <article class="machine-card">
+        <img
+          src="images/modern-frantoio/05_separazione_separatore_verticale.png"
+          alt="Vertical centrifugal separator used in olive oil production"
+        >
+        <div class="machine-copy">
+          <h3>5 · Separazione</h3>
+          <p>
+            Il <strong>separatore verticale</strong> elimina
+            altra acqua e piccole impurità.
+          </p>
+        </div>
+      </article>
+
+      <article class="machine-card">
+        <img
+          src="images/modern-frantoio/06_stoccaggio_serbatoi_inox.png"
+          alt="Stainless steel tanks for storing olive oil"
+        >
+        <div class="machine-copy">
+          <h3>6 · Stoccaggio</h3>
+          <p>
+            L'olio viene conservato in serbatoi di
+            <strong>acciaio inox</strong>.
+          </p>
+        </div>
+      </article>
+
+      <article class="machine-card">
+        <img
+          src="images/modern-frantoio/07_imbottigliamento_linea.png"
+          alt="Olive oil bottling line"
+        >
+        <div class="machine-copy">
+          <h3>7 · Imbottigliamento</h3>
+          <p>
+            Infine l'olio viene imbottigliato.
+          </p>
+        </div>
+      </article>
+
+    </div>
+
+    <p class="accuracy-note">
+      <strong>Nota sulle immagini:</strong>
+      le macchine possono avere forme diverse da un frantoio
+      all'altro. Le immagini mostrano le principali fasi di una
+      moderna linea di produzione.
+    </p>
+
+    <p class="did-you-know">
+      💡 <strong>Lo sapevi?</strong>
+      Nei frantoi moderni non si usa una pressa tradizionale.
+      Dopo la frangitura e la gramolatura, la separazione avviene
+      soprattutto con centrifughe.
+    </p>
+  </section>
+
+  <section class="context-card culture-card">
+    <h2>
+      🥖 Una tradizione d'autunno: l'olio nuovo
+    </h2>
+
+    <div class="culture-feature">
+      <img
+        src="images/harvest-and-culture/01_olio_nuovo_pane_e_olio.png"
+        alt="Primo Volo figures tasting fresh olive oil on toasted bread"
+      >
+
+      <div class="culture-copy">
+        <p>
+          Quando si lavorano le olive della nuova raccolta,
+          arriva <strong>l'olio nuovo</strong>: olio appena fatto.
+        </p>
+
+        <p>
+          In Umbria, <strong>Frantoi Aperti</strong> celebra
+          questo periodo con visite ai frantoi, degustazioni e
+          attività negli uliveti e nei borghi.
+        </p>
+
+        <p lang="en">
+          Fresh oil from the new harvest is called
+          <strong>olio nuovo</strong>. In Umbria, Frantoi Aperti
+          celebrates the season with mill visits, tastings, and
+          activities in olive-growing communities.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="context-card culture-card">
+    <h2>
+      🏺 Un salto nel passato: l'olio nell'antica Roma
+    </h2>
+
+    <div class="culture-feature">
+      <img
+        src="images/harvest-and-culture/02_olio_nellantica_roma.png"
+        alt="Colorful Primo Volo-style Roman figures with olive oil, pottery, and an oil lamp"
+      >
+
+      <div class="culture-copy">
+        <p>
+          Nell'antica Roma, l'olio d'oliva serviva per
+          <strong>mangiare</strong>, per alimentare le
+          <strong>lucerne</strong> e per la
+          <strong>cura del corpo</strong>.
+        </p>
+
+        <p>
+          Per produrlo, i Romani schiacciavano le olive con
+          grandi macine. Poi pressavano la pasta e raccoglievano
+          l'olio in recipienti di ceramica.
+        </p>
+
+        <p lang="en">
+          In ancient Rome, olive oil was used for food, lamps,
+          and body care. Romans crushed the olives with stone
+          equipment and then pressed the paste.
+        </p>
+
+        <p class="did-you-know">
+          💡 <strong>Lo sapevi?</strong>
+          Una grande macina romana per le olive si chiamava
+          <strong>trapetum</strong>.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="context-card">
+    <h2>
+      🌱 Pensa · Think
+    </h2>
+
+    <p class="question-box">
+      Perché si mettono le reti sotto gli ulivi?
+      <br>
+      <span lang="en">
+        Why are nets placed under olive trees?
+      </span>
+    </p>
+
+    <p class="question-box">
+      Che cosa succede alle olive quando arrivano al frantoio?
+      <br>
+      <span lang="en">
+        What happens to the olives when they reach the mill?
+      </span>
+    </p>
+
+    <p class="question-box">
+      Quali usi aveva l'olio d'oliva nell'antica Roma?
+      <br>
+      <span lang="en">
+        How was olive oil used in ancient Rome?
+      </span>
+    </p>
+  </section>
+
+  <section class="context-card">
+    <h2>
+      🔎 Fonti · Sources
+    </h2>
+
+    <ul class="sources">
+
+      <li>
+        <a
+          href="https://www.treccani.it/enciclopedia/olivo/"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Treccani — Olivo
+        </a>
+        · l'oliva e i diversi metodi di raccolta
+      </li>
+
+      <li>
+        <a
+          href="https://oliveoilprofessor.com/blog/a-brief-history-of-olive-oil-milling"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          The Olive Oil Professor — A Brief History of Olive Oil Milling
+        </a>
+        · sviluppo storico e fasi della moderna linea continua
+      </li>
+
+      <li>
+        <a
+          href="https://www.umbriatourism.it/it/w/frantoi-aperti-evento"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Umbria Tourism — Frantoi Aperti
+        </a>
+        · olio nuovo, frantoi in funzione e oleoturismo
+      </li>
+
+      <li>
+        <a
+          href="https://www.frantoiaperti.net/"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Frantoi Aperti in Umbria
+        </a>
+        · programma culturale, degustazioni e attività tra gli ulivi
+      </li>
+
+      <li>
+        <a
+          href="https://www.storicang.it/a/lolio-doliva-sostanza-multiuso-degli-antichi-romani_14928"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          Storica National Geographic — L'olio d'oliva,
+          la sostanza multiuso degli antichi romani
+        </a>
+        · produzione e usi dell'olio nell'antica Roma
+      </li>
+
+    </ul>
+  </section>
+
+  <footer class="footer">
+    First Volo Learning | firstvololearning.com · Primo Volo d'Italiano
+  </footer>
+
+</main>
+
+<script
+  src="../../cultural-print.js"
+  data-primo-cultural-print
+></script>
+
+
+<div class="olive-print-footer" aria-hidden="true">
+  <span>First Volo Learning | firstvololearning.com</span>
+  <span>Primo Volo d'Italiano</span>
+</div>
+
+</body>
+</html>
