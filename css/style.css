@@ -11217,3 +11217,164 @@ p + p {
 }
 
 /* ABOUT DIGESTIBLE ACCORDION END */
+
+
+/* EDUCATOR RESOURCE SUBGROUPS START */
+
+.site-header
+.educator-tools
+.header-nav-group-items {
+  display: grid;
+  gap: 12px;
+}
+
+.site-header
+.educator-tools
+.header-nav-group-items[hidden] {
+  display: none !important;
+}
+
+.site-header
+.educator-resource-section {
+  min-width: 0;
+}
+
+.site-header
+.educator-resource-section + .educator-resource-section {
+  padding-top: 11px;
+  border-top: 1px solid rgba(119, 132, 151, .18);
+}
+
+.site-header
+.educator-resource-section-title {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 10px;
+
+  margin: 0 2px 7px;
+
+  color: #526985;
+  text-align: left;
+}
+
+.site-header
+.educator-resource-section-title strong {
+  color: #274b84;
+  font-size: .78rem;
+  font-weight: 900;
+}
+
+.site-header
+.educator-resource-section-title span {
+  color: #7a8799;
+  font-size: .68rem;
+  font-weight: 800;
+}
+
+.site-header
+.educator-resource-section-grid {
+  display: grid;
+  grid-template-columns:
+    repeat(2, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.site-header
+.educator-resource-section-grid
+.header-link {
+  width: 100%;
+  min-width: 0;
+}
+
+@media (max-width: 760px) {
+  .site-header
+  .educator-resource-section-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .site-header
+  .educator-resource-section-title {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 2px;
+  }
+}
+
+/* EDUCATOR RESOURCE SUBGROUPS END */
+
+
+/* EDUCATOR RESOURCE CLARITY OVERRIDE START */
+
+/*
+  The educator dropdown contains two conceptual sections.
+  Stack them vertically so the hierarchy is immediately clear.
+*/
+
+.site-header
+.educator-tools
+.header-nav-group-items {
+  grid-template-columns: 1fr !important;
+  gap: 14px;
+}
+
+.site-header
+.educator-resource-section {
+  width: 100%;
+  min-width: 0;
+}
+
+.site-header
+.educator-resource-section + .educator-resource-section {
+  padding-top: 14px;
+  border-top: 2px solid rgba(39, 75, 132, .10);
+}
+
+.site-header
+.educator-resource-section-title {
+  display: block;
+  margin: 0 0 9px;
+  padding: 0 2px;
+
+  text-align: left;
+}
+
+.site-header
+.educator-resource-section-title strong {
+  display: block;
+
+  color: #274b84;
+  font-size: .82rem;
+  font-weight: 950;
+  line-height: 1.25;
+}
+
+.site-header
+.educator-resource-section-title strong span[lang="en"] {
+  color: #66778b;
+  font-size: .78rem;
+  font-weight: 850;
+}
+
+.site-header
+.educator-resource-section-grid {
+  display: grid;
+  grid-template-columns:
+    repeat(2, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.site-header
+.educator-resource-section-grid
+.header-link {
+  min-height: 48px;
+}
+
+@media (max-width: 760px) {
+  .site-header
+  .educator-resource-section-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* EDUCATOR RESOURCE CLARITY OVERRIDE END */

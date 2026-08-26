@@ -84,12 +84,30 @@
     return link;
   })();
 
-  const educatorItems = [
-    document.querySelector(
-      "#progressButton"
-    ),
+  function cloneLink(selector) {
+    const source =
+      document.querySelector(
+        selector
+      );
+
+    if (!source) {
+      return null;
+    }
+
+    const clone =
+      source.cloneNode(true);
+
+    clone.removeAttribute("id");
+
+    return clone;
+  }
+
+  const educatorInstructionalItems = [
     teacherGuideLink,
     monthlyCurriculumLink,
+    cloneLink(
+      'a[href="books.html"]'
+    ),
     document.querySelector(
       'a[href="worksheets.html"]'
     ),
@@ -100,6 +118,20 @@
       'a[href="printables/Che-cosa-mangi-Primo-Volo.pdf"]'
     )
   ].filter(Boolean);
+
+  const educatorProgressItems = [
+    cloneLink(
+      'a[href="starting-checks.html"]'
+    ),
+    document.querySelector(
+      "#progressButton"
+    )
+  ].filter(Boolean);
+
+  const educatorItems = [
+    ...educatorInstructionalItems,
+    ...educatorProgressItems
+  ];
 
   const infoItems = [
     document.querySelector(
@@ -247,6 +279,83 @@
       "Educators & Families",
       educatorItems
     );
+
+  const educatorItemRow =
+    educatorGroup.querySelector(
+      ".header-nav-group-items"
+    );
+
+  if (educatorItemRow) {
+    educatorItemRow.innerHTML = "";
+
+    function appendEducatorSection(
+      className,
+      italian,
+      english,
+      items
+    ) {
+      const section =
+        document.createElement(
+          "section"
+        );
+
+      section.className =
+        `educator-resource-section ${className}`;
+
+      const heading =
+        document.createElement(
+          "div"
+        );
+
+      heading.className =
+        "educator-resource-section-title";
+
+      heading.innerHTML = `
+        <strong>
+          ${italian}
+          <span aria-hidden="true"> · </span>
+          <span lang="en">${english}</span>
+        </strong>
+      `;
+
+      const grid =
+        document.createElement(
+          "div"
+        );
+
+      grid.className =
+        "educator-resource-section-grid";
+
+      items.forEach(
+        item => {
+          grid.appendChild(item);
+        }
+      );
+
+      section.append(
+        heading,
+        grid
+      );
+
+      educatorItemRow.appendChild(
+        section
+      );
+    }
+
+    appendEducatorSection(
+      "instructional-materials",
+      "📚 Materiali didattici",
+      "Instructional Materials",
+      educatorInstructionalItems
+    );
+
+    appendEducatorSection(
+      "progress-tracking",
+      "📊 Valutazione e progressi",
+      "Assessment & Progress",
+      educatorProgressItems
+    );
+  }
 
   utilities.innerHTML = "";
 
