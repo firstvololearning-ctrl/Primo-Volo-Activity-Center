@@ -11027,3 +11027,193 @@ p + p {
 }
 
 /* END MONTHLY CURRICULUM · MONTH-LEVEL SECTION HEADINGS */
+
+
+
+
+
+/* HOME HEADER GROUP DROPDOWNS START */
+
+.site-header .header-utilities {
+  align-items: start;
+}
+
+.site-header .header-nav-group {
+  height: auto;
+  align-self: start;
+}
+
+.site-header .header-nav-group-title {
+  padding: 0;
+}
+
+.site-header .header-nav-group-toggle {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 8px;
+
+  width: 100%;
+  padding: 10px 12px;
+
+  border: 0;
+  border-radius: 14px;
+
+  background: transparent;
+  color: inherit;
+
+  font: inherit;
+  text-align: center;
+  cursor: pointer;
+}
+
+.site-header .header-nav-group-toggle-copy {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.site-header .header-nav-group-chevron {
+  display: inline-block;
+  color: #64758c;
+  font-size: .9rem;
+  line-height: 1;
+  transition: transform .16s ease;
+}
+
+.site-header
+.header-nav-group.is-open
+.header-nav-group-chevron {
+  transform: rotate(180deg);
+}
+
+.site-header .header-nav-group-toggle:hover {
+  background: rgba(255, 255, 255, .46);
+}
+
+.site-header .header-nav-group-toggle:focus-visible {
+  outline: 3px solid var(--blue, #274b84);
+  outline-offset: -2px;
+}
+
+.site-header .header-nav-group-items[hidden] {
+  display: none !important;
+}
+
+.site-header
+.header-nav-group.is-open
+.header-nav-group-items {
+  margin-top: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .site-header .header-nav-group-chevron {
+    transition: none;
+  }
+}
+
+/* HOME HEADER GROUP DROPDOWNS END */
+
+
+/* ABOUT DIGESTIBLE ACCORDION START */
+
+/*
+  Keep the full About content, but expose it in
+  manageable sections instead of one long wall of text.
+*/
+
+.about-section {
+  overflow: hidden;
+}
+
+.about-section > h3 {
+  margin: 0;
+}
+
+.about-section-toggle {
+  display: grid;
+  grid-template-columns:
+    minmax(0, 1fr)
+    auto;
+  align-items: center;
+  gap: 12px;
+
+  width: 100%;
+  padding: 16px 18px;
+
+  border: 0;
+  border-radius: inherit;
+
+  background: transparent;
+  color: inherit;
+
+  font: inherit;
+  text-align: left;
+
+  cursor: pointer;
+}
+
+.about-section-toggle-label {
+  min-width: 0;
+}
+
+.about-section-toggle-chevron {
+  display: inline-block;
+
+  color: #66758d;
+  font-size: .95rem;
+  line-height: 1;
+
+  transition:
+    transform .16s ease;
+}
+
+.about-section.is-open
+.about-section-toggle-chevron {
+  transform: rotate(180deg);
+}
+
+.about-section-toggle:hover {
+  background:
+    rgba(39, 75, 132, .035);
+}
+
+.about-section-toggle:focus-visible {
+  outline:
+    3px solid var(--blue, #274b84);
+  outline-offset: -3px;
+}
+
+.about-section-body {
+  padding:
+    2px 18px 18px;
+}
+
+.about-section-body[hidden] {
+  display: none !important;
+}
+
+.about-section-body
+> :first-child {
+  margin-top: 0;
+}
+
+@media (max-width: 700px) {
+  .about-section-toggle {
+    padding: 14px 15px;
+  }
+
+  .about-section-body {
+    padding:
+      2px 15px 16px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .about-section-toggle-chevron {
+    transition: none;
+  }
+}
+
+/* ABOUT DIGESTIBLE ACCORDION END */

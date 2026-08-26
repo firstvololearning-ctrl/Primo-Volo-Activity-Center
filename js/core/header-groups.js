@@ -124,19 +124,38 @@
     group.className =
       `header-nav-group ${className}`;
 
+    const itemsId =
+      `header-nav-items-${className}`;
+
     group.innerHTML = `
       <div class="header-nav-group-title">
-        <strong>
-          ${italian}
-        </strong>
+        <button
+          type="button"
+          class="header-nav-group-toggle"
+          aria-expanded="false"
+          aria-controls="${itemsId}"
+        >
+          <span class="header-nav-group-toggle-copy">
+            <strong>
+              ${italian}
+            </strong>
 
-        <span>
-          ${english}
-        </span>
+            <span>
+              ${english}
+            </span>
+          </span>
+
+          <span
+            class="header-nav-group-chevron"
+            aria-hidden="true"
+          >▾</span>
+        </button>
       </div>
 
       <div
         class="header-nav-group-items"
+        id="${itemsId}"
+        hidden
       ></div>
     `;
 
@@ -145,9 +164,70 @@
         ".header-nav-group-items"
       );
 
+    const toggle =
+      group.querySelector(
+        ".header-nav-group-toggle"
+      );
+
     items.forEach(item => {
       itemRow.appendChild(item);
     });
+
+    const stateKey =
+      `primoVoloHeaderGroup:${className}`;
+
+    let isOpen = false;
+
+    try {
+      isOpen =
+        window.sessionStorage.getItem(
+          stateKey
+        ) === "open";
+    } catch (error) {
+      console.warn(
+        "Header group state could not be read.",
+        error
+      );
+    }
+
+    function renderGroupState() {
+      itemRow.hidden =
+        !isOpen;
+
+      toggle.setAttribute(
+        "aria-expanded",
+        String(isOpen)
+      );
+
+      group.classList.toggle(
+        "is-open",
+        isOpen
+      );
+    }
+
+    toggle.addEventListener(
+      "click",
+      () => {
+        isOpen =
+          !isOpen;
+
+        try {
+          window.sessionStorage.setItem(
+            stateKey,
+            isOpen ? "open" : "closed"
+          );
+        } catch (error) {
+          console.warn(
+            "Header group state could not be saved.",
+            error
+          );
+        }
+
+        renderGroupState();
+      }
+    );
+
+    renderGroupState();
 
     return group;
   }
