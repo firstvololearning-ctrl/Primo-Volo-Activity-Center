@@ -11378,3 +11378,348 @@ p + p {
 }
 
 /* EDUCATOR RESOURCE CLARITY OVERRIDE END */
+
+
+/* TEACHER CURRICULUM SCOPE MODAL START */
+
+body.scope-modal-open {
+  overflow: hidden;
+}
+
+.scope-modal[hidden] {
+  display: none !important;
+}
+
+.scope-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 10000;
+
+  display: grid;
+  place-items: center;
+
+  padding: 24px;
+}
+
+.scope-modal-backdrop {
+  position: absolute;
+  inset: 0;
+
+  background: rgba(36, 54, 78, .46);
+  backdrop-filter: blur(3px);
+}
+
+.scope-modal-panel {
+  position: relative;
+  z-index: 1;
+
+  display: flex;
+  flex-direction: column;
+
+  width: min(1040px, 96vw);
+  max-height: min(88vh, 900px);
+
+  overflow: hidden;
+
+  border: 1px solid #d6e0ec;
+  border-radius: 24px;
+
+  background: #fff;
+  box-shadow:
+    0 24px 70px rgba(29, 48, 76, .22);
+}
+
+.scope-modal-header {
+  display: grid;
+  grid-template-columns:
+    minmax(0, 1fr)
+    auto;
+  gap: 20px;
+  align-items: start;
+
+  padding: 22px 24px 18px;
+
+  border-bottom: 1px solid #e2e8f0;
+  background: #f8fbff;
+}
+
+.scope-modal-kicker {
+  margin: 0 0 5px;
+
+  color: #718096;
+
+  font-size: .75rem;
+  font-weight: 900;
+}
+
+.scope-modal-header h2 {
+  margin: 0;
+
+  color: #274b84;
+
+  font-size:
+    clamp(1.35rem, 2.5vw, 1.9rem);
+  line-height: 1.15;
+}
+
+.scope-modal-intro {
+  max-width: 760px;
+
+  margin: 8px 0 0;
+
+  color: #5e6f84;
+
+  font-size: .86rem;
+  line-height: 1.5;
+}
+
+.scope-modal-close {
+  display: inline-grid;
+  place-items: center;
+
+  width: 40px;
+  height: 40px;
+  padding: 0;
+
+  border: 1px solid #d4dfeb;
+  border-radius: 999px;
+
+  color: #51657f;
+  background: #fff;
+
+  font-size: 1.45rem;
+  line-height: 1;
+
+  cursor: pointer;
+}
+
+.scope-modal-close:focus-visible,
+.scope-group-toggle:focus-visible {
+  outline: 3px solid #274b84;
+  outline-offset: 3px;
+}
+
+.scope-modal-scroll {
+  overflow: auto;
+
+  padding: 20px 22px 26px;
+}
+
+.scope-modal-section {
+  margin: 0;
+}
+
+.scope-modal
+.about-scope-groups {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 10px;
+}
+
+.scope-modal
+.about-scope-group {
+  overflow: hidden;
+
+  border: 1px solid #d8e3ef;
+  border-radius: 16px;
+
+  background: #f9fbfd;
+}
+
+.scope-modal
+.about-scope-group-heading {
+  padding: 0;
+}
+
+.scope-group-toggle {
+  display: grid;
+  grid-template-columns:
+    minmax(0, 1fr)
+    auto;
+  gap: 12px;
+  align-items: center;
+
+  width: 100%;
+  padding: 14px 16px;
+
+  border: 0;
+
+  color: inherit;
+  background: #edf4fb;
+
+  font: inherit;
+  text-align: left;
+
+  cursor: pointer;
+}
+
+.scope-group-toggle-label {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 8px;
+}
+
+.scope-group-chevron {
+  color: #66788f;
+
+  transition: transform .16s ease;
+}
+
+.scope-modal
+.about-scope-group.is-open
+.scope-group-chevron {
+  transform: rotate(180deg);
+}
+
+.scope-modal
+.about-scope-topic-list[hidden] {
+  display: none !important;
+}
+
+.scope-modal
+.about-scope-topic-list {
+  padding: 12px;
+}
+
+.scope-monthly-link {
+  display: flex;
+  justify-content: center;
+
+  margin-top: 18px;
+}
+
+.scope-monthly-link a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  min-height: 44px;
+  padding: 10px 16px;
+
+  border: 1px solid #c9d9e9;
+  border-radius: 999px;
+
+  color: #274b84;
+  background: #f8fbff;
+
+  font-size: .84rem;
+  font-weight: 900;
+  text-decoration: none;
+}
+
+@media (max-width: 700px) {
+  .scope-modal {
+    padding: 10px;
+  }
+
+  .scope-modal-panel {
+    width: 100%;
+    max-height: 94vh;
+  }
+
+  .scope-modal-header {
+    padding: 18px 16px 14px;
+  }
+
+  .scope-modal-scroll {
+    padding: 14px 12px 20px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .scope-group-chevron {
+    transition: none;
+  }
+}
+
+/* TEACHER CURRICULUM SCOPE MODAL END */
+
+
+/* SCOPE MODAL CLEANER TOP START */
+
+.scope-modal-header {
+  padding:
+    18px 24px 15px;
+}
+
+.scope-modal-header h2 {
+  display:
+    flex;
+  flex-wrap:
+    wrap;
+  align-items:
+    baseline;
+  gap:
+    8px 12px;
+
+  font-size:
+    clamp(1.25rem, 2.2vw, 1.65rem);
+}
+
+.scope-modal-title-en {
+  color:
+    #64758b;
+
+  font-size:
+    .72em;
+  font-weight:
+    800;
+}
+
+.scope-modal-intro {
+  margin-top:
+    6px;
+
+  font-size:
+    .8rem;
+  line-height:
+    1.4;
+}
+
+.scope-modal-scroll {
+  padding-top:
+    14px;
+}
+
+.scope-modal-footnote {
+  margin:
+    16px 6px 0;
+  padding:
+    10px 12px;
+
+  border-radius:
+    10px;
+
+  color:
+    #66788d;
+  background:
+    #f6f8fb;
+
+  font-size:
+    .76rem;
+  line-height:
+    1.45;
+}
+
+.scope-modal-footnote span[lang="en"] {
+  color:
+    #728197;
+}
+
+@media (max-width: 700px) {
+  .scope-modal-header h2 {
+    display:
+      block;
+  }
+
+  .scope-modal-title-en {
+    display:
+      block;
+
+    margin-top:
+      3px;
+  }
+}
+
+/* SCOPE MODAL CLEANER TOP END */

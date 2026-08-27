@@ -135,8 +135,34 @@
     return clone;
   }
 
+  function makeScopeButton() {
+    const button =
+      document.createElement(
+        "button"
+      );
+
+    button.type =
+      "button";
+
+    button.className =
+      "header-link header-link-wide";
+
+    button.dataset.openScope =
+      "true";
+
+    button.innerHTML = `
+      <span class="header-link-label">
+        🗺️ Panoramica del curricolo ·
+        <span lang="en">Curriculum Overview &amp; Scope</span>
+      </span>
+    `;
+
+    return button;
+  }
+
   const educatorInstructionalItems = [
     teacherGuideLink,
+    makeScopeButton(),
     monthlyCurriculumLink,
     cloneLink(
       'a[href="books.html"]'
