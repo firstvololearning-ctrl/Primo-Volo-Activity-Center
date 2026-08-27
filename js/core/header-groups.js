@@ -87,8 +87,28 @@
     link.href =
       "teacher-guide.html";
 
-    link.textContent =
-      "👩‍🏫 Guida per insegnanti · Teacher Guide";
+    link.classList.add(
+      "educator-guide-link"
+    );
+
+    link.innerHTML = `
+      <span class="educator-guide-link-copy">
+        <strong>
+          👩‍🏫 Guida per insegnanti ·
+          <span lang="en">Teacher Guide</span>
+        </strong>
+
+        <small>
+          Come usare Primo Volo ·
+          <span lang="en">How to use Primo Volo</span>
+        </small>
+      </span>
+
+      <span
+        class="educator-guide-link-arrow"
+        aria-hidden="true"
+      >→</span>
+    `;
 
     return link;
   })();
@@ -160,10 +180,12 @@
     return button;
   }
 
-  const educatorInstructionalItems = [
-    teacherGuideLink,
+  const educatorPlanningItems = [
     makeScopeButton(),
-    monthlyCurriculumLink,
+    monthlyCurriculumLink
+  ].filter(Boolean);
+
+  const educatorTeachingItems = [
     cloneLink(
       'a[href="books.html"]'
     ),
@@ -189,9 +211,11 @@
   ].filter(Boolean);
 
   const educatorItems = [
-    ...educatorInstructionalItems,
+    teacherGuideLink,
+    ...educatorPlanningItems,
+    ...educatorTeachingItems,
     ...educatorProgressItems
-  ];
+  ].filter(Boolean);
 
   const infoItems = [
     document.querySelector(
@@ -348,6 +372,24 @@
   if (educatorItemRow) {
     educatorItemRow.innerHTML = "";
 
+    if (teacherGuideLink) {
+      const guideEntry =
+        document.createElement(
+          "div"
+        );
+
+      guideEntry.className =
+        "educator-guide-entry";
+
+      guideEntry.appendChild(
+        teacherGuideLink
+      );
+
+      educatorItemRow.appendChild(
+        guideEntry
+      );
+    }
+
     function appendEducatorSection(
       className,
       italian,
@@ -356,26 +398,33 @@
     ) {
       const section =
         document.createElement(
-          "section"
+          "details"
         );
 
       section.className =
         `educator-resource-section ${className}`;
 
-      const heading =
+      const summary =
         document.createElement(
-          "div"
+          "summary"
         );
 
-      heading.className =
+      summary.className =
         "educator-resource-section-title";
 
-      heading.innerHTML = `
-        <strong>
-          ${italian}
-          <span aria-hidden="true"> · </span>
-          <span lang="en">${english}</span>
-        </strong>
+      summary.innerHTML = `
+        <span class="educator-resource-section-title-copy">
+          <strong>
+            ${italian}
+            <span aria-hidden="true"> · </span>
+            <span lang="en">${english}</span>
+          </strong>
+        </span>
+
+        <span
+          class="educator-resource-section-chevron"
+          aria-hidden="true"
+        >▾</span>
       `;
 
       const grid =
@@ -393,7 +442,7 @@
       );
 
       section.append(
-        heading,
+        summary,
         grid
       );
 
@@ -403,10 +452,17 @@
     }
 
     appendEducatorSection(
-      "instructional-materials",
+      "planning-resources",
+      "📋 Pianificazione",
+      "Planning",
+      educatorPlanningItems
+    );
+
+    appendEducatorSection(
+      "teaching-materials",
       "📚 Materiali didattici",
-      "Instructional Materials",
-      educatorInstructionalItems
+      "Teaching Materials",
+      educatorTeachingItems
     );
 
     appendEducatorSection(

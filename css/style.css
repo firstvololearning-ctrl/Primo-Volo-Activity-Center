@@ -11723,3 +11723,234 @@ body.scope-modal-open {
 }
 
 /* SCOPE MODAL CLEANER TOP END */
+
+
+/* EDUCATOR NESTED COLLAPSIBLES START */
+
+.site-header
+.educator-guide-entry {
+  width: 100%;
+  margin-bottom: 10px;
+}
+
+.site-header
+.educator-guide-entry
+.header-link {
+  width: 100%;
+  min-height: 50px;
+}
+
+.site-header
+details.educator-resource-section {
+  width: 100%;
+  min-width: 0;
+  padding: 0 !important;
+
+  border: 1px solid rgba(39, 75, 132, .12);
+  border-radius: 14px;
+
+  background: #fbfcfe;
+}
+
+.site-header
+details.educator-resource-section
++ details.educator-resource-section {
+  margin-top: 8px;
+  border-top: 1px solid rgba(39, 75, 132, .12);
+}
+
+.site-header
+details.educator-resource-section
+.educator-resource-section-title {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 10px;
+
+  margin: 0;
+  padding: 11px 12px;
+
+  border-radius: 13px;
+
+  color: #274b84;
+  background: #f7f9fc;
+
+  cursor: pointer;
+  list-style: none;
+  text-align: left;
+}
+
+.site-header
+details.educator-resource-section
+.educator-resource-section-title::-webkit-details-marker {
+  display: none;
+}
+
+.site-header
+details.educator-resource-section
+.educator-resource-section-title:focus-visible {
+  outline: 3px solid rgba(39, 75, 132, .22);
+  outline-offset: 2px;
+}
+
+.site-header
+.educator-resource-section-title-copy {
+  min-width: 0;
+}
+
+.site-header
+.educator-resource-section-title-copy strong {
+  display: block;
+
+  color: #274b84;
+  font-size: .82rem;
+  font-weight: 950;
+  line-height: 1.3;
+}
+
+.site-header
+.educator-resource-section-title-copy
+strong span[lang="en"] {
+  color: #66778b;
+  font-size: .78rem;
+  font-weight: 850;
+}
+
+.site-header
+.educator-resource-section-chevron {
+  color: #718097;
+  font-size: .85rem;
+  font-weight: 900;
+
+  transition: transform .16s ease;
+}
+
+.site-header
+details.educator-resource-section[open]
+.educator-resource-section-chevron {
+  transform: rotate(180deg);
+}
+
+.site-header
+details.educator-resource-section
+.educator-resource-section-grid {
+  display: grid;
+  grid-template-columns:
+    repeat(2, minmax(0, 1fr));
+  gap: 8px;
+
+  padding: 0 11px 11px;
+}
+
+.site-header
+details.educator-resource-section:not([open])
+.educator-resource-section-grid {
+  display: none;
+}
+
+.site-header
+details.educator-resource-section
+.educator-resource-section-grid
+.header-link {
+  width: 100%;
+  min-width: 0;
+  min-height: 48px;
+}
+
+@media (max-width: 760px) {
+  .site-header
+  details.educator-resource-section
+  .educator-resource-section-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .site-header
+  .educator-resource-section-chevron {
+    transition: none;
+  }
+}
+
+/* EDUCATOR NESTED COLLAPSIBLES END */
+
+
+/* EDUCATOR MENU POLISH START */
+
+/* Tighten the nested educator menu. */
+.site-header
+.header-nav-group.educator-tools
+> .header-nav-group-items {
+  gap: 7px !important;
+}
+
+.site-header
+.educator-guide-entry {
+  margin-bottom: 2px !important;
+}
+
+.site-header
+details.educator-resource-section
++ details.educator-resource-section {
+  margin-top: 0 !important;
+}
+
+/* Make Teacher Guide clearly look like a destination,
+   not another collapsible heading. */
+.site-header
+.educator-guide-link {
+  display: grid !important;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 12px;
+
+  padding: 11px 13px !important;
+
+  border-color: #c9d9eb !important;
+  background: #eef5fc !important;
+
+  text-align: left;
+}
+
+.site-header
+.educator-guide-link-copy {
+  min-width: 0;
+}
+
+.site-header
+.educator-guide-link-copy strong {
+  display: block;
+
+  color: #274b84;
+  font-size: .84rem;
+  font-weight: 950;
+  line-height: 1.25;
+}
+
+.site-header
+.educator-guide-link-copy small {
+  display: block;
+  margin-top: 3px;
+
+  color: #687b91;
+  font-size: .69rem;
+  font-weight: 750;
+  line-height: 1.3;
+}
+
+.site-header
+.educator-guide-link-arrow {
+  color: #d46c5c;
+  font-size: 1.15rem;
+  font-weight: 950;
+}
+
+/* Slightly tighter open panels. */
+.site-header
+details.educator-resource-section
+.educator-resource-section-grid {
+  gap: 6px !important;
+  padding: 0 9px 9px !important;
+}
+
+/* EDUCATOR MENU POLISH END */
