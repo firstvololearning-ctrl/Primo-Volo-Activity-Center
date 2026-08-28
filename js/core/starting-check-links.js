@@ -55,6 +55,9 @@
       '[data-action="start"]',
     colors:
       ".colors-starting-check:not([hidden]) " +
+      '[data-action="start"]',
+    weather:
+      ".weather-starting-check:not([hidden]) " +
       '[data-action="start"]'
   };
 
