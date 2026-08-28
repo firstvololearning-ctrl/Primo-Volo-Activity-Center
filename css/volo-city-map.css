@@ -2974,3 +2974,134 @@ button.volo-city-stop-label:hover {
 
 
 /* === STUDENT LAUNCH PANEL POLISH V1 END === */
+
+
+/* === ACTIVITY CARD PRACTICE CHECKS V1 === */
+
+/*
+  The activity cards themselves now communicate
+  practice progress. No duplicate Flight Path strip.
+*/
+
+.volo-flight-path {
+  display: none !important;
+}
+
+
+/* Let the completion badge sit inside each card. */
+
+.student-launch-panel
+.activity-button {
+  position: relative;
+}
+
+
+/* Practiced check — Morphology-style, quiet and obvious. */
+
+.student-launch-panel
+.activity-practice-check {
+  position: absolute;
+
+  top: 9px;
+  right: 10px;
+
+  width: 23px;
+  height: 23px;
+
+  display: grid;
+  place-items: center;
+
+  border-radius: 50%;
+
+  background: #e8f6ec;
+
+  border: 1px solid #abd6b7;
+
+  color: #278746;
+
+  font-size: .82rem;
+  font-weight: 950;
+  line-height: 1;
+
+  box-shadow:
+    0 2px 5px
+    rgba(48, 120, 70, .09);
+}
+
+
+/*
+  Very subtle completed state so the check,
+  not a heavy color change, carries the meaning.
+*/
+
+.student-launch-panel
+.activity-button.practice-complete {
+  border-color: #cfe4d5;
+  background:
+    linear-gradient(
+      180deg,
+      #ffffff,
+      #fbfefc
+    );
+}
+
+
+/*
+  Active activity still gets priority visually.
+*/
+
+.student-launch-panel
+.activity-button.active {
+  border-color: #d9a297;
+  background: #fff9f7;
+}
+
+
+/* ---------------------------------------------------------
+   Tighten the flow now that the duplicate path is gone.
+   --------------------------------------------------------- */
+
+.student-launch-panel
+#practiceItalian {
+  padding-bottom: 0;
+}
+
+
+.student-launch-panel
+.activity-start-heading {
+  margin-top: 18px;
+  padding-top: 17px;
+}
+
+
+/*
+  Give the Step 1 row a little more visual balance.
+*/
+
+.student-launch-panel
+.topic-select-wrap {
+  max-width: 620px;
+}
+
+
+/*
+  Reward sits comfortably after the activity grid.
+*/
+
+.student-launch-panel
+.volo-journey-home-card {
+  margin-top: 20px;
+}
+
+
+@media (max-width: 900px) {
+
+  .student-launch-panel
+  .topic-select-wrap {
+    max-width: none;
+  }
+
+}
+
+
+/* === ACTIVITY CARD PRACTICE CHECKS V1 END === */

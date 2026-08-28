@@ -523,12 +523,30 @@
     const topicKey =
       topicSelect.value;
 
+    /*
+      Practice progress is now displayed directly
+      on the activity cards. The separate Flight
+      Path strip is intentionally kept hidden.
+    */
+
+    flightPath.hidden = true;
+
     if (!topicKey) {
-      flightPath.hidden = true;
+      getVisibleActivityButtons()
+        .forEach(button => {
+          button.classList.remove(
+            "practice-complete"
+          );
+
+          button
+            .querySelector(
+              ".activity-practice-check"
+            )
+            ?.remove();
+        });
+
       return;
     }
-
-    flightPath.hidden = false;
 
     const selectedOption =
       topicSelect.options[
@@ -556,136 +574,65 @@
         topicKey
       );
 
-    track.innerHTML =
-      buttons
-        .map(
-          (button, index) => {
-            const mode =
-              button.dataset.mode ||
-              "";
+    /*
+      The activity cards are the practice path now.
+      Add/remove a compact completion check directly
+      on each card.
+    */
 
-            const icon =
-              getButtonIcon(
-                button
-              );
+    buttons.forEach(button => {
+      const mode =
+        button.dataset.mode || "";
 
-            const label =
-              getButtonLabel(
-                button
-              );
+      const isComingSoon =
+        mode === "sentences";
 
-            const isActive =
-              button.classList
-                .contains(
-                  "active"
-                );
+      const isPracticed =
+        !isComingSoon &&
+        practicedModes.has(mode);
 
-            const isComingSoon =
-              mode === "sentences";
+      button.classList.toggle(
+        "practice-complete",
+        isPracticed
+      );
 
-            const isDisabled =
-              button.disabled ||
-              isComingSoon;
+      let check =
+        button.querySelector(
+          ".activity-practice-check"
+        );
 
-            const isPracticed =
-              practicedModes.has(
-                mode
-              );
+      if (isPracticed) {
+        if (!check) {
+          check =
+            document.createElement(
+              "span"
+            );
 
-            const nextMode =
-              buttons[
-                index + 1
-              ]?.dataset.mode;
+          check.className =
+            "activity-practice-check";
 
-            const segmentComplete =
-              isPracticed &&
-              Boolean(nextMode) &&
-              practicedModes.has(
-                nextMode
-              );
+          check.setAttribute(
+            "aria-hidden",
+            "true"
+          );
 
-            return `
-              <button
-                type="button"
-                class="
-                  flight-stop
-                  ${
-                    isActive
-                      ? "active"
-                      : ""
-                  }
-                  ${
-                    isPracticed
-                      ? "practiced"
-                      : ""
-                  }
-                  ${
-                    segmentComplete
-                      ? "segment-complete"
-                      : ""
-                  }
-                  ${
-                    isComingSoon
-                      ? "coming-soon"
-                      : ""
-                  }
-                "
-                data-mode="${mode}"
-                ${
-                  isDisabled
-                    ? "disabled"
-                    : ""
-                }
-                aria-label="${label}${
-                  isPracticed
-                    ? ", practiced"
-                    : ""
-                }"
-              >
+          check.textContent = "✓";
 
-                ${
-                  isActive
-                    ? `
-                      <span
-                        class="flight-stop-plane"
-                        aria-hidden="true"
-                      >
-                        ✈️
-                      </span>
-                    `
-                    : ""
-                }
+          button.appendChild(check);
+        }
 
-                <span
-                  class="flight-stop-node"
-                  aria-hidden="true"
-                >
-                  ${icon}
+        button.setAttribute(
+          "data-practiced",
+          "true"
+        );
+      } else {
+        check?.remove();
 
-                  ${
-                    isPracticed
-                      ? `
-                        <span
-                          class="flight-stop-check"
-                        >
-                          ✓
-                        </span>
-                      `
-                      : ""
-                  }
-                </span>
-
-                <span
-                  class="flight-stop-label"
-                >
-                  ${label}
-                </span>
-
-              </button>
-            `;
-          }
-        )
-        .join("");
+        button.removeAttribute(
+          "data-practiced"
+        );
+      }
+    });
   }
 
   /* ========================================
