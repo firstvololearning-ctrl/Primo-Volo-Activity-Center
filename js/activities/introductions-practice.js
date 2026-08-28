@@ -15,6 +15,9 @@
   const topicSelect =
     document.querySelector("#topicSelect");
 
+  const activityAvailability =
+    window.PrimoVoloActivityAvailability;
+
   const englishToggleControl =
     document.querySelector(
       "#englishToggleControl"
@@ -1215,8 +1218,15 @@ renderQuestion();
      ======================================== */
 
   function updateIntroductionsAvailability() {
+    const topicKey =
+      getCurrentTopicKey();
+
     const isGreetingsTopic =
-      getCurrentTopicKey() === "greetings";
+      activityAvailability
+        ?.isCanonicalMode(
+          topicKey,
+          "introductions-practice"
+        ) ?? topicKey === "greetings";
 
     introductionsButton.hidden =
       !isGreetingsTopic;

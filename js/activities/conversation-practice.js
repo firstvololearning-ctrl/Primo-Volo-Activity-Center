@@ -32,6 +32,9 @@
   const topicSelectElement =
     document.querySelector("#topicSelect");
 
+  const activityAvailability =
+    window.PrimoVoloActivityAvailability;
+
   const englishToggleControlElement =
     document.querySelector(
       "#englishToggleControl"
@@ -1180,8 +1183,20 @@
      ======================================== */
 
   function updateConversationAvailability() {
+    const topicKey =
+      getCurrentTopicKey();
+
+    if (!topicKey) {
+      conversationButton.hidden = true;
+      return;
+    }
+
     const supported =
-      isSupportedTopic();
+      activityAvailability
+        ?.isCanonicalMode(
+          topicKey,
+          "conversation-practice"
+        ) ?? isSupportedTopic();
 
     const wordsButton =
       document.querySelector(
@@ -1206,16 +1221,26 @@
       Classroom continues to hide Assembla
       for now.
     */
-    const topicKey =
-      getCurrentTopicKey();
-
     if (wordsButton) {
-      wordsButton.hidden = supported;
+      wordsButton.hidden =
+        activityAvailability
+          ? !activityAvailability
+              .isCanonicalMode(
+                topicKey,
+                "words-in-action"
+              )
+          : supported;
     }
 
     if (assembleButton) {
       assembleButton.hidden =
-        topicKey === "classroom";
+        activityAvailability
+          ? !activityAvailability
+              .isCanonicalMode(
+                topicKey,
+                "assemble-sentences"
+              )
+          : topicKey === "classroom";
     }
 
     if (!supported) {

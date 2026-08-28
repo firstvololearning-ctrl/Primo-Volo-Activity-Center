@@ -51,6 +51,9 @@
   const JOURNEY_STORAGE_KEY =
     storage.keys.journey;
 
+  const activityAvailability =
+    window.PrimoVoloActivityAvailability;
+
   const OLD_PASSPORT_STORAGE_KEY =
     storage.keys.legacyPassport;
 
@@ -239,7 +242,7 @@
     const topicData =
       flightData?.byTopic?.[topicKey];
 
-    const available = [
+    const storedAvailable = [
       ...new Set(
         Array.isArray(topicData?.available)
           ? topicData.available
@@ -250,6 +253,24 @@
         mode &&
         mode !== "sentences"
     );
+
+    const canonicalAvailable =
+      activityAvailability
+        ?.getCanonicalModes(
+          topicKey
+        ) || [];
+
+    const hasCanonicalResolver =
+      Boolean(activityAvailability);
+
+    /*
+      Never award a new explored topic from a stale DOM snapshot.
+      Stored availability remains only as a compatibility fallback.
+    */
+    const available =
+      hasCanonicalResolver
+        ? canonicalAvailable
+        : storedAvailable;
 
     const practiced = new Set(
       Array.isArray(topicData?.practiced)
@@ -1718,4 +1739,3 @@
       };
     };
 })();
-

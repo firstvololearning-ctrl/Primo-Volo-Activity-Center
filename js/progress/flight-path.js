@@ -23,6 +23,9 @@
 
   const STORAGE_KEY = storage.keys.practice;
 
+  const activityAvailability =
+    window.PrimoVoloActivityAvailability;
+
   function getPracticeStorageKey() {
     return storage.studentKey(STORAGE_KEY);
   }
@@ -457,10 +460,26 @@
         topicKey
       );
 
+    const canonicalModes =
+      activityAvailability
+        ?.getCanonicalModes(
+          topicKey
+        ) || [];
+
+    const hasCanonicalResolver =
+      Boolean(activityAvailability);
+
+    /*
+      Canonical rules are authoritative for Journey eligibility.
+      The DOM-derived list remains a defensive fallback if this
+      script is ever loaded without the shared resolver.
+    */
     const availableModes =
-      getEligibleActivityModes(
-        buttons
-      );
+      hasCanonicalResolver
+        ? canonicalModes
+        : getEligibleActivityModes(
+            buttons
+          );
 
     if (
       !sameModeList(
