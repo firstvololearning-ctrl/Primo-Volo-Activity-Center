@@ -1017,6 +1017,7 @@ document.head.appendChild(style);
   }
 
  let currentCarrierPhrase = null;
+ let currentGreetingsAssemblyItem = null;
 
 function cleanCarrierPhrase(text) {
   return String(text || "")
@@ -1222,6 +1223,404 @@ function createCompleteSentence(item) {
       .join(" ")
   }.`;
 }
+
+function getGreetingsAssemblyTargets() {
+  const age =
+    Number(window.getVoloAge?.());
+
+  if (!Number.isInteger(age)) {
+    return [];
+  }
+
+  return [
+    {
+      id: "name",
+      question: "Come ti chiami?",
+      questionEnglish: "What is your name?",
+      italian: "Mi chiamo Volo.",
+      image:
+        "images/introductions/introductions-02.png"
+    },
+    {
+      id: "place",
+      question: "Di dove sei?",
+      questionEnglish: "Where are you from?",
+      italian: "Sono di Roma.",
+      image:
+        "images/introductions/introductions-03.png"
+    },
+    {
+      id: "age",
+      question: "Quanti anni hai?",
+      questionEnglish: "How old are you?",
+      italian: `Ho ${age} anni.`,
+      image:
+        "images/introductions/introductions-04.png"
+    },
+    {
+      id: "feeling",
+      question: "Come stai?",
+      questionEnglish: "How are you?",
+      italian: "Sto bene, grazie.",
+      image:
+        "images/introductions/introductions-05.png"
+    }
+  ];
+}
+
+function showGreetingsAssemblyQuestion(
+  reuseCurrent = false
+) {
+  const targets =
+    getGreetingsAssemblyTargets();
+
+  if (!targets.length) {
+    assembleActivity.innerHTML = `
+      <div class="assemble-empty">
+        Scegli prima l'età di Volo.
+
+        <span>
+          Choose Volo's age first.
+        </span>
+      </div>
+    `;
+    return;
+  }
+
+  if (
+    !reuseCurrent ||
+    !currentGreetingsAssemblyItem
+  ) {
+    const assembleDraw =
+      window.PrimoVoloPracticeRounds
+        .next(
+          "assemble-sentences",
+          currentTopicKey,
+          targets
+        );
+
+    if (assembleDraw.complete) {
+      window.PrimoVoloPracticeRounds
+        .renderComplete(
+          assembleActivity,
+          {
+            activity:
+              "assemble-sentences",
+            topicKey:
+              currentTopicKey,
+            total:
+              assembleDraw.total,
+            onRestart:
+              () =>
+                showGreetingsAssemblyQuestion(
+                  false
+                )
+          }
+        );
+      return;
+    }
+
+    currentGreetingsAssemblyItem =
+      assembleDraw.item;
+  }
+
+  const response =
+    currentGreetingsAssemblyItem.italian;
+
+  correctTokens =
+    response
+      .split(/\s+/)
+      .filter(Boolean);
+
+  placedTokens = [];
+  sentenceHadError = false;
+  sentenceComplete = false;
+
+  const tileObjects =
+    correctTokens.map(
+      (token, index) => ({
+        token,
+        id: `greetings-${index}-${token}`
+      })
+    );
+
+  const shuffledTiles =
+    shuffleUntilDifferent(
+      tileObjects
+    );
+
+  assembleActivity.innerHTML = `
+    <div class="assemble-card">
+      <div class="assemble-heading">
+        <h4>
+          Ascolta e costruisci la risposta.
+        </h4>
+
+        <p>
+          Listen and build the response.
+        </p>
+      </div>
+
+      <div class="assemble-prompt-row">
+        <button
+          type="button"
+          id="greetingsAssembleQuestionAudio"
+          class="assemble-secondary-button"
+          aria-label="Ascolta la domanda: ${
+            currentGreetingsAssemblyItem.question
+          }"
+        >
+          🔊 ${
+            currentGreetingsAssemblyItem.question
+          }
+          <span class="english-word">
+            ${
+              currentGreetingsAssemblyItem
+                .questionEnglish
+            }
+          </span>
+        </button>
+
+        <div class="assemble-picture-frame">
+          <img
+            src="${
+              currentGreetingsAssemblyItem.image
+            }"
+            alt="${
+              currentGreetingsAssemblyItem
+                .questionEnglish
+            }"
+          >
+        </div>
+      </div>
+
+      <p class="assemble-instruction">
+        Tocca le parole nell'ordine corretto.
+
+        <span>
+          Tap the words in the correct order.
+        </span>
+      </p>
+
+      <div
+        id="assembleSentenceArea"
+        class="assemble-sentence-area"
+        aria-live="polite"
+        aria-label="Response being built"
+      ></div>
+
+      <div
+        id="assembleWordBank"
+        class="assemble-word-bank"
+        aria-label="Mixed-up response words"
+      >
+        ${shuffledTiles.map(tile => `
+          <button
+            type="button"
+            class="assemble-word-tile"
+            data-token="${tile.token}"
+            data-tile-id="${tile.id}"
+          >
+            ${tile.token}
+          </button>
+        `).join("")}
+      </div>
+
+      <p
+        id="assembleFeedback"
+        class="assemble-feedback"
+        aria-live="polite"
+      ></p>
+
+      <div class="assemble-actions">
+        <button
+          type="button"
+          id="assembleReset"
+          class="assemble-secondary-button"
+        >
+          Ricomincia · Start Over
+        </button>
+
+        <button
+          type="button"
+          id="assembleNext"
+          class="next-question-button"
+          hidden
+        >
+          Prossima risposta · Next Response
+        </button>
+      </div>
+    </div>
+  `;
+
+  renderPlacedTokens();
+
+  const questionAudio =
+    assembleActivity.querySelector(
+      "#greetingsAssembleQuestionAudio"
+    );
+
+  const wordTiles =
+    assembleActivity.querySelectorAll(
+      ".assemble-word-tile"
+    );
+
+  const feedback =
+    assembleActivity.querySelector(
+      "#assembleFeedback"
+    );
+
+  const resetButton =
+    assembleActivity.querySelector(
+      "#assembleReset"
+    );
+
+  const nextButton =
+    assembleActivity.querySelector(
+      "#assembleNext"
+    );
+
+  questionAudio.addEventListener(
+    "click",
+    () => {
+      speakSentence(
+        currentGreetingsAssemblyItem
+          .question
+      );
+    }
+  );
+
+  function completeResponse() {
+    sentenceComplete = true;
+
+    saveSentenceAttempt(
+      !sentenceHadError
+    );
+
+    feedback.innerHTML = `
+      🎉 Risposta completa!
+
+      <strong>
+        ${response}
+      </strong>
+
+      <span>
+        Response complete!
+      </span>
+    `;
+
+    feedback.insertAdjacentHTML(
+      "beforeend",
+      window.PrimoVoloAudio
+        .replayButtonMarkup(
+          response,
+          "Ascolta la risposta di nuovo · Listen again"
+        )
+    );
+
+    wordTiles.forEach(tile => {
+      tile.disabled = true;
+    });
+
+    resetButton.hidden = true;
+    nextButton.hidden = false;
+
+    speakSentence(response);
+  }
+
+  wordTiles.forEach(tile => {
+    tile.addEventListener(
+      "click",
+      () => {
+        if (
+          sentenceComplete ||
+          tile.disabled
+        ) {
+          return;
+        }
+
+        const expectedToken =
+          correctTokens[
+            placedTokens.length
+          ];
+
+        const selectedToken =
+          tile.dataset.token;
+
+        if (
+          selectedToken !==
+          expectedToken
+        ) {
+          sentenceHadError = true;
+
+          tile.classList.remove(
+            "wrong"
+          );
+
+          void tile.offsetWidth;
+
+          tile.classList.add(
+            "wrong"
+          );
+
+          feedback.innerHTML = `
+            Riprova.
+
+            <span>
+              Try another word.
+            </span>
+          `;
+
+          tile.addEventListener(
+            "animationend",
+            () => {
+              tile.classList.remove(
+                "wrong"
+              );
+            },
+            { once: true }
+          );
+          return;
+        }
+
+        placedTokens.push(
+          selectedToken
+        );
+
+        tile.disabled = true;
+        tile.classList.add("used");
+        feedback.textContent = "";
+
+        renderPlacedTokens();
+
+        if (
+          placedTokens.length ===
+          correctTokens.length
+        ) {
+          completeResponse();
+        }
+      }
+    );
+  });
+
+  resetButton.addEventListener(
+    "click",
+    () => {
+      showGreetingsAssemblyQuestion(
+        true
+      );
+    }
+  );
+
+  nextButton.addEventListener(
+    "click",
+    () => {
+      showGreetingsAssemblyQuestion(
+        false
+      );
+    }
+  );
+}
   function renderPlacedTokens() {
 
     const sentenceArea =
@@ -1277,6 +1676,13 @@ sentenceArea.innerHTML =
   function showAssemblyQuestion(
     reuseCurrent = false
   ) {
+
+    if (currentTopicKey === "greetings") {
+      showGreetingsAssemblyQuestion(
+        reuseCurrent
+      );
+      return;
+    }
 
     const vocabulary =
 
