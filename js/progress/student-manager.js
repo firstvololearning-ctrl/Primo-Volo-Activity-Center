@@ -179,7 +179,8 @@
 
     const emptyOption = document.createElement("option");
     emptyOption.value = "";
-    emptyOption.textContent = "No student selected";
+    emptyOption.textContent =
+      "Scegli il tuo nome · Choose your name";
     selectEl.appendChild(emptyOption);
 
     students.forEach((student) => {
@@ -194,6 +195,61 @@
     )
       ? selected
       : "";
+
+    const bar =
+      document.querySelector(".pv-student-bar");
+
+    const label =
+      bar?.querySelector(".pv-student-label");
+
+    const hasStudent =
+      Boolean(selectEl.value);
+
+    if (bar) {
+      bar.classList.toggle(
+        "is-unselected",
+        !hasStudent
+      );
+
+      bar.classList.toggle(
+        "has-student",
+        hasStudent
+      );
+    }
+
+    if (label) {
+      if (hasStudent) {
+        label.innerHTML = `
+          <span class="pv-student-current-label">
+            👤 Studente
+            <small lang="en">Current Student</small>
+          </span>
+        `;
+      } else {
+        label.innerHTML = `
+          <span class="pv-student-before">
+            Prima di iniziare
+            <span lang="en">· Before you start</span>
+          </span>
+
+          <strong class="pv-student-question">
+            👤 Chi impara oggi?
+          </strong>
+
+          <small class="pv-student-question-en" lang="en">
+            Who’s learning today?
+            <span>· Optional</span>
+          </small>
+        `;
+      }
+    }
+
+    selectEl.setAttribute(
+      "aria-label",
+      hasStudent
+        ? "Current student"
+        : "Choose your name, optional"
+    );
   }
 
   function renderStudentList() {
@@ -321,6 +377,127 @@
         color: #274b84;
         font-size: .9rem;
         font-weight: 800;
+      }
+
+      /*
+        Student selection is setup, not a numbered
+        learning step. When nobody is selected, make
+        the cue clear but explicitly optional.
+      */
+
+      .pv-student-bar.is-unselected {
+        width: min(900px, calc(100% - 28px));
+        margin-top: 18px;
+        margin-bottom: 12px;
+        padding: 13px 16px;
+
+        justify-content: flex-start;
+
+        border-color: #ead5a7;
+
+        background:
+          linear-gradient(
+            100deg,
+            #fffaf0,
+            #ffffff
+          );
+
+        box-shadow:
+          0 5px 16px
+          rgba(91, 72, 42, .07);
+      }
+
+      .pv-student-bar.is-unselected
+      .pv-student-label {
+        min-width: 205px;
+
+        display: grid;
+        gap: 1px;
+
+        line-height: 1.15;
+      }
+
+      .pv-student-before {
+        color: #9a6a25;
+
+        font-size: .65rem;
+        font-weight: 900;
+        letter-spacing: .025em;
+        text-transform: uppercase;
+      }
+
+      .pv-student-before [lang="en"] {
+        color: #877964;
+      }
+
+      .pv-student-question {
+        margin-top: 2px;
+
+        color: #274b84;
+
+        font-size: .98rem;
+        font-weight: 950;
+      }
+
+      .pv-student-question-en {
+        color: #67778a;
+
+        font-size: .7rem;
+        font-weight: 700;
+      }
+
+      .pv-student-question-en span {
+        color: #9a8260;
+        font-weight: 850;
+      }
+
+      .pv-student-bar.is-unselected
+      .pv-student-select {
+        min-width: 280px;
+
+        border-color: #ddc58e;
+        background: #fff;
+
+        box-shadow:
+          0 2px 7px
+          rgba(93, 72, 36, .05);
+      }
+
+      /*
+        Keep the empty state focused:
+        choose an existing learner or add one.
+        Admin/sync controls return after selection.
+      */
+
+      .pv-student-bar.is-unselected
+      .pv-student-manage,
+      .pv-student-bar.is-unselected
+      .pv-cloud-student-button {
+        display: none;
+      }
+
+      /*
+        Once selected, return to the compact,
+        lower-priority utility treatment.
+      */
+
+      .pv-student-bar.has-student {
+        background: rgba(255,255,255,.92);
+      }
+
+      .pv-student-current-label {
+        display: inline-flex;
+        align-items: baseline;
+        gap: 5px;
+
+        white-space: nowrap;
+      }
+
+      .pv-student-current-label small {
+        color: #718096;
+
+        font-size: .68rem;
+        font-weight: 700;
       }
 
       .pv-student-select {
@@ -488,8 +665,19 @@
           text-align: center;
         }
 
+        .pv-student-bar.is-unselected
+        .pv-student-label {
+          min-width: 0;
+          text-align: left;
+        }
+
         .pv-student-select {
           flex: 1 1 100%;
+        }
+
+        .pv-student-bar.is-unselected
+        .pv-student-select {
+          min-width: 0;
         }
 
         .pv-student-button {
@@ -532,7 +720,8 @@
 
     const manageButton = document.createElement("button");
     manageButton.type = "button";
-    manageButton.className = "pv-student-button";
+    manageButton.className =
+      "pv-student-button pv-student-manage";
     manageButton.textContent = "Manage";
     manageButton.addEventListener("click", openModal);
 
