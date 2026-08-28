@@ -196,7 +196,7 @@
       'a[href="games.html"]'
     ),
     document.querySelector(
-      'a[href="printables/Che-cosa-mangi-Primo-Volo.pdf"]'
+      'a[href="chat-mats.html"]'
     ),
     makeCultureHeaderLink()
   ].filter(Boolean);

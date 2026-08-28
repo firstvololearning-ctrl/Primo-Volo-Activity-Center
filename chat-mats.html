@@ -1,0 +1,902 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-WL8RPSNELL"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-WL8RPSNELL');
+</script>
+  <meta charset="utf-8">
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <title>Chat Mats · Primo Volo d'Italiano</title>
+
+  <link rel="stylesheet" href="css/style.css">
+
+  <style>
+    /* =====================================================
+       PRINTABLE WORKSHEETS PAGE
+       These selectors are limited to this page.
+       ===================================================== */
+
+    .worksheet-page {
+      min-height: 100vh;
+      margin: 0;
+      color: #243447;
+      background:
+        linear-gradient(
+          180deg,
+          #f6f9fd 0%,
+          #ffffff 44%,
+          #f8fafc 100%
+        );
+    }
+
+    .worksheet-page * {
+      box-sizing: border-box;
+    }
+
+    .worksheet-header {
+      display: grid;
+      grid-template-columns:
+        minmax(150px, 0.8fr)
+        minmax(260px, 1.4fr)
+        minmax(180px, 0.8fr);
+      align-items: center;
+      gap: 24px;
+
+      width: min(1180px, calc(100% - 32px));
+      margin: 0 auto;
+      padding: 24px 0 18px;
+    }
+
+    .worksheet-brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .worksheet-brand img {
+      width: 74px;
+      height: auto;
+    }
+
+    .worksheet-brand-text {
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+    }
+
+    .worksheet-brand-text strong {
+      color: #274b84;
+      font-size: 1rem;
+    }
+
+    .worksheet-brand-text a {
+      color: #5f6e82;
+      font-size: 0.82rem;
+      font-weight: 700;
+      text-decoration: none;
+    }
+
+    .worksheet-title-group {
+      text-align: center;
+    }
+
+    .worksheet-title-group h1 {
+      margin: 0;
+      color: #274b84;
+      font-size: clamp(1.85rem, 4vw, 2.8rem);
+      line-height: 1.05;
+    }
+
+    .worksheet-title-group p {
+      margin: 8px 0 0;
+      color: #607080;
+      font-size: 1rem;
+      font-weight: 700;
+    }
+
+    .worksheet-nav {
+      display: flex;
+      justify-content: flex-end;
+      flex-wrap: wrap;
+      gap: 9px;
+    }
+
+    .worksheet-nav a {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 42px;
+      padding: 9px 14px;
+      border: 1px solid #d8e1ed;
+      border-radius: 999px;
+      color: #274b84;
+      background: #ffffff;
+      box-shadow: 0 4px 12px rgba(39, 75, 132, 0.08);
+      font-size: 0.84rem;
+      font-weight: 800;
+      text-align: center;
+      text-decoration: none;
+      transition:
+        transform 0.18s ease,
+        box-shadow 0.18s ease,
+        border-color 0.18s ease;
+    }
+
+    .worksheet-nav a:hover,
+    .worksheet-nav a:focus-visible {
+      transform: translateY(-2px);
+      border-color: #9eb4d3;
+      box-shadow: 0 7px 16px rgba(39, 75, 132, 0.14);
+      outline: none;
+    }
+
+    .worksheet-main {
+      width: min(1100px, calc(100% - 32px));
+      margin: 0 auto;
+      padding: 24px 0 64px;
+    }
+
+    .worksheet-intro {
+      max-width: 790px;
+      margin: 0 auto 28px;
+      text-align: center;
+    }
+
+    .worksheet-intro h2 {
+      margin: 0;
+      color: #274b84;
+      font-size: clamp(1.45rem, 3vw, 2rem);
+    }
+
+    .worksheet-intro p {
+      margin: 10px auto 0;
+      color: #607080;
+      font-size: 1rem;
+      line-height: 1.6;
+    }
+
+    .worksheet-grid {
+      display: grid;
+      grid-template-columns:
+        repeat(auto-fit, minmax(280px, 1fr));
+      gap: 24px;
+    }
+
+    .worksheet-card {
+      display: grid;
+      grid-template-columns: minmax(230px, 0.82fr) 1.18fr;
+      gap: 28px;
+
+      grid-column: 1 / -1;
+      overflow: hidden;
+      padding: 24px;
+      border: 1px solid #d8e2ee;
+      border-radius: 24px;
+      background: #ffffff;
+      box-shadow:
+        0 14px 35px rgba(36, 52, 71, 0.11);
+    }
+
+    .worksheet-preview {
+      display: flex;
+      align-items: flex-start;
+      justify-content: center;
+      min-width: 0;
+    }
+
+    .worksheet-preview img {
+      display: block;
+      width: min(100%, 390px);
+      height: auto;
+      border: 1px solid #d7dfe9;
+      border-radius: 12px;
+      background: #ffffff;
+      box-shadow:
+        0 10px 24px rgba(36, 52, 71, 0.16);
+    }
+
+    .worksheet-content {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      min-width: 0;
+    }
+
+    .worksheet-eyebrow {
+      margin: 0 0 7px;
+      color: #4e8766;
+      font-size: 0.82rem;
+      font-weight: 900;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .worksheet-content h3 {
+      margin: 0;
+      color: #274b84;
+      font-size: clamp(1.55rem, 3vw, 2.15rem);
+      line-height: 1.1;
+    }
+
+    .worksheet-subtitle {
+      margin: 6px 0 0;
+      color: #607080;
+      font-size: 1rem;
+      font-weight: 700;
+    }
+
+    .worksheet-description {
+      margin: 18px 0 0;
+      color: #3f4e5e;
+      font-size: 1rem;
+      line-height: 1.65;
+    }
+
+    .worksheet-details {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 9px;
+      margin: 18px 0 0;
+    }
+
+    .worksheet-detail {
+      display: inline-flex;
+      align-items: center;
+      min-height: 34px;
+      padding: 7px 11px;
+      border-radius: 999px;
+      color: #43566d;
+      background: #eef4fb;
+      font-size: 0.82rem;
+      font-weight: 800;
+    }
+
+    .worksheet-skills {
+      margin: 18px 0 0;
+      padding: 16px 18px;
+      border-left: 5px solid #d9a93e;
+      border-radius: 10px;
+      color: #4c5360;
+      background: #fff8e2;
+      font-size: 0.94rem;
+      line-height: 1.55;
+    }
+
+    .worksheet-skills strong {
+      color: #274b84;
+    }
+
+    .worksheet-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 22px;
+    }
+
+    .worksheet-button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 48px;
+      padding: 12px 18px;
+      border: 2px solid #274b84;
+      border-radius: 13px;
+      color: #ffffff;
+      background: #274b84;
+      font-weight: 900;
+      text-decoration: none;
+      transition:
+        transform 0.18s ease,
+        box-shadow 0.18s ease,
+        background 0.18s ease;
+    }
+
+    .worksheet-button:hover,
+    .worksheet-button:focus-visible {
+      transform: translateY(-2px);
+      background: #1e3d6d;
+      box-shadow: 0 8px 18px rgba(39, 75, 132, 0.2);
+      outline: none;
+    }
+
+    .worksheet-button.secondary {
+      color: #274b84;
+      background: #ffffff;
+    }
+
+    .worksheet-button.secondary:hover,
+    .worksheet-button.secondary:focus-visible {
+      color: #1e3d6d;
+      background: #f2f6fb;
+    }
+
+    .worksheet-resource-section {
+      margin: 0 0 34px;
+    }
+
+    .worksheet-section-heading {
+      max-width: 840px;
+      margin: 0 auto 18px;
+      text-align: center;
+    }
+
+    .worksheet-section-heading h2 {
+      margin: 0;
+      color: #274b84;
+      font-size: clamp(1.35rem, 3vw, 1.85rem);
+      line-height: 1.15;
+    }
+
+    .worksheet-section-heading p {
+      margin: 7px auto 0;
+      color: #607080;
+      font-size: .95rem;
+      line-height: 1.55;
+    }
+
+    .read-talk-section {
+      margin-top: 8px;
+      padding: 24px;
+      border: 1px solid #d9e4ef;
+      border-radius: 24px;
+      background:
+        linear-gradient(
+          180deg,
+          #f8fbff 0%,
+          #ffffff 100%
+        );
+      box-shadow:
+        0 10px 28px rgba(39, 75, 132, .07);
+    }
+
+    .read-talk-section .worksheet-card {
+      box-shadow:
+        0 8px 22px rgba(36, 52, 71, .08);
+    }
+
+    .worksheet-coming-soon {
+      grid-column: 1 / -1;
+      margin: 4px 0 0;
+      padding: 18px;
+      border: 1px dashed #bdcad9;
+      border-radius: 16px;
+      color: #607080;
+      background: rgba(255, 255, 255, 0.72);
+      text-align: center;
+      font-weight: 700;
+    }
+
+    .worksheet-footer {
+      width: min(1100px, calc(100% - 32px));
+      margin: 0 auto;
+      padding: 22px 0 30px;
+      border-top: 1px solid #dce4ed;
+      color: #697789;
+      font-size: 0.82rem;
+      text-align: center;
+    }
+
+    @media (max-width: 850px) {
+      .worksheet-header {
+        grid-template-columns: 1fr;
+        text-align: center;
+      }
+
+      .worksheet-brand,
+      .worksheet-nav {
+        justify-content: center;
+      }
+
+      .worksheet-card {
+        grid-template-columns: 1fr;
+      }
+
+      .worksheet-content {
+        text-align: center;
+      }
+
+      .worksheet-details,
+      .worksheet-actions {
+        justify-content: center;
+      }
+
+      .worksheet-skills {
+        text-align: left;
+      }
+    }
+
+    @media (max-width: 520px) {
+      .worksheet-header,
+      .worksheet-main,
+      .worksheet-footer {
+        width: min(100% - 20px, 1100px);
+      }
+
+      .worksheet-header {
+        padding-top: 16px;
+      }
+
+      .worksheet-card {
+        gap: 20px;
+        padding: 16px;
+        border-radius: 18px;
+      }
+
+      .worksheet-actions {
+        display: grid;
+        grid-template-columns: 1fr;
+      }
+
+      .worksheet-button {
+        width: 100%;
+      }
+    }
+  </style>
+
+<style id="chat-mats-page-styles">
+
+/* ---------- Chat Mats page ---------- */
+
+.chat-mats-main {
+  max-width: 1160px;
+  margin: 0 auto;
+  padding: 26px 28px 72px;
+}
+
+.chat-mats-hero {
+  display: grid;
+  grid-template-columns: 76px minmax(0, 1fr);
+  gap: 20px;
+  align-items: center;
+  margin-bottom: 24px;
+  padding: 24px 28px;
+  border: 1px solid #ddd8ef;
+  border-radius: 24px;
+  background:
+    linear-gradient(
+      135deg,
+      #f8f3ff 0%,
+      #f4f9ff 100%
+    );
+  box-shadow: 0 8px 22px rgba(48, 66, 94, .07);
+}
+
+.chat-mats-hero-icon {
+  display: grid;
+  place-items: center;
+  width: 72px;
+  height: 72px;
+  border-radius: 20px;
+  background: white;
+  box-shadow: 0 4px 13px rgba(44, 62, 84, .10);
+  font-size: 2.15rem;
+}
+
+.chat-mats-kicker {
+  margin: 0 0 5px;
+  color: #7755bd;
+  font-size: .8rem;
+  font-weight: 900;
+  letter-spacing: .025em;
+  text-transform: uppercase;
+}
+
+.chat-mats-hero h1 {
+  margin: 0;
+  color: #27578c;
+  font-size: 2.55rem;
+  line-height: 1;
+}
+
+.chat-mats-lead {
+  max-width: 800px;
+  margin: 10px 0 0;
+  color: #5d6877;
+  font-size: .98rem;
+  line-height: 1.55;
+}
+
+.chat-mats-lead span[lang="en"] {
+  color: #788391;
+}
+
+.chat-mats-library {
+  padding: 24px;
+  border: 1px solid #dde5ee;
+  border-radius: 24px;
+  background: white;
+  box-shadow: 0 8px 24px rgba(48, 68, 92, .06);
+}
+
+.chat-mats-library-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 20px;
+  margin-bottom: 20px;
+}
+
+.chat-mats-library-head h2 {
+  margin: 0;
+  color: #294867;
+  font-size: 1.35rem;
+}
+
+.chat-mats-library-head p {
+  margin: 6px 0 0;
+  color: #6f7a87;
+  line-height: 1.45;
+}
+
+.chat-mats-count {
+  flex: 0 0 auto;
+  padding: 7px 11px;
+  border: 1px solid #dee5ec;
+  border-radius: 999px;
+  background: #f7f9fb;
+  color: #687686;
+  font-size: .76rem;
+  font-weight: 800;
+}
+
+.chat-mats-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 17px;
+}
+
+.chat-mat-card {
+  display: flex !important;
+  flex-direction: column;
+  min-width: 0;
+  min-height: 280px;
+  padding: 18px;
+  border: 1px solid #dde4ec;
+  border-radius: 20px;
+  text-decoration: none !important;
+  box-shadow: 0 5px 15px rgba(45, 64, 88, .06);
+  transition:
+    transform .16s ease,
+    box-shadow .16s ease;
+}
+
+.chat-mat-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 24px rgba(45, 64, 88, .11);
+}
+
+.chat-mat-card-routine {
+  background:
+    linear-gradient(150deg, #faf6ff, #f3f8ff);
+}
+
+.chat-mat-card-food {
+  background:
+    linear-gradient(150deg, #fff9ec, #fffdf8);
+}
+
+.chat-mat-card-preference {
+  background:
+    linear-gradient(150deg, #fff4f7, #fffafb);
+}
+
+.chat-mat-card-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.chat-mat-card-icon {
+  display: grid;
+  place-items: center;
+  width: 50px;
+  height: 50px;
+  flex: 0 0 auto;
+  border-radius: 15px;
+  background: rgba(255,255,255,.9);
+  box-shadow: 0 3px 10px rgba(50,68,89,.08);
+  font-size: 1.6rem;
+}
+
+.chat-mat-tag {
+  padding: 6px 9px;
+  border: 1px solid rgba(80,104,132,.14);
+  border-radius: 999px;
+  background: rgba(255,255,255,.74);
+  color: #647385;
+  font-size: .69rem;
+  font-weight: 800;
+  line-height: 1.25;
+  text-align: right;
+}
+
+.chat-mat-card-copy h3 {
+  margin: 0;
+  color: #265789;
+  font-size: 1.22rem;
+  line-height: 1.23;
+}
+
+.chat-mat-card-copy > p {
+  margin: 6px 0 14px;
+  color: #806a94;
+  font-size: .87rem;
+  font-weight: 700;
+}
+
+.chat-mat-card-details {
+  color: #606d7b;
+  font-size: .85rem;
+  line-height: 1.5;
+}
+
+.chat-mat-open {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-top: auto;
+  padding-top: 20px;
+  color: #315f91;
+  font-size: .82rem;
+  font-weight: 900;
+}
+
+.chat-mat-open span {
+  font-size: 1.1rem;
+}
+
+@media (max-width: 900px) {
+  .chat-mats-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .chat-mat-card {
+    min-height: 215px;
+  }
+}
+
+@media (max-width: 620px) {
+  .chat-mats-main {
+    padding: 18px 14px 50px;
+  }
+
+  .chat-mats-hero {
+    grid-template-columns: 1fr;
+    padding: 19px;
+  }
+
+  .chat-mats-library {
+    padding: 17px;
+  }
+
+  .chat-mats-library-head {
+    flex-direction: column;
+  }
+}
+
+</style>
+
+</head>
+
+<body class="chat-mats-page worksheet-page">
+  <header class="worksheet-header">
+    <div class="worksheet-brand">
+      <img
+        src="images/logo/logo.png"
+        alt="First Volo Learning"
+      >
+
+      <div class="worksheet-brand-text">
+        <strong>First Volo Learning</strong>
+
+        <a
+          href="https://firstvololearning.com"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          firstvololearning.com
+        </a>
+      </div>
+    </div>
+
+    <div class="worksheet-title-group">
+      <h1>
+        💬 Chat Mats
+      </h1>
+
+      <p>
+        Chat Mats
+      </p>
+    </div>
+
+    <nav
+      class="worksheet-nav"
+      aria-label="Worksheet page navigation"
+    >
+      <a href="index.html">
+        ✈️ Primo Volo · Home
+      </a>
+
+      <a href="books.html">
+        📚 Mini-libri
+      </a>
+
+      <a href="games.html">
+        🎲 Giochi
+      </a>
+    </nav>
+  </header>
+
+  
+<main class="page chat-mats-main">
+
+  <section class="chat-mats-hero">
+    <div class="chat-mats-hero-icon" aria-hidden="true">💬</div>
+
+    <div>
+      <p class="chat-mats-kicker">
+        Schede di conversazione
+        <span lang="en">· Conversation Supports</span>
+      </p>
+
+      <h1>Chat Mats</h1>
+
+      <p class="chat-mats-lead">
+        Supporti visivi per parlare, rispondere e ampliare
+        le conversazioni in italiano.
+        <span lang="en">
+          Visual supports for speaking, responding, and
+          extending conversations in Italian.
+        </span>
+      </p>
+    </div>
+  </section>
+
+  <section
+    class="chat-mats-library"
+    aria-labelledby="chatMatsLibraryTitle"
+  >
+    <div class="chat-mats-library-head">
+      <div>
+        <h2 id="chatMatsLibraryTitle">
+          Scegli una scheda
+          <span lang="en">· Choose a Chat Mat</span>
+        </h2>
+
+        <p>
+          Apri una scheda per usarla sullo schermo
+          oppure stamparla.
+          <span lang="en">
+            Open a mat to use on screen or print.
+          </span>
+        </p>
+      </div>
+
+      <span class="chat-mats-count">3 risorse · resources</span>
+    </div>
+
+    <div class="chat-mats-grid">
+
+      <a
+        class="chat-mat-card chat-mat-card-routine"
+        href="printables/Primo-Volo-Morning-Weekly-Checkin-Chat-Mat.pdf"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        <div class="chat-mat-card-top">
+          <span class="chat-mat-card-icon" aria-hidden="true">🌅</span>
+          <span class="chat-mat-tag">Tutto l’anno · All year</span>
+        </div>
+
+        <div class="chat-mat-card-copy">
+          <h3>
+            Routine del mattino e
+            check-in settimanale
+          </h3>
+
+          <p lang="en">
+            Morning &amp; Weekly Check-In
+          </p>
+
+          <div class="chat-mat-card-details">
+            Come stai? · giorno · data · tempo ·
+            settimana · Perché?
+          </div>
+        </div>
+
+        <span class="chat-mat-open">
+          Apri la scheda · Open
+          <span aria-hidden="true">→</span>
+        </span>
+      </a>
+
+
+      <a
+        class="chat-mat-card chat-mat-card-food"
+        href="printables/Che-cosa-mangi-Primo-Volo.pdf"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        <div class="chat-mat-card-top">
+          <span class="chat-mat-card-icon" aria-hidden="true">🍎</span>
+          <span class="chat-mat-tag">
+            Cibo e bevande · Food &amp; Drinks
+          </span>
+        </div>
+
+        <div class="chat-mat-card-copy">
+          <h3>Che cosa mangi?</h3>
+
+          <p lang="en">
+            What do you eat?
+          </p>
+
+          <div class="chat-mat-card-details">
+            Parla di ciò che mangi usando
+            vocabolario e frasi utili.
+          </div>
+        </div>
+
+        <span class="chat-mat-open">
+          Apri la scheda · Open
+          <span aria-hidden="true">→</span>
+        </span>
+      </a>
+
+
+      <a
+        class="chat-mat-card chat-mat-card-preference"
+        href="printables/Che-cibo-ti-piace-Primo-Volo.pdf"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        <div class="chat-mat-card-top">
+          <span class="chat-mat-card-icon" aria-hidden="true">❤️</span>
+          <span class="chat-mat-tag">
+            Cibo e preferenze · Food Preferences
+          </span>
+        </div>
+
+        <div class="chat-mat-card-copy">
+          <h3>Che cibo ti piace?</h3>
+
+          <p lang="en">
+            What food do you like?
+          </p>
+
+          <div class="chat-mat-card-details">
+            Mi piace... · Non mi piace... ·
+            Il mio cibo preferito è...
+          </div>
+        </div>
+
+        <span class="chat-mat-open">
+          Apri la scheda · Open
+          <span aria-hidden="true">→</span>
+        </span>
+      </a>
+
+    </div>
+  </section>
+
+</main>
+
+  <footer class="worksheet-footer">
+    © 2026 Alexis Sacco / First Volo Learning.
+    All rights reserved.
+  </footer>
+</body>
+</html>
