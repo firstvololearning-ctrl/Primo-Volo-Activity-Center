@@ -73,7 +73,7 @@
 
   <link href="css/style.css" rel="stylesheet"/>
   <link href="css/audio-controls.css?v=2" rel="stylesheet"/>
-  <link href="css/volo-city-map.css?v=8" rel="stylesheet"/>
+  <link href="css/volo-city-map.css?v=10" rel="stylesheet"/>
  </head>
  <body>
   <header class="site-header">
@@ -238,6 +238,10 @@
 <!-- CHAT MATS END -->
 
 <section
+  class="student-launch-panel"
+  aria-label="Start Italian practice"
+>
+<section
      id="practiceItalian"
      aria-labelledby="topicSelectorLabel"
      class="topic-selector-section"
@@ -254,13 +258,24 @@
     1
   </span>
 
-  <span>
-    Scegli un argomento
+  <span class="topic-start-copy">
+    <strong>
+      👋 Inizia qui!
+    </strong>
+
+    <span>
+      Scegli un argomento
+    </span>
 
     <small lang="en">
-      Choose a Topic
+      Start here! Choose a topic
     </small>
   </span>
+
+  <span
+    class="topic-start-arrow"
+    aria-hidden="true"
+  >↓</span>
 </label>
     <div class="topic-select-wrap">
 <select
@@ -438,6 +453,20 @@
      </span>
     </p>
    </div>
+   <div class="activity-start-heading">
+    <span
+      class="topic-step-number"
+      aria-hidden="true"
+    >
+      2
+    </span>
+
+    <span>
+      <strong>Scegli un’attività</strong>
+      <small lang="en">Choose an activity</small>
+    </span>
+   </div>
+
    <nav aria-label="Scegli un’attività" class="activity-menu">
 
     <button class="activity-button active" data-mode="learn" type="button">
@@ -554,7 +583,10 @@
      </small>
     </button>
    </nav>
-   <section class="topic-header">
+
+</section>
+
+<section class="topic-header">
     <h3 id="topicItalian">
      👋 Saluti e presentazioni
     </h3>
@@ -1681,7 +1713,7 @@
   <script src="js/progress/flight-path.js"></script>
   <script src="js/progress/flight-path-clicks.js?v=1"></script>
   <script src="js/progress/passport-regions.js"></script>
-  <script src="js/progress/volo-city-map.js?v=10"></script>
+  <script src="js/progress/volo-city-map.js?v=11"></script>
   <script src="js/core/header-groups.js"></script>
    <script src="js/progress/student-manager.js?v=2"></script>
    <script src="js/core/topic-read-talk.js?v=1"></script>

@@ -6147,11 +6147,15 @@ memoryActivity.hidden = true;
   currentTopicKey = "";
   currentVocabulary = [];
 
-  topicItalian.textContent =
-    "👋 Scegli un argomento";
+  const topicHeader =
+    document.querySelector(".topic-header");
 
-  topicEnglish.textContent =
-    "Choose a Topic";
+  if (topicHeader) {
+    topicHeader.hidden = true;
+  }
+
+  topicItalian.textContent = "";
+  topicEnglish.textContent = "";
 
   topicAvailability.textContent = "";
   topicAvailability.style.display = "none";
@@ -6170,22 +6174,17 @@ memoryActivity.hidden = true;
   englishToggleControl.hidden = true;
   learnInstructions.hidden = true;
 
-  vocabularyGrid.innerHTML = `
-    <div class="topic-welcome">
-      <h3>Benvenuto!</h3>
-
-      <p>
-        Scegli un argomento per iniziare.
-      </p>
-
-      <span>
-        Choose a topic to begin.
-      </span>
-    </div>
-  `;
+  vocabularyGrid.innerHTML = "";
 }
 
 function updateTopicHeading(topic) {
+
+  const topicHeader =
+    document.querySelector(".topic-header");
+
+  if (topicHeader) {
+    topicHeader.hidden = false;
+  }
 
   topicItalian.textContent =
 

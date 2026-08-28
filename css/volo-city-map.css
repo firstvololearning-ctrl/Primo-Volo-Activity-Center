@@ -1760,3 +1760,1217 @@ button.volo-city-stop-label:hover {
     grid-template-columns: 1fr;
   }
 }
+
+
+/* === KID ENTRY + REWARD CUE V1 === */
+
+/*
+  Make the Journey's game loop immediately understandable:
+  choose -> explore -> unlock.
+*/
+
+.volo-journey-home-kicker span[lang="en"] {
+  margin-left: 4px;
+  opacity: .82;
+}
+
+.volo-journey-home-how {
+  display: flex;
+  align-items: stretch;
+  flex-wrap: wrap;
+  gap: 7px;
+  margin-top: 13px;
+}
+
+.volo-journey-how-step {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+
+  padding: 7px 10px;
+
+  border: 1px solid #dce7f1;
+  border-radius: 13px;
+
+  background: rgba(255,255,255,.78);
+
+  color: #315f89;
+
+  font-size: .79rem;
+  font-weight: 900;
+  line-height: 1.08;
+}
+
+.volo-journey-how-step b {
+  display: grid;
+  place-items: center;
+
+  min-width: 23px;
+  height: 23px;
+
+  border-radius: 50%;
+
+  background: #eaf4fb;
+
+  color: #245d91;
+
+  font-size: .74rem;
+}
+
+.volo-journey-how-step span {
+  display: grid;
+  gap: 2px;
+}
+
+.volo-journey-how-step small {
+  color: #718093;
+  font-size: .68rem;
+  font-weight: 750;
+}
+
+.volo-journey-how-step.is-reward {
+  border-color: #edd08e;
+  background: #fff7dc;
+  color: #72531f;
+}
+
+.volo-journey-how-step.is-reward b {
+  background: #fff0b7;
+}
+
+.volo-journey-how-arrow {
+  align-self: center;
+  color: #a5afba;
+  font-weight: 950;
+}
+
+
+/* The next city is now visibly a reward to reveal. */
+
+.volo-journey-home-reward {
+  display: grid;
+  grid-template-columns: 74px minmax(0, 1fr);
+  gap: 12px;
+  align-items: center;
+
+  margin-top: 14px;
+  padding: 11px 13px;
+
+  border: 2px dashed #e6c36f;
+  border-radius: 17px;
+
+  background:
+    linear-gradient(
+      135deg,
+      rgba(255,248,220,.96),
+      rgba(255,253,244,.96)
+    );
+}
+
+.volo-journey-home-reward-art {
+  position: relative;
+
+  display: grid;
+  place-items: center;
+
+  width: 74px;
+  height: 74px;
+
+  overflow: hidden;
+
+  border: 1px solid #ead8a9;
+  border-radius: 15px;
+
+  background: rgba(255,255,255,.9);
+}
+
+.volo-journey-home-reward-art img {
+  display: block;
+
+  width: 66px;
+  height: 66px;
+
+  object-fit: contain;
+
+  opacity: .42;
+
+  filter:
+    blur(3px)
+    saturate(.7);
+}
+
+.volo-journey-home-reward-lock {
+  position: absolute;
+  inset: 0;
+
+  display: grid;
+  place-items: center;
+
+  font-size: 1.55rem;
+
+  filter:
+    drop-shadow(
+      0 2px 2px
+      rgba(70,52,24,.22)
+    );
+}
+
+.volo-journey-home-reward-copy {
+  min-width: 0;
+}
+
+.volo-journey-home-reward-eyebrow {
+  display: block;
+
+  margin-bottom: 3px;
+
+  color: #9a691d;
+
+  font-size: .68rem;
+  font-weight: 950;
+  letter-spacing: .035em;
+}
+
+.volo-journey-home-reward-eyebrow span[lang="en"] {
+  color: #88775d;
+}
+
+.volo-journey-home-next-row {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 7px;
+}
+
+.volo-journey-home-next {
+  margin: 0;
+
+  color: #245d91;
+
+  font-size: 1.18rem;
+  font-weight: 950;
+  line-height: 1.1;
+}
+
+.volo-journey-home-reward-hint {
+  display: block;
+
+  margin-top: 4px;
+
+  color: #665a47;
+
+  font-size: .78rem;
+  font-weight: 800;
+  line-height: 1.3;
+}
+
+.volo-journey-home-reward-track {
+  width: 100%;
+  height: 8px;
+
+  margin-top: 8px;
+
+  overflow: hidden;
+
+  border-radius: 999px;
+
+  background: #eadfca;
+}
+
+.volo-journey-home-reward-track > span {
+  display: block;
+
+  width: 0;
+  height: 100%;
+
+  border-radius: inherit;
+
+  background:
+    linear-gradient(
+      90deg,
+      #67aeda,
+      #efaa48
+    );
+
+  transition: width .25s ease;
+}
+
+.volo-journey-home-reward-count {
+  display: block;
+
+  margin-top: 4px;
+
+  color: #7c705e;
+
+  font-size: .68rem;
+  font-weight: 800;
+}
+
+
+/*
+  Remove the "where do I start?" ambiguity at the dropdown.
+*/
+
+.topic-start-label {
+  position: relative;
+}
+
+.topic-start-copy {
+  display: grid;
+  gap: 1px;
+}
+
+.topic-start-copy strong {
+  color: #c65f4d;
+  font-size: .88rem;
+  font-weight: 950;
+}
+
+.topic-start-copy > span {
+  color: #244f87;
+  font-size: 1rem;
+  font-weight: 950;
+}
+
+.topic-start-copy small {
+  color: #65758a;
+  font-size: .72rem;
+  font-weight: 750;
+}
+
+.topic-start-arrow {
+  display: inline-grid;
+  place-items: center;
+
+  width: 27px;
+  height: 27px;
+
+  margin-left: 7px;
+
+  border-radius: 50%;
+
+  background: #fff0e9;
+  color: #c65f4d;
+
+  font-size: 1rem;
+  font-weight: 950;
+}
+
+
+@media (max-width: 720px) {
+  .volo-journey-home-how {
+    display: grid;
+    grid-template-columns: 1fr;
+  }
+
+  .volo-journey-how-arrow {
+    display: none;
+  }
+
+  .volo-journey-home-reward {
+    grid-template-columns: 62px minmax(0, 1fr);
+  }
+
+  .volo-journey-home-reward-art {
+    width: 62px;
+    height: 62px;
+  }
+
+  .volo-journey-home-reward-art img {
+    width: 56px;
+    height: 56px;
+  }
+}
+
+
+@media (prefers-reduced-motion: reduce) {
+  .volo-journey-home-reward-track > span {
+    transition: none;
+  }
+}
+
+/* === KID ENTRY + REWARD CUE V1 END === */
+
+
+/* =========================================================
+   SIMPLE STUDENT HOME FLOW
+   Start -> Activity -> Reward
+   ========================================================= */
+
+.home-entry {
+  display: none !important;
+}
+
+.topic-selector-section {
+  margin-top: 22px;
+}
+
+.topic-start-label {
+  align-items: center;
+}
+
+.topic-start-copy {
+  display: grid;
+  gap: 1px;
+}
+
+.topic-start-copy strong {
+  color: #c65f4d;
+  font-size: 1rem;
+  font-weight: 950;
+}
+
+.topic-start-copy small {
+  color: #69798e;
+  font-size: .72rem;
+  font-weight: 750;
+}
+
+
+/* Visible step 2 */
+
+.activity-start-heading {
+  width: min(720px, calc(100% - 30px));
+  margin: 16px auto 7px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+
+  color: #244f87;
+}
+
+.activity-start-heading > span:last-child {
+  display: grid;
+  gap: 1px;
+}
+
+.activity-start-heading strong {
+  font-size: 1rem;
+  font-weight: 950;
+}
+
+.activity-start-heading small {
+  color: #69798e;
+  font-size: .72rem;
+  font-weight: 750;
+}
+
+
+/* Compact reward strip */
+
+.volo-journey-home-card {
+  width: min(840px, calc(100% - 30px));
+
+  margin: 14px auto 22px;
+  padding: 11px 13px;
+
+  display: grid;
+  grid-template-columns: 62px minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 12px;
+
+  overflow: visible;
+
+  border: 1px solid #ead39a;
+  border-radius: 17px;
+
+  background:
+    linear-gradient(
+      135deg,
+      #fff8df,
+      #fffdf7
+    );
+
+  box-shadow:
+    0 5px 14px
+    rgba(80,63,38,.08);
+}
+
+.volo-journey-home-reward-art {
+  width: 60px;
+  height: 60px;
+
+  position: relative;
+
+  display: grid;
+  place-items: center;
+
+  overflow: hidden;
+
+  border: 1px solid #ead8a9;
+  border-radius: 13px;
+
+  background: #fff;
+}
+
+.volo-journey-home-reward-art img {
+  width: 54px;
+  height: 54px;
+
+  object-fit: contain;
+
+  opacity: .4;
+
+  filter:
+    blur(2px)
+    saturate(.7);
+}
+
+.volo-journey-home-reward-lock {
+  position: absolute;
+  inset: 0;
+
+  display: grid;
+  place-items: center;
+
+  font-size: 1.35rem;
+}
+
+.volo-journey-home-reward-copy {
+  min-width: 0;
+}
+
+.volo-journey-home-reward-eyebrow {
+  display: block;
+
+  color: #976a23;
+
+  font-size: .68rem;
+  font-weight: 950;
+  letter-spacing: .02em;
+}
+
+.volo-journey-home-next-row {
+  margin-top: 1px;
+}
+
+.volo-journey-home-next {
+  color: #245d91;
+
+  font-size: 1.13rem;
+  font-weight: 950;
+}
+
+.volo-journey-home-reward-hint {
+  display: block;
+
+  margin-top: 2px;
+
+  color: #655a49;
+
+  font-size: .75rem;
+  font-weight: 800;
+}
+
+.volo-journey-home-reward-track {
+  width: min(380px, 100%);
+  height: 7px;
+
+  margin-top: 6px;
+
+  overflow: hidden;
+
+  border-radius: 999px;
+
+  background: #e9deca;
+}
+
+.volo-journey-home-reward-track > span {
+  display: block;
+
+  width: 0;
+  height: 100%;
+
+  border-radius: inherit;
+
+  background:
+    linear-gradient(
+      90deg,
+      #67aeda,
+      #efaa48
+    );
+}
+
+.volo-journey-home-reward-count {
+  display: block;
+
+  margin-top: 3px;
+
+  color: #7a6f60;
+
+  font-size: .66rem;
+  font-weight: 800;
+}
+
+.volo-journey-home-button {
+  margin: 0;
+  padding: 9px 12px;
+
+  white-space: nowrap;
+
+  font-size: .82rem;
+}
+
+.volo-journey-home-preview,
+.volo-journey-home-how,
+.volo-journey-home-stats,
+.volo-journey-home-copy,
+.volo-journey-home-kicker,
+.volo-journey-home-title-row,
+.volo-journey-home-description {
+  display: none !important;
+}
+
+
+@media (max-width: 700px) {
+
+  .volo-journey-home-card {
+    grid-template-columns: 56px minmax(0, 1fr);
+  }
+
+  .volo-journey-home-reward-art {
+    width: 54px;
+    height: 54px;
+  }
+
+  .volo-journey-home-reward-art img {
+    width: 49px;
+    height: 49px;
+  }
+
+  .volo-journey-home-button {
+    grid-column: 1 / -1;
+    width: 100%;
+  }
+}
+
+/* SIMPLE STUDENT HOME FLOW END */
+
+
+/* === STUDENT LAUNCH PANEL POLISH V1 === */
+
+
+/* ---------------------------------------------------------
+   One clear home-practice card
+   --------------------------------------------------------- */
+
+.student-launch-panel {
+  width:
+    min(
+      1180px,
+      calc(100% - 34px)
+    );
+
+  margin:
+    28px auto 32px;
+
+  padding:
+    24px 28px 22px;
+
+  border:
+    1px solid #dfe7f0;
+
+  border-radius:
+    28px;
+
+  background:
+    linear-gradient(
+      180deg,
+      #ffffff 0%,
+      #fbfdff 100%
+    );
+
+  box-shadow:
+    0 14px 34px
+    rgba(46, 72, 103, .10);
+}
+
+
+/* ---------------------------------------------------------
+   STEP 1
+   --------------------------------------------------------- */
+
+.student-launch-panel
+#practiceItalian {
+  width: 100%;
+
+  margin: 0;
+
+  display: grid;
+
+  grid-template-columns:
+    minmax(220px, 260px)
+    minmax(0, 1fr);
+
+  align-items: center;
+
+  gap:
+    7px 22px;
+}
+
+
+.student-launch-panel
+.topic-select-label {
+  margin: 0;
+
+  justify-self: start;
+
+  display: flex;
+
+  align-items: center;
+
+  gap: 10px;
+}
+
+
+.student-launch-panel
+.topic-step-number {
+  flex:
+    0 0 40px;
+
+  width: 40px;
+  height: 40px;
+
+  display: grid;
+
+  place-items: center;
+
+  border-radius: 50%;
+
+  background:
+    #dc6d59;
+
+  color:
+    #ffffff;
+
+  font-size:
+    1rem;
+
+  font-weight:
+    950;
+
+  box-shadow:
+    0 4px 10px
+    rgba(190, 84, 66, .18);
+}
+
+
+.student-launch-panel
+.topic-start-copy {
+  gap: 1px;
+}
+
+
+.student-launch-panel
+.topic-start-copy strong {
+  color:
+    #c65f4d;
+
+  font-size:
+    .98rem;
+}
+
+
+.student-launch-panel
+.topic-start-copy small {
+  color:
+    #6c7a8d;
+
+  font-size:
+    .73rem;
+}
+
+
+.student-launch-panel
+.topic-select-wrap {
+  width: 100%;
+
+  max-width:
+    700px;
+
+  margin: 0;
+}
+
+
+.student-launch-panel
+.topic-select {
+  width: 100%;
+
+  min-height:
+    60px;
+
+  padding-left:
+    18px;
+
+  border:
+    1.5px solid #cbdced;
+
+  border-radius:
+    17px;
+
+  background:
+    #ffffff;
+
+  box-shadow:
+    0 4px 11px
+    rgba(53, 92, 130, .07);
+
+  font-size:
+    1rem;
+}
+
+
+.student-launch-panel
+.topic-select:focus {
+  border-color:
+    #75a9d7;
+
+  outline:
+    3px solid
+    rgba(74, 142, 200, .13);
+}
+
+
+.student-launch-panel
+.topic-availability {
+  grid-column:
+    2;
+
+  margin:
+    2px 0 0;
+}
+
+
+/* ---------------------------------------------------------
+   STEP 2
+   --------------------------------------------------------- */
+
+.student-launch-panel
+.activity-start-heading {
+  width:
+    100%;
+
+  margin:
+    22px 0 11px;
+
+  padding-top:
+    18px;
+
+  border-top:
+    1px solid #edf1f5;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content:
+    flex-start;
+
+  gap:
+    10px;
+
+  color:
+    #244f87;
+}
+
+
+.student-launch-panel
+.activity-start-heading
+> span:last-child {
+  display: grid;
+
+  gap: 1px;
+}
+
+
+.student-launch-panel
+.activity-start-heading strong {
+  font-size:
+    1rem;
+
+  font-weight:
+    950;
+}
+
+
+.student-launch-panel
+.activity-start-heading small {
+  color:
+    #6c7a8d;
+
+  font-size:
+    .73rem;
+
+  font-weight:
+    750;
+}
+
+
+/* ---------------------------------------------------------
+   Balanced activities
+   5 across × 2 rows instead of 9 + one orphan
+   --------------------------------------------------------- */
+
+.student-launch-panel
+.activity-menu {
+  width: 100% !important;
+
+  margin:
+    0 !important;
+
+  padding:
+    0 !important;
+
+  display:
+    grid !important;
+
+  grid-template-columns:
+    repeat(
+      5,
+      minmax(0, 1fr)
+    ) !important;
+
+  gap:
+    10px !important;
+}
+
+
+.student-launch-panel
+.activity-button {
+  width:
+    100%;
+
+  min-width:
+    0;
+
+  min-height:
+    82px;
+
+  margin:
+    0;
+
+  padding:
+    10px 8px;
+
+  border:
+    1px solid #e3e9f0;
+
+  border-radius:
+    17px;
+
+  background:
+    #f9fbfd;
+
+  box-shadow:
+    0 2px 7px
+    rgba(60, 82, 105, .035);
+
+  transition:
+    transform .15s ease,
+    border-color .15s ease,
+    background .15s ease,
+    box-shadow .15s ease;
+}
+
+
+.student-launch-panel
+.activity-button:hover:not(:disabled) {
+  transform:
+    translateY(-2px);
+
+  border-color:
+    #c8d9e9;
+
+  background:
+    #ffffff;
+
+  box-shadow:
+    0 6px 13px
+    rgba(60, 82, 105, .08);
+}
+
+
+.student-launch-panel
+.activity-button.active {
+  border-color:
+    #d9a297;
+
+  background:
+    #fff9f7;
+
+  box-shadow:
+    inset 0 0 0 1px
+      rgba(207, 117, 98, .11),
+    0 3px 9px
+      rgba(111, 76, 66, .05);
+}
+
+
+.student-launch-panel
+.activity-icon {
+  margin-bottom:
+    3px;
+}
+
+
+/* ---------------------------------------------------------
+   Reward becomes the warm footer of the same card
+   --------------------------------------------------------- */
+
+.student-launch-panel
+.volo-journey-home-card {
+  width:
+    100%;
+
+  margin:
+    18px 0 0;
+
+  padding:
+    14px 16px;
+
+  display:
+    grid;
+
+  grid-template-columns:
+    68px
+    minmax(0, 1fr)
+    auto;
+
+  gap:
+    14px;
+
+  align-items:
+    center;
+
+  overflow:
+    visible;
+
+  border:
+    1px solid #ecd7a5;
+
+  border-radius:
+    19px;
+
+  background:
+    linear-gradient(
+      100deg,
+      #fff8df 0%,
+      #fffdf7 72%
+    );
+
+  box-shadow:
+    none;
+}
+
+
+.student-launch-panel
+.volo-journey-home-reward-art {
+  width:
+    64px;
+
+  height:
+    64px;
+
+  border-radius:
+    15px;
+
+  box-shadow:
+    0 3px 8px
+    rgba(99, 77, 42, .08);
+}
+
+
+.student-launch-panel
+.volo-journey-home-reward-art img {
+  width:
+    58px;
+
+  height:
+    58px;
+}
+
+
+.student-launch-panel
+.volo-journey-home-reward-eyebrow {
+  margin-bottom:
+    2px;
+
+  font-size:
+    .7rem;
+}
+
+
+.student-launch-panel
+.volo-journey-home-next {
+  font-size:
+    1.18rem;
+}
+
+
+.student-launch-panel
+.volo-journey-home-reward-hint {
+  margin-top:
+    3px;
+
+  line-height:
+    1.3;
+}
+
+
+.student-launch-panel
+.volo-journey-home-reward-track {
+  width:
+    min(
+      440px,
+      100%
+    );
+
+  height:
+    8px;
+
+  margin-top:
+    7px;
+}
+
+
+.student-launch-panel
+.volo-journey-home-button {
+  margin:
+    0;
+
+  min-height:
+    43px;
+
+  padding:
+    9px 14px;
+
+  border-radius:
+    13px;
+
+  white-space:
+    nowrap;
+
+  box-shadow:
+    0 4px 10px
+    rgba(40, 118, 187, .15);
+}
+
+
+/* ---------------------------------------------------------
+   Greeting / age / gender options stay integrated
+   --------------------------------------------------------- */
+
+.student-launch-panel
+.volo-age-setup,
+.student-launch-panel
+.gender-choice {
+  margin-left:
+    0;
+
+  margin-right:
+    0;
+}
+
+
+/* ---------------------------------------------------------
+   Responsive
+   --------------------------------------------------------- */
+
+@media (max-width: 900px) {
+
+  .student-launch-panel {
+    padding:
+      21px;
+  }
+
+  .student-launch-panel
+  #practiceItalian {
+    grid-template-columns:
+      1fr;
+
+    gap:
+      10px;
+  }
+
+  .student-launch-panel
+  .topic-select-wrap {
+    max-width:
+      none;
+  }
+
+  .student-launch-panel
+  .topic-availability {
+    grid-column:
+      1;
+  }
+
+  .student-launch-panel
+  .activity-menu {
+    grid-template-columns:
+      repeat(
+        3,
+        minmax(0, 1fr)
+      ) !important;
+  }
+
+  .student-launch-panel
+  .volo-journey-home-card {
+    grid-template-columns:
+      64px
+      minmax(0, 1fr);
+  }
+
+  .student-launch-panel
+  .volo-journey-home-button {
+    grid-column:
+      1 / -1;
+
+    width:
+      100%;
+  }
+}
+
+
+@media (max-width: 560px) {
+
+  .student-launch-panel {
+    width:
+      calc(100% - 20px);
+
+    padding:
+      16px;
+
+    border-radius:
+      22px;
+  }
+
+  .student-launch-panel
+  .activity-menu {
+    grid-template-columns:
+      repeat(
+        2,
+        minmax(0, 1fr)
+      ) !important;
+  }
+
+  .student-launch-panel
+  .activity-button {
+    min-height:
+      78px;
+  }
+}
+
+
+@media (prefers-reduced-motion: reduce) {
+
+  .student-launch-panel
+  .activity-button {
+    transition:
+      none;
+  }
+}
+
+
+/* === STUDENT LAUNCH PANEL POLISH V1 END === */

@@ -33,10 +33,16 @@
       ".topic-selector-section"
     );
 
+  const activityMenu =
+    document.querySelector(
+      ".activity-menu"
+    );
+
   if (
     !headerUtilities ||
     !topicSelect ||
-    !topicSelectorSection
+    !topicSelectorSection ||
+    !activityMenu
   ) {
     console.error("Mappa di Volo could not start.");
     return;
@@ -378,47 +384,31 @@
   );
 
   journeyCard.innerHTML = `
-    <div class="volo-journey-home-copy">
-      <span class="volo-journey-home-kicker">
-        🗺️ Viaggio in Italia
+    <div
+      class="volo-journey-home-reward-art"
+      aria-hidden="true"
+    >
+      <img
+        id="voloJourneyHomeRewardImage"
+        alt=""
+      >
+      <span
+        id="voloJourneyHomeRewardLock"
+        class="volo-journey-home-reward-lock"
+      >🔒</span>
+    </div>
+
+    <div class="volo-journey-home-reward-copy">
+      <span class="volo-journey-home-reward-eyebrow">
+        🎁 La tua prossima città
+        <span lang="en">· Your next city</span>
       </span>
 
-      <div class="volo-journey-home-title-row">
-        <h2 id="voloJourneyHomeTitle">
-          Il tuo viaggio in Italia
-          <span lang="en">
-            Your Italy Journey
-          </span>
-        </h2>
-
-        <button
-          type="button"
-          class="pv-audio-button"
-          data-speak-it="Il tuo viaggio in Italia"
-          aria-label="Ascolta: Il tuo viaggio in Italia"
-          title="Ascolta"
-        >🔊</button>
-      </div>
-
-      <p class="volo-journey-home-description">
-        Pratica gli argomenti e raggiungi nuove città.
-        Ogni due argomenti esplorati sblocchi una nuova tappa.
-        <span lang="en">
-          Practice across topics and unlock a new Italian city
-          for every two topics explored.
-        </span>
-      </p>
-
-      <div class="volo-journey-home-stats">
-        <span id="voloJourneyHomeTopics"></span>
-        <span id="voloJourneyHomeCities"></span>
-      </div>
-
       <div class="volo-journey-home-next-row">
-        <p
+        <strong
           id="voloJourneyHomeNext"
           class="volo-journey-home-next"
-        ></p>
+        ></strong>
 
         <button
           type="button"
@@ -429,53 +419,48 @@
         >🔊</button>
       </div>
 
-      <button
-        type="button"
-        id="voloJourneyCardButton"
-        class="volo-journey-home-button"
-        aria-haspopup="dialog"
-        aria-controls="voloCityMapModal"
-      >
-        Apri la mappa
-        <span lang="en">Open Map</span>
-        <span aria-hidden="true">→</span>
-      </button>
-    </div>
+      <span
+        id="voloJourneyHomeRewardHint"
+        class="volo-journey-home-reward-hint"
+      ></span>
 
-    <div
-      class="volo-journey-home-preview"
-      aria-hidden="true"
-    >
       <div
-        id="voloJourneyHomeMapLayer"
-        class="volo-journey-home-map-layer"
-      ></div>
+        class="volo-journey-home-reward-track"
+        aria-hidden="true"
+      >
+        <span
+          id="voloJourneyHomeRewardProgress"
+        ></span>
+      </div>
 
-      <span class="volo-journey-home-city-count">
-        10 città · 10 cities
-      </span>
+      <span
+        id="voloJourneyHomeRewardCount"
+        class="volo-journey-home-reward-count"
+      ></span>
     </div>
+
+    <button
+      type="button"
+      id="voloJourneyCardButton"
+      class="volo-journey-home-button"
+      aria-haspopup="dialog"
+      aria-controls="voloCityMapModal"
+    >
+      Vedi la mappa
+      <span lang="en">See Map</span>
+      <span aria-hidden="true">→</span>
+    </button>
   `;
 
-  topicSelectorSection
+  activityMenu
     .insertAdjacentElement(
-      "beforebegin",
+      "afterend",
       journeyCard
     );
 
   const journeyCardButton =
     journeyCard.querySelector(
       "#voloJourneyCardButton"
-    );
-
-  const journeyHomeTopics =
-    journeyCard.querySelector(
-      "#voloJourneyHomeTopics"
-    );
-
-  const journeyHomeCities =
-    journeyCard.querySelector(
-      "#voloJourneyHomeCities"
     );
 
   const journeyHomeNext =
@@ -488,9 +473,29 @@
       "#voloJourneyHomeNextAudio"
     );
 
-  const journeyHomeMapLayer =
+  const journeyHomeRewardImage =
     journeyCard.querySelector(
-      "#voloJourneyHomeMapLayer"
+      "#voloJourneyHomeRewardImage"
+    );
+
+  const journeyHomeRewardLock =
+    journeyCard.querySelector(
+      "#voloJourneyHomeRewardLock"
+    );
+
+  const journeyHomeRewardHint =
+    journeyCard.querySelector(
+      "#voloJourneyHomeRewardHint"
+    );
+
+  const journeyHomeRewardProgress =
+    journeyCard.querySelector(
+      "#voloJourneyHomeRewardProgress"
+    );
+
+  const journeyHomeRewardCount =
+    journeyCard.querySelector(
+      "#voloJourneyHomeRewardCount"
     );
 
   function cityArtworkPath(city) {
@@ -499,107 +504,6 @@
       city.id +
       ".png"
     );
-  }
-
-  function renderJourneyHomeMap() {
-    if (!journeyHomeMapLayer) {
-      return;
-    }
-
-    const count =
-      effectiveExploredCount();
-
-    const unlocked =
-      unlockedCities();
-
-    const unlockedIds =
-      new Set(
-        unlocked.map(
-          city => city.id
-        )
-      );
-
-    const currentCity =
-      unlocked[
-        unlocked.length - 1
-      ] || null;
-
-    const nextCity =
-      CITY_STOPS.find(
-        city => count < city.unlockAt
-      ) || null;
-
-    journeyHomeMapLayer.innerHTML = "";
-
-    CITY_STOPS.forEach(
-      (city, index) => {
-        const reached =
-          unlockedIds.has(city.id);
-
-        const current =
-          currentCity?.id === city.id;
-
-        const next =
-          nextCity?.id === city.id;
-
-        const marker =
-          document.createElement("span");
-
-        marker.className =
-          "volo-journey-mini-stop" +
-          (reached ? " is-reached" : "") +
-          (current ? " is-current" : "") +
-          (next ? " is-next" : "");
-
-        marker.dataset.city =
-          city.id;
-
-        marker.style.left =
-          `${city.x}%`;
-
-        marker.style.top =
-          `${city.y}%`;
-
-        if (reached) {
-          const image =
-            document.createElement("img");
-
-          image.src =
-            cityArtworkPath(city);
-
-          image.alt = "";
-
-          marker.appendChild(image);
-        } else {
-          marker.textContent =
-            String(index + 1);
-        }
-
-        journeyHomeMapLayer.appendChild(
-          marker
-        );
-      }
-    );
-
-    if (currentCity) {
-      const plane =
-        document.createElement("span");
-
-      plane.className =
-        "volo-journey-mini-plane";
-
-      plane.style.left =
-        `calc(${currentCity.x}% + 18px)`;
-
-      plane.style.top =
-        `calc(${currentCity.y}% - 15px)`;
-
-      plane.textContent = "✈️";
-
-      journeyHomeMapLayer.appendChild(
-        plane
-      );
-    }
   }
 
   function renderJourneyCard() {
@@ -611,13 +515,6 @@
     const unlocked =
       unlockedCities();
 
-    renderJourneyHomeMap();
-
-    journeyHomeTopics.textContent =
-      `${journeyPreview ? "🧪 Preview · " : "✓ "}${count} argomenti esplorati · topics explored`;
-
-    journeyHomeCities.textContent =
-      `📍 ${unlocked.length} / ${CITY_STOPS.length} città raggiunte · cities reached`;
 
     const nextCity =
       CITY_STOPS.find(
@@ -626,7 +523,20 @@
 
     if (!nextCity) {
       journeyHomeNext.textContent =
-        `🎉 Tutte le ${CITY_STOPS.length} città raggiunte! · All cities reached!`;
+        "🎉 Viaggio completato!";
+
+      journeyHomeRewardHint.textContent =
+        "Hai sbloccato tutte le città! · You unlocked every city!";
+
+      journeyHomeRewardProgress.style.width =
+        "100%";
+
+      journeyHomeRewardCount.textContent =
+        `${CITY_STOPS.length} / ${CITY_STOPS.length} città · cities`;
+
+      journeyHomeRewardImage.hidden = true;
+      journeyHomeRewardLock.textContent = "🏆";
+
       journeyHomeNextAudio.hidden = true;
       journeyHomeNextAudio.removeAttribute("data-speak-it");
       return;
@@ -639,12 +549,56 @@
     const remaining =
       nextCity.unlockAt - count;
 
+    const cityIndex =
+      CITY_STOPS.indexOf(nextCity);
+
+    const previousUnlockAt =
+      cityIndex > 0
+        ? CITY_STOPS[cityIndex - 1].unlockAt
+        : 0;
+
+    const neededForCity =
+      nextCity.unlockAt -
+      previousUnlockAt;
+
+    const doneTowardCity =
+      Math.max(
+        0,
+        Math.min(
+          neededForCity,
+          count - previousUnlockAt
+        )
+      );
+
+    const progressPercent =
+      neededForCity
+        ? (
+            doneTowardCity /
+            neededForCity
+          ) * 100
+        : 0;
+
     journeyHomeNext.textContent =
-      `Prossima tappa · Next stop: ${nextCity.name} — ${remaining} ${
-        remaining === 1 ? "argomento" : "argomenti"
-      } ancora · ${remaining} more ${
-        remaining === 1 ? "topic" : "topics"
-      }`;
+      nextCity.name;
+
+    journeyHomeRewardHint.textContent =
+      remaining === 1
+        ? "Esplora ancora 1 argomento per sbloccarla! · Explore 1 more topic to unlock it!"
+        : `Esplora ancora ${remaining} argomenti per sbloccarla! · Explore ${remaining} more topics to unlock it!`;
+
+    journeyHomeRewardProgress.style.width =
+      `${progressPercent}%`;
+
+    journeyHomeRewardCount.textContent =
+      `${doneTowardCity} / ${neededForCity} verso ${nextCity.name} · toward ${nextCity.name}`;
+
+    journeyHomeRewardImage.hidden = false;
+    journeyHomeRewardImage.src =
+      cityArtworkPath(nextCity);
+    journeyHomeRewardImage.alt = "";
+
+    journeyHomeRewardLock.textContent =
+      "🔒";
   }
 
   /* ========================================
