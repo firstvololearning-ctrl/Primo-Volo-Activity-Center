@@ -1018,6 +1018,9 @@ document.head.appendChild(style);
 
  let currentCarrierPhrase = null;
  let currentGreetingsAssemblyItem = null;
+ let currentFamilyAssemblyItem = null;
+ let currentFamilyAssemblyFrame = null;
+ let familyAssemblyFramePlan = [];
 
 function cleanCarrierPhrase(text) {
   return String(text || "")
@@ -1621,6 +1624,423 @@ function showGreetingsAssemblyQuestion(
     }
   );
 }
+
+function buildFamilyAssemblyFramePlan() {
+  const startsWithSee =
+    Math.random() < 0.5;
+
+  return startsWithSee
+    ? [
+        "see",
+        "identify",
+        "see",
+        "identify",
+        "see",
+        "identify"
+      ]
+    : [
+        "identify",
+        "see",
+        "identify",
+        "see",
+        "identify",
+        "see"
+      ];
+}
+
+function resetFamilyAssemblyRound() {
+  currentFamilyAssemblyItem = null;
+  currentFamilyAssemblyFrame = null;
+  familyAssemblyFramePlan =
+    buildFamilyAssemblyFramePlan();
+}
+
+function showFamilyAssemblyQuestion(
+  reuseCurrent = false
+) {
+  const vocabulary = getVocabulary();
+
+  if (!vocabulary.length) {
+    assembleActivity.innerHTML = `
+      <div class="assemble-empty">
+        Nessuna parola disponibile per questo argomento.
+
+        <span>
+          No words are available for this topic yet.
+        </span>
+      </div>
+    `;
+    return;
+  }
+
+  if (
+    !reuseCurrent ||
+    !currentFamilyAssemblyItem ||
+    !currentFamilyAssemblyFrame
+  ) {
+    const assembleDraw =
+      window.PrimoVoloPracticeRounds
+        .next(
+          "assemble-sentences",
+          currentTopicKey,
+          vocabulary
+        );
+
+    if (assembleDraw.complete) {
+      window.PrimoVoloPracticeRounds
+        .renderComplete(
+          assembleActivity,
+          {
+            activity:
+              "assemble-sentences",
+            topicKey:
+              currentTopicKey,
+            total:
+              assembleDraw.total,
+            onRestart: () => {
+              resetFamilyAssemblyRound();
+              showFamilyAssemblyQuestion(
+                false
+              );
+            }
+          }
+        );
+      return;
+    }
+
+    if (!familyAssemblyFramePlan.length) {
+      familyAssemblyFramePlan =
+        buildFamilyAssemblyFramePlan();
+    }
+
+    currentFamilyAssemblyItem =
+      assembleDraw.item;
+    currentFamilyAssemblyFrame =
+      familyAssemblyFramePlan.shift();
+  }
+
+  const isIdentification =
+    currentFamilyAssemblyFrame ===
+      "identify";
+
+  const responseText = isIdentification
+    ? `È ${currentFamilyAssemblyItem.italian}`
+    : `Io vedo ${currentFamilyAssemblyItem.italian}`;
+
+  const response = `${responseText}.`;
+
+  const spokenText = isIdentification
+    ? `Chi è? ${response}`
+    : response;
+
+  correctTokens =
+    responseText
+      .split(/\s+/)
+      .filter(Boolean);
+
+  placedTokens = [];
+  sentenceHadError = false;
+  sentenceComplete = false;
+
+  const tileObjects =
+    correctTokens.map(
+      (token, index) => ({
+        token,
+        id: `family-${index}-${token}`
+      })
+    );
+
+  const shuffledTiles =
+    shuffleUntilDifferent(
+      tileObjects
+    );
+
+  const promptMarkup = isIdentification
+    ? `
+        <button
+          type="button"
+          id="familyAssembleQuestionAudio"
+          class="assemble-secondary-button"
+          aria-label="Ascolta la domanda: Chi è?"
+        >
+          🔊 Chi è?
+          <span class="english-word">
+            Who is it?
+          </span>
+        </button>
+      `
+    : `
+        <div class="assemble-carrier-visual">
+          <img
+            src="images/carrier-phrases/io-vedo-no-text.png"
+            alt="Io vedo · I see"
+            class="assemble-carrier-image"
+          >
+        </div>
+      `;
+
+  assembleActivity.innerHTML = `
+    <div class="assemble-card">
+      <div class="assemble-heading">
+        <h4>
+          ${isIdentification
+            ? "Ascolta e costruisci la risposta."
+            : "Costruisci la frase."}
+        </h4>
+
+        <p>
+          ${isIdentification
+            ? "Listen and build the response."
+            : "Build the sentence."}
+        </p>
+      </div>
+
+      <div class="assemble-prompt-row">
+        ${promptMarkup}
+
+        <div class="assemble-picture-frame">
+          <img
+            src="${currentFamilyAssemblyItem.image}"
+            alt="${currentFamilyAssemblyItem.english}"
+          >
+        </div>
+      </div>
+
+      <p class="assemble-instruction">
+        Tocca le parole nell'ordine corretto.
+
+        <span>
+          Tap the words in the correct order.
+        </span>
+      </p>
+
+      <div
+        id="assembleSentenceArea"
+        class="assemble-sentence-area"
+        aria-live="polite"
+        aria-label="${isIdentification
+          ? "Response being built"
+          : "Sentence being built"}"
+      ></div>
+
+      <div
+        id="assembleWordBank"
+        class="assemble-word-bank"
+        aria-label="${isIdentification
+          ? "Mixed-up response words"
+          : "Mixed-up sentence words"}"
+      >
+        ${shuffledTiles.map(tile => `
+          <button
+            type="button"
+            class="assemble-word-tile"
+            data-token="${tile.token}"
+            data-tile-id="${tile.id}"
+          >
+            ${tile.token}
+          </button>
+        `).join("")}
+      </div>
+
+      <p
+        id="assembleFeedback"
+        class="assemble-feedback"
+        aria-live="polite"
+      ></p>
+
+      <div class="assemble-actions">
+        <button
+          type="button"
+          id="assembleReset"
+          class="assemble-secondary-button"
+        >
+          Ricomincia · Start Over
+        </button>
+
+        <button
+          type="button"
+          id="assembleNext"
+          class="next-question-button"
+          hidden
+        >
+          ${isIdentification
+            ? "Prossima risposta · Next Response"
+            : "Prossima frase · Next Sentence"}
+        </button>
+      </div>
+    </div>
+  `;
+
+  renderPlacedTokens();
+
+  assembleActivity
+    .querySelector(
+      "#familyAssembleQuestionAudio"
+    )
+    ?.addEventListener(
+      "click",
+      () => speakSentence("Chi è?")
+    );
+
+  const wordTiles =
+    assembleActivity.querySelectorAll(
+      ".assemble-word-tile"
+    );
+
+  const feedback =
+    assembleActivity.querySelector(
+      "#assembleFeedback"
+    );
+
+  const resetButton =
+    assembleActivity.querySelector(
+      "#assembleReset"
+    );
+
+  const nextButton =
+    assembleActivity.querySelector(
+      "#assembleNext"
+    );
+
+  function completeFamilySentence() {
+    sentenceComplete = true;
+
+    saveSentenceAttempt(
+      !sentenceHadError
+    );
+
+    feedback.innerHTML = `
+      🎉 ${isIdentification
+        ? "Risposta completa!"
+        : "Frase completa!"}
+
+      <strong>
+        ${isIdentification
+          ? `Chi è?<br>${response}`
+          : response}
+      </strong>
+
+      <span>
+        ${isIdentification
+          ? "Response complete!"
+          : "Sentence complete!"}
+      </span>
+    `;
+
+    feedback.insertAdjacentHTML(
+      "beforeend",
+      window.PrimoVoloAudio
+        .replayButtonMarkup(
+          spokenText,
+          isIdentification
+            ? "Ascolta lo scambio di nuovo · Listen to the exchange again"
+            : "Ascolta la frase di nuovo · Listen to the sentence again"
+        )
+    );
+
+    wordTiles.forEach(tile => {
+      tile.disabled = true;
+    });
+
+    resetButton.hidden = true;
+    nextButton.hidden = false;
+
+    speakSentence(spokenText);
+  }
+
+  wordTiles.forEach(tile => {
+    tile.addEventListener(
+      "click",
+      () => {
+        if (
+          sentenceComplete ||
+          tile.disabled
+        ) {
+          return;
+        }
+
+        const expectedToken =
+          correctTokens[
+            placedTokens.length
+          ];
+
+        const selectedToken =
+          tile.dataset.token;
+
+        if (
+          selectedToken !==
+          expectedToken
+        ) {
+          sentenceHadError = true;
+
+          tile.classList.remove(
+            "wrong"
+          );
+
+          void tile.offsetWidth;
+
+          tile.classList.add(
+            "wrong"
+          );
+
+          feedback.innerHTML = `
+            Riprova.
+
+            <span>
+              Try another word.
+            </span>
+          `;
+
+          tile.addEventListener(
+            "animationend",
+            () => {
+              tile.classList.remove(
+                "wrong"
+              );
+            },
+            { once: true }
+          );
+          return;
+        }
+
+        placedTokens.push(
+          selectedToken
+        );
+
+        tile.disabled = true;
+        tile.classList.add("used");
+        feedback.textContent = "";
+
+        renderPlacedTokens();
+
+        if (
+          placedTokens.length ===
+          correctTokens.length
+        ) {
+          completeFamilySentence();
+        }
+      }
+    );
+  });
+
+  resetButton.addEventListener(
+    "click",
+    () => {
+      showFamilyAssemblyQuestion(
+        true
+      );
+    }
+  );
+
+  nextButton.addEventListener(
+    "click",
+    () => {
+      showFamilyAssemblyQuestion(
+        false
+      );
+    }
+  );
+}
   function renderPlacedTokens() {
 
     const sentenceArea =
@@ -1679,6 +2099,13 @@ sentenceArea.innerHTML =
 
     if (currentTopicKey === "greetings") {
       showGreetingsAssemblyQuestion(
+        reuseCurrent
+      );
+      return;
+    }
+
+    if (currentTopicKey === "family") {
+      showFamilyAssemblyQuestion(
         reuseCurrent
       );
       return;
@@ -2509,5 +2936,10 @@ correctTokens =
     );
 
   }
+
+  window.addEventListener(
+    "primo-volo-student-changed",
+    resetFamilyAssemblyRound
+  );
 
 })();
