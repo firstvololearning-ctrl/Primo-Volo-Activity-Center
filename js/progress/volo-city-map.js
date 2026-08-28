@@ -759,6 +759,75 @@
         ></span>
       </div>
 
+
+      <details
+        class="volo-city-unlock-dropdown"
+        id="voloCityUnlockPreview"
+      >
+        <summary class="volo-city-unlock-dropdown-summary">
+          <span>
+            ✨ Guarda un esempio di ciò che sbloccherai
+            <span lang="en">· See an example</span>
+          </span>
+
+          <span
+            class="volo-city-unlock-dropdown-chevron"
+            aria-hidden="true"
+          >⌄</span>
+        </summary>
+
+        <div class="volo-city-example">
+
+          <div class="volo-city-example-heading">
+            <span class="volo-city-example-label">
+              ✨ ESEMPIO DI UNA CITTÀ SBLOCCATA
+              <span lang="en">· EXAMPLE CITY UNLOCK</span>
+            </span>
+
+            <strong>Napoli · Campania</strong>
+          </div>
+
+          <img
+            class="volo-city-example-diorama"
+            src="images/progress/italy-journey/cities/napoli.png"
+            alt="Diorama di Napoli con il Vesuvio e il Golfo di Napoli"
+          >
+
+          <div class="volo-city-example-items">
+
+            <div class="volo-city-example-item">
+              <img
+                id="voloCityPreviewLandmark"
+                alt=""
+                hidden
+              >
+              <div>
+                <span>🏛️ Luogo da scoprire</span>
+                <strong id="voloCityPreviewLandmarkName">
+                  Pompei
+                </strong>
+              </div>
+            </div>
+
+            <div class="volo-city-example-item">
+              <img
+                id="voloCityPreviewFood"
+                alt=""
+                hidden
+              >
+              <div>
+                <span>🍕 Cibo regionale</span>
+                <strong id="voloCityPreviewFoodName">
+                  Pizza napoletana
+                </strong>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+      </details>
+
       <div class="volo-city-map-board-wrap">
         <div
           class="volo-city-map-board"
@@ -967,6 +1036,69 @@
     modal.querySelector(
       "#voloCityRouteProgress"
     );
+
+
+  /*
+    Homepage/Journey example preview.
+    Uses the same canonical Campania landmark + food data
+    already used by the unlocked-city arrival card.
+  */
+  function populateUnlockPreview() {
+    const landmarkImage =
+      modal.querySelector("#voloCityPreviewLandmark");
+
+    const landmarkName =
+      modal.querySelector("#voloCityPreviewLandmarkName");
+
+    const foodImage =
+      modal.querySelector("#voloCityPreviewFood");
+
+    const foodName =
+      modal.querySelector("#voloCityPreviewFoodName");
+
+    const region =
+      typeof window.getPassportRegionById === "function"
+        ? window.getPassportRegionById("campania")
+        : null;
+
+    const landmark =
+      region &&
+      typeof window.getPrimaryPassportLandmark === "function"
+        ? window.getPrimaryPassportLandmark(region)
+        : null;
+
+    const food =
+      region &&
+      typeof window.getPrimaryPassportFood === "function"
+        ? window.getPrimaryPassportFood(region)
+        : null;
+
+    if (landmark?.image && landmarkImage) {
+      landmarkImage.src = landmark.image;
+      landmarkImage.alt =
+        landmark.name || "Luogo della Campania";
+      landmarkImage.hidden = false;
+
+      if (landmarkName) {
+        landmarkName.textContent =
+          landmark.name || "Luogo della Campania";
+      }
+    }
+
+    if (food?.image && foodImage) {
+      foodImage.src = food.image;
+      foodImage.alt =
+        food.name || "Cibo della Campania";
+      foodImage.hidden = false;
+
+      if (foodName) {
+        foodName.textContent =
+          food.name || "Cibo della Campania";
+      }
+    }
+  }
+
+  populateUnlockPreview();
 
   let lastFocused = null;
 
