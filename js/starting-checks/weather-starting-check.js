@@ -2,27 +2,23 @@
 
 /*
   WEATHER STARTING CHECK
-  Four short tasks using the existing Weather vocabulary and images.
+  Adaptive recognition and independent-production check using the existing
+  Weather vocabulary and images.
 */
 (() => {
   const TOPIC_KEY = "weather";
   const STORAGE_FALLBACK_KEY =
     "primoVoloStartingChecksV1";
-  const TASK_TYPES = [
-    "picture-recognition",
-    "listening-recognition",
-    "sentence-understanding",
-    "independent-recall"
-  ];
-  const TASK_LABELS = {
-    "picture-recognition":
-      "Italiano → immagine",
-    "listening-recognition":
-      "Ascolto → immagine",
-    "sentence-understanding":
-      "Domanda → risposta",
-    "independent-recall":
-      "Produzione indipendente"
+  const RECOGNITION_TOTAL = 8;
+  const ACCEPTABLE_ALTERNATIVES = {
+    "Fa caldo": ["È caldo"],
+    "Fa freddo": ["È freddo"],
+    "C'è il sole": ["È soleggiato"],
+    "È nuvoloso": ["Ci sono nuvole"],
+    Piove: ["Sta piovendo"],
+    Nevica: ["Sta nevicando"],
+    "C'è vento": ["È ventoso"],
+    "C'è un temporale": ["C'è una tempesta"]
   };
 
   let checkCard = null;
@@ -47,7 +43,7 @@
     );
   }
 
-  function shuffle(items) {
+  function shuffle(items, random = Math.random) {
     const result = [...items];
 
     for (
@@ -56,7 +52,7 @@
       index -= 1
     ) {
       const randomIndex = Math.floor(
-        Math.random() * (index + 1)
+        random() * (index + 1)
       );
 
       [
@@ -101,8 +97,28 @@
       .toLowerCase()
       .normalize("NFD")
       .replace(/[\u0300-\u036f]/g, "")
+      .replace(/['’]/g, "")
       .replace(/[.!?]+$/g, "")
       .replace(/\s+/g, " ");
+  }
+
+  function classifyProduction(typedAnswer, canonicalItalian) {
+    const normalizedAnswer = normalizeAnswer(typedAnswer);
+    const normalizedCanonical = normalizeAnswer(canonicalItalian);
+
+    if (normalizedAnswer === normalizedCanonical) {
+      return "produced-canonical";
+    }
+
+    const alternatives =
+      ACCEPTABLE_ALTERNATIVES[canonicalItalian] || [];
+    if (alternatives.some(alternative =>
+      normalizedAnswer === normalizeAnswer(alternative)
+    )) {
+      return "produced-acceptable-alternative";
+    }
+
+    return null;
   }
 
   function storageKey() {
@@ -196,13 +212,19 @@
 
     const saved = {
       id: session.id,
-      version: 2,
+      version: 3,
       startedAt: session.startedAt,
       completedAt: session.completedAt,
-      total: session.results.length,
-      correct: session.results.filter(
-        result => result.correct
-      ).length,
+      recognitionTotal: RECOGNITION_TOTAL,
+      recognitionCorrect:
+        session.recognitionResults.filter(
+          result => result.correct
+        ).length,
+      productionTotal: session.productionTasks.length,
+      productionCorrect:
+        session.productionResults.filter(
+          result => result.correct
+        ).length,
       results: session.results.map(result => ({
         itemId: result.itemId,
         italian: result.italian,
@@ -211,11 +233,31 @@
         selectedItemId:
           result.selectedItemId || null,
         typedAnswer: result.typedAnswer || null,
-        status: result.correct
-          ? "correct"
-          : "incorrect"
+        stage: result.stage,
+        productionStatus: result.productionStatus || null,
+        status: result.correct ? "correct" : "incorrect"
       }))
     };
+
+    saved.itemStatuses = session.recognitionTasks.map(task => {
+      const recognized = session.recognitionResults.find(
+        result => result.itemId === task.item.id
+      )?.correct === true;
+      const productionResult = session.productionResults.find(
+        result => result.itemId === task.item.id
+      );
+
+      return {
+        itemId: task.item.id,
+        italian: task.item.italian,
+        typedAnswer: productionResult?.typedAnswer || null,
+        status: productionResult?.productionStatus
+          ? productionResult.productionStatus
+          : recognized
+            ? "recognized-not-yet-produced"
+            : "not-yet-recognized"
+      };
+    });
 
     topicData.latest = saved;
     topicData.history = [
@@ -225,7 +267,7 @@
       saved
     ].slice(-10);
 
-    data.version = 2;
+    data.version = 3;
     data.byTopic[TOPIC_KEY] = topicData;
     saveStore(data);
 
@@ -484,15 +526,15 @@
           </span>
           <h3>🌦️ Prova iniziale · Weather Starting Check</h3>
           <p>
-            Quattro domande brevi: immagini, ascolto,
-            risposta alla domanda e produzione indipendente.
+            Prima riconosci le espressioni del tempo. Poi prova
+            da solo quelle che hai riconosciuto.
             <span lang="en">
-              Four short tasks: picture recognition, listening,
-              response understanding, and independent recall.
+              First recognize the Weather expressions. Then try
+              the ones you recognized on your own.
             </span>
           </p>
           <div class="weather-check-summary">
-            <span class="weather-check-chip">4 domande · 4 tasks</span>
+            <span class="weather-check-chip">8 espressioni · 8 expressions</span>
             <span class="weather-check-chip">Il tempo · Weather</span>
           </div>
           <div class="weather-check-latest" data-role="latest"></div>
@@ -568,7 +610,9 @@
     holder.innerHTML = `
       <p>
         <strong>Ultima prova · Latest:</strong>
-        ${latest.correct ?? 0} / ${latest.total ?? 4}
+        Riconoscimento · Recognition
+        ${latest.recognitionCorrect ?? latest.correct ?? 0} /
+        ${latest.recognitionTotal ?? latest.total ?? RECOGNITION_TOTAL}
       </p>
     `;
   }
@@ -584,19 +628,41 @@
     if (!checkCard.hidden) refreshLatest();
   }
 
-  function buildTasks() {
-    const items = shuffle(getItems()).slice(0, 4);
-
-    return items.map((item, index) => ({
+  function buildRecognitionTasks(items = getItems(), random = Math.random) {
+    return shuffle(items, random).map(item => ({
       item,
-      taskType: TASK_TYPES[index]
+      taskType: "picture-recognition",
+      options: itemOptions(item, items, random)
     }));
   }
 
-  function startCheck() {
-    const tasks = buildTasks();
+  function buildProductionTasks(
+    recognitionTasks,
+    recognitionResults,
+    random = Math.random
+  ) {
+    const recognizedIds = new Set(
+      recognitionResults
+        .filter(result => result.correct)
+        .map(result => result.itemId)
+    );
 
-    if (tasks.length !== 4) {
+    return shuffle(
+      recognitionTasks.filter(task =>
+        recognizedIds.has(task.item.id)
+      ).map(task => ({
+        item: task.item,
+        taskType: "independent-production"
+      })),
+      random
+    );
+  }
+
+  function startCheck() {
+    const items = getItems();
+    const recognitionTasks = buildRecognitionTasks(items);
+
+    if (recognitionTasks.length !== RECOGNITION_TOTAL) {
       window.alert(
         "The Weather Starting Check could not load all required items."
       );
@@ -611,9 +677,13 @@
         .slice(2, 8)}`,
       startedAt: new Date().toISOString(),
       completedAt: null,
+      stage: "recognition",
       index: 0,
       selected: null,
-      tasks,
+      recognitionTasks,
+      productionTasks: [],
+      recognitionResults: [],
+      productionResults: [],
       results: []
     };
 
@@ -622,18 +692,21 @@
   }
 
   function currentTask() {
-    return session?.tasks?.[session.index] || null;
+    const tasks = session?.stage === "production"
+      ? session.productionTasks
+      : session?.recognitionTasks;
+    return tasks?.[session.index] || null;
   }
 
-  function itemOptions(item) {
-    const others = getItems().filter(
+  function itemOptions(item, items = getItems(), random = Math.random) {
+    const others = items.filter(
       option => option.id !== item.id
     );
 
     return shuffle([
       item,
-      ...shuffle(others).slice(0, 3)
-    ]);
+      ...shuffle(others, random).slice(0, 3)
+    ], random);
   }
 
   function connectChoices() {
@@ -666,40 +739,36 @@
     if (!task || !modalBody) return;
 
     session.selected = null;
-    const { item, taskType } = task;
-    const progress = `${session.index + 1} / 4`;
+    const { item } = task;
+    const isRecognition = session.stage === "recognition";
+    const stageTotal = isRecognition
+      ? session.recognitionTasks.length
+      : session.productionTasks.length;
+    const progress = `${session.index + 1} / ${stageTotal}`;
     const base = `
       <p class="weather-check-progress">${progress}</p>
       <div class="weather-check-question">
         <span class="weather-check-part">Prova iniziale · Starting Check</span>
-        <span class="weather-check-task">${TASK_LABELS[taskType]}</span>
+        <span class="weather-check-task">
+          ${isRecognition
+            ? "Parte 1 · Riconoscimento · Recognition"
+            : "Parte 2 · Produzione indipendente · Independent production"}
+        </span>
     `;
 
-    if (
-      taskType === "picture-recognition" ||
-      taskType === "listening-recognition"
-    ) {
-      const options = itemOptions(item);
-      const listening =
-        taskType === "listening-recognition";
-
+    if (isRecognition) {
       modalBody.innerHTML = `${base}
-        <h2>${listening ? "Ascolta." : escapeHtml(item.italian)}</h2>
+        <h2>${escapeHtml(item.italian)}</h2>
         <p class="weather-check-question-note">
-          ${listening ? "Listen and choose the matching picture." : "Choose the matching picture."}
-          <span lang="en">
-            ${listening ? "The Italian expression is not shown before your answer." : "Choose the matching picture."}
-          </span>
+          Scegli l'immagine giusta. · Choose the matching picture.
         </p>
-        ${listening ? `
-          <p>
-            <button type="button" class="weather-check-audio" data-action="replay">
-              🔊 Ascolta di nuovo · Replay
-            </button>
-          </p>
-        ` : ""}
+        <p>
+          <button type="button" class="weather-check-audio" data-action="replay">
+            🔊 Ascolta · Listen
+          </button>
+        </p>
         <div class="weather-check-options">
-          ${options.map(option => `
+          ${task.options.map(option => `
             <button
               type="button"
               class="weather-check-option"
@@ -723,43 +792,6 @@
         ?.addEventListener("click", recordChoice);
       modalBody.querySelector('[data-action="replay"]')
         ?.addEventListener("click", () => speak(item.italian));
-
-      if (listening) {
-        window.setTimeout(
-          () => speak(item.italian),
-          180
-        );
-      }
-      return;
-    }
-
-    if (taskType === "sentence-understanding") {
-      const options = itemOptions(item);
-
-      modalBody.innerHTML = `${base}
-        <h2>Che tempo fa?</h2>
-        <p class="weather-check-question-note">
-          What's the weather like?
-        </p>
-        <img class="weather-check-image" src="${escapeHtml(item.image)}" alt="${escapeHtml(item.english)}">
-        <div class="weather-check-options">
-          ${options.map(option => `
-            <button type="button" class="weather-check-option weather-check-text-option" data-choice="${option.id}">
-              ${escapeHtml(option.italian)}
-            </button>
-          `).join("")}
-        </div>
-        <div class="weather-check-footer">
-          <span>Nessun suggerimento · No hints</span>
-          <button type="button" class="weather-check-next" data-action="next" disabled>
-            Avanti · Next →
-          </button>
-        </div>
-      </div>`;
-
-      connectChoices();
-      modalBody.querySelector('[data-action="next"]')
-        ?.addEventListener("click", recordChoice);
       return;
     }
 
@@ -767,6 +799,12 @@
       <h2>Che tempo fa?</h2>
       <p class="weather-check-question-note">
         What's the weather like?
+      </p>
+      <p class="weather-check-question-note">
+        Rispondi con un’espressione completa in italiano.
+        <span lang="en">
+          Answer with a complete Italian weather expression.
+        </span>
       </p>
       <img class="weather-check-image" src="${escapeHtml(item.image)}" alt="${escapeHtml(item.english)}">
       <form data-action="recall">
@@ -806,14 +844,17 @@
     }
 
     const task = currentTask();
-    session.results.push({
+    const result = {
       itemId: task.item.id,
       italian: task.item.italian,
       english: task.item.english,
       taskType: task.taskType,
+      stage: "recognition",
       selectedItemId: session.selected,
       correct: session.selected === task.item.id
-    });
+    };
+    session.recognitionResults.push(result);
+    session.results.push(result);
 
     advance();
   }
@@ -824,35 +865,80 @@
     );
     const typedAnswer = input?.value || "";
     const task = currentTask();
+    const productionStatus = classifyProduction(
+      typedAnswer,
+      task.item.italian
+    );
 
-    session.results.push({
+    const result = {
       itemId: task.item.id,
       italian: task.item.italian,
       english: task.item.english,
       taskType: task.taskType,
+      stage: "production",
       typedAnswer,
-      correct:
-        normalizeAnswer(typedAnswer) ===
-        normalizeAnswer(task.item.italian)
-    });
+      productionStatus,
+      correct: productionStatus !== null
+    };
+    session.productionResults.push(result);
+    session.results.push(result);
 
     advance();
   }
 
   function advance() {
     session.index += 1;
+    const tasks = session.stage === "recognition"
+      ? session.recognitionTasks
+      : session.productionTasks;
 
-    if (session.index >= session.tasks.length) {
-      finishCheck();
-    } else {
+    if (session.index < tasks.length) {
       renderCurrent();
+      return;
     }
+
+    if (session.stage === "recognition") {
+      session.productionTasks = buildProductionTasks(
+        session.recognitionTasks,
+        session.recognitionResults
+      );
+
+      if (session.productionTasks.length === 0) {
+        finishCheck();
+        return;
+      }
+
+      session.stage = "production";
+      session.index = 0;
+      renderProductionIntro();
+      return;
+    }
+
+    finishCheck();
   }
 
-  function canonicalPracticeLabels() {
+  function renderProductionIntro() {
+    modalBody.innerHTML = `
+      <div class="weather-check-question">
+        <span class="weather-check-part">Parte 2 · Produzione indipendente</span>
+        <h2>Ora prova da solo!</h2>
+        <p>
+          Ora prova le espressioni che hai riconosciuto.
+          <span lang="en">Now try the ones you recognized on your own.</span>
+        </p>
+        <button type="button" class="weather-check-next" data-action="continue">
+          Continua · Continue →
+        </button>
+      </div>
+    `;
+    modalBody.querySelector('[data-action="continue"]')
+      ?.addEventListener("click", renderCurrent);
+  }
+
+  function canonicalModes() {
     const availability =
       window.PrimoVoloActivityAvailability;
-    const modes = availability?.getCanonicalModes
+    return availability?.getCanonicalModes
       ? availability.getCanonicalModes(TOPIC_KEY)
       : [
           "learn",
@@ -865,6 +951,9 @@
           "write",
           "conversation-practice"
         ];
+  }
+
+  function activityLabel(mode) {
     const labels = {
       learn: "Impara",
       choose: "Scegli",
@@ -877,15 +966,72 @@
       "conversation-practice": "Conversiamo"
     };
 
-    return modes
-      .map(mode => labels[mode])
-      .filter(Boolean)
-      .join(" · ");
+    return labels[mode] || mode;
+  }
+
+  function recommendationFor(
+    recognitionCorrect,
+    productionCorrect,
+    availableModes = canonicalModes()
+  ) {
+    let primaryMode;
+    let sequenceGroups;
+    let message;
+
+    if (recognitionCorrect <= 5) {
+      primaryMode = "learn";
+      sequenceGroups = [
+        ["learn"],
+        ["choose"],
+        ["match-word", "match-sound"]
+      ];
+      message =
+        "Costruiamo prima il riconoscimento. · Let's build recognition first.";
+    } else if (
+      productionCorrect * 4 < recognitionCorrect * 3
+    ) {
+      primaryMode = "assemble-sentences";
+      sequenceGroups = [
+        ["assemble-sentences"],
+        ["complete"]
+      ];
+      message =
+        "Ora esercitiamoci a costruire le espressioni. · Now let's practice building the expressions.";
+    } else {
+      primaryMode = "complete";
+      sequenceGroups = [
+        ["complete"],
+        ["write"],
+        ["conversation-practice"]
+      ];
+      message =
+        "Sei pronto per una pratica più indipendente. · You're ready for more independent practice.";
+    }
+
+    const available = new Set(availableModes);
+    const sequence = sequenceGroups
+      .map(group => group.filter(mode => available.has(mode)))
+      .filter(group => group.length > 0);
+
+    return {
+      primaryMode: available.has(primaryMode)
+        ? primaryMode
+        : sequence[0]?.[0] || null,
+      sequence,
+      message
+    };
   }
 
   function finishCheck() {
     session.completedAt = new Date().toISOString();
     const saved = saveSession();
+    const recommendation = recommendationFor(
+      saved.recognitionCorrect,
+      saved.productionCorrect
+    );
+    const sequenceText = recommendation.sequence
+      .map(group => group.map(activityLabel).join(" / "))
+      .join(" → ");
     refreshLatest();
 
     modalBody.innerHTML = `
@@ -895,8 +1041,12 @@
         </span>
         <h2>Punto di partenza · Starting point</h2>
         <div class="weather-check-result">
-          <strong>${saved.correct} / ${saved.total}</strong>
-          <span>Weather Starting Check</span>
+          <strong>${saved.recognitionCorrect} / ${saved.recognitionTotal}</strong>
+          <span>Riconoscimento · Recognition</span>
+        </div>
+        <div class="weather-check-result">
+          <strong>${saved.productionCorrect} / ${saved.productionTotal}</strong>
+          <span>Produzione indipendente · Independent production</span>
         </div>
         <p>
           Questa è una fotografia di partenza, non un voto
@@ -907,9 +1057,14 @@
           </span>
         </p>
         <p>
-          Prossima pratica disponibile · Next practice:
+          ${escapeHtml(recommendation.message)}
+        </p>
+        <p>
+          <strong>Inizia con · Start with:</strong>
+          ${escapeHtml(activityLabel(recommendation.primaryMode))}
           <br>
-          ${escapeHtml(canonicalPracticeLabels())}
+          <strong>Sequenza suggerita · Suggested sequence:</strong>
+          ${escapeHtml(sequenceText)}
         </p>
         <button type="button" class="weather-check-next" data-action="close">
           Chiudi · Close
@@ -941,6 +1096,16 @@
       "primo-volo-student-changed",
       refreshLatest
     );
+  }
+
+  if (window.__PRIMO_VOLO_STARTING_CHECK_TEST__) {
+    window.__weatherStartingCheckTestHooks = {
+      buildRecognitionTasks,
+      buildProductionTasks,
+      classifyProduction,
+      normalizeAnswer,
+      recommendationFor
+    };
   }
 
   if (document.readyState === "loading") {

@@ -847,6 +847,167 @@
     );
   }
 
+  /* ========================================
+     STARTING CHECK DIAGNOSTIC
+     ======================================== */
+
+  const WEATHER_STARTING_CHECK_TARGETS = [
+    "Fa caldo",
+    "Fa freddo",
+    "C'è il sole",
+    "È nuvoloso",
+    "Piove",
+    "Nevica",
+    "C'è vento",
+    "C'è un temporale"
+  ];
+
+  const WEATHER_PRODUCTION_LABELS = {
+    "produced-canonical": "Canonical response",
+    "produced-acceptable-alternative":
+      "Acceptable alternative",
+    "recognized-not-yet-produced": "Not yet produced",
+    "not-yet-recognized": "Not tested"
+  };
+
+  function loadLatestWeatherStartingCheck(studentId) {
+    const baseKey =
+      storage.keys.startingChecks ||
+      "primoVoloStartingChecksV1";
+    const key = storage.studentKey(baseKey, studentId);
+    const saved = storage.getJSON(key, null);
+    const latest = saved?.byTopic?.weather?.latest;
+
+    return latest?.completedAt ? latest : null;
+  }
+
+  function weatherStartingPoint(latest) {
+    const savedRecommendation =
+      latest?.recommendation?.primaryLabel ||
+      latest?.recommendation?.primary ||
+      latest?.recommendedStartingPoint;
+
+    if (savedRecommendation) {
+      return String(savedRecommendation);
+    }
+
+    const recognition =
+      Number(latest?.recognitionCorrect) || 0;
+    const production =
+      Number(latest?.productionCorrect) || 0;
+
+    if (recognition <= 5) return "Impara";
+    if (production * 4 < recognition * 3) {
+      return "Assembla";
+    }
+    return "Completa";
+  }
+
+  function buildWeatherStartingCheckSection(studentId) {
+    const latest = loadLatestWeatherStartingCheck(studentId);
+
+    if (!latest) {
+      return `
+        <section class="pv2-report-section pv2-starting-check-section">
+          <span class="pv2-diagnostic-kicker">
+            Starting Check · Diagnostic
+          </span>
+          <h3>Weather Starting Check</h3>
+          <p class="pv2-starting-check-subtitle">
+            Il tempo · Weather
+          </p>
+          <p class="pv2-starting-check-empty">
+            No Weather Starting Check yet.
+          </p>
+        </section>
+      `;
+    }
+
+    const recognitionCorrect =
+      Number(latest.recognitionCorrect) || 0;
+    const productionCorrect =
+      Number(latest.productionCorrect) || 0;
+    const statuses = new Map(
+      (Array.isArray(latest.itemStatuses)
+        ? latest.itemStatuses
+        : [])
+        .map(item => [item?.italian, item])
+    );
+
+    const rows = WEATHER_STARTING_CHECK_TARGETS
+      .map(italian => {
+        const item = statuses.get(italian) || {
+          italian,
+          status: "not-yet-recognized",
+          typedAnswer: null
+        };
+        const recognized =
+          item.status !== "not-yet-recognized";
+        const productionLabel =
+          WEATHER_PRODUCTION_LABELS[item.status] ||
+          (recognized ? "Not yet produced" : "Not tested");
+        const showResponse =
+          (item.status === "produced-canonical" ||
+            item.status ===
+              "produced-acceptable-alternative") &&
+          item.typedAnswer;
+
+        return `
+          <tr>
+            <td><strong>${escapeHtml(italian)}</strong></td>
+            <td>${recognized ? "Recognized" : "Not yet recognized"}</td>
+            <td>${escapeHtml(productionLabel)}</td>
+            <td>${showResponse ? escapeHtml(item.typedAnswer) : "—"}</td>
+          </tr>
+        `;
+      })
+      .join("");
+
+    return `
+      <section class="pv2-report-section pv2-starting-check-section">
+        <span class="pv2-diagnostic-kicker">
+          Starting Check · Diagnostic
+        </span>
+        <h3>Weather Starting Check</h3>
+        <p class="pv2-starting-check-subtitle">
+          Il tempo · Weather
+        </p>
+        <p class="progress-note">
+          Diagnostic starting-point evidence. Kept separate from practice accuracy, mastery, activity practice, and Italy Journey progress.
+        </p>
+
+        <div class="pv2-starting-check-summary">
+          <div>
+            <strong>${recognitionCorrect} / 8</strong>
+            <span>Recognition</span>
+          </div>
+          <div>
+            <strong>${productionCorrect} / ${recognitionCorrect}</strong>
+            <span>Independent production · recognized</span>
+          </div>
+          <div>
+            <strong>${escapeHtml(weatherStartingPoint(latest))}</strong>
+            <span>Recommended starting point</span>
+          </div>
+        </div>
+
+        <div class="progress-table-wrap">
+          <table class="progress-table pv2-starting-check-table">
+            <thead>
+              <tr>
+                <th>Canonical target</th>
+                <th>Recognition</th>
+                <th>Production</th>
+                <th>Student response</th>
+              </tr>
+            </thead>
+            <tbody>${rows}</tbody>
+          </table>
+        </div>
+      </section>
+    `;
+  }
+
   function formatShortDate(date) {
     if (!date) {
       return "—";
@@ -1964,6 +2125,13 @@
         ? String(currentStudent.name)
         : "";
 
+    const currentStudentId =
+      window.PrimoVoloStudent &&
+      typeof window.PrimoVoloStudent.getCurrentId ===
+        "function"
+        ? window.PrimoVoloStudent.getCurrentId()
+        : storage.currentStudentId();
+
     summary.innerHTML = `
       ${
         studentName
@@ -2009,6 +2177,8 @@
 
     activityTable.innerHTML = `
       ${buildNextPracticeSection()}
+
+      ${buildWeatherStartingCheckSection(currentStudentId)}
 
       <section class="pv2-report-section pv2-actfl-section">
         <div class="pv2-section-heading">
@@ -2144,6 +2314,14 @@
   window.renderProgressReport =
     renderProgressReportV2;
 
+  if (window.__PRIMO_VOLO_PROGRESS_TEST__) {
+    window.__primoVoloProgressTestHooks = {
+      buildWeatherStartingCheckSection,
+      loadLatestWeatherStartingCheck,
+      weatherStartingPoint
+    };
+  }
+
   /* ========================================
      STYLES
      ======================================== */
@@ -2194,6 +2372,71 @@
       .pv2-section-heading h3 {
         margin: 0 0 8px;
         color: #274b84;
+      }
+
+      .pv2-starting-check-section {
+        padding: 20px;
+        border: 1px solid #d8e4f0;
+        border-radius: 18px;
+        background: #fbfdff;
+      }
+
+      .pv2-diagnostic-kicker {
+        display: block;
+        margin-bottom: 5px;
+        color: #66758d;
+        font-size: .74rem;
+        font-weight: 900;
+        letter-spacing: .055em;
+        text-transform: uppercase;
+      }
+
+      .pv2-starting-check-subtitle {
+        margin: -4px 0 10px;
+        color: #66758d;
+        font-size: .88rem;
+      }
+
+      .pv2-starting-check-empty {
+        margin: 14px 0 0;
+        padding: 14px 16px;
+        border-radius: 12px;
+        color: #66758d;
+        background: #f3f6fa;
+      }
+
+      .pv2-starting-check-summary {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 10px;
+        margin: 15px 0;
+      }
+
+      .pv2-starting-check-summary > div {
+        padding: 13px 14px;
+        border: 1px solid #dce5ef;
+        border-radius: 13px;
+        background: #ffffff;
+      }
+
+      .pv2-starting-check-summary strong,
+      .pv2-starting-check-summary span {
+        display: block;
+      }
+
+      .pv2-starting-check-summary strong {
+        color: #274b84;
+        font-size: 1.2rem;
+      }
+
+      .pv2-starting-check-summary span {
+        margin-top: 3px;
+        color: #66758d;
+        font-size: .78rem;
+      }
+
+      .pv2-starting-check-table {
+        margin-top: 0;
       }
 
       .pv2-section-heading p,
@@ -2878,7 +3121,8 @@
 
       @media (max-width: 620px) {
         .progress-summary,
-        .pv2-topic-metrics {
+        .pv2-topic-metrics,
+        .pv2-starting-check-summary {
           grid-template-columns:
             repeat(2, minmax(0, 1fr));
         }
