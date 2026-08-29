@@ -202,7 +202,7 @@
       ?.latest || null;
   }
 
-  function saveSession() {
+  function saveSession(activeSession = session) {
     const data = loadStore();
     const topicData =
       data.byTopic[TOPIC_KEY] || {
@@ -211,21 +211,22 @@
       };
 
     const saved = {
-      id: session.id,
+      id: activeSession.id,
       version: 3,
-      startedAt: session.startedAt,
-      completedAt: session.completedAt,
+      startedAt: activeSession.startedAt,
+      completedAt: activeSession.completedAt,
       recognitionTotal: RECOGNITION_TOTAL,
       recognitionCorrect:
-        session.recognitionResults.filter(
+        activeSession.recognitionResults.filter(
           result => result.correct
         ).length,
-      productionTotal: session.productionTasks.length,
+      productionTotal: activeSession.productionTasks.length,
       productionCorrect:
-        session.productionResults.filter(
+        activeSession.productionResults.filter(
           result => result.correct
         ).length,
-      results: session.results.map(result => ({
+      productionAdministered: activeSession.productionAdministered,
+      results: activeSession.results.map(result => ({
         itemId: result.itemId,
         italian: result.italian,
         english: result.english,
@@ -239,11 +240,11 @@
       }))
     };
 
-    saved.itemStatuses = session.recognitionTasks.map(task => {
-      const recognized = session.recognitionResults.find(
+    saved.itemStatuses = activeSession.recognitionTasks.map(task => {
+      const recognized = activeSession.recognitionResults.find(
         result => result.itemId === task.item.id
       )?.correct === true;
-      const productionResult = session.productionResults.find(
+      const productionResult = activeSession.productionResults.find(
         result => result.itemId === task.item.id
       );
 
@@ -254,7 +255,9 @@
         status: productionResult?.productionStatus
           ? productionResult.productionStatus
           : recognized
-            ? "recognized-not-yet-produced"
+            ? activeSession.productionAdministered
+              ? "recognized-not-yet-produced"
+              : "recognized-production-not-administered"
             : "not-yet-recognized"
       };
     });
@@ -658,6 +661,10 @@
     );
   }
 
+  function shouldAdministerProduction(recognitionCorrect) {
+    return recognitionCorrect >= 6;
+  }
+
   function startCheck() {
     const items = getItems();
     const recognitionTasks = buildRecognitionTasks(items);
@@ -682,6 +689,7 @@
       selected: null,
       recognitionTasks,
       productionTasks: [],
+      productionAdministered: false,
       recognitionResults: [],
       productionResults: [],
       results: []
@@ -898,6 +906,17 @@
     }
 
     if (session.stage === "recognition") {
+      const recognitionCorrect =
+        session.recognitionResults.filter(
+          result => result.correct
+        ).length;
+
+      if (!shouldAdministerProduction(recognitionCorrect)) {
+        finishCheck();
+        return;
+      }
+
+      session.productionAdministered = true;
       session.productionTasks = buildProductionTasks(
         session.recognitionTasks,
         session.recognitionResults
@@ -1045,7 +1064,9 @@
           <span>Riconoscimento · Recognition</span>
         </div>
         <div class="weather-check-result">
-          <strong>${saved.productionCorrect} / ${saved.productionTotal}</strong>
+          <strong>${saved.productionAdministered
+            ? `${saved.productionCorrect} / ${saved.productionTotal}`
+            : "Non somministrata · Not administered"}</strong>
           <span>Produzione indipendente · Independent production</span>
         </div>
         <p>
@@ -1102,6 +1123,8 @@
     window.__weatherStartingCheckTestHooks = {
       buildRecognitionTasks,
       buildProductionTasks,
+      shouldAdministerProduction,
+      saveSession,
       classifyProduction,
       normalizeAnswer,
       recommendationFor
