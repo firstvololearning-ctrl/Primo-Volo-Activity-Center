@@ -377,6 +377,11 @@
    ======================================== */
 
 (() => {
+  // The adaptive diagnostic now lives in supplies-starting-check.js.
+  // Keep this legacy implementation inert so ordinary Supplies Impara above
+  // remains unchanged and older saved records remain readable.
+  return;
+
   const TOPIC_KEY = "supplies";
   const VOCAB_TOTAL = 12;
   const CARRIER_TOTAL = 6;

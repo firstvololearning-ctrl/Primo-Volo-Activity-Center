@@ -883,6 +883,24 @@
         typeof days !== "undefined" && Array.isArray(days)
           ? days.slice(0, 7).map(item => item.italian)
           : []
+    },
+    supplies: {
+      icon: "✏️",
+      topicLabel: "School Supplies",
+      title: "School Supplies Check-in",
+      subtitle: "Il materiale scolastico · School Supplies",
+      emptyMessage: "No School Supplies check-in yet.",
+      total: 14,
+      recognitionSupportMaximum: 9,
+      languagePatterns: ["Mi piace...", "Io ho...", "Io vedo..."],
+      targets: () =>
+        typeof supplies !== "undefined" && Array.isArray(supplies)
+          ? supplies.slice(0, 14).map(item => item.italian)
+          : [],
+      isCompatibleAttempt: attempt =>
+        Number(attempt?.recognitionTotal) === 14 &&
+        Array.isArray(attempt?.itemStatuses) &&
+        Number(attempt?.languagePatterns?.total) === 6
     }
   };
 
@@ -1045,9 +1063,34 @@
     `;
   }
 
+  function buildStartingCheckLanguagePatterns(config, attempt) {
+    if (!config.languagePatterns || !attempt?.languagePatterns) return "";
+    const languagePatterns = attempt.languagePatterns;
+    const byPattern = languagePatterns.byPattern || {};
+    const rows = config.languagePatterns.map(pattern => {
+      const score = byPattern[pattern] || { correct: 0, total: 0 };
+      return `
+        <div class="pv2-starting-check-language-row">
+          <span>${escapeHtml(pattern)}</span>
+          <strong>${Number(score.correct) || 0} / ${Number(score.total) || 0}</strong>
+        </div>
+      `;
+    }).join("");
+    return `
+      <section class="pv2-starting-check-language">
+        <h5>Useful Language · Carrier Phrases</h5>
+        <div class="pv2-starting-check-language-grid">${rows}</div>
+        <p><strong>Total ${Number(languagePatterns.correct) || 0} / ${Number(languagePatterns.total) || 0}</strong></p>
+      </section>
+    `;
+  }
+
   function buildStartingCheckHistory(config, latest, history) {
     const previous = history
-      .filter(attempt => !sameStartingCheckAttempt(attempt, latest))
+      .filter(attempt =>
+        (!config.isCompatibleAttempt || config.isCompatibleAttempt(attempt)) &&
+        !sameStartingCheckAttempt(attempt, latest)
+      )
       .sort((left, right) =>
         new Date(right.completedAt).getTime() -
         new Date(left.completedAt).getTime()
@@ -1084,8 +1127,12 @@
                     ? `${production} / ${recognition}`
                     : "Not administered"}</strong></span>
                   <span>Starting point: <strong>${escapeHtml(startingPoint)}</strong></span>
+                  ${config.languagePatterns && attempt.languagePatterns
+                    ? `<span>Useful language <strong>${Number(attempt.languagePatterns.correct) || 0} / ${Number(attempt.languagePatterns.total) || 0}</strong></span>`
+                    : ""}
                 </div>
                 ${buildStartingCheckTable(config, attempt)}
+                ${buildStartingCheckLanguagePatterns(config, attempt)}
               </details>
             `;
           }).join("")}
@@ -1098,7 +1145,16 @@
     const config = STARTING_CHECK_CONFIGS[topicKey];
     if (!config) return "";
     const topicData = loadStartingCheckTopic(topicKey, studentId);
-    const latest = topicData.latest;
+    const compatibleHistory = topicData.history.filter(attempt =>
+      !config.isCompatibleAttempt || config.isCompatibleAttempt(attempt)
+    );
+    const latest =
+      (!config.isCompatibleAttempt || config.isCompatibleAttempt(topicData.latest))
+        ? topicData.latest
+        : [...compatibleHistory].sort((left, right) =>
+            new Date(right.completedAt).getTime() -
+            new Date(left.completedAt).getTime()
+          )[0] || null;
 
     if (!latest) {
       return `
@@ -1167,9 +1223,16 @@
             <strong>${escapeHtml(startingCheckStartingPoint(config, latest))}</strong>
             <span>Recommended starting point</span>
           </div>
+          ${config.languagePatterns && latest.languagePatterns ? `
+            <div>
+              <strong>${Number(latest.languagePatterns.correct) || 0} / ${Number(latest.languagePatterns.total) || 0}</strong>
+              <span>Useful language</span>
+            </div>
+          ` : ""}
         </div>
 
         ${buildStartingCheckTable(config, latest)}
+        ${buildStartingCheckLanguagePatterns(config, latest)}
         ${buildStartingCheckHistory(config, latest, topicData.history)}
         </div>
       </details>
@@ -1188,6 +1251,7 @@
       <div class="pv2-checkin-topic-list">
         ${buildWeatherStartingCheckSection(studentId)}
         ${buildDaysStartingCheckSection(studentId)}
+        ${buildSuppliesStartingCheckSection(studentId)}
       </div>
     `;
   }
@@ -1209,6 +1273,10 @@
 
   function buildDaysStartingCheckSection(studentId) {
     return buildStartingCheckSection("days", studentId);
+  }
+
+  function buildSuppliesStartingCheckSection(studentId) {
+    return buildStartingCheckSection("supplies", studentId);
   }
 
   function formatShortDate(date) {
@@ -2445,10 +2513,12 @@
     window.__primoVoloProgressTestHooks = {
       buildWeatherStartingCheckSection,
       buildDaysStartingCheckSection,
+      buildSuppliesStartingCheckSection,
       buildCheckInsSection,
       buildStartingCheckSection,
       buildStartingCheckHistory,
       buildStartingCheckRows,
+      buildStartingCheckLanguagePatterns,
       loadStartingCheckTopic,
       loadLatestStartingCheck,
       loadLatestWeatherStartingCheck,
@@ -2676,6 +2746,33 @@
 
       .pv2-starting-check-table {
         margin-top: 0;
+      }
+
+      .pv2-starting-check-language {
+        margin-top: 15px;
+        padding: 14px;
+        border: 1px solid #dce5ef;
+        border-radius: 13px;
+        background: #f8fbff;
+      }
+
+      .pv2-starting-check-language h5,
+      .pv2-starting-check-language p {
+        margin: 0;
+        color: #274b84;
+      }
+
+      .pv2-starting-check-language-grid {
+        display: grid;
+        gap: 7px;
+        margin: 10px 0;
+      }
+
+      .pv2-starting-check-language-row {
+        display: flex;
+        justify-content: space-between;
+        gap: 16px;
+        color: #52657e;
       }
 
       .pv2-starting-check-history {
