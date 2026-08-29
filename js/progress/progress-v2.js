@@ -851,18 +851,38 @@
      STARTING CHECK DIAGNOSTIC
      ======================================== */
 
-  const WEATHER_STARTING_CHECK_TARGETS = [
-    "Fa caldo",
-    "Fa freddo",
-    "C'è il sole",
-    "È nuvoloso",
-    "Piove",
-    "Nevica",
-    "C'è vento",
-    "C'è un temporale"
-  ];
+  const STARTING_CHECK_CONFIGS = {
+    weather: {
+      title: "Weather Starting Check",
+      subtitle: "Il tempo · Weather",
+      emptyMessage: "No Weather Starting Check yet.",
+      total: 8,
+      recognitionSupportMaximum: 5,
+      targets: [
+        "Fa caldo",
+        "Fa freddo",
+        "C'è il sole",
+        "È nuvoloso",
+        "Piove",
+        "Nevica",
+        "C'è vento",
+        "C'è un temporale"
+      ]
+    },
+    days: {
+      title: "Days Starting Check",
+      subtitle: "I giorni · Days",
+      emptyMessage: "No Days Starting Check yet.",
+      total: 7,
+      recognitionSupportMaximum: 4,
+      targets: () =>
+        typeof days !== "undefined" && Array.isArray(days)
+          ? days.slice(0, 7).map(item => item.italian)
+          : []
+    }
+  };
 
-  const WEATHER_PRODUCTION_LABELS = {
+  const STARTING_CHECK_PRODUCTION_LABELS = {
     "produced-canonical": "Canonical response",
     "produced-acceptable-alternative":
       "Acceptable alternative",
@@ -870,18 +890,43 @@
     "not-yet-recognized": "Not tested"
   };
 
-  function loadLatestWeatherStartingCheck(studentId) {
+  function startingCheckTargets(config) {
+    return typeof config.targets === "function"
+      ? config.targets()
+      : config.targets;
+  }
+
+  function normalizeStartingCheckTarget(value) {
+    return String(value || "")
+      .trim()
+      .toLowerCase()
+      .normalize("NFD")
+      .replace(/[\u0300-\u036f]/g, "");
+  }
+
+  function loadStartingCheckTopic(topicKey, studentId) {
     const baseKey =
       storage.keys.startingChecks ||
       "primoVoloStartingChecksV1";
     const key = storage.studentKey(baseKey, studentId);
     const saved = storage.getJSON(key, null);
-    const latest = saved?.byTopic?.weather?.latest;
+    const topicData = saved?.byTopic?.[topicKey];
 
-    return latest?.completedAt ? latest : null;
+    return {
+      latest: topicData?.latest?.completedAt
+        ? topicData.latest
+        : null,
+      history: Array.isArray(topicData?.history)
+        ? topicData.history.filter(attempt => attempt?.completedAt)
+        : []
+    };
   }
 
-  function weatherStartingPoint(latest) {
+  function loadLatestStartingCheck(topicKey, studentId) {
+    return loadStartingCheckTopic(topicKey, studentId).latest;
+  }
+
+  function startingCheckStartingPoint(config, latest) {
     const savedRecommendation =
       latest?.recommendation?.primaryLabel ||
       latest?.recommendation?.primary ||
@@ -896,47 +941,59 @@
     const production =
       Number(latest?.productionCorrect) || 0;
 
-    if (recognition <= 5) return "Impara";
+    if (recognition <= config.recognitionSupportMaximum) {
+      return "Impara";
+    }
     if (production * 4 < recognition * 3) {
       return "Assembla";
     }
     return "Completa";
   }
 
-  function buildWeatherStartingCheckSection(studentId) {
-    const latest = loadLatestWeatherStartingCheck(studentId);
-
-    if (!latest) {
-      return `
-        <section class="pv2-report-section pv2-starting-check-section">
-          <span class="pv2-diagnostic-kicker">
-            Starting Check · Diagnostic
-          </span>
-          <h3>Weather Starting Check</h3>
-          <p class="pv2-starting-check-subtitle">
-            Il tempo · Weather
-          </p>
-          <p class="pv2-starting-check-empty">
-            No Weather Starting Check yet.
-          </p>
-        </section>
-      `;
+  function sameStartingCheckAttempt(attempt, latest) {
+    if (attempt?.id && latest?.id) {
+      return attempt.id === latest.id;
     }
 
-    const recognitionCorrect =
-      Number(latest.recognitionCorrect) || 0;
-    const productionCorrect =
-      Number(latest.productionCorrect) || 0;
+    return Boolean(
+      attempt?.completedAt &&
+      latest?.completedAt &&
+      attempt.completedAt === latest.completedAt &&
+      (attempt.startedAt || "") === (latest.startedAt || "")
+    );
+  }
+
+  function formatStartingCheckDate(value) {
+    const date = new Date(value);
+    if (Number.isNaN(date.getTime())) return "Date unavailable";
+
+    return date.toLocaleString("en-US", {
+      month: "short",
+      day: "numeric",
+      year: "numeric",
+      hour: "numeric",
+      minute: "2-digit"
+    });
+  }
+
+  function buildStartingCheckRows(config, attempt) {
+    const productionAdministered =
+      attempt.productionAdministered !== false;
     const statuses = new Map(
-      (Array.isArray(latest.itemStatuses)
-        ? latest.itemStatuses
+      (Array.isArray(attempt.itemStatuses)
+        ? attempt.itemStatuses
         : [])
-        .map(item => [item?.italian, item])
+        .map(item => [
+          normalizeStartingCheckTarget(item?.italian),
+          item
+        ])
     );
 
-    const rows = WEATHER_STARTING_CHECK_TARGETS
+    return startingCheckTargets(config)
       .map(italian => {
-        const item = statuses.get(italian) || {
+        const item = statuses.get(
+          normalizeStartingCheckTarget(italian)
+        ) || {
           italian,
           status: "not-yet-recognized",
           typedAnswer: null
@@ -944,8 +1001,10 @@
         const recognized =
           item.status !== "not-yet-recognized";
         const productionLabel =
-          WEATHER_PRODUCTION_LABELS[item.status] ||
-          (recognized ? "Not yet produced" : "Not tested");
+          !productionAdministered
+            ? "Not administered"
+            : STARTING_CHECK_PRODUCTION_LABELS[item.status] ||
+              (recognized ? "Not yet produced" : "Not tested");
         const showResponse =
           (item.status === "produced-canonical" ||
             item.status ===
@@ -962,15 +1021,112 @@
         `;
       })
       .join("");
+  }
 
+  function buildStartingCheckTable(config, attempt) {
+    return `
+      <div class="progress-table-wrap">
+        <table class="progress-table pv2-starting-check-table">
+          <thead>
+            <tr>
+              <th>Canonical target</th>
+              <th>Recognition</th>
+              <th>Production</th>
+              <th>Student response</th>
+            </tr>
+          </thead>
+          <tbody>${buildStartingCheckRows(config, attempt)}</tbody>
+        </table>
+      </div>
+    `;
+  }
+
+  function buildStartingCheckHistory(config, latest, history) {
+    const previous = history
+      .filter(attempt => !sameStartingCheckAttempt(attempt, latest))
+      .sort((left, right) =>
+        new Date(right.completedAt).getTime() -
+        new Date(left.completedAt).getTime()
+      );
+
+    if (!previous.length) return "";
+
+    return `
+      <details class="pv2-starting-check-history">
+        <summary>Previous Starting Check attempts (${previous.length})</summary>
+        <div class="pv2-starting-check-history-list">
+          ${previous.map(attempt => {
+            const recognition = Number(attempt.recognitionCorrect) || 0;
+            const production = Number(attempt.productionCorrect) || 0;
+            const productionAdministered =
+              attempt.productionAdministered !== false;
+            const startingPoint =
+              startingCheckStartingPoint(config, attempt);
+            const productionSummary = productionAdministered
+              ? `Production ${production}/${recognition}`
+              : "Production: Not administered";
+
+            return `
+              <details class="pv2-starting-check-history-attempt">
+                <summary>
+                  ${escapeHtml(formatStartingCheckDate(attempt.completedAt))}
+                  · Recognition ${recognition}/${config.total}
+                  · ${escapeHtml(productionSummary)}
+                  · ${escapeHtml(startingPoint)}
+                </summary>
+                <div class="pv2-starting-check-history-summary">
+                  <span>Recognition <strong>${recognition} / ${config.total}</strong></span>
+                  <span>Independent production <strong>${productionAdministered
+                    ? `${production} / ${recognition}`
+                    : "Not administered"}</strong></span>
+                  <span>Starting point: <strong>${escapeHtml(startingPoint)}</strong></span>
+                </div>
+                ${buildStartingCheckTable(config, attempt)}
+              </details>
+            `;
+          }).join("")}
+        </div>
+      </details>
+    `;
+  }
+
+  function buildStartingCheckSection(topicKey, studentId) {
+    const config = STARTING_CHECK_CONFIGS[topicKey];
+    if (!config) return "";
+    const topicData = loadStartingCheckTopic(topicKey, studentId);
+    const latest = topicData.latest;
+
+    if (!latest) {
+      return `
+        <section class="pv2-report-section pv2-starting-check-section">
+          <span class="pv2-diagnostic-kicker">
+            Starting Check · Diagnostic
+          </span>
+          <h3>${escapeHtml(config.title)}</h3>
+          <p class="pv2-starting-check-subtitle">
+            ${escapeHtml(config.subtitle)}
+          </p>
+          <p class="pv2-starting-check-empty">
+            ${escapeHtml(config.emptyMessage)}
+          </p>
+        </section>
+      `;
+    }
+
+    const recognitionCorrect =
+      Number(latest.recognitionCorrect) || 0;
+    const productionCorrect =
+      Number(latest.productionCorrect) || 0;
+    const productionAdministered =
+      latest.productionAdministered !== false;
     return `
       <section class="pv2-report-section pv2-starting-check-section">
         <span class="pv2-diagnostic-kicker">
           Starting Check · Diagnostic
         </span>
-        <h3>Weather Starting Check</h3>
+        <h3>${escapeHtml(config.title)}</h3>
         <p class="pv2-starting-check-subtitle">
-          Il tempo · Weather
+          ${escapeHtml(config.subtitle)}
         </p>
         <p class="progress-note">
           Diagnostic starting-point evidence. Kept separate from practice accuracy, mastery, activity practice, and Italy Journey progress.
@@ -978,34 +1134,46 @@
 
         <div class="pv2-starting-check-summary">
           <div>
-            <strong>${recognitionCorrect} / 8</strong>
+            <strong>${recognitionCorrect} / ${config.total}</strong>
             <span>Recognition</span>
           </div>
           <div>
-            <strong>${productionCorrect} / ${recognitionCorrect}</strong>
-            <span>Independent production · recognized</span>
+            <strong>${productionAdministered
+              ? `${productionCorrect} / ${recognitionCorrect}`
+              : "Not administered"}</strong>
+            <span>Independent production${productionAdministered
+              ? " · recognized"
+              : " · routed to recognition practice"}</span>
           </div>
           <div>
-            <strong>${escapeHtml(weatherStartingPoint(latest))}</strong>
+            <strong>${escapeHtml(startingCheckStartingPoint(config, latest))}</strong>
             <span>Recommended starting point</span>
           </div>
         </div>
 
-        <div class="progress-table-wrap">
-          <table class="progress-table pv2-starting-check-table">
-            <thead>
-              <tr>
-                <th>Canonical target</th>
-                <th>Recognition</th>
-                <th>Production</th>
-                <th>Student response</th>
-              </tr>
-            </thead>
-            <tbody>${rows}</tbody>
-          </table>
-        </div>
+        ${buildStartingCheckTable(config, latest)}
+        ${buildStartingCheckHistory(config, latest, topicData.history)}
       </section>
     `;
+  }
+
+  function loadLatestWeatherStartingCheck(studentId) {
+    return loadLatestStartingCheck("weather", studentId);
+  }
+
+  function weatherStartingPoint(latest) {
+    return startingCheckStartingPoint(
+      STARTING_CHECK_CONFIGS.weather,
+      latest
+    );
+  }
+
+  function buildWeatherStartingCheckSection(studentId) {
+    return buildStartingCheckSection("weather", studentId);
+  }
+
+  function buildDaysStartingCheckSection(studentId) {
+    return buildStartingCheckSection("days", studentId);
   }
 
   function formatShortDate(date) {
@@ -2180,6 +2348,8 @@
 
       ${buildWeatherStartingCheckSection(currentStudentId)}
 
+      ${buildDaysStartingCheckSection(currentStudentId)}
+
       <section class="pv2-report-section pv2-actfl-section">
         <div class="pv2-section-heading">
           <div>
@@ -2317,8 +2487,15 @@
   if (window.__PRIMO_VOLO_PROGRESS_TEST__) {
     window.__primoVoloProgressTestHooks = {
       buildWeatherStartingCheckSection,
+      buildDaysStartingCheckSection,
+      buildStartingCheckSection,
+      buildStartingCheckHistory,
+      buildStartingCheckRows,
+      loadStartingCheckTopic,
+      loadLatestStartingCheck,
       loadLatestWeatherStartingCheck,
-      weatherStartingPoint
+      weatherStartingPoint,
+      startingCheckStartingPoint
     };
   }
 
@@ -2437,6 +2614,50 @@
 
       .pv2-starting-check-table {
         margin-top: 0;
+      }
+
+      .pv2-starting-check-history {
+        margin-top: 16px;
+        border-top: 1px solid #dce5ef;
+        padding-top: 13px;
+      }
+
+      .pv2-starting-check-history > summary,
+      .pv2-starting-check-history-attempt > summary {
+        color: #355a7c;
+        font-weight: 850;
+        cursor: pointer;
+      }
+
+      .pv2-starting-check-history-list {
+        display: grid;
+        gap: 9px;
+        margin-top: 11px;
+      }
+
+      .pv2-starting-check-history-attempt {
+        padding: 11px 13px;
+        border: 1px solid #dce5ef;
+        border-radius: 12px;
+        background: #ffffff;
+      }
+
+      .pv2-starting-check-history-attempt > summary {
+        font-size: .84rem;
+        line-height: 1.45;
+      }
+
+      .pv2-starting-check-history-summary {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px 18px;
+        margin: 12px 0;
+        color: #66758d;
+        font-size: .82rem;
+      }
+
+      .pv2-starting-check-history-summary strong {
+        color: #274b84;
       }
 
       .pv2-section-heading p,
