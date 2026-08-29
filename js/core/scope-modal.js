@@ -33,7 +33,10 @@
       "Saluti e presentazioni",
       {
         key: "greetings",
-        items: () => [],
+        items: () =>
+          typeof introductions !== "undefined"
+            ? introductions
+            : [],
         existingAsTarget: true
       }
     ],
@@ -302,7 +305,11 @@
     return row;
   }
 
-  function makeVocabulary(items) {
+  function makeVocabulary(
+    items,
+    italianLabel = "Vocabolario / lingua target",
+    englishLabel = "Vocabulary / Target Language"
+  ) {
     if (!Array.isArray(items)) {
       return null;
     }
@@ -320,8 +327,8 @@
 
     block.appendChild(
       makeLabel(
-        "Vocabolario / lingua target",
-        "Vocabulary / Target Language"
+        italianLabel,
+        englishLabel
       )
     );
 
@@ -431,20 +438,29 @@
       );
     }
 
-    const vocabularyItems = [
-      ...(Array.isArray(items) ? items : []),
-      ...(config.extraVocabulary || [])
-    ];
-
     const vocab =
       makeVocabulary(
-        vocabularyItems
+        Array.isArray(items) ? items : []
       );
 
     if (vocab) {
       titleRow.insertAdjacentElement(
         "afterend",
         vocab
+      );
+    }
+
+    const extensionVocabulary =
+      makeVocabulary(
+        config.extraVocabulary || [],
+        "Lessico stagionale collegato",
+        "Related Seasonal Language"
+      );
+
+    if (extensionVocabulary) {
+      (vocab || titleRow).insertAdjacentElement(
+        "afterend",
+        extensionVocabulary
       );
     }
 
@@ -514,8 +530,8 @@
         language.appendChild(paragraph);
       });
 
-      if (vocab) {
-        vocab.insertAdjacentElement(
+      if (extensionVocabulary || vocab) {
+        (extensionVocabulary || vocab).insertAdjacentElement(
           "afterend",
           language
         );
