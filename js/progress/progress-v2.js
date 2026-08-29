@@ -902,6 +902,22 @@
         Array.isArray(attempt?.itemStatuses) &&
         Number(attempt?.languagePatterns?.total) === 6
     },
+    seasons: {
+      icon: "🍂",
+      topicLabel: "Seasons",
+      title: "Seasons Check-in",
+      subtitle: "Le stagioni · Seasons",
+      emptyMessage: "No Seasons check-in yet.",
+      total: 4,
+      recognitionSupportMaximum: 2,
+      targets: () =>
+        typeof seasons !== "undefined" && Array.isArray(seasons)
+          ? seasons.slice(0, 4).map(item => item.italian)
+          : [],
+      isCompatibleAttempt: attempt =>
+        Number(attempt?.recognitionTotal) === 4 &&
+        Array.isArray(attempt?.itemStatuses)
+    },
     supplies: {
       icon: "✏️",
       topicLabel: "School Supplies",
@@ -1271,6 +1287,7 @@
         ${buildDaysStartingCheckSection(studentId)}
         ${buildSuppliesStartingCheckSection(studentId)}
         ${buildStartingCheckSection("colors", studentId)}
+        ${buildStartingCheckSection("seasons", studentId)}
       </div>
     `;
   }

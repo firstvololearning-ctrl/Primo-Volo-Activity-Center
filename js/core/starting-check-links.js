@@ -61,6 +61,9 @@
       '[data-action="start"]',
     weather:
       ".weather-starting-check:not([hidden]) " +
+      '[data-action="start"]',
+    seasons:
+      ".seasons-starting-check:not([hidden]) " +
       '[data-action="start"]'
   };
 
