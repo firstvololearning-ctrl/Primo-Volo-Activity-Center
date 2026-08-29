@@ -521,16 +521,6 @@ function createProgressInterface() {
 
     📊 Progress
 
-    <span
-
-      id="progressBadge"
-
-      class="progress-badge"
-
-      aria-label="Saved attempts"
-
-    >0</span>
-
   `;
 
 

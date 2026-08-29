@@ -853,9 +853,11 @@
 
   const STARTING_CHECK_CONFIGS = {
     weather: {
-      title: "Weather Starting Check",
+      icon: "🌦️",
+      topicLabel: "Weather",
+      title: "Weather Check-in",
       subtitle: "Il tempo · Weather",
-      emptyMessage: "No Weather Starting Check yet.",
+      emptyMessage: "No Weather check-in yet.",
       total: 8,
       recognitionSupportMaximum: 5,
       targets: [
@@ -870,9 +872,11 @@
       ]
     },
     days: {
-      title: "Days Starting Check",
+      icon: "📅",
+      topicLabel: "Days",
+      title: "Days Check-in",
       subtitle: "I giorni · Days",
-      emptyMessage: "No Days Starting Check yet.",
+      emptyMessage: "No Days check-in yet.",
       total: 7,
       recognitionSupportMaximum: 4,
       targets: () =>
@@ -1053,7 +1057,7 @@
 
     return `
       <details class="pv2-starting-check-history">
-        <summary>Previous Starting Check attempts (${previous.length})</summary>
+        <summary>Previous check-ins (${previous.length})</summary>
         <div class="pv2-starting-check-history-list">
           ${previous.map(attempt => {
             const recognition = Number(attempt.recognitionCorrect) || 0;
@@ -1098,18 +1102,17 @@
 
     if (!latest) {
       return `
-        <section class="pv2-report-section pv2-starting-check-section">
-          <span class="pv2-diagnostic-kicker">
-            Starting Check · Diagnostic
-          </span>
-          <h3>${escapeHtml(config.title)}</h3>
-          <p class="pv2-starting-check-subtitle">
-            ${escapeHtml(config.subtitle)}
-          </p>
+        <details class="pv2-checkin-topic">
+          <summary>
+            <span class="pv2-checkin-topic-name">
+              ${escapeHtml(config.icon)} ${escapeHtml(config.topicLabel)}
+            </span>
+            <span class="pv2-checkin-topic-empty">No completed check-in</span>
+          </summary>
           <p class="pv2-starting-check-empty">
             ${escapeHtml(config.emptyMessage)}
           </p>
-        </section>
+        </details>
       `;
     }
 
@@ -1120,14 +1123,29 @@
     const productionAdministered =
       latest.productionAdministered !== false;
     return `
-      <section class="pv2-report-section pv2-starting-check-section">
-        <span class="pv2-diagnostic-kicker">
-          Starting Check · Diagnostic
-        </span>
-        <h3>${escapeHtml(config.title)}</h3>
-        <p class="pv2-starting-check-subtitle">
-          ${escapeHtml(config.subtitle)}
-        </p>
+      <details class="pv2-checkin-topic">
+        <summary>
+          <span class="pv2-checkin-topic-name">
+            ${escapeHtml(config.icon)} ${escapeHtml(config.topicLabel)}
+          </span>
+          <span>Recognition ${recognitionCorrect}/${config.total}</span>
+          <span>${productionAdministered
+            ? `Production ${productionCorrect}/${recognitionCorrect}`
+            : "Production: Not administered"}</span>
+          <span>Start with: ${escapeHtml(startingCheckStartingPoint(config, latest))}</span>
+        </summary>
+
+        <div class="pv2-checkin-topic-body">
+          <span class="pv2-diagnostic-kicker">
+            Check-in · Diagnostic
+          </span>
+          <h4>${escapeHtml(config.title)}</h4>
+          <p class="pv2-starting-check-subtitle">
+            ${escapeHtml(config.subtitle)}
+          </p>
+          <p class="pv2-checkin-date">
+            Latest check-in · ${escapeHtml(formatStartingCheckDate(latest.completedAt))}
+          </p>
         <p class="progress-note">
           Diagnostic starting-point evidence. Kept separate from practice accuracy, mastery, activity practice, and Italy Journey progress.
         </p>
@@ -1153,7 +1171,24 @@
 
         ${buildStartingCheckTable(config, latest)}
         ${buildStartingCheckHistory(config, latest, topicData.history)}
-      </section>
+        </div>
+      </details>
+    `;
+  }
+
+  function buildCheckInsSection(studentId) {
+    return `
+      <div class="pv2-checkin-intro">
+        <p>
+          The first check-in provides a starting-point snapshot.
+          Later check-ins can help show change over time.
+          Check-in results remain separate from practice accuracy and mastery.
+        </p>
+      </div>
+      <div class="pv2-checkin-topic-list">
+        ${buildWeatherStartingCheckSection(studentId)}
+        ${buildDaysStartingCheckSection(studentId)}
+      </div>
     `;
   }
 
@@ -1821,19 +1856,12 @@
         .join("");
 
     return `
-      <section
-        class="pv2-report-section pv2-next-section"
-        aria-labelledby="pv2NextPracticeTitle"
-      >
+      <section class="pv2-report-section pv2-next-section">
         <div class="pv2-next-heading">
           <div>
             <span class="pv2-next-kicker">
               Suggested Next Practice
             </span>
-
-            <h3 id="pv2NextPracticeTitle">
-              What could help next?
-            </h3>
 
             <p>
               Suggestions combine saved Practice Path
@@ -2301,179 +2329,108 @@
         : storage.currentStudentId();
 
     summary.innerHTML = `
-      ${
-        studentName
-          ? `
+      <details class="pv2-major-section" open>
+        <summary>📊 Overview</summary>
+        <div class="pv2-major-section-body pv2-overview-grid">
+          ${studentName ? `
             <div class="pv2-student-heading">
-              <strong>Student:</strong>
-              ${escapeHtml(studentName)}
+              <strong>Student:</strong> ${escapeHtml(studentName)}
             </div>
-          `
-          : ""
-      }
-
-      <div class="progress-stat">
-        <strong>${scoredAttempts}</strong>
-        <span>Scored Responses</span>
-      </div>
-
-      <div class="progress-stat">
-        <strong>${scoredCorrect}</strong>
-        <span>Correct</span>
-      </div>
-
-      <div class="progress-stat">
-        <strong>${scoredAttempts ? `${scoredAccuracy}%` : "—"}</strong>
-        <span>Overall Accuracy</span>
-      </div>
-
-      <div class="progress-stat">
-        <strong>${recent.attempts ? `${recent.accuracy}%` : "—"}</strong>
-        <span>Recent Accuracy · Last ${recent.attempts || 0}</span>
-      </div>
-
-      <div class="progress-stat">
-        <strong>${topicsPracticed}</strong>
-        <span>Topics Practiced</span>
-      </div>
-
-      <div class="progress-stat">
-        <strong class="pv2-date-stat">${escapeHtml(formatShortDate(lastPracticed))}</strong>
-        <span>Last Practiced</span>
-      </div>
+          ` : ""}
+          <div class="progress-stat"><strong>${scoredAttempts}</strong><span>Scored Responses</span></div>
+          <div class="progress-stat"><strong>${scoredCorrect}</strong><span>Correct</span></div>
+          <div class="progress-stat"><strong>${scoredAttempts ? `${scoredAccuracy}%` : "—"}</strong><span>Overall Accuracy</span></div>
+          <div class="progress-stat"><strong>${recent.attempts ? `${recent.accuracy}%` : "—"}</strong><span>Recent Accuracy · Last ${recent.attempts || 0}</span></div>
+          <div class="progress-stat"><strong>${topicsPracticed}</strong><span>Topics Practiced</span></div>
+          <div class="progress-stat"><strong class="pv2-date-stat">${escapeHtml(formatShortDate(lastPracticed))}</strong><span>Last Practiced</span></div>
+        </div>
+      </details>
     `;
 
     activityTable.innerHTML = `
-      ${buildNextPracticeSection()}
+      <details class="pv2-major-section" open>
+        <summary>🎯 What Could Help Next?</summary>
+        <div class="pv2-major-section-body">${buildNextPracticeSection()}</div>
+      </details>
 
-      ${buildWeatherStartingCheckSection(currentStudentId)}
+      <details class="pv2-major-section" open>
+        <summary>🩺 Check-ins · Diagnostic &amp; Progress</summary>
+        <div class="pv2-major-section-body">${buildCheckInsSection(currentStudentId)}</div>
+      </details>
 
-      ${buildDaysStartingCheckSection(currentStudentId)}
-
-      <section class="pv2-report-section pv2-actfl-section">
-        <div class="pv2-section-heading">
-          <div>
-            <h3>ACTFL-Informed Communication Practice</h3>
-            <p>
-              Practice groupings informed by ACTFL’s three communication modes; these activities are not treated as full mode assessments.
+      <details class="pv2-major-section">
+        <summary>🎯 Practice Progress</summary>
+        <div class="pv2-major-section-body">
+          <section class="pv2-report-section">
+            <h3>By Scored Activity</h3>
+            <p class="progress-note">Accuracy is response-attempt accuracy. A retry is counted as another response attempt.</p>
+            <table class="progress-table">
+              <thead><tr><th>Activity</th><th>Responses</th><th>Correct</th><th>Accuracy</th></tr></thead>
+              <tbody>${buildScoredActivityRows()}</tbody>
+            </table>
+          </section>
+          <section class="pv2-report-section pv2-memory-section">
+            <h3>Practice / Exposure</h3>
+            <div class="pv2-memory-box">
+              <strong>Memoria · Memory</strong>
+              <span>${Number(memory.attempts) || 0} card-pair selections recorded</span>
+              <small>Memoria is kept separate from accuracy because successful card selection depends partly on which cards are revealed.</small>
+            </div>
+          </section>
+          <section class="pv2-report-section">
+            <h3>By Topic</h3>
+            <p class="progress-note">
+              “Higher accuracy” and “Practice signal” appear only after at least 3 scored responses in an activity. Higher accuracy = 85% or above; a practice signal appears below 70%.
+              ${progressData.sessions.length >= 500 ? " Detailed topic and attempt-history views use the most recent 500 saved response records; lifetime cumulative totals remain preserved in the overall and activity summaries." : ""}
             </p>
-          </div>
+            <div class="pv2-topic-grid">${buildTopicCards()}</div>
+          </section>
+          <section class="pv2-report-section">
+            <h3>By Word / Expression</h3>
+            <p class="pv2-tracking-note">Word/expression detail begins with attempts recorded after this tracking update. Older saved attempts remain included in the overall, activity, and topic totals but cannot be assigned retroactively to a specific word or expression.</p>
+            <div class="progress-table-wrap pv2-word-table-wrap">
+              <table class="progress-table">
+                <thead><tr><th>Topic</th><th>Word / Expression</th><th>English</th><th>Responses</th><th>Correct</th><th>Accuracy</th><th>Activities</th></tr></thead>
+                <tbody>${buildWordRows()}</tbody>
+              </table>
+            </div>
+          </section>
         </div>
+      </details>
 
-        <div class="pv2-actfl-grid">
-          ${buildActflCards()}
+      <details class="pv2-major-section">
+        <summary>💬 Communication Practice</summary>
+        <div class="pv2-major-section-body">
+          <section class="pv2-report-section pv2-actfl-section">
+            <div class="pv2-section-heading"><div>
+              <p>Practice groupings informed by ACTFL’s three communication modes; these activities are not treated as full mode assessments.</p>
+            </div></div>
+            <div class="pv2-actfl-grid">${buildActflCards()}</div>
+            <div class="pv2-bridge-box"><strong>Foundational / bridge practice</strong><span>Impara · Memoria · Parole in azione · Completa · Presentiamoci!</span></div>
+            <p class="pv2-standards-note">These site data summarize practice and response accuracy. They do not constitute an ACTFL proficiency rating.</p>
+          </section>
         </div>
-
-        <div class="pv2-bridge-box">
-          <strong>Foundational / bridge practice</strong>
-          <span>
-            Impara · Memoria · Parole in azione · Completa · Presentiamoci!
-          </span>
-        </div>
-
-        <p class="pv2-standards-note">
-          These site data summarize practice and response accuracy. They do not constitute an ACTFL proficiency rating.
-        </p>
-      </section>
-
-      <section class="pv2-report-section">
-        <h3>By Scored Activity</h3>
-        <p class="progress-note">
-          Accuracy is response-attempt accuracy. A retry is counted as another response attempt.
-        </p>
-
-        <table class="progress-table">
-          <thead>
-            <tr>
-              <th>Activity</th>
-              <th>Responses</th>
-              <th>Correct</th>
-              <th>Accuracy</th>
-            </tr>
-          </thead>
-          <tbody>
-            ${buildScoredActivityRows()}
-          </tbody>
-        </table>
-      </section>
-
-      <section class="pv2-report-section pv2-memory-section">
-        <h3>Practice / Exposure</h3>
-        <div class="pv2-memory-box">
-          <strong>Memoria · Memory</strong>
-          <span>
-            ${Number(memory.attempts) || 0} card-pair selections recorded
-          </span>
-          <small>
-            Memoria is kept separate from accuracy because successful card selection depends partly on which cards are revealed.
-          </small>
-        </div>
-      </section>
+      </details>
     `;
 
-    topicTable.innerHTML = `
-      <section class="pv2-report-section">
-        <h3>By Topic</h3>
-        <p class="progress-note">
-          “Higher accuracy” and “Practice signal” appear only after at least 3 scored responses in an activity. Higher accuracy = 85% or above; a practice signal appears below 70%.
-          ${progressData.sessions.length >= 500 ? " Detailed topic and attempt-history views use the most recent 500 saved response records; lifetime cumulative totals remain preserved in the overall and activity summaries." : ""}
-        </p>
-
-        <div class="pv2-topic-grid">
-          ${buildTopicCards()}
-        </div>
-      </section>
-
-      <section class="pv2-report-section">
-        <h3>By Word / Expression</h3>
-        <p class="pv2-tracking-note">
-          Word/expression detail begins with attempts recorded after this tracking update. Older saved attempts remain included in the overall, activity, and topic totals but cannot be assigned retroactively to a specific word or expression.
-        </p>
-
-        <div class="progress-table-wrap pv2-word-table-wrap">
-          <table class="progress-table">
-            <thead>
-              <tr>
-                <th>Topic</th>
-                <th>Word / Expression</th>
-                <th>English</th>
-                <th>Responses</th>
-                <th>Correct</th>
-                <th>Accuracy</th>
-                <th>Activities</th>
-              </tr>
-            </thead>
-            <tbody>
-              ${buildWordRows()}
-            </tbody>
-          </table>
-        </div>
-      </section>
-    `;
+    topicTable.innerHTML = "";
 
     if (historyTable) {
       historyTable.innerHTML = `
-        <section class="pv2-report-section">
-          <h3>Attempt History</h3>
-
-          <div class="progress-table-wrap">
-            <table class="progress-table">
-              <thead>
-                <tr>
-                  <th>#</th>
-                  <th>Date</th>
-                  <th>Topic</th>
-                  <th>Activity</th>
-                  <th>Word / Expression</th>
-                  <th>Result</th>
-                </tr>
-              </thead>
-              <tbody>
-                ${buildAttemptHistoryRowsV2()}
-              </tbody>
-            </table>
+        <details class="pv2-major-section">
+          <summary>📋 Detailed Practice History</summary>
+          <div class="pv2-major-section-body">
+            <section class="pv2-report-section">
+              <h3>Attempt History</h3>
+              <div class="progress-table-wrap">
+                <table class="progress-table">
+                  <thead><tr><th>#</th><th>Date</th><th>Topic</th><th>Activity</th><th>Word / Expression</th><th>Result</th></tr></thead>
+                  <tbody>${buildAttemptHistoryRowsV2()}</tbody>
+                </table>
+              </div>
+            </section>
           </div>
-        </section>
+        </details>
       `;
     }
   }
@@ -2488,6 +2445,7 @@
     window.__primoVoloProgressTestHooks = {
       buildWeatherStartingCheckSection,
       buildDaysStartingCheckSection,
+      buildCheckInsSection,
       buildStartingCheckSection,
       buildStartingCheckHistory,
       buildStartingCheckRows,
@@ -2519,8 +2477,112 @@
       }
 
       .progress-summary {
-        grid-template-columns:
-          repeat(3, minmax(0, 1fr));
+        display: block;
+      }
+
+      #progressActivityTable,
+      #progressTopicTable,
+      #progressAttemptTable {
+        overflow: visible;
+      }
+
+      .pv2-major-section {
+        margin-top: 16px;
+        border: 1px solid #d8e4f0;
+        border-radius: 18px;
+        background: #ffffff;
+        box-shadow: 0 4px 14px rgba(36,57,87,.04);
+      }
+
+      .pv2-major-section > summary {
+        padding: 16px 18px;
+        color: #274b84;
+        font-size: 1.08rem;
+        font-weight: 900;
+        cursor: pointer;
+      }
+
+      .pv2-major-section[open] > summary {
+        border-bottom: 1px solid #e3e9f1;
+      }
+
+      .pv2-major-section-body {
+        padding: 0 18px 18px;
+      }
+
+      .pv2-overview-grid {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 12px;
+        padding-top: 18px;
+      }
+
+      .pv2-major-section-body > .pv2-next-section {
+        margin-top: 18px;
+      }
+
+      .pv2-checkin-intro {
+        margin: 16px 0 12px;
+        padding: 12px 14px;
+        border-radius: 12px;
+        color: #5f6f86;
+        background: #f7faff;
+        line-height: 1.5;
+      }
+
+      .pv2-checkin-intro p {
+        margin: 0;
+      }
+
+      .pv2-checkin-topic-list {
+        display: grid;
+        gap: 10px;
+      }
+
+      .pv2-checkin-topic {
+        border: 1px solid #dce5ef;
+        border-radius: 14px;
+        background: #fbfdff;
+      }
+
+      .pv2-checkin-topic > summary {
+        display: grid;
+        grid-template-columns: minmax(120px, 1.25fr) repeat(3, minmax(110px, 1fr));
+        gap: 8px 14px;
+        align-items: center;
+        padding: 13px 15px;
+        color: #52657e;
+        font-size: .82rem;
+        cursor: pointer;
+      }
+
+      .pv2-checkin-topic-name {
+        color: #274b84;
+        font-size: .98rem;
+        font-weight: 900;
+      }
+
+      .pv2-checkin-topic-empty {
+        grid-column: 2 / -1;
+        color: #718096;
+      }
+
+      .pv2-checkin-topic-body {
+        padding: 16px;
+        border-top: 1px solid #e3e9f1;
+      }
+
+      .pv2-checkin-topic-body h4 {
+        margin: 0 0 7px;
+        color: #274b84;
+        font-size: 1.08rem;
+      }
+
+      .pv2-checkin-date {
+        margin: 8px 0;
+        color: #66758d;
+        font-size: .82rem;
+        font-weight: 800;
       }
 
       .pv2-student-heading {
@@ -3341,11 +3403,19 @@
       }
 
       @media (max-width: 620px) {
-        .progress-summary,
+        .pv2-overview-grid,
         .pv2-topic-metrics,
         .pv2-starting-check-summary {
           grid-template-columns:
             repeat(2, minmax(0, 1fr));
+        }
+
+        .pv2-checkin-topic > summary {
+          grid-template-columns: 1fr;
+        }
+
+        .pv2-checkin-topic-empty {
+          grid-column: auto;
         }
       }
 

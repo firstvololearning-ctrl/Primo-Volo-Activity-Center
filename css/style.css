@@ -11877,6 +11877,31 @@ details.educator-resource-section
 
 /* EDUCATOR MENU POLISH START */
 
+/* Override the shared 1fr rows for content-sized educator accordions. */
+.site-header
+.header-nav-group.educator-tools {
+  align-self: flex-start;
+  height: auto;
+}
+
+.site-header
+.header-nav-group.educator-tools
+> .header-nav-group-items {
+  flex: 0 0 auto;
+  grid-auto-rows: max-content;
+  align-items: start;
+  align-content: start;
+}
+
+.site-header
+.header-nav-group.educator-tools
+> .header-nav-group-items
+> details.educator-resource-section {
+  align-self: start;
+  height: auto;
+  min-height: 0;
+}
+
 /* Tighten the nested educator menu. */
 .site-header
 .header-nav-group.educator-tools
