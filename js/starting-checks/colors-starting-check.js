@@ -2,9 +2,9 @@
 
 (() => {
   const TOPIC_KEY = "colors";
-  const VOCAB_TOTAL = 11;
+  const RECOGNITION_TOTAL = 11;
+  const PRODUCTION_GATE = 8;
   const CARRIER_TOTAL = 6;
-  const TOTAL_ITEMS = VOCAB_TOTAL + CARRIER_TOTAL;
   const STORAGE_FALLBACK_KEY = "primoVoloStartingChecksV1";
 
   const TARGET_IDS = [
@@ -72,7 +72,14 @@
       italian: item.italian,
       masculine: item.masculine || item.italian,
       english: item.english,
-      image: item.image || ""
+      image: item.image || "",
+      acceptedForms: [
+        item.italian,
+        item.masculine,
+        item.feminine,
+        item.masculinePlural,
+        item.femininePlural
+      ].filter(Boolean)
     }));
   }
 
@@ -97,6 +104,12 @@
     );
   }
 
+  function carrierImageUrl(carrier) {
+    const url = new URL(carrier.image, document.baseURI);
+    url.searchParams.set("v", "1");
+    return url.href;
+  }
+
   function carrierStem(carrier) {
     return String(carrier?.italian || "")
       .replace(/[.…]+$/u, "")
@@ -114,10 +127,10 @@
     return `${stem} un palloncino ${color}.`;
   }
 
-  function shuffle(items) {
+  function shuffle(items, random = Math.random) {
     const copy = [...items];
     for (let i = copy.length - 1; i > 0; i -= 1) {
-      const j = Math.floor(Math.random() * (i + 1));
+      const j = Math.floor(random() * (i + 1));
       [copy[i], copy[j]] = [copy[j], copy[i]];
     }
     return copy;
@@ -144,6 +157,34 @@
     ) {
       window.PrimoVoloAudio.speak(text);
     }
+  }
+
+  function normalizeAnswer(text) {
+    return String(text || "")
+      .trim()
+      .toLowerCase()
+      .normalize("NFD")
+      .replace(/[\u0300-\u036f]/g, "")
+      .replace(/['’]/g, "")
+      .replace(/[.!?]+$/g, "")
+      .replace(/\s+/g, " ")
+      .trim();
+  }
+
+  function classifyProduction(typedAnswer, item) {
+    const normalizedAnswer = normalizeAnswer(typedAnswer);
+    const normalizedCanonical = normalizeAnswer(item?.italian);
+    if (normalizedAnswer === normalizedCanonical) {
+      return "produced-canonical";
+    }
+    const acceptedForms = Array.isArray(item?.acceptedForms)
+      ? item.acceptedForms
+      : [];
+    return acceptedForms.some(form =>
+      normalizeAnswer(form) === normalizedAnswer
+    )
+      ? "produced-acceptable-alternative"
+      : null;
   }
 
   function storageKey() {
@@ -204,34 +245,61 @@
   }
 
   function latestResult() {
-    return loadStore().byTopic?.[TOPIC_KEY]?.latest || null;
+    const latest = loadStore().byTopic?.[TOPIC_KEY]?.latest;
+    return Array.isArray(latest?.itemStatuses) ? latest : null;
   }
 
-  function saveSession() {
+  function canonicalModes() {
+    const availability = window.PrimoVoloActivityAvailability;
+    return availability?.getCanonicalModes
+      ? availability.getCanonicalModes(TOPIC_KEY)
+      : ["learn", "choose", "match-word", "match-sound", "complete", "write"];
+  }
+
+  function activityLabel(mode) {
+    return {
+      learn: "Impara", choose: "Scegli", "match-word": "Abbina",
+      "match-sound": "Ascolta", complete: "Completa", write: "Scrivi"
+    }[mode] || mode || "";
+  }
+
+  function recommendationFor(recognitionCorrect, productionCorrect, availableModes = canonicalModes()) {
+    let primaryMode;
+    let sequenceGroups;
+    let message;
+    if (recognitionCorrect < PRODUCTION_GATE) {
+      primaryMode = "learn";
+      sequenceGroups = [["learn"], ["choose"], ["match-word", "match-sound"]];
+      message = "Costruiamo prima il riconoscimento. · Let's build recognition first.";
+    } else if (productionCorrect * 4 < recognitionCorrect * 3) {
+      primaryMode = "complete";
+      sequenceGroups = [["complete"], ["write"]];
+      message = "Ora esercitiamoci a produrre le parole. · Now let's practice producing the words.";
+    } else {
+      primaryMode = "write";
+      sequenceGroups = [["write"]];
+      message = "Sei pronto per una pratica più indipendente. · You're ready for more independent practice.";
+    }
+    const available = new Set(availableModes);
+    const sequence = sequenceGroups
+      .map(group => group.filter(mode => available.has(mode)))
+      .filter(group => group.length);
+    const selectedPrimary = available.has(primaryMode)
+      ? primaryMode
+      : sequence[0]?.[0] || null;
+    return { primaryMode: selectedPrimary, primaryLabel: activityLabel(selectedPrimary), sequence, message };
+  }
+
+  function saveSession(activeSession = session) {
     const data = loadStore();
     const topicData = data.byTopic[TOPIC_KEY] || {
       latest: null,
       history: []
     };
 
-    const vocab = session.results.filter(
-      result => result.section === "vocabulary"
-    );
-    const carriers = session.results.filter(
-      result => result.section === "carrier"
-    );
-
-    const byWord = {};
-    vocab.forEach(result => {
-      byWord[result.itemId] = {
-        italian: result.italian,
-        english: result.english,
-        status: result.correct ? "correct" : "incorrect",
-        taskType: result.taskType,
-        selectedItemId: result.selectedItemId,
-        checkedAt: session.completedAt
-      };
-    });
+    const recognitionCorrect = activeSession.recognitionResults.filter(result => result.correct).length;
+    const productionCorrect = activeSession.productionResults.filter(result => result.correct).length;
+    const carriers = activeSession.carrierResults;
 
     const byCarrier = {};
     carriers.forEach(result => {
@@ -246,31 +314,67 @@
     });
 
     const saved = {
-      id: session.id,
-      version: 2,
-      startedAt: session.startedAt,
-      completedAt: session.completedAt,
-      total: session.results.length,
-      correct: session.results.filter(result => result.correct).length,
-      vocabularyTotal: vocab.length,
-      vocabularyCorrect: vocab.filter(result => result.correct).length,
+      id: activeSession.id,
+      version: 3,
+      startedAt: activeSession.startedAt,
+      completedAt: activeSession.completedAt,
+      recognitionTotal: RECOGNITION_TOTAL,
+      recognitionCorrect,
+      productionAdministered: activeSession.productionAdministered,
+      productionTotal: activeSession.productionTasks.length,
+      productionCorrect,
       carrierTotal: carriers.length,
       carrierCorrect: carriers.filter(result => result.correct).length,
-      byWord,
       byCarrier,
-      results: session.results.map(result => ({
-        section: result.section,
+      languagePatterns: {
+        total: carriers.length,
+        correct: carriers.filter(result => result.correct).length,
+        byPattern: Object.fromEntries(
+          Object.values(byCarrier).map(group => [group.italian, {
+            correct: group.correct,
+            total: group.attempts
+          }])
+        )
+      },
+      recommendation: {
+        primary: recommendationFor(recognitionCorrect, productionCorrect).primaryMode,
+        primaryLabel: recommendationFor(recognitionCorrect, productionCorrect).primaryLabel
+      },
+      results: activeSession.results.filter(result => result.stage !== "carrier").map(result => ({
         itemId: result.itemId || null,
         italian: result.italian || null,
         english: result.english || null,
         taskType: result.taskType,
+        stage: result.stage,
         selectedItemId: result.selectedItemId || null,
-        carrierId: result.carrierId || null,
-        carrierItalian: result.carrierItalian || null,
-        selectedCarrierId: result.selectedCarrierId || null,
+        typedAnswer: result.typedAnswer || null,
+        productionStatus: result.productionStatus || null,
+        status: result.correct ? "correct" : "incorrect"
+      })),
+      carrierResults: carriers.map(result => ({
+        itemId: result.itemId,
+        carrierId: result.carrierId,
+        carrierItalian: result.carrierItalian,
+        selectedCarrierId: result.selectedCarrierId,
         status: result.correct ? "correct" : "incorrect"
       }))
     };
+
+    saved.itemStatuses = activeSession.recognitionTasks.map(task => {
+      const recognized = activeSession.recognitionResults.find(result => result.itemId === task.item.id)?.correct === true;
+      const productionResult = activeSession.productionResults.find(result => result.itemId === task.item.id);
+      return {
+        itemId: task.item.id,
+        italian: task.item.italian,
+        english: task.item.english,
+        typedAnswer: productionResult?.typedAnswer || null,
+        status: productionResult?.productionStatus || (recognized
+          ? activeSession.productionAdministered
+            ? "recognized-not-yet-produced"
+            : "recognized-production-not-administered"
+          : "not-yet-recognized")
+      };
+    });
 
     topicData.latest = saved;
     topicData.history = [
@@ -278,7 +382,7 @@
       saved
     ].slice(-10);
 
-    data.version = 2;
+    data.version = 3;
     data.byTopic[TOPIC_KEY] = topicData;
     saveStore(data);
 
@@ -518,6 +622,17 @@
         font-size:1.12rem;
       }
 
+      .colors-check-input {
+        display:block;
+        width:min(560px,100%);
+        margin:16px auto;
+        padding:13px 15px;
+        border:2px solid #d9e2ef;
+        border-radius:12px;
+        font:inherit;
+        font-size:1.05rem;
+      }
+
       .colors-carrier-composite {
         display:grid;
         grid-template-columns:1fr .85fr;
@@ -629,18 +744,22 @@
           </span>
           <h3>🎨 Prova iniziale · Colors Starting Check</h3>
           <p>
-            17 domande in due parti: tutti gli 11 colori con
-            riconoscimento scritto/visivo e ascolto, più 6 frasi utili.
+            Tutti gli 11 colori, con una breve parte indipendente quando utile,
+            più 6 frasi utili.
             <span lang="en">
-              All 11 color targets plus 6 related carrier-phrase items.
+              All 11 color targets, adaptive independent production,
+              and 6 separate carrier-phrase items.
             </span>
           </p>
           <div class="colors-check-section-summary">
             <span class="colors-check-section-chip">
-              Parte 1 · Vocabolario — 11
+              Parte 1 · Riconoscimento — 11
             </span>
             <span class="colors-check-section-chip">
-              Parte 2 · Frasi utili — 6
+              Parte 2 · Produzione — se utile
+            </span>
+            <span class="colors-check-section-chip">
+              Parte finale · Frasi utili — 6
             </span>
           </div>
           <div data-role="latest"></div>
@@ -717,8 +836,8 @@
     holder.innerHTML = `
       <p>
         <strong>Ultima prova · Latest:</strong>
-        Vocabolario ${latest.vocabularyCorrect ?? 0}/${
-          latest.vocabularyTotal ?? VOCAB_TOTAL
+        Riconoscimento ${latest.recognitionCorrect ?? 0}/${
+          latest.recognitionTotal ?? RECOGNITION_TOTAL
         }
         · Frasi utili ${latest.carrierCorrect ?? 0}/${
           latest.carrierTotal ?? CARRIER_TOTAL
@@ -736,18 +855,34 @@
     if (!checkCard.hidden) refreshLatest();
   }
 
-  function buildVocabTasks() {
+  function buildRecognitionTasks(random = Math.random) {
     const map = itemMap();
-    const ids = shuffle(TARGET_IDS);
-    const types = shuffle(TASK_TYPES);
+    const ids = shuffle(TARGET_IDS, random);
+    const types = shuffle(TASK_TYPES, random);
 
     return ids
       .map((id, index) => ({
-        section: "vocabulary",
+        stage: "recognition",
         item: map.get(id),
         taskType: types[index]
       }))
       .filter(task => task.item);
+  }
+
+  function buildProductionTasks(recognitionTasks, recognitionResults, random = Math.random) {
+    const recognizedIds = new Set(
+      recognitionResults.filter(result => result.correct).map(result => result.itemId)
+    );
+    return shuffle(
+      recognitionTasks
+        .filter(task => recognizedIds.has(task.item.id))
+        .map(task => ({ item: task.item, taskType: "independent-production" })),
+      random
+    );
+  }
+
+  function shouldAdministerProduction(recognitionCorrect) {
+    return recognitionCorrect >= PRODUCTION_GATE;
   }
 
   function buildCarrierTasks() {
@@ -766,11 +901,11 @@
   }
 
   function startCheck() {
-    const vocabularyTasks = buildVocabTasks();
+    const recognitionTasks = buildRecognitionTasks();
     const carrierTasks = buildCarrierTasks();
 
     if (
-      vocabularyTasks.length !== VOCAB_TOTAL ||
+      recognitionTasks.length !== RECOGNITION_TOTAL ||
       carrierTasks.length !== CARRIER_TOTAL ||
       getCarriers().length !== 3
     ) {
@@ -786,11 +921,16 @@
       id: `colors-${Date.now()}-${Math.random().toString(36).slice(2, 8)}`,
       startedAt: new Date().toISOString(),
       completedAt: null,
-      section: "vocabulary",
+      stage: "recognition",
       index: 0,
       selected: null,
-      vocabularyTasks,
+      recognitionTasks,
+      recognitionResults: [],
+      productionTasks: [],
+      productionResults: [],
+      productionAdministered: false,
       carrierTasks,
+      carrierResults: [],
       results: []
     };
 
@@ -801,15 +941,20 @@
   function currentTask() {
     if (!session) return null;
 
-    return session.section === "vocabulary"
-      ? session.vocabularyTasks[session.index]
-      : session.carrierTasks[session.index];
+    const tasks = session.stage === "production"
+      ? session.productionTasks
+      : session.stage === "carrier"
+        ? session.carrierTasks
+        : session.recognitionTasks;
+    return tasks[session.index];
   }
 
-  function progressNumber() {
-    return session.section === "vocabulary"
-      ? session.index + 1
-      : VOCAB_TOTAL + session.index + 1;
+  function stageTotal() {
+    return session.stage === "production"
+      ? session.productionTasks.length
+      : session.stage === "carrier"
+        ? CARRIER_TOTAL
+        : RECOGNITION_TOTAL;
   }
 
   function vocabOptions(item) {
@@ -843,8 +988,10 @@
   function renderCurrent() {
     if (!session || !modalBody) return;
 
-    if (session.section === "vocabulary") {
+    if (session.stage === "recognition") {
       renderVocabQuestion(currentTask());
+    } else if (session.stage === "production") {
+      renderProductionQuestion(currentTask());
     } else {
       renderCarrierQuestion(currentTask());
     }
@@ -928,12 +1075,12 @@
 
     modalBody.innerHTML = `
       <p class="colors-check-progress">
-        ${progressNumber()} / ${TOTAL_ITEMS}
+        ${session.index + 1} / ${stageTotal()}
       </p>
 
       <div class="colors-check-question">
         <span class="colors-check-part-label">
-          Parte 1 · Vocabolario
+          Parte 1 · Riconoscimento
         </span>
         <span class="colors-check-task-label">
           ${escapeHtml(TASK_LABELS[taskType])}
@@ -982,33 +1129,122 @@
     const task = currentTask();
     const { item, taskType } = task;
 
-    session.results.push({
-      section: "vocabulary",
+    const result = {
+      stage: "recognition",
       itemId: item.id,
       italian: item.italian,
       english: item.english,
       taskType,
       selectedItemId: session.selected,
       correct: session.selected === item.id
-    });
+    };
+    session.recognitionResults.push(result);
+    session.results.push(result);
 
     session.index += 1;
 
-    if (session.index >= VOCAB_TOTAL) {
-      renderCarrierTransition();
+    if (session.index >= RECOGNITION_TOTAL) {
+      const recognitionCorrect = session.recognitionResults.filter(result => result.correct).length;
+      if (shouldAdministerProduction(recognitionCorrect)) {
+        session.productionAdministered = true;
+        session.productionTasks = buildProductionTasks(
+          session.recognitionTasks,
+          session.recognitionResults
+        );
+        session.stage = "production";
+        session.index = 0;
+        renderProductionTransition();
+      } else {
+        beginCarrierSection();
+      }
     } else {
       renderCurrent();
     }
   }
 
-  function renderCarrierTransition() {
+  function renderProductionTransition() {
     modalBody.innerHTML = `
       <div class="colors-check-interstitial">
         <span class="colors-check-interstitial-badge">
           Parte 1 completata · Part 1 complete
         </span>
 
-        <h2>💬 Parte 2 · Frasi utili</h2>
+        <h2>🎨 Ora prova da solo!</h2>
+        <p>
+          Scrivi i colori che hai riconosciuto.
+          <span lang="en">Type the colors you recognized.</span>
+        </p>
+
+        <div class="colors-check-interstitial-actions">
+          <button type="button" class="colors-check-next" data-action="continue">
+            Continua · Continue →
+          </button>
+        </div>
+      </div>
+    `;
+    modalBody.querySelector('[data-action="continue"]')
+      ?.addEventListener("click", renderCurrent);
+  }
+
+  function renderProductionQuestion(task) {
+    session.selected = null;
+    modalBody.innerHTML = `
+      <p class="colors-check-progress">${session.index + 1} / ${stageTotal()}</p>
+      <div class="colors-check-question">
+        <span class="colors-check-part-label">Parte 2 · Produzione indipendente</span>
+        <span class="colors-check-task-label">Colore → italiano</span>
+        <img class="colors-check-target-image" src="${escapeHtml(task.item.image)}" alt="Color swatch to name in Italian">
+        <h2>Come si dice in italiano?</h2>
+        <p class="colors-check-question-note">What is this color in Italian?</p>
+        <form data-action="recall">
+          <label class="sr-only" for="colorsCheckInput">Name the color in Italian</label>
+          <input id="colorsCheckInput" class="colors-check-input" type="text" autocomplete="off" autocapitalize="none" spellcheck="false">
+          <div class="colors-check-footer">
+            <span>Nessun suggerimento · No hints</span>
+            <button type="submit" class="colors-check-next">Invia · Submit</button>
+          </div>
+        </form>
+      </div>
+    `;
+    modalBody.querySelector('[data-action="recall"]')?.addEventListener("submit", event => {
+      event.preventDefault();
+      recordProductionAnswer();
+    });
+    modalBody.querySelector("#colorsCheckInput")?.focus();
+  }
+
+  function recordProductionAnswer() {
+    const task = currentTask();
+    const typedAnswer = modalBody.querySelector("#colorsCheckInput")?.value || "";
+    const productionStatus = classifyProduction(typedAnswer, task.item);
+    const result = {
+      stage: "production",
+      itemId: task.item.id,
+      italian: task.item.italian,
+      english: task.item.english,
+      taskType: task.taskType,
+      typedAnswer,
+      productionStatus,
+      correct: productionStatus !== null
+    };
+    session.productionResults.push(result);
+    session.results.push(result);
+    session.index += 1;
+    if (session.index >= session.productionTasks.length) {
+      beginCarrierSection();
+    } else {
+      renderCurrent();
+    }
+  }
+
+  function beginCarrierSection() {
+    session.stage = "carrier";
+    session.index = 0;
+    session.selected = null;
+    modalBody.innerHTML = `
+      <div class="colors-check-interstitial">
+
+        <h2>💬 Parte finale · Frasi utili</h2>
 
         <p>
           Ora ascolta sei frasi con un palloncino colorato.
@@ -1042,9 +1278,6 @@
 
     modalBody.querySelector('[data-action="continue"]')
       ?.addEventListener("click", () => {
-        session.section = "carrier";
-        session.index = 0;
-        session.selected = null;
         renderCurrent();
       });
   }
@@ -1076,7 +1309,7 @@
       >
         <img
           class="carrier-visual"
-          src="${escapeHtml(carrier.image)}"
+          src="${escapeHtml(carrierImageUrl(carrier))}"
           alt=""
           aria-hidden="true"
           draggable="false"
@@ -1093,12 +1326,12 @@
 
     modalBody.innerHTML = `
       <p class="colors-check-progress">
-        ${progressNumber()} / ${TOTAL_ITEMS}
+        ${session.index + 1} / ${stageTotal()}
       </p>
 
       <div class="colors-check-question">
         <span class="colors-check-part-label">
-          Parte 2 · Frasi utili
+          Parte finale · Frasi utili
         </span>
         <span class="colors-check-task-label">
           ${TASK_LABELS["carrier-meaning"]}
@@ -1144,8 +1377,8 @@
 
     modalBody.querySelector('[data-action="next"]')
       ?.addEventListener("click", () => {
-        session.results.push({
-          section: "carrier",
+        const result = {
+          stage: "carrier",
           itemId: task.item.id,
           italian: task.item.italian,
           english: task.item.english,
@@ -1154,7 +1387,9 @@
           carrierItalian: target.italian,
           selectedCarrierId: session.selected,
           correct: session.selected === target.id
-        });
+        };
+        session.carrierResults.push(result);
+        session.results.push(result);
 
         session.index += 1;
 
@@ -1174,6 +1409,10 @@
   function finishCheck() {
     session.completedAt = new Date().toISOString();
     const saved = saveSession();
+    const recommendation = recommendationFor(saved.recognitionCorrect, saved.productionCorrect);
+    const sequenceText = recommendation.sequence
+      .map(group => group.map(activityLabel).join(" / "))
+      .join(" → ");
     refreshLatest();
 
     modalBody.innerHTML = `
@@ -1187,15 +1426,22 @@
         <div class="colors-check-result-grid">
           <div class="colors-check-result-stat">
             <strong>
-              ${saved.vocabularyCorrect} / ${saved.vocabularyTotal}
+              ${saved.recognitionCorrect} / ${saved.recognitionTotal}
             </strong>
-            <span>Vocabolario · Vocabulary</span>
+            <span>Riconoscimento · Recognition</span>
           </div>
 
           <div class="colors-check-result-stat">
             <strong>
-              ${saved.carrierCorrect} / ${saved.carrierTotal}
+              ${saved.productionAdministered
+                ? `${saved.productionCorrect} / ${saved.productionTotal}`
+                : "Non somministrata · Not administered"}
             </strong>
+            <span>Produzione indipendente · Independent production</span>
+          </div>
+
+          <div class="colors-check-result-stat">
+            <strong>${saved.carrierCorrect} / ${saved.carrierTotal}</strong>
             <span>Frasi utili · Carrier Phrases</span>
           </div>
         </div>
@@ -1205,9 +1451,14 @@
           una misura di padronanza.
           <span lang="en">
             This is a starting-point snapshot, not a grade or a
-            measure of mastery. Use the two sections to see where
-            teaching or review may be useful.
+            measure of mastery. The useful-language result is kept separate
+            from recognition and production.
           </span>
+        </p>
+        <p class="colors-check-result-note">${escapeHtml(recommendation.message)}</p>
+        <p class="colors-check-result-note">
+          <strong>Inizia con · Start with:</strong> ${escapeHtml(recommendation.primaryLabel)}<br>
+          <strong>Sequenza suggerita · Suggested sequence:</strong> ${escapeHtml(sequenceText)}
         </p>
 
         <div class="colors-check-interstitial-actions">
@@ -1240,6 +1491,23 @@
 
     updateVisibility();
     refreshLatest();
+  }
+
+  if (window.__PRIMO_VOLO_COLORS_STARTING_CHECK_TEST__) {
+    window.__colorsStartingCheckTestHooks = {
+      getItems,
+      buildRecognitionTasks,
+      buildProductionTasks,
+      buildCarrierTasks,
+      carrierImageUrl,
+      shouldAdministerProduction,
+      classifyProduction,
+      normalizeAnswer,
+      recommendationFor,
+      saveSession,
+      storageKey,
+      loadStore
+    };
   }
 
   if (document.readyState === "loading") {

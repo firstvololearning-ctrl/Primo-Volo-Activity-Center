@@ -884,6 +884,24 @@
           ? days.slice(0, 7).map(item => item.italian)
           : []
     },
+    colors: {
+      icon: "🎨",
+      topicLabel: "Colors",
+      title: "Colors Check-in",
+      subtitle: "I colori · Colors",
+      emptyMessage: "No Colors check-in yet.",
+      total: 11,
+      recognitionSupportMaximum: 7,
+      languagePatterns: ["Io vedo...", "Mi piace...", "È..."],
+      targets: () =>
+        typeof colors !== "undefined" && Array.isArray(colors)
+          ? colors.slice(0, 11).map(item => item.italian)
+          : [],
+      isCompatibleAttempt: attempt =>
+        Number(attempt?.recognitionTotal) === 11 &&
+        Array.isArray(attempt?.itemStatuses) &&
+        Number(attempt?.languagePatterns?.total) === 6
+    },
     supplies: {
       icon: "✏️",
       topicLabel: "School Supplies",
@@ -1252,6 +1270,7 @@
         ${buildWeatherStartingCheckSection(studentId)}
         ${buildDaysStartingCheckSection(studentId)}
         ${buildSuppliesStartingCheckSection(studentId)}
+        ${buildStartingCheckSection("colors", studentId)}
       </div>
     `;
   }

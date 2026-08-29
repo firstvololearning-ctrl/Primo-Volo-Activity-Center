@@ -204,6 +204,69 @@ code.
 If a requested technical change would alter instructional behavior, explain
 that before implementing it.
 
+## Check-in Measurement Principle
+
+A Check-in should measure each construct cleanly.
+
+- Recognition determines whether independent production is worth administering.
+- Production is tested only for individually recognized targets.
+- Additional language knowledge may be measured as a separate diagnostic
+  construct when it provides useful instructional information.
+- A separate construct must not silently alter, inflate, or reduce the
+  vocabulary recognition/production recommendation.
+- Missing production because the learner did not meet the production gate is
+  not an error and is not scored as zero.
+- Check-in evidence may remain longitudinally visible in Progress but must not
+  contribute to practice completion, mastery, Journey, streaks, or normal
+  instructional progression.
+
+### Modernizing older Check-ins
+
+Do not automatically remove an older diagnostic task because it does not fit
+recognition → production.
+
+Ask:
+
+“Does this task measure a distinct construct that would change what we teach
+next?”
+
+If yes:
+
+- preserve or revise it as a separately scored diagnostic dimension
+
+If no:
+
+- it may be removed as redundant
+
+Core rule:
+
+**Keep useful evidence; keep constructs separate.**
+
+## Deterministic typed-response scoring standard
+
+For typed Check-in responses:
+
+- ignore capitalization
+- ignore accents/diacritics
+- ignore ordinary apostrophe mechanics
+- ignore extra spacing
+- ignore final punctuation
+- accept only the canonical response or explicitly approved alternatives
+- never use fuzzy matching
+- never use semantic guessing
+- never use AI judgment
+- never automatically infer “close enough” matches
+
+Normalization may remove superficial writing mechanics, but it must not change
+the lexical or grammatical content being assessed.
+
+Topic-specific approved alternatives should come from explicit canonical
+metadata where appropriate rather than being invented ad hoc by a scorer.
+
+Core rule:
+
+**Normalize mechanics, not meaning.**
+
 ## Coding Style
 
 Prefer:
