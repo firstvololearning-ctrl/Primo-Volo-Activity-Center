@@ -2,82 +2,50 @@
 
 /* ========================================
    NUMBERS STARTING CHECK
-   Part 1: Vocabulary · Part 2: Carrier Phrases
-   Numbers 1–20 · existing Primo Volo assets only
+   Twenty-target recognition, gated independent production, and a separate
+   four-trial Useful Language diagnostic. Writes only Starting Check evidence.
    ======================================== */
 
 (() => {
   const TOPIC_KEY = "numbers";
-  const VOCAB_TOTAL = 12;
-  const CARRIER_TOTAL = 6;
-  const TOTAL_ITEMS = VOCAB_TOTAL + CARRIER_TOTAL;
+  const RECOGNITION_TOTAL = 20;
+  const PRODUCTION_GATE = 14;
+  const LANGUAGE_PATTERN_TOTAL = 4;
   const STORAGE_FALLBACK_KEY = "primoVoloStartingChecksV1";
 
-  const VOCAB_TARGET_NUMBERS = [
-    1, 2, 3, 4, 5, 7,
-    9, 10, 12, 14, 17, 20
-  ];
-
-  const VOCAB_TASK_TYPES = [
-    "word-to-numeral",
-    "word-to-numeral",
-    "word-to-numeral",
-    "word-to-numeral",
-    "numeral-to-word",
-    "numeral-to-word",
-    "numeral-to-word",
-    "numeral-to-word",
-    "listen-to-numeral",
-    "listen-to-numeral",
-    "listen-to-numeral",
-    "listen-to-numeral"
-  ];
-
   const DISTRACTORS = {
-    1: [2, 3, 10],
-    2: [3, 4, 12],
+    1: [2, 10, 11],
+    2: [3, 12, 20],
     3: [2, 4, 13],
     4: [3, 5, 14],
     5: [4, 6, 15],
+    6: [5, 7, 16],
     7: [6, 8, 17],
+    8: [7, 9, 18],
     9: [8, 10, 19],
-    10: [9, 11, 20],
-    12: [11, 13, 2],
-    14: [13, 15, 4],
-    17: [16, 18, 7],
-    20: [18, 19, 10]
+    10: [1, 9, 20],
+    11: [1, 12, 17],
+    12: [2, 11, 13],
+    13: [3, 12, 14],
+    14: [4, 13, 15],
+    15: [5, 14, 16],
+    16: [6, 15, 17],
+    17: [7, 16, 18],
+    18: [8, 17, 19],
+    19: [9, 18, 20],
+    20: [2, 10, 19]
   };
-
-  const NUMBER_SPECIFIC_CARRIERS = [
-    {
-      id: "numeroE",
-      italian: "Il numero è...",
-      english: "The number is...",
-      image:
-        "images/carrier-phrases/il-numero-e-no-text.png"
-    },
-    {
-      id: "numeroPreferito",
-      italian: "Il mio numero preferito è...",
-      english: "My favorite number is...",
-      image:
-        "images/carrier-phrases/il-mio-numero-preferito-no-text.png"
-    }
-  ];
 
   const CARRIER_PLAN = [
     { family: "quantity", targetId: "vedo", number: 2 },
     { family: "quantity", targetId: "ho", number: 3 },
     { family: "quantity", targetId: "vedo", number: 4 },
-    { family: "number", targetId: "numeroE", number: 7 },
-    { family: "number", targetId: "numeroPreferito", number: 12 },
-    { family: "number", targetId: "numeroE", number: 20 }
+    { family: "quantity", targetId: "ho", number: 5 }
   ];
 
   const TASK_LABELS = {
-    "word-to-numeral": "Parola → numero",
-    "numeral-to-word": "Numero → parola",
-    "listen-to-numeral": "Ascolto → numero",
+    "word-audio-to-numeral": "Parola + ascolto → numero",
+    "independent-production": "Numero → parola italiana",
     "carrier-meaning": "Ascolto → frase utile"
   };
 
@@ -183,6 +151,81 @@
     }
   }
 
+  function normalizeAnswer(text) {
+    return String(text || "")
+      .trim()
+      .toLowerCase()
+      .normalize("NFD")
+      .replace(/[\u0300-\u036f]/g, "")
+      .replace(/['’]/g, "")
+      .replace(/[.!?]+$/g, "")
+      .replace(/\s+/g, " ")
+      .trim();
+  }
+
+  function classifyProduction(typedAnswer, canonicalItalian) {
+    return normalizeAnswer(typedAnswer) === normalizeAnswer(canonicalItalian)
+      ? "produced-canonical"
+      : null;
+  }
+
+  function canonicalModes() {
+    const availability = window.PrimoVoloActivityAvailability;
+    return availability?.getCanonicalModes
+      ? availability.getCanonicalModes(TOPIC_KEY)
+      : ["learn", "choose", "match-word", "match-sound", "complete", "write"];
+  }
+
+  function activityLabel(mode) {
+    return {
+      learn: "Impara",
+      choose: "Scegli",
+      "match-word": "Abbina",
+      "match-sound": "Ascolta",
+      complete: "Completa",
+      write: "Scrivi"
+    }[mode] || mode || "";
+  }
+
+  function recommendationFor(
+    recognitionCorrect,
+    productionCorrect,
+    availableModes = canonicalModes()
+  ) {
+    let primaryMode;
+    let sequenceGroups;
+    let message;
+
+    if (recognitionCorrect < PRODUCTION_GATE) {
+      primaryMode = "learn";
+      sequenceGroups = [["learn"], ["choose"], ["match-word", "match-sound"]];
+      message = "Costruiamo prima il riconoscimento. · Let's build recognition first.";
+    } else if (productionCorrect * 4 < recognitionCorrect * 3) {
+      primaryMode = "complete";
+      sequenceGroups = [["complete"], ["write"]];
+      message = "Ora esercitiamoci a produrre i numeri. · Now let's practice producing the numbers.";
+    } else {
+      primaryMode = "write";
+      sequenceGroups = [["write"]];
+      message = "Sei pronto per una pratica più indipendente. · You're ready for more independent practice.";
+    }
+
+    const available = new Set(availableModes);
+    const sequence = sequenceGroups
+      .map(group => group.filter(mode => available.has(mode)))
+      .filter(group => group.length);
+    const selectedPrimary = available.has(primaryMode)
+      ? primaryMode
+      : sequence[0]?.[0] || null;
+
+    return {
+      primaryMode: selectedPrimary,
+      primaryLabel: activityLabel(selectedPrimary),
+      sequence,
+      message
+    };
+  }
+
   function storageKey() {
     const storage = window.PrimoVoloStorage;
     const baseKey =
@@ -265,11 +308,12 @@
 
   function latestResult() {
     const data = loadStartingChecks();
-
-    return (
-      data.byTopic?.[TOPIC_KEY]?.latest ||
-      null
-    );
+    const latest = data.byTopic?.[TOPIC_KEY]?.latest;
+    return Number(latest?.recognitionTotal) === RECOGNITION_TOTAL &&
+      Array.isArray(latest?.itemStatuses) &&
+      Number(latest?.languagePatterns?.total) === LANGUAGE_PATTERN_TOTAL
+      ? latest
+      : null;
   }
 
   function saveSession(session) {
@@ -280,99 +324,92 @@
         history: []
       };
 
-    const vocabularyResults =
-      session.results.filter(
-        result =>
-          result.section === "vocabulary"
-      );
-
-    const carrierResults =
-      session.results.filter(
-        result => result.section === "carrier"
-      );
-
-    const byWord = {};
-    vocabularyResults.forEach(result => {
-      byWord[result.itemId] = {
-        number: result.number,
-        italian: result.italian,
-        english: result.english,
-        status: result.correct
-          ? "correct"
-          : "incorrect",
-        taskType: result.taskType,
-        selectedItemId:
-          result.selectedItemId,
-        checkedAt: session.completedAt
-      };
-    });
-
-    const byCarrier = {};
-    carrierResults.forEach(result => {
+    const recognitionCorrect = session.recognitionResults
+      .filter(result => result.correct).length;
+    const productionCorrect = session.productionResults
+      .filter(result => result.correct).length;
+    const recommendation = recommendationFor(
+      recognitionCorrect,
+      productionCorrect
+    );
+    const byPattern = {};
+    session.languagePatternResults.forEach(result => {
       const group =
-        byCarrier[result.carrierId] || {
+        byPattern[result.carrierItalian] || {
           italian: result.carrierItalian,
-          family: result.family,
           attempts: 0,
           correct: 0
         };
-
       group.attempts += 1;
-
-      if (result.correct) {
-        group.correct += 1;
-      }
-
-      byCarrier[result.carrierId] =
-        group;
+      if (result.correct) group.correct += 1;
+      byPattern[result.carrierItalian] = group;
     });
 
     const savedSession = {
       id: session.id,
-      version: 2,
+      version: 3,
       startedAt: session.startedAt,
       completedAt: session.completedAt,
-      total: session.results.length,
-      correct: session.results.filter(
-        result => result.correct
-      ).length,
-      vocabularyTotal:
-        vocabularyResults.length,
-      vocabularyCorrect:
-        vocabularyResults.filter(
-          result => result.correct
-        ).length,
-      carrierTotal: carrierResults.length,
-      carrierCorrect:
-        carrierResults.filter(
-          result => result.correct
-        ).length,
-      byWord,
-      byCarrier,
-      results: session.results.map(
-        result => ({
-          section: result.section,
-          itemId: result.itemId || null,
-          number: result.number || null,
-          italian: result.italian || null,
-          english: result.english || null,
-          taskType: result.taskType,
-          selectedItemId:
-            result.selectedItemId || null,
-          carrierId:
-            result.carrierId || null,
-          carrierItalian:
-            result.carrierItalian || null,
-          selectedCarrierId:
-            result.selectedCarrierId ||
-            null,
-          family: result.family || null,
-          status: result.correct
-            ? "correct"
-            : "incorrect"
-        })
-      )
+      recognitionTotal: RECOGNITION_TOTAL,
+      recognitionCorrect,
+      productionAdministered: session.productionAdministered,
+      productionTotal: session.productionTasks.length,
+      productionCorrect,
+      recommendation: {
+        primary: recommendation.primaryMode,
+        primaryLabel: recommendation.primaryLabel
+      },
+      languagePatterns: {
+        total: session.languagePatternResults.length,
+        correct: session.languagePatternResults.filter(result => result.correct).length,
+        byPattern: Object.fromEntries(
+          Object.entries(byPattern).map(([pattern, score]) => [pattern, {
+            correct: score.correct,
+            total: score.attempts
+          }])
+        )
+      },
+      results: [...session.recognitionResults, ...session.productionResults].map(result => ({
+        itemId: result.itemId,
+        number: result.number,
+        italian: result.italian,
+        english: result.english,
+        taskType: result.taskType,
+        stage: result.stage,
+        selectedItemId: result.selectedItemId || null,
+        typedAnswer: result.typedAnswer || null,
+        productionStatus: result.productionStatus || null,
+        status: result.correct ? "correct" : "incorrect"
+      })),
+      languagePatternResults: session.languagePatternResults.map(result => ({
+        itemId: result.itemId,
+        carrierId: result.carrierId,
+        carrierItalian: result.carrierItalian,
+        selectedCarrierId: result.selectedCarrierId,
+        status: result.correct ? "correct" : "incorrect"
+      }))
     };
+
+    savedSession.itemStatuses = session.recognitionTasks.map(task => {
+      const recognized = session.recognitionResults.find(
+        result => result.itemId === task.item.id
+      )?.correct === true;
+      const productionResult = session.productionResults.find(
+        result => result.itemId === task.item.id
+      );
+      return {
+        itemId: task.item.id,
+        number: task.item.number,
+        italian: task.item.italian,
+        english: task.item.english,
+        typedAnswer: productionResult?.typedAnswer || null,
+        status: productionResult?.productionStatus || (recognized
+          ? session.productionAdministered
+            ? "recognized-not-yet-produced"
+            : "recognized-production-not-administered"
+          : "not-yet-recognized")
+      };
+    });
 
     topicData.latest = savedSession;
     topicData.history = [
@@ -382,7 +419,7 @@
       savedSession
     ].slice(-10);
 
-    data.version = 2;
+    data.version = 3;
     data.byTopic[TOPIC_KEY] = topicData;
 
     saveStartingChecks(data);
@@ -661,6 +698,16 @@
         font-size: 1.15rem;
       }
 
+      .numbers-check-input {
+        width: min(560px, 100%);
+        margin: 18px auto 4px;
+        padding: 13px 15px;
+        border: 2px solid #d9e2ef;
+        border-radius: 12px;
+        font: inherit;
+        font-size: 1.08rem;
+      }
+
       .numbers-carrier-options {
         grid-template-columns:
           repeat(2, minmax(0, 1fr));
@@ -737,6 +784,21 @@
 
       .numbers-check-interstitial-actions {
         margin-top: 22px;
+      }
+
+      .numbers-check-introduction {
+        padding: 12px 4px 4px;
+      }
+
+      .numbers-check-introduction h2 {
+        margin: 0;
+        color: #274b84;
+        font-size: clamp(1.45rem, 4vw, 2rem);
+      }
+
+      .numbers-check-introduction p {
+        color: #5f6f86;
+        line-height: 1.5;
       }
 
       .numbers-check-result-grid {
@@ -816,21 +878,22 @@
           </h3>
 
           <p>
-            18 domande in due parti:
-            vocabolario scritto/ascoltato e
-            frasi utili collegate.
+            Riconosci tutti i 20 numeri. Se sei pronto,
+            prova a scrivere solo quelli riconosciuti,
+            poi ascolta quattro frasi utili.
             <span lang="en">
-              12 vocabulary items + 6 related
-              carrier-phrase items.
+              Recognize all 20 numbers. If ready, write only
+              the recognized numbers, then complete four
+              separate Useful Language trials.
             </span>
           </p>
 
           <div class="numbers-check-section-summary">
             <span class="numbers-check-section-chip">
-              1 · Vocabolario 12
+              Riconoscimento 20
             </span>
             <span class="numbers-check-section-chip">
-              2 · Frasi utili 6
+              Produzione da 14/20 · Useful Language 4
             </span>
           </div>
 
@@ -868,7 +931,7 @@
       .querySelector('[data-action="start"]')
       ?.addEventListener(
         "click",
-        startCheck
+        openCheck
       );
 
     return card;
@@ -899,10 +962,7 @@
           ×
         </button>
 
-        <div
-          class="numbers-check-body"
-          data-role="body"
-        ></div>
+        <div data-role="body"></div>
       </div>
     `;
 
@@ -930,6 +990,65 @@
     activeSession = null;
   }
 
+  function openCheck() {
+    ensureModal();
+    activeSession = null;
+    modal.hidden = false;
+    renderIntroduction();
+  }
+
+  function renderIntroduction() {
+    if (!modalBody) return;
+
+    modalBody.innerHTML = `
+      <div class="numbers-check-introduction">
+        <span class="numbers-check-interstitial-badge">
+          Prova iniziale · Starting Check
+        </span>
+        <h2>🔢 I numeri · Numbers</h2>
+        <p>
+          Prima riconosci tutti i 20 numeri italiani. Se ne riconosci almeno
+          14, scrivi solo quelli riconosciuti. Alla fine ascolta quattro
+          brevi frasi utili.
+          <span lang="en">
+            First recognize all 20 Italian numbers. At 14 or more, write only
+            the numbers recognized. Finish with four brief Useful Language trials.
+          </span>
+        </p>
+        <div class="numbers-check-section-summary">
+          <span class="numbers-check-section-chip">
+            Riconoscimento · Recognition 20
+          </span>
+          <span class="numbers-check-section-chip">
+            Produzione da 14/20 · Production from 14/20
+          </span>
+          <span class="numbers-check-section-chip">
+            Frasi utili · Useful Language 4
+          </span>
+        </div>
+        <p>
+          Questa è una fotografia del punto di partenza, non un voto o una
+          misura di padronanza.
+          <span lang="en">
+            This is a starting-point snapshot, not a grade or mastery measure.
+          </span>
+        </p>
+        <div class="numbers-check-interstitial-actions">
+          <button
+            type="button"
+            class="numbers-check-next"
+            data-action="begin"
+          >
+            Inizia · Start →
+          </button>
+        </div>
+      </div>
+    `;
+
+    modalBody.querySelector('[data-action="begin"]')
+      ?.addEventListener("click", startCheck, { once: true });
+  }
+
   function refreshLatest() {
     if (!checkCard) return;
 
@@ -950,13 +1069,14 @@
     holder.innerHTML = `
       <p>
         <strong>Ultima prova · Latest:</strong>
-        Vocabolario
-        ${latest.vocabularyCorrect ?? 0}/${
-          latest.vocabularyTotal ?? VOCAB_TOTAL
+        Riconoscimento ${latest.recognitionCorrect ?? 0}/${
+          latest.recognitionTotal ?? RECOGNITION_TOTAL
         }
-        · Frasi utili
-        ${latest.carrierCorrect ?? 0}/${
-          latest.carrierTotal ?? CARRIER_TOTAL
+        · Produzione ${latest.productionAdministered
+          ? `${latest.productionCorrect ?? 0}/${latest.productionTotal ?? 0}`
+          : "non somministrata"}
+        · Frasi utili ${latest.languagePatterns?.correct ?? 0}/${
+          latest.languagePatterns?.total ?? LANGUAGE_PATTERN_TOTAL
         }
         ${
           latest.completedAt
@@ -987,25 +1107,34 @@
     }
   }
 
-  function buildVocabularyTasks() {
-    const byValue =
-      numberItemsByValue();
+  function buildRecognitionTasks(items = getNumberItems()) {
+    return shuffle(items).map(item => ({
+      section: "recognition",
+      item,
+      taskType: "word-audio-to-numeral",
+      options: vocabularyOptions(item)
+    }));
+  }
 
-    const targets = shuffle(
-      VOCAB_TARGET_NUMBERS
+  function buildProductionTasks(recognitionTasks, recognitionResults) {
+    const recognizedIds = new Set(
+      recognitionResults
+        .filter(result => result.correct)
+        .map(result => result.itemId)
     );
-
-    const taskTypes = shuffle(
-      VOCAB_TASK_TYPES
+    return shuffle(
+      recognitionTasks
+        .filter(task => recognizedIds.has(task.item.id))
+        .map(task => ({
+          section: "production",
+          item: task.item,
+          taskType: "independent-production"
+        }))
     );
+  }
 
-    return targets
-      .map((number, index) => ({
-        section: "vocabulary",
-        item: byValue.get(number),
-        taskType: taskTypes[index]
-      }))
-      .filter(task => task.item);
+  function shouldAdministerProduction(recognitionCorrect) {
+    return recognitionCorrect >= PRODUCTION_GATE;
   }
 
   function buildCarrierTasks() {
@@ -1016,7 +1145,7 @@
       CARRIER_PLAN
         .map(plan => ({
           ...plan,
-          section: "carrier",
+          section: "language-patterns",
           item: byValue.get(plan.number),
           taskType: "carrier-meaning"
         }))
@@ -1025,17 +1154,15 @@
   }
 
   function startCheck() {
-    const vocabularyTasks =
-      buildVocabularyTasks();
+    const recognitionTasks = buildRecognitionTasks();
 
     const carrierTasks =
       buildCarrierTasks();
 
     if (
-      vocabularyTasks.length !==
-        VOCAB_TOTAL ||
+      recognitionTasks.length !== RECOGNITION_TOTAL ||
       carrierTasks.length !==
-        CARRIER_TOTAL
+        LANGUAGE_PATTERN_TOTAL
     ) {
       window.alert(
         "The Numbers Starting Check could not load all required items."
@@ -1053,11 +1180,16 @@
       startedAt:
         new Date().toISOString(),
       completedAt: null,
-      section: "vocabulary",
+      section: "recognition",
       index: 0,
       selected: null,
-      vocabularyTasks,
+      recognitionTasks,
+      recognitionResults: [],
+      productionTasks: [],
+      productionResults: [],
+      productionAdministered: false,
       carrierTasks,
+      languagePatternResults: [],
       results: []
     };
 
@@ -1068,14 +1200,12 @@
   function currentTask() {
     if (!activeSession) return null;
 
-    return activeSession.section ===
-      "vocabulary"
-      ? activeSession.vocabularyTasks[
-          activeSession.index
-        ]
-      : activeSession.carrierTasks[
-          activeSession.index
-        ];
+    const tasks = activeSession.section === "production"
+      ? activeSession.productionTasks
+      : activeSession.section === "language-patterns"
+        ? activeSession.carrierTasks
+        : activeSession.recognitionTasks;
+    return tasks[activeSession.index];
   }
 
   function vocabularyOptions(item) {
@@ -1098,13 +1228,15 @@
       return;
     }
 
-    if (
-      activeSession.section ===
-      "vocabulary"
-    ) {
+    if (activeSession.section === "recognition") {
       renderVocabularyQuestion(
         currentTask()
       );
+      return;
+    }
+
+    if (activeSession.section === "production") {
+      renderProductionQuestion(currentTask());
       return;
     }
 
@@ -1116,12 +1248,7 @@
   function progressNumber() {
     if (!activeSession) return 0;
 
-    return activeSession.section ===
-      "vocabulary"
-      ? activeSession.index + 1
-      : VOCAB_TOTAL +
-          activeSession.index +
-          1;
+    return activeSession.index + 1;
   }
 
   function renderVocabularyQuestion(task) {
@@ -1130,59 +1257,17 @@
     activeSession.selected = null;
 
     const { item, taskType } = task;
-    const options =
-      vocabularyOptions(item);
-
-    let promptHtml = "";
-    let noteHtml = "";
-
-    if (
-      taskType === "word-to-numeral"
-    ) {
-      promptHtml = `
+    const options = task.options;
+    const promptHtml = `
         <h2 lang="it">
           ${escapeHtml(item.italian)}
         </h2>
-      `;
-      noteHtml = `
         <p class="numbers-check-question-note">
-          Scegli il numero.
+          Ascolta se vuoi, poi scegli il numero.
           <span lang="en">
-            Choose the numeral.
+            Listen if you want, then choose the numeral.
           </span>
         </p>
-      `;
-    } else if (
-      taskType === "numeral-to-word"
-    ) {
-      promptHtml = `
-        <div
-          class="numbers-check-big-number"
-          aria-label="${item.number}"
-        >
-          ${item.number}
-        </div>
-      `;
-      noteHtml = `
-        <p class="numbers-check-question-note">
-          Scegli la parola italiana.
-          <span lang="en">
-            Choose the Italian number word.
-          </span>
-        </p>
-      `;
-    } else {
-      promptHtml = `
-        <h2>
-          🔊 Ascolta e scegli.
-        </h2>
-
-        <p class="numbers-check-question-note">
-          <span lang="en">
-            Listen and choose the numeral.
-          </span>
-        </p>
-
         <p>
           <button
             type="button"
@@ -1193,21 +1278,10 @@
           </button>
         </p>
       `;
-    }
 
     const optionHtml = options
       .map(option => {
-        const body =
-          taskType ===
-          "numeral-to-word"
-            ? `
-              <span class="numbers-check-word">
-                ${escapeHtml(
-                  option.italian
-                )}
-              </span>
-            `
-            : `
+        const body = `
               <span class="numbers-check-numeral">
                 ${option.number}
               </span>
@@ -1227,12 +1301,12 @@
 
     modalBody.innerHTML = `
       <p class="numbers-check-progress">
-        ${progressNumber()} / ${TOTAL_ITEMS}
+        ${progressNumber()} / ${RECOGNITION_TOTAL}
       </p>
 
       <div class="numbers-check-question">
         <span class="numbers-check-part-label">
-          Parte 1 · Vocabolario
+          Parte 1 · Riconoscimento
         </span>
 
         <span class="numbers-check-task-label">
@@ -1242,7 +1316,6 @@
         </span>
 
         ${promptHtml}
-        ${noteHtml}
 
         <div class="numbers-check-options">
           ${optionHtml}
@@ -1278,7 +1351,8 @@
       )
       ?.addEventListener(
         "click",
-        recordVocabularyAnswer
+        recordVocabularyAnswer,
+        { once: true }
       );
 
     modalBody
@@ -1290,15 +1364,6 @@
         () => speak(item.italian)
       );
 
-    if (
-      taskType ===
-      "listen-to-numeral"
-    ) {
-      window.setTimeout(
-        () => speak(item.italian),
-        180
-      );
-    }
   }
 
   function connectChoiceButtons(kind) {
@@ -1355,8 +1420,9 @@
     const selectedNumber =
       Number(activeSession.selected);
 
-    activeSession.results.push({
-      section: "vocabulary",
+    const result = {
+      section: "recognition",
+      stage: "recognition",
       itemId: item.id,
       number: item.number,
       italian: item.italian,
@@ -1367,24 +1433,43 @@
           2,
           "0"
         ),
-      correct:
-        selectedNumber === item.number
-    });
+      correct: selectedNumber === item.number
+    };
+    activeSession.recognitionResults.push(result);
+    activeSession.results.push(result);
 
     activeSession.index += 1;
 
     if (
-      activeSession.index >=
-      VOCAB_TOTAL
+      activeSession.index >= RECOGNITION_TOTAL
     ) {
-      renderCarrierTransition();
+      finishRecognition();
       return;
     }
 
     renderCurrent();
   }
 
-  function renderCarrierTransition() {
+  function finishRecognition() {
+    const recognitionCorrect = activeSession.recognitionResults
+      .filter(result => result.correct).length;
+    activeSession.productionAdministered = shouldAdministerProduction(
+      recognitionCorrect
+    );
+
+    if (!activeSession.productionAdministered) {
+      renderLanguageTransition(false);
+      return;
+    }
+
+    activeSession.productionTasks = buildProductionTasks(
+      activeSession.recognitionTasks,
+      activeSession.recognitionResults
+    );
+    renderProductionTransition();
+  }
+
+  function renderProductionTransition() {
     if (!activeSession || !modalBody) {
       return;
     }
@@ -1394,31 +1479,17 @@
         <span
           class="numbers-check-interstitial-badge"
         >
-          Parte 1 completata · Part 1 complete
+          Riconoscimento completato · Recognition complete
         </span>
 
         <h2>
-          💬 Parte 2 · Frasi utili
+          ✍️ Parte 2 · Produzione indipendente
         </h2>
 
         <p>
-          Ora ascolta sei frasi con i numeri.
-          Scegli l'immagine della frase utile
-          che corrisponde a ciò che senti.
+          Ora scrivi in italiano solo i numeri che hai riconosciuto.
           <span lang="en">
-            Now listen to six number-related
-            phrases and choose the matching
-            carrier-phrase visual.
-          </span>
-        </p>
-
-        <p>
-          Il numero o la quantità resta uguale
-          nelle risposte: cambia solo la frase utile.
-          <span lang="en">
-            The number or quantity stays the same
-            across each choice set; only the
-            carrier phrase changes.
+            Now write in Italian only the numbers you recognized.
           </span>
         </p>
 
@@ -1443,8 +1514,7 @@
       ?.addEventListener(
         "click",
         () => {
-          activeSession.section =
-            "carrier";
+          activeSession.section = "production";
           activeSession.index = 0;
           activeSession.selected =
             null;
@@ -1460,15 +1530,6 @@
     return `${stemFor(carrier)} ${
       item.italian
     } matite.`;
-  }
-
-  function numberSentence(
-    carrier,
-    item
-  ) {
-    return `${stemFor(carrier)} ${
-      item.italian
-    }.`;
   }
 
   function quantityGridHtml(count) {
@@ -1494,10 +1555,7 @@
     const quantityCarriers =
       getQuantityCarriers();
 
-    const familyCarriers =
-      task.family === "quantity"
-        ? quantityCarriers
-        : NUMBER_SPECIFIC_CARRIERS;
+    const familyCarriers = quantityCarriers;
 
     const target =
       familyCarriers.find(
@@ -1516,16 +1574,7 @@
       return;
     }
 
-    const sentence =
-      task.family === "quantity"
-        ? quantitySentence(
-            target,
-            task.item
-          )
-        : numberSentence(
-            target,
-            task.item
-          );
+    const sentence = quantitySentence(target, task.item);
 
     const options = shuffle(
       familyCarriers
@@ -1533,9 +1582,7 @@
 
     const optionHtml = options
       .map((carrier, index) => {
-        const contextHtml =
-          task.family === "quantity"
-            ? `
+        const contextHtml = `
               <div
                 class="numbers-quantity-grid"
                 aria-hidden="true"
@@ -1543,14 +1590,6 @@
                 ${quantityGridHtml(
                   task.item.number
                 )}
-              </div>
-            `
-            : `
-              <div
-                class="numbers-carrier-number"
-                aria-hidden="true"
-              >
-                ${task.item.number}
               </div>
             `;
 
@@ -1586,12 +1625,12 @@
 
     modalBody.innerHTML = `
       <p class="numbers-check-progress">
-        ${progressNumber()} / ${TOTAL_ITEMS}
+        ${progressNumber()} / ${LANGUAGE_PATTERN_TOTAL}
       </p>
 
       <div class="numbers-check-question">
         <span class="numbers-check-part-label">
-          Parte 2 · Frasi utili
+          Parte finale · Frasi utili
         </span>
 
         <span class="numbers-check-task-label">
@@ -1663,7 +1702,8 @@
           recordCarrierAnswer(
             task,
             target
-          )
+          ),
+        { once: true }
       );
 
     modalBody
@@ -1681,6 +1721,115 @@
     );
   }
 
+  function renderProductionQuestion(task) {
+    if (!task || !modalBody) return;
+    activeSession.selected = null;
+    modalBody.innerHTML = `
+      <p class="numbers-check-progress">
+        ${progressNumber()} / ${activeSession.productionTasks.length}
+      </p>
+      <div class="numbers-check-question">
+        <span class="numbers-check-part-label">
+          Parte 2 · Produzione indipendente
+        </span>
+        <span class="numbers-check-task-label">
+          ${TASK_LABELS[task.taskType]}
+        </span>
+        <div class="numbers-check-big-number" aria-label="${task.item.number}">
+          ${task.item.number}
+        </div>
+        <p class="numbers-check-question-note">
+          Scrivi la parola italiana. · Type the Italian number word.
+        </p>
+        <input
+          class="numbers-check-input"
+          data-role="production-input"
+          type="text"
+          autocomplete="off"
+          autocapitalize="off"
+          spellcheck="false"
+          aria-label="Italian number word"
+        >
+        <div class="numbers-check-footer">
+          <span>Nessun suggerimento · No hints</span>
+          <button type="button" class="numbers-check-next" data-action="submit">
+            Invia · Submit
+          </button>
+        </div>
+      </div>
+    `;
+    const input = modalBody.querySelector('[data-role="production-input"]');
+    const submit = () => recordProductionAnswer(input?.value || "");
+    modalBody.querySelector('[data-action="submit"]')
+      ?.addEventListener("click", submit, { once: true });
+    input?.addEventListener("keydown", event => {
+      if (event.key === "Enter") {
+        event.preventDefault();
+        submit();
+      }
+    }, { once: true });
+    input?.focus();
+  }
+
+  function recordProductionAnswer(typedAnswer) {
+    if (!activeSession) return;
+    const task = currentTask();
+    if (!task) return;
+    const productionStatus = classifyProduction(typedAnswer, task.item.italian);
+    const result = {
+      section: "production",
+      stage: "production",
+      itemId: task.item.id,
+      number: task.item.number,
+      italian: task.item.italian,
+      english: task.item.english,
+      taskType: task.taskType,
+      typedAnswer,
+      productionStatus,
+      correct: productionStatus !== null
+    };
+    activeSession.productionResults.push(result);
+    activeSession.results.push(result);
+    activeSession.index += 1;
+    if (activeSession.index >= activeSession.productionTasks.length) {
+      renderLanguageTransition(true);
+      return;
+    }
+    renderCurrent();
+  }
+
+  function renderLanguageTransition(productionWasAdministered) {
+    if (!activeSession || !modalBody) return;
+    modalBody.innerHTML = `
+      <div class="numbers-check-interstitial">
+        <span class="numbers-check-interstitial-badge">
+          ${productionWasAdministered
+            ? "Produzione completata · Production complete"
+            : "Produzione non somministrata · Production not administered"}
+        </span>
+        <h2>💬 Parte finale · Frasi utili</h2>
+        <p>
+          Ascolta quattro frasi. Scegli se senti Io vedo… o Io ho…
+          <span lang="en">
+            Listen to four sentences. Choose whether you hear Io vedo… or Io ho…
+          </span>
+        </p>
+        <div class="numbers-check-interstitial-actions">
+          <button type="button" class="numbers-check-next" data-action="continue">
+            Continua · Continue →
+          </button>
+        </div>
+      </div>
+    `;
+    modalBody.querySelector('[data-action="continue"]')
+      ?.addEventListener("click", () => {
+        activeSession.section = "language-patterns";
+        activeSession.index = 0;
+        activeSession.selected = null;
+        renderCurrent();
+      }, { once: true });
+  }
+
   function recordCarrierAnswer(
     task,
     target
@@ -1692,8 +1841,9 @@
       return;
     }
 
-    activeSession.results.push({
-      section: "carrier",
+    const result = {
+      section: "language-patterns",
+      stage: "language-patterns",
       itemId: task.item.id,
       number: task.item.number,
       italian: task.item.italian,
@@ -1704,16 +1854,16 @@
       selectedCarrierId:
         activeSession.selected,
       family: task.family,
-      correct:
-        activeSession.selected ===
-        target.id
-    });
+      correct: activeSession.selected === target.id
+    };
+    activeSession.languagePatternResults.push(result);
+    activeSession.results.push(result);
 
     activeSession.index += 1;
 
     if (
       activeSession.index >=
-      CARRIER_TOTAL
+      LANGUAGE_PATTERN_TOTAL
     ) {
       finishCheck();
       return;
@@ -1740,6 +1890,14 @@
   function renderResults(saved) {
     if (!modalBody) return;
 
+    const recommendation = recommendationFor(
+      saved.recognitionCorrect,
+      saved.productionCorrect
+    );
+    const sequenceText = recommendation.sequence
+      .map(group => group.map(activityLabel).join(" / "))
+      .join(" → ");
+
     modalBody.innerHTML = `
       <div class="numbers-check-interstitial">
         <span
@@ -1760,13 +1918,13 @@
           >
             <strong>
               ${
-                saved.vocabularyCorrect
+                saved.recognitionCorrect
               } / ${
-                saved.vocabularyTotal
+                saved.recognitionTotal
               }
             </strong>
             <span>
-              Vocabolario · Vocabulary
+              Riconoscimento · Recognition
             </span>
           </div>
 
@@ -1775,14 +1933,21 @@
           >
             <strong>
               ${
-                saved.carrierCorrect
-              } / ${
-                saved.carrierTotal
+                saved.productionAdministered
+                  ? `${saved.productionCorrect} / ${saved.productionTotal}`
+                  : "Non somministrata · Not administered"
               }
             </strong>
             <span>
-              Frasi utili · Carrier Phrases
+              Produzione indipendente · Independent production
             </span>
+          </div>
+
+          <div class="numbers-check-result-stat">
+            <strong>
+              ${saved.languagePatterns.correct} / ${saved.languagePatterns.total}
+            </strong>
+            <span>Frasi utili · Useful Language</span>
           </div>
         </div>
 
@@ -1792,9 +1957,18 @@
           <span lang="en">
             This is a starting-point snapshot,
             not a grade or a measure of mastery.
-            Use the two sections to see where
+            Use the separate sections to see where
             teaching or review may be useful.
           </span>
+        </p>
+
+        <p class="numbers-check-result-note">
+          ${escapeHtml(recommendation.message)}<br>
+          <strong>Inizia con · Start with:</strong>
+          ${escapeHtml(recommendation.primaryLabel)}
+          ${sequenceText
+            ? `<br><strong>Sequenza suggerita · Suggested sequence:</strong> ${escapeHtml(sequenceText)}`
+            : ""}
         </p>
 
         <div
@@ -1854,5 +2028,19 @@
     );
   } else {
     init();
+  }
+
+  if (window.__PRIMO_VOLO_NUMBERS_STARTING_CHECK_TEST__) {
+    window.__numbersStartingCheckTestHooks = {
+      getNumberItems,
+      buildRecognitionTasks,
+      buildProductionTasks,
+      buildCarrierTasks,
+      shouldAdministerProduction,
+      normalizeAnswer,
+      classifyProduction,
+      recommendationFor,
+      saveSession
+    };
   }
 })();

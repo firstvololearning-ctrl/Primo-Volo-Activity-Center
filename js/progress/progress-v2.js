@@ -884,6 +884,26 @@
           ? days.slice(0, 7).map(item => item.italian)
           : []
     },
+    numbers: {
+      icon: "🔢",
+      topicLabel: "Numbers",
+      title: "Numbers Check-in",
+      subtitle: "I numeri · Numbers 1–20",
+      emptyMessage: "No Numbers check-in yet.",
+      total: 20,
+      recognitionSupportMaximum: 13,
+      languagePatterns: ["Io vedo...", "Io ho..."],
+      targets: () =>
+        typeof numbers !== "undefined" && Array.isArray(numbers)
+          ? numbers.slice(0, 20).map(item => item.italian)
+          : [],
+      isCompatibleAttempt: attempt =>
+        Number(attempt?.version) === 3 &&
+        Number(attempt?.recognitionTotal) === 20 &&
+        Array.isArray(attempt?.itemStatuses) &&
+        attempt.itemStatuses.length === 20 &&
+        Number(attempt?.languagePatterns?.total) === 4
+    },
     colors: {
       icon: "🎨",
       topicLabel: "Colors",
@@ -1286,6 +1306,7 @@
         ${buildWeatherStartingCheckSection(studentId)}
         ${buildDaysStartingCheckSection(studentId)}
         ${buildSuppliesStartingCheckSection(studentId)}
+        ${buildStartingCheckSection("numbers", studentId)}
         ${buildStartingCheckSection("colors", studentId)}
         ${buildStartingCheckSection("seasons", studentId)}
       </div>
