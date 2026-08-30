@@ -267,6 +267,24 @@ Core rule:
 
 **Normalize mechanics, not meaning.**
 
+### Concrete noun lexical-retrieval policy
+
+When a Starting Check measures retrieval of a concrete lexical noun, the
+canonical definite article plus noun/expression may be accepted as the
+canonical response. An exact approved bare noun/expression may be declared as
+an acceptable alternative, as may a grammatically correct singular
+indefinite article plus the same lexical item and canonical number. Ordinary
+apostrophe mechanics are normalized. Plural targets do not automatically
+receive `dei`, `degli`, or `delle` alternatives. Wrong gender, number, or
+article, synonyms, misspellings, English, and other lexical changes remain
+incorrect. Every alternative must be explicit and auditable metadata; never
+fuzzy-match or dynamically guess alternatives.
+
+This policy applies only to the concrete-noun lexical-retrieval construct. It
+does not automatically alter structurally different topics such as Numbers,
+Colors, Days, Weather, or Seasons; their approved topic-specific rules remain
+authoritative.
+
 ## Coding Style
 
 Prefer:

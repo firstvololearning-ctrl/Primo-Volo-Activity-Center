@@ -955,7 +955,33 @@
         Number(attempt?.recognitionTotal) === 14 &&
         Array.isArray(attempt?.itemStatuses) &&
         Number(attempt?.languagePatterns?.total) === 6
-    }
+    },
+    ...Object.fromEntries([
+      ["food", "🍎", "Food & Drinks", "Food & Drinks Check-in", "Il cibo e le bevande · Food & Drinks"],
+      ["clothing", "👕", "Clothing", "Clothing Check-in", "L’abbigliamento · Clothing"],
+      ["family", "👨‍👩‍👧", "Family", "Family Check-in", "La famiglia · Family"],
+      ["animals", "🐶", "Animals", "Animals Check-in", "Gli animali · Animals"],
+      ["bodyParts", "🧍", "Body Parts", "Body Parts Check-in", "Le parti del corpo · Body Parts"]
+    ].map(([topicKey, icon, topicLabel, title, subtitle]) => {
+      const shared = window.PrimoVoloConcreteStartingChecks?.configs?.[topicKey];
+      const total = Number(shared?.expectedCount) || 0;
+      const gate = Number(shared?.productionGate) || 0;
+      return [topicKey, {
+        icon,
+        topicLabel,
+        title,
+        subtitle,
+        emptyMessage: `No ${topicLabel} check-in yet.`,
+        total,
+        recognitionSupportMaximum: gate - 1,
+        targets: () => shared?.source?.().map(item => item.italian) || [],
+        isCompatibleAttempt: attempt =>
+          Number(attempt?.version) === 3 &&
+          Number(attempt?.recognitionTotal) === total &&
+          Array.isArray(attempt?.itemStatuses) &&
+          attempt.itemStatuses.length === total
+      }];
+    }))
   };
 
   const STARTING_CHECK_PRODUCTION_LABELS = {
@@ -1082,10 +1108,8 @@
             : STARTING_CHECK_PRODUCTION_LABELS[item.status] ||
               (recognized ? "Not yet produced" : "Not tested");
         const showResponse =
-          (item.status === "produced-canonical" ||
-            item.status ===
-              "produced-acceptable-alternative") &&
-          item.typedAnswer;
+          typeof item.typedAnswer === "string" &&
+          item.typedAnswer.length > 0;
 
         return `
           <tr>
@@ -1309,6 +1333,11 @@
         ${buildStartingCheckSection("numbers", studentId)}
         ${buildStartingCheckSection("colors", studentId)}
         ${buildStartingCheckSection("seasons", studentId)}
+        ${buildStartingCheckSection("food", studentId)}
+        ${buildStartingCheckSection("clothing", studentId)}
+        ${buildStartingCheckSection("family", studentId)}
+        ${buildStartingCheckSection("animals", studentId)}
+        ${buildStartingCheckSection("bodyParts", studentId)}
       </div>
     `;
   }

@@ -64,6 +64,21 @@
       '[data-action="start"]',
     seasons:
       ".seasons-starting-check:not([hidden]) " +
+      '[data-action="start"]',
+    food:
+      '[data-concrete-starting-check][data-topic="food"]:not([hidden]) ' +
+      '[data-action="start"]',
+    clothing:
+      '[data-concrete-starting-check][data-topic="clothing"]:not([hidden]) ' +
+      '[data-action="start"]',
+    family:
+      '[data-concrete-starting-check][data-topic="family"]:not([hidden]) ' +
+      '[data-action="start"]',
+    animals:
+      '[data-concrete-starting-check][data-topic="animals"]:not([hidden]) ' +
+      '[data-action="start"]',
+    bodyParts:
+      '[data-concrete-starting-check][data-topic="bodyParts"]:not([hidden]) ' +
       '[data-action="start"]'
   };
 

@@ -13,6 +13,24 @@
   const LANGUAGE_PATTERN_TOTAL = 6;
   const LANGUAGE_PATTERN_IDS = ["piace", "ho", "vedo"];
   const LANGUAGE_PATTERN_SUPPLY_IDS = ["04", "05", "08", "09", "13", "14"];
+  /* Explicit noun-vocabulary alternatives. Plural forbici intentionally has
+     no invented partitive/plural-indefinite form. */
+  const PRODUCTION_ALTERNATIVES = Object.freeze({
+    "il foglio": Object.freeze(["foglio", "un foglio"]),
+    "le forbici": Object.freeze(["forbici"]),
+    "la colla": Object.freeze(["colla", "una colla"]),
+    "la matita": Object.freeze(["matita", "una matita"]),
+    "la penna": Object.freeze(["penna", "una penna"]),
+    "la matita colorata": Object.freeze(["matita colorata", "una matita colorata"]),
+    "il gesso": Object.freeze(["gesso", "un gesso"]),
+    "il pennarello": Object.freeze(["pennarello", "un pennarello"]),
+    "il righello": Object.freeze(["righello", "un righello"]),
+    "la spillatrice": Object.freeze(["spillatrice", "una spillatrice"]),
+    "il nastro adesivo": Object.freeze(["nastro adesivo", "un nastro adesivo"]),
+    "la gomma": Object.freeze(["gomma", "una gomma"]),
+    "lo zaino": Object.freeze(["zaino", "uno zaino"]),
+    "il quaderno": Object.freeze(["quaderno", "un quaderno"])
+  });
   const RECOGNITION_TASK_TYPES = [
     "italian-to-picture",
     "italian-to-picture",
@@ -82,16 +100,11 @@
       .toLowerCase()
       .normalize("NFD")
       .replace(/[\u0300-\u036f]/g, "")
-      .replace(/['’]/g, "")
+      .replace(/[’‘`´]/g, "'")
+      .replace(/\s*'\s*/g, "'")
+      .replace(/'/g, "")
       .replace(/[.!?]+$/g, "")
       .replace(/\s+/g, " ");
-  }
-
-  function withoutInitialArticle(canonicalItalian) {
-    return String(canonicalItalian || "")
-      .trim()
-      .replace(/^(?:il|lo|la|i|gli|le)\s+/i, "")
-      .replace(/^l['’]\s*/i, "");
   }
 
   function classifyProduction(typedAnswer, canonicalItalian) {
@@ -102,10 +115,10 @@
       return "produced-canonical";
     }
 
-    const articleOmitted = normalizeAnswer(
-      withoutInitialArticle(canonicalItalian)
-    );
-    if (articleOmitted && normalizedAnswer === articleOmitted) {
+    const alternatives = PRODUCTION_ALTERNATIVES[canonicalItalian] || [];
+    if (alternatives.some(alternative =>
+      normalizedAnswer === normalizeAnswer(alternative)
+    )) {
       return "produced-acceptable-alternative";
     }
 
@@ -855,7 +868,7 @@
       shouldAdministerProduction,
       classifyProduction,
       normalizeAnswer,
-      withoutInitialArticle,
+      productionAlternatives: PRODUCTION_ALTERNATIVES,
       recommendationFor,
       saveSession,
       storageKey,
