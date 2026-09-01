@@ -4,7 +4,15 @@
   const storage = window.PrimoVoloStorage;
   const students = window.PrimoVoloStudent;
   const supa = window.supabase;
-  if (!storage || !students || !supa?.createClient) {
+  const initialAccess = window.PrimoVoloAccess;
+  if (
+    !storage ||
+    !students ||
+    !supa?.createClient ||
+    initialAccess?.status !== "authorized" ||
+    initialAccess?.mode !== "educator" ||
+    initialAccess?.user?.is_anonymous === true
+  ) {
     console.warn("Primo Volo Cloud Save is not ready.");
     return;
   }
@@ -24,6 +32,7 @@
   let queued = false;
   let timer = null;
   let lastSyncAt = null;
+  let cloudGeneration = 0;
   let lastStudentIds = new Set(students.getStudents().map(s => s.id));
   let button, modal, message, signedOut, signedIn, recoveryPanel, emailInput, passwordInput, recoveryPasswordInput, accountEmail;
 
@@ -40,6 +49,36 @@
   const same = (a, b) => {
     try { return JSON.stringify(a) === JSON.stringify(b); } catch { return false; }
   };
+
+  function educatorAccessAllowed() {
+    const access = window.PrimoVoloAccess;
+    return Boolean(
+      access?.status === "authorized" &&
+      access.mode === "educator" &&
+      access.user?.is_anonymous !== true &&
+      access.user?.id &&
+      session?.user?.id === access.user.id &&
+      session.user.is_anonymous !== true
+    );
+  }
+
+  function assertEducatorAccess(generation = cloudGeneration) {
+    if (generation !== cloudGeneration || !educatorAccessAllowed()) {
+      throw new Error("Educator Cloud Save authorization is no longer active.");
+    }
+  }
+
+  function suspend() {
+    cloudGeneration += 1;
+    session = null;
+    syncing = false;
+    queued = false;
+    clearTimeout(timer);
+    timer = null;
+    lastSyncAt = null;
+    if (button) button.hidden = true;
+    if (modal) modal.hidden = true;
+  }
 
   function normalizePracticeData(data) {
     if (!data || typeof data !== "object" || Array.isArray(data)) return data;
@@ -327,6 +366,7 @@
   }
 
   async function fetchProfiles(user) {
+    assertEducatorAccess();
     const { data, error } = await client.from("learner_profiles")
       .select("id,local_profile_id,display_name,created_at,updated_at,deleted_at")
       .eq("owner_user_id", user.id).eq("product_key", PRODUCT);
@@ -334,6 +374,7 @@
     return data || [];
   }
   async function upsertProfile(user, student) {
+    assertEducatorAccess();
     const now = new Date().toISOString();
     const { data, error } = await client.from("learner_profiles").upsert({
       owner_user_id:user.id, product_key:PRODUCT, local_profile_id:student.id,
@@ -346,6 +387,7 @@
   async function applyTombstones(user) {
     const tombstones = readObject(TOMBSTONE_KEY);
     for (const [id, deletedAt] of Object.entries(tombstones)) {
+      assertEducatorAccess();
       const { data, error } = await client.from("learner_profiles").update({
         deleted_at:deletedAt, updated_at:deletedAt
       }).eq("owner_user_id",user.id).eq("product_key",PRODUCT).eq("local_profile_id",id).select("id");
@@ -361,6 +403,7 @@
     }
   }
   async function syncProfiles(user) {
+    assertEducatorAccess();
     await applyTombstones(user);
     let cloud = await fetchProfiles(user);
     const byId = new Map(cloud.map(p => [p.local_profile_id,p]));
@@ -368,6 +411,7 @@
     const merged = [];
     let changed = false;
     for (const local of students.getStudents()) {
+      assertEducatorAccess();
       const student = {...local};
       const remote = byId.get(student.id);
       if (!remote) { await upsertProfile(user,student); merged.push(student); continue; }
@@ -398,6 +442,7 @@
   }
 
   async function fetchState(profiles) {
+    assertEducatorAccess();
     if (!profiles.length) return [];
     const { data, error } = await client.from("learning_state")
       .select("id,learner_profile_id,store_key,data,client_updated_at,updated_at")
@@ -406,6 +451,7 @@
     return data || [];
   }
   async function upsertState(profileId, storeKey, data, changedAt) {
+    assertEducatorAccess();
     const now = new Date().toISOString();
     const normalizedData = normalizeDomainData(storeKey, data);
     const { error } = await client.from("learning_state").upsert({
@@ -415,6 +461,7 @@
     if (error) throw error;
   }
   async function syncState(profiles) {
+    assertEducatorAccess();
     const rows = await fetchState(profiles);
 
     for (const row of rows) {
@@ -436,6 +483,7 @@
     const dirty = readObject(DIRTY_KEY);
     const hydrated = new Set();
     for (const profile of profiles) for (const d of domains) {
+      assertEducatorAccess();
       const key = storage.studentKey(d.baseKey,profile.local_profile_id);
       const raw = storage.getItem(key);
       const parsedLocal = raw == null ? null : parse(raw,raw);
@@ -488,12 +536,15 @@
   }
 
   async function syncAll(reason="automatic") {
-    if (!session?.user) return;
+    if (!educatorAccessAllowed()) return;
     if (syncing) { queued = true; return; }
+    const generation = cloudGeneration;
     syncing = true; queued = false; setMessage("Syncing Primo Volo…","syncing");
     try {
       const profileResult = await syncProfiles(session.user);
+      assertEducatorAccess(generation);
       const hydrated = await syncState(profileResult.profiles);
+      assertEducatorAccess(generation);
       const current = storage.currentStudentId();
       if (profileResult.changed || hydrated.has(current)) {
         const ids = new Set(profileResult.merged.map(s => s.id));
@@ -511,11 +562,12 @@
     }
   }
   function schedule(delay=700,reason="automatic") {
-    if (!session?.user) return;
+    if (!educatorAccessAllowed()) return;
     clearTimeout(timer);
     timer = setTimeout(() => syncAll(reason),delay);
   }
   function onStorageChange(event) {
+    if (!educatorAccessAllowed()) return;
     const d = event.detail || {};
     const desc = d.descriptor || {};
     if (d.source === "cloud" || !desc.cloudCandidate) return;
@@ -533,6 +585,10 @@
     if (session?.user && (!lastSyncAt || Date.now() - Date.parse(lastSyncAt) > 15000)) schedule(100,"focus");
   });
   client.auth.onAuthStateChange((event,next) => {
+    if (next?.user?.is_anonymous === true || !next?.user) {
+      suspend();
+      return;
+    }
     session = next || null;
 
     if (event === "PASSWORD_RECOVERY") {
@@ -578,12 +634,21 @@
   window.PrimoVoloCloud = Object.freeze({
     productKey:PRODUCT,
     getStatus:() => ({signedIn:Boolean(session?.user),email:session?.user?.email || null,syncing,lastSyncAt}),
-    syncNow:() => syncAll("manual")
+    syncNow:() => syncAll("manual"),
+    suspend
   });
 
   buildUI();
   client.auth.getSession().then(({data,error}) => {
     if (error) console.warn("Cloud session restore failed.",error);
-    session = data?.session || null; updateUI(); if (session) schedule(0,"startup");
+    const restored = data?.session || null;
+    if (
+      restored?.user?.is_anonymous === true ||
+      restored?.user?.id !== window.PrimoVoloAccess?.user?.id
+    ) {
+      suspend();
+      return;
+    }
+    session = restored; updateUI(); if (session) schedule(0,"startup");
   });
 })();

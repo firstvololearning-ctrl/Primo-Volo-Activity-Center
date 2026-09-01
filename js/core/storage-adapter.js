@@ -32,12 +32,39 @@
     { id: "legacy-passport", baseKey: KEYS.legacyPassport, scope: "student", cloudCandidate: false, legacy: true }
   ].map(item => Object.freeze({ ...item, schemaVersion: 1 })));
 
+  function accessMode() {
+    return window.PrimoVoloAccess?.status === "authorized"
+      ? window.PrimoVoloAccess.mode
+      : null;
+  }
+
+  function sharedStudentId() {
+    if (accessMode() !== "student") return "";
+    return String(
+      window.PrimoVoloAccess?.studentContext?.student_id || ""
+    ).trim();
+  }
+
   function currentStudentId() {
+    const authorizedStudentId = sharedStudentId();
+    if (authorizedStudentId) return authorizedStudentId;
     return window.localStorage.getItem(KEYS.currentStudent) || "";
   }
 
   function studentKey(baseKey, studentId = currentStudentId()) {
+    if (accessMode() === "student") {
+      const authorizedStudentId = sharedStudentId();
+      return authorizedStudentId
+        ? `${baseKey}:product:${APP_ID}:student:${authorizedStudentId}`
+        : `${baseKey}:product:${APP_ID}:locked`;
+    }
     return studentId ? `${baseKey}:student:${studentId}` : baseKey;
+  }
+
+  function modeScopedKey(baseKey) {
+    return accessMode() === "student"
+      ? studentKey(baseKey)
+      : baseKey;
   }
 
   function describeKey(key) {
@@ -222,6 +249,7 @@
     domains: DOMAINS,
     currentStudentId,
     studentKey,
+    modeScopedKey,
     getItem,
     setItem,
     removeItem,

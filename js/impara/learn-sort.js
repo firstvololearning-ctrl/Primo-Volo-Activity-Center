@@ -45,6 +45,12 @@
   const STORAGE_KEY =
     "primoVoloLearnPractice";
 
+  function getStorageKey() {
+    return window.PrimoVoloStorage?.modeScopedKey
+      ? window.PrimoVoloStorage.modeScopedKey(STORAGE_KEY)
+      : STORAGE_KEY;
+  }
+
   /* ========================================
      PRACTICE STORAGE
      ======================================== */
@@ -60,7 +66,7 @@
     try {
       const saved =
         window.localStorage.getItem(
-          STORAGE_KEY
+          getStorageKey()
         );
 
       if (!saved) {
@@ -95,7 +101,7 @@
   function savePracticeData() {
     try {
       window.localStorage.setItem(
-        STORAGE_KEY,
+        getStorageKey(),
         JSON.stringify(
           practiceData
         )

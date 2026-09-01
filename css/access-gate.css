@@ -1,0 +1,92 @@
+.pv-access-shell {
+  display: grid;
+  place-items: center;
+  align-content: center;
+  gap: 12px;
+  min-height: 100vh;
+  padding: 32px 20px;
+  color: #34465b;
+  background: linear-gradient(180deg, #f6f9fd 0%, #ffffff 100%);
+  text-align: center;
+}
+
+.pv-access-logo {
+  width: 92px;
+  height: auto;
+}
+
+.pv-access-eyebrow {
+  margin: 0;
+  color: #d46c5c;
+  font-weight: 900;
+}
+
+.pv-access-title {
+  margin: 0;
+  color: #274b84;
+  font-size: clamp(1.8rem, 5vw, 2.7rem);
+}
+
+.pv-access-status {
+  max-width: 620px;
+  margin: 0;
+  color: #607080;
+  line-height: 1.55;
+}
+
+.pv-access-actions {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 8px;
+}
+
+.pv-access-actions[hidden] {
+  display: none;
+}
+
+.pv-access-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px;
+  padding: 10px 16px;
+  border: 1px solid #cbd8ea;
+  border-radius: 999px;
+  color: #274b84;
+  background: #ffffff;
+  font-weight: 850;
+  text-decoration: none;
+}
+
+.pv-access-link.is-primary {
+  color: #ffffff;
+  background: #274b84;
+  border-color: #274b84;
+}
+
+body[data-access-status="loading"] > :not(.pv-access-shell),
+body[data-access-status="locked"] > :not(.pv-access-shell) {
+  display: none !important;
+}
+
+body[data-access-status="authorized"] > .pv-access-shell {
+  display: none;
+}
+
+.pv-shared-student-bar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 10px 16px;
+  color: #274b84;
+  background: #eef5fd;
+  border-bottom: 1px solid #d7e3f2;
+  font-weight: 850;
+}
+
+body[data-access-mode="student"] .home-tagline {
+  display: none;
+}

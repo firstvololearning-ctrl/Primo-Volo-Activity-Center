@@ -364,6 +364,18 @@
       educatorItems
     );
 
+  if (
+    window.PrimoVoloAccess?.mode ===
+    "student"
+  ) {
+    educatorGroup.remove();
+    utilities.replaceChildren(
+      learnerGroup
+    );
+    cultureSource?.remove();
+    return;
+  }
+
   const educatorItemRow =
     educatorGroup.querySelector(
       ".header-nav-group-items"
