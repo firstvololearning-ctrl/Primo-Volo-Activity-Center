@@ -421,6 +421,11 @@ function recordAttempt(activity, isCorrect) {
 
     date: new Date().toISOString(),
 
+    ...(window.PrimoVoloAccess?.mode === "student" &&
+    window.crypto?.randomUUID
+      ? { eventId: window.crypto.randomUUID() }
+      : {}),
+
     topic: currentTopicKey,
 
     activity,

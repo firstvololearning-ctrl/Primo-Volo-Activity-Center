@@ -3,6 +3,8 @@ import { createClient } from "https://cdn.jsdelivr.net/npm/@supabase/supabase-js
 const SUPABASE_URL = "https://apkvvspubolyxlqtlkto.supabase.co";
 const SUPABASE_PUBLISHABLE_KEY = "sb_publishable_0O4rNLfhuW18xYRZSPkLpw_xyXR9d3n";
 const PRODUCT_KEY = "primo-volo";
+// Keep false until the reviewed P3 RPCs pass hosted Supabase integration QA.
+const ENABLE_PRIMO_STUDENT_CLOUD = false;
 const IS_LOCAL_PREVIEW = ["127.0.0.1", "localhost"].includes(
   window.location.hostname
 );
@@ -25,7 +27,7 @@ const AUTH_EVENTS_TO_VERIFY = new Set([
 
 const COMMON_SCRIPTS = Object.freeze([
   "js/core/data.js",
-  "js/core/storage-adapter.js?v=2",
+  "js/core/storage-adapter.js?v=3",
   "js/core/activity-availability.js?v=1",
   "js/core/practice-rounds.js?v=1",
   "js/core/script.js?v=3",
@@ -67,6 +69,11 @@ const COMMON_SCRIPTS = Object.freeze([
   "js/core/starting-check-links.js?v=3"
 ]);
 
+const STUDENT_CLOUD_SCRIPTS = Object.freeze([
+  "js/core/primo-student-cloud-merge.js?v=1",
+  "js/core/primo-student-cloud.js?v=1"
+]);
+
 const EDUCATOR_ONLY_SCRIPTS = Object.freeze([
   "js/progress/student-manager.js?v=2",
   "js/core/topic-read-talk.js?v=1",
@@ -87,6 +94,26 @@ export const supabase = createClient(
     }
   }
 );
+
+window.PrimoVoloStudentCloudRpc = Object.freeze({
+  async get(storeKey) {
+    const result = await supabase.rpc("get_primo_student_state", {
+      p_store_key: storeKey
+    });
+    if (result.error) throw result.error;
+    return firstRow(result.data);
+  },
+  async save(storeKey, data, baseUpdatedAt, writeId) {
+    const result = await supabase.rpc("save_primo_student_state", {
+      p_store_key: storeKey,
+      p_data: data,
+      p_base_updated_at: baseUpdatedAt,
+      p_write_id: writeId
+    });
+    if (result.error) throw result.error;
+    return firstRow(result.data);
+  }
+});
 
 const accessShell = document.getElementById("primoVoloAccess");
 const accessStatus = document.getElementById("primoVoloAccessStatus");
@@ -140,6 +167,8 @@ function invalidateRuntime() {
   delete document.body.dataset.accessMode;
   setRuntimeAccess(lockedAccess);
   window.PrimoVoloCloud?.suspend?.();
+  window.PrimoVoloStudentCloud?.invalidate?.();
+  window.dispatchEvent(new CustomEvent("primo-volo-access-invalidated"));
 }
 
 function makeLink({ label, href = "#", primary = false, retry = false }) {
@@ -343,14 +372,24 @@ async function startRuntime(access) {
     removeStudentUnsafeShell();
     installSharedStudentFacade(access.studentContext);
     mountSharedStudentIdentity(access.studentContext);
+    window.PrimoVoloStudentCloudAutoEnable = ENABLE_PRIMO_STUDENT_CLOUD;
   }
 
   const scripts = access.mode === "educator"
     ? [...COMMON_SCRIPTS, ...EDUCATOR_ONLY_SCRIPTS]
-    : [...COMMON_SCRIPTS];
+    : [
+        ...COMMON_SCRIPTS.slice(0, 2),
+        ...STUDENT_CLOUD_SCRIPTS,
+        ...COMMON_SCRIPTS.slice(2)
+      ];
 
   runtimePromise = scripts.reduce(
-    (promise, src) => promise.then(() => loadClassicScript(src)),
+    (promise, src) => promise.then(async () => {
+      await loadClassicScript(src);
+      if (src.startsWith("js/core/primo-student-cloud.js")) {
+        await window.PrimoVoloStudentCloud?.ready;
+      }
+    }),
     Promise.resolve()
   );
 

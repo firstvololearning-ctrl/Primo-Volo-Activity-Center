@@ -84,6 +84,19 @@
 
     for (const domain of DOMAINS) {
       if (domain.scope !== "student") continue;
+      const sharedPrefix = `${domain.baseKey}:product:${APP_ID}:student:`;
+
+      if (key.startsWith(sharedPrefix)) {
+        return {
+          ...domain,
+          appId: APP_ID,
+          appSchemaVersion: SCHEMA_VERSION,
+          localKey: key,
+          studentId: key.slice(sharedPrefix.length),
+          storageScope: "shared-student"
+        };
+      }
+
       const prefix = `${domain.baseKey}:student:`;
 
       if (key.startsWith(prefix)) {
