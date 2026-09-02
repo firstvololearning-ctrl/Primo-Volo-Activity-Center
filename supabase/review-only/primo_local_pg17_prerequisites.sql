@@ -18,6 +18,11 @@ begin
 end;
 $bootstrap$;
 
+-- Match production's postgres-owned public-function defaults. The reviewed
+-- migration must explicitly remove every browser/service privilege it rejects.
+alter default privileges for role postgres in schema public
+  grant execute on functions to anon, authenticated, service_role;
+
 create schema auth authorization postgres;
 revoke all on schema auth from public;
 

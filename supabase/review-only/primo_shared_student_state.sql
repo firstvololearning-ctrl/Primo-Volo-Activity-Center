@@ -1216,11 +1216,13 @@ revoke all on function private.resolve_primo_student_context() from public, anon
 revoke all on function private.resolve_primo_student_profile(uuid,uuid,text) from public, anon, authenticated;
 revoke all on function public.get_primo_student_state(text) from public, anon, authenticated;
 revoke all on function public.save_primo_student_state(text,jsonb,timestamptz,uuid) from public, anon, authenticated;
+revoke all on function public.get_primo_student_state(text) from service_role;
+revoke all on function public.save_primo_student_state(text,jsonb,timestamptz,uuid) from service_role;
 grant execute on function public.get_primo_student_state(text) to authenticated;
 grant execute on function public.save_primo_student_state(text,jsonb,timestamptz,uuid) to authenticated;
 
--- Existing project convention grants service_role on comparable RPCs, but this
--- draft intentionally does not invent that grant. Human review may add it if an
--- identified server-side caller requires these student-only interfaces.
+-- Production default function privileges grant service_role on new public
+-- functions, so the explicit revokes above are required for these student-only
+-- interfaces.
 
 commit;

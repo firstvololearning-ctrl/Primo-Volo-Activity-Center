@@ -23,6 +23,32 @@ begin
      ) then
     raise exception 'anon must not have direct RPC execute privilege';
   end if;
+  if exists (
+       select 1
+       from pg_catalog.pg_proc as p
+       cross join lateral pg_catalog.aclexplode(
+         coalesce(p.proacl, pg_catalog.acldefault('f', p.proowner))
+       ) as privilege
+       where p.oid in (
+         pg_catalog.to_regprocedure('public.get_primo_student_state(text)'),
+         pg_catalog.to_regprocedure(
+           'public.save_primo_student_state(text,jsonb,timestamp with time zone,uuid)'
+         )
+       )
+         and privilege.grantee = 0
+         and privilege.privilege_type = 'EXECUTE'
+     ) then
+    raise exception 'PUBLIC must not have RPC execute privilege';
+  end if;
+  if pg_catalog.has_function_privilege(
+       'service_role', 'public.get_primo_student_state(text)', 'EXECUTE'
+     ) or pg_catalog.has_function_privilege(
+       'service_role',
+       'public.save_primo_student_state(text,jsonb,timestamp with time zone,uuid)',
+       'EXECUTE'
+     ) then
+    raise exception 'service_role must not have Primo student RPC execute privilege';
+  end if;
   if not pg_catalog.has_function_privilege(
     'authenticated', 'public.get_primo_student_state(text)', 'EXECUTE'
   ) or not pg_catalog.has_function_privilege(
@@ -32,6 +58,71 @@ begin
   ) then
     raise exception 'authenticated RPC grants are missing';
   end if;
+  if not pg_catalog.has_function_privilege(
+    'postgres', 'public.get_primo_student_state(text)', 'EXECUTE'
+  ) or not pg_catalog.has_function_privilege(
+    'postgres',
+    'public.save_primo_student_state(text,jsonb,timestamp with time zone,uuid)',
+    'EXECUTE'
+  ) then
+    raise exception 'postgres owner RPC execution is missing';
+  end if;
+end;
+$test$;
+
+do $test$
+declare
+  v_helper regprocedure;
+begin
+  for v_helper in
+    select p.oid::regprocedure
+    from pg_catalog.pg_proc as p
+    join pg_catalog.pg_namespace as n on n.oid = p.pronamespace
+    where n.nspname = 'private'
+      and (p.proname like 'primo_%' or p.proname like 'resolve_primo_%')
+  loop
+    if exists (
+         select 1
+         from pg_catalog.pg_proc as p
+         cross join lateral pg_catalog.aclexplode(
+           coalesce(p.proacl, pg_catalog.acldefault('f', p.proowner))
+         ) as privilege
+         where p.oid = v_helper
+           and privilege.grantee = 0
+           and privilege.privilege_type = 'EXECUTE'
+       )
+       or pg_catalog.has_function_privilege('anon', v_helper, 'EXECUTE')
+       or pg_catalog.has_function_privilege('authenticated', v_helper, 'EXECUTE')
+       or pg_catalog.has_function_privilege('service_role', v_helper, 'EXECUTE') then
+      raise exception 'Non-owner execution leaked to private helper: %', v_helper;
+    end if;
+  end loop;
+end;
+$test$;
+
+do $test$
+declare
+  v_store text;
+  v_limit integer;
+begin
+  for v_store, v_limit in
+    select * from (values
+      ('progress'::text, 262144),
+      ('practice'::text, 65536),
+      ('starting-checks'::text, 524288),
+      ('journey'::text, 65536)
+    ) as limits(store_key, byte_limit)
+  loop
+    begin
+      perform private.primo_sanitize_state(
+        v_store,
+        pg_catalog.jsonb_build_object('padding', pg_catalog.repeat('x', v_limit + 1))
+      );
+      raise exception '% oversized incoming payload was accepted', v_store;
+    exception when string_data_right_truncation then
+      null;
+    end;
+  end loop;
 end;
 $test$;
 
