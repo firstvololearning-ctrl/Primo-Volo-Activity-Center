@@ -6572,35 +6572,42 @@ function closeAboutModal() {
   }
 }
 
-aboutItalianButton.addEventListener(
-  "click",
-  () => {
-    openAboutModal("italian");
-  }
-);
-
-aboutEnglishButton.addEventListener(
-  "click",
-  () => {
-    openAboutModal("english");
-  }
-);
-
-aboutClose.addEventListener(
-  "click",
-  closeAboutModal
-);
-
-aboutModal.addEventListener(
-  "click",
-  event => {
-    if (event.target === aboutModal) {
-      closeAboutModal();
+if (
+  aboutItalianButton &&
+  aboutEnglishButton &&
+  aboutModal &&
+  aboutClose
+) {
+  aboutItalianButton.addEventListener(
+    "click",
+    () => {
+      openAboutModal("italian");
     }
-  }
-);
+  );
 
-prepareAboutLanguages();
+  aboutEnglishButton.addEventListener(
+    "click",
+    () => {
+      openAboutModal("english");
+    }
+  );
+
+  aboutClose.addEventListener(
+    "click",
+    closeAboutModal
+  );
+
+  aboutModal.addEventListener(
+    "click",
+    event => {
+      if (event.target === aboutModal) {
+        closeAboutModal();
+      }
+    }
+  );
+
+  prepareAboutLanguages();
+}
 
 
 /* ========================================
@@ -6711,7 +6718,7 @@ document.addEventListener(
 
 
 
-    if (!aboutModal.hidden) {
+    if (aboutModal && !aboutModal.hidden) {
 
       closeAboutModal();
 
