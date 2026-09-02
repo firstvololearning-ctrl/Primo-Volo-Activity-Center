@@ -4,7 +4,7 @@ const SUPABASE_URL = "https://apkvvspubolyxlqtlkto.supabase.co";
 const SUPABASE_PUBLISHABLE_KEY = "sb_publishable_0O4rNLfhuW18xYRZSPkLpw_xyXR9d3n";
 const PRODUCT_KEY = "primo-volo";
 // Keep false until the reviewed P3 RPCs pass hosted Supabase integration QA.
-const ENABLE_PRIMO_STUDENT_CLOUD = false;
+const ENABLE_PRIMO_STUDENT_CLOUD = true;
 const IS_LOCAL_PREVIEW = ["127.0.0.1", "localhost"].includes(
   window.location.hostname
 );
