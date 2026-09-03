@@ -115,7 +115,7 @@
     if (local == null) return adopt(storeKey, result.data, result.updated_at);
     const merged = merge.mergeStore(storeKey, states.get(storeKey).baseData || result.data, local, result.data);
     adopt(storeKey, result.data, result.updated_at, false);
-    if (!merged.conflicts.length && !same(merged.data, result.data)) {
+    if (!merged.conflicts.length && !merge.sameDocument(merged.data, result.data)) {
       writeLocal(storeKey, merged.data);
       schedule(storeKey, 0);
     } else if (!merged.conflicts.length) {
