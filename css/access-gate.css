@@ -79,6 +79,7 @@ body[data-access-status="authorized"] > .pv-access-shell {
   display: flex;
   align-items: center;
   justify-content: center;
+  flex-wrap: wrap;
   gap: 8px;
   padding: 10px 16px;
   color: #274b84;

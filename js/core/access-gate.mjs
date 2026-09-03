@@ -348,7 +348,11 @@ function mountSharedStudentIdentity(studentContext) {
   label.textContent = "👤 Studente · Student:";
   const name = document.createElement("strong");
   name.textContent = studentContext.display_name || "Student";
-  bar.append(label, name);
+  const returnLink = document.createElement("a");
+  returnLink.className = "pv-access-link";
+  returnLink.href = "https://firstvololearning-ctrl.github.io/First-Volo-Account/student-login.html";
+  returnLink.textContent = "Return to First Volo";
+  bar.append(label, name, returnLink);
   document.querySelector("main.page")?.before(bar);
 }
 
