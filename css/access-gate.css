@@ -88,6 +88,24 @@ body[data-access-status="authorized"] > .pv-access-shell {
   font-weight: 850;
 }
 
+body[data-access-mode="educator-selected"] .pv-shared-student-bar {
+  gap: 10px;
+  color: #493d7d;
+  background: #f3efff;
+  border-bottom-color: #dcd3f5;
+}
+
+.pv-shared-student-action {
+  padding: 6px 10px;
+  border: 1px solid #c9bfe9;
+  border-radius: 999px;
+  color: #493d7d;
+  background: #ffffff;
+  font-size: .82rem;
+  font-weight: 850;
+  text-decoration: none;
+}
+
 body[data-access-mode="student"] .home-tagline {
   display: none;
 }

@@ -3,6 +3,7 @@ import { createClient } from "https://cdn.jsdelivr.net/npm/@supabase/supabase-js
 const SUPABASE_URL = "https://apkvvspubolyxlqtlkto.supabase.co";
 const SUPABASE_PUBLISHABLE_KEY = "sb_publishable_0O4rNLfhuW18xYRZSPkLpw_xyXR9d3n";
 const PRODUCT_KEY = "primo-volo";
+const UUID_PATTERN = /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
 // Keep false until the reviewed P3 RPCs pass hosted Supabase integration QA.
 const ENABLE_PRIMO_STUDENT_CLOUD = true;
 const IS_LOCAL_PREVIEW = ["127.0.0.1", "localhost"].includes(
@@ -263,11 +264,73 @@ async function authorizeEducator(user) {
 
   if (!active) return lockedAccess;
 
+  const requestedStudentId = new URLSearchParams(window.location.search).get("studentId");
+  let studentContext = null;
+
+  if (requestedStudentId) {
+    if (!UUID_PATTERN.test(requestedStudentId)) return lockedAccess;
+    let profileResult = await supabase
+      .from("learner_profiles")
+      .select("id,student_id,local_profile_id,display_name")
+      .eq("owner_user_id", user.id)
+      .eq("product_key", PRODUCT_KEY)
+      .eq("student_id", requestedStudentId)
+      .is("deleted_at", null)
+      .limit(2);
+    if (profileResult.error) return lockedAccess;
+
+    if (profileResult.data?.length === 0) {
+      const [studentResult, membershipResult] = await Promise.all([
+        supabase.from("students")
+          .select("id,display_name")
+          .eq("id", requestedStudentId)
+          .eq("owner_user_id", user.id)
+          .is("archived_at", null)
+          .maybeSingle(),
+        supabase.from("class_memberships")
+          .select("class_id")
+          .eq("student_id", requestedStudentId)
+          .eq("owner_user_id", user.id)
+          .limit(2)
+      ]);
+      if (studentResult.error || membershipResult.error || !studentResult.data || membershipResult.data?.length !== 1) return lockedAccess;
+      const classAccess = await supabase.from("class_product_access")
+        .select("class_id")
+        .eq("class_id", membershipResult.data[0].class_id)
+        .eq("product_key", PRODUCT_KEY)
+        .limit(1);
+      if (classAccess.error || classAccess.data?.length !== 1) return lockedAccess;
+
+      const createdProfile = await supabase.from("learner_profiles").upsert({
+        owner_user_id: user.id,
+        product_key: PRODUCT_KEY,
+        student_id: requestedStudentId,
+        local_profile_id: requestedStudentId,
+        display_name: studentResult.data.display_name,
+        deleted_at: null,
+        updated_at: new Date().toISOString()
+      }, { onConflict: "owner_user_id,product_key,local_profile_id" })
+        .select("id,student_id,local_profile_id,display_name")
+        .single();
+      if (createdProfile.error || !createdProfile.data) return lockedAccess;
+      profileResult = { data: [createdProfile.data], error: null };
+    }
+
+    if (profileResult.data?.length !== 1) return lockedAccess;
+    const profile = profileResult.data[0];
+    studentContext = Object.freeze({
+      student_id: profile.student_id,
+      local_profile_id: profile.local_profile_id || String(profile.student_id),
+      learner_profile_id: profile.id,
+      display_name: profile.display_name || "Student"
+    });
+  }
+
   return Object.freeze({
     status: "authorized",
-    mode: "educator",
+    mode: studentContext ? "educator-selected" : "educator",
     user,
-    studentContext: null,
+    studentContext,
     productKeys: Object.freeze([PRODUCT_KEY])
   });
 }
@@ -340,27 +403,43 @@ function removeStudentUnsafeShell() {
   document.querySelectorAll(selectors.join(",")).forEach((node) => node.remove());
 }
 
-function mountSharedStudentIdentity(studentContext) {
+function mountSharedStudentIdentity(studentContext, mode) {
   const bar = document.createElement("div");
   bar.className = "pv-shared-student-bar";
   bar.setAttribute("aria-label", "Current student");
   const label = document.createElement("span");
-  label.textContent = "👤 Studente · Student:";
+  label.textContent = mode === "educator-selected" ? "Working with" : "👤 Studente · Student:";
   const name = document.createElement("strong");
   name.textContent = studentContext.display_name || "Student";
-  const returnLink = document.createElement("a");
-  returnLink.className = "pv-access-link";
-  returnLink.href = "https://firstvololearning-ctrl.github.io/First-Volo-Account/student-login.html";
-  returnLink.textContent = "Return to First Volo";
-  bar.append(label, name, returnLink);
+  bar.append(label, name);
+  if (mode === "educator-selected") {
+    const progress = document.createElement("a");
+    progress.className = "pv-shared-student-action";
+    progress.href = `primo-progress.html?studentId=${encodeURIComponent(studentContext.student_id)}`;
+    progress.textContent = "View progress";
+    const account = document.createElement("a");
+    account.className = "pv-shared-student-action";
+    account.href = ACCOUNT_HOME_URL;
+    account.textContent = "My First Volo";
+    bar.append(progress, account);
+  } else {
+    const returnLink = document.createElement("a");
+    returnLink.className = "pv-access-link";
+    returnLink.href = STUDENT_LOGIN_URL;
+    returnLink.textContent = "Return to First Volo";
+    bar.append(returnLink);
+  }
   document.querySelector("main.page")?.before(bar);
 }
 
 function installSharedStudentFacade(studentContext) {
   const student = Object.freeze({
-    id: String(studentContext.student_id),
+    id: String(studentContext.local_profile_id || studentContext.student_id),
     name: String(studentContext.display_name || "Student")
   });
+  if (currentAccess.mode === "educator-selected") {
+    window.localStorage.setItem("primoVoloCurrentStudentV1", student.id);
+  }
   window.PrimoVoloStudent = Object.freeze({
     getStudents: () => [student],
     getCurrent: () => student,
@@ -372,20 +451,24 @@ async function startRuntime(access) {
   if (runtimePromise) return runtimePromise;
 
   runtimeMode = access.mode;
+  if (access.mode === "student" || access.mode === "educator-selected") {
+    installSharedStudentFacade(access.studentContext);
+    mountSharedStudentIdentity(access.studentContext, access.mode);
+  }
   if (access.mode === "student") {
     removeStudentUnsafeShell();
-    installSharedStudentFacade(access.studentContext);
-    mountSharedStudentIdentity(access.studentContext);
     window.PrimoVoloStudentCloudAutoEnable = ENABLE_PRIMO_STUDENT_CLOUD;
   }
 
-  const scripts = access.mode === "educator"
-    ? [...COMMON_SCRIPTS, ...EDUCATOR_ONLY_SCRIPTS]
-    : [
+  const scripts = access.mode === "student"
+    ? [
         ...COMMON_SCRIPTS.slice(0, 2),
         ...STUDENT_CLOUD_SCRIPTS,
         ...COMMON_SCRIPTS.slice(2)
-      ];
+      ]
+    : access.mode === "educator-selected"
+      ? [...COMMON_SCRIPTS, ...EDUCATOR_ONLY_SCRIPTS.filter(src => !src.startsWith("js/progress/student-manager.js"))]
+      : [...COMMON_SCRIPTS, ...EDUCATOR_ONLY_SCRIPTS];
 
   runtimePromise = scripts.reduce(
     (promise, src) => promise.then(async () => {

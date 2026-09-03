@@ -10,7 +10,7 @@
     !students ||
     !supa?.createClient ||
     initialAccess?.status !== "authorized" ||
-    initialAccess?.mode !== "educator" ||
+    !["educator", "educator-selected"].includes(initialAccess?.mode) ||
     initialAccess?.user?.is_anonymous === true
   ) {
     console.warn("Primo Volo Cloud Save is not ready.");
@@ -54,7 +54,7 @@
     const access = window.PrimoVoloAccess;
     return Boolean(
       access?.status === "authorized" &&
-      access.mode === "educator" &&
+      ["educator", "educator-selected"].includes(access.mode) &&
       access.user?.is_anonymous !== true &&
       access.user?.id &&
       session?.user?.id === access.user.id &&

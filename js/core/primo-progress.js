@@ -162,7 +162,12 @@ function section(title,description,content){return `<section class="report-secti
 
 function renderReport(profile, states) {
   const progress=progressModel(states.progress),practice=practiceModel(states.practice),checks=checksModel(states["starting-checks"]);
-  app.innerHTML=`<section class="student-hero"><div><p class="eyebrow">Primo Progress</p><h1>${escapeHtml(profile.display_name)}</h1><p>Recorded practice, diagnostic evidence, and scored activity in Primo.</p></div><span class="student-product">Primo Volo</span></section>${overviewHtml(progress,practice,checks)}${topicsHtml(progress,practice,checks)}${activitiesHtml(progress)}${startingChecksHtml(checks)}${evidenceHtml(progress)}${trendsHtml(progress)}${journeyHtml(states.journey)}<p class="note">This report is read only. Accuracy summarizes recorded scored responses; practice and Journey evidence are shown separately.</p>`;
+  const activityUrl = `index.html?studentId=${encodeURIComponent(profile.student_id)}`;
+  document.querySelectorAll('.report-brand, .report-back').forEach(link => {
+    link.href = activityUrl;
+    if (link.classList.contains('report-back')) link.textContent = `← Work with ${profile.display_name} in Primo`;
+  });
+  app.innerHTML=`<section class="student-hero"><div><p class="eyebrow">Looking at ${escapeHtml(profile.display_name)}</p><h1>${escapeHtml(profile.display_name)}’s Primo Progress</h1><p>Recorded practice, diagnostic evidence, and scored activity in Primo.</p></div><span class="student-product">Primo Volo</span></section>${overviewHtml(progress,practice,checks)}${topicsHtml(progress,practice,checks)}${activitiesHtml(progress)}${startingChecksHtml(checks)}${evidenceHtml(progress)}${trendsHtml(progress)}${journeyHtml(states.journey)}<p class="note">This report is read only. Accuracy summarizes recorded scored responses; practice and Journey evidence are shown separately.</p>`;
 }
 
 async function init() {
