@@ -15,8 +15,11 @@ const ACCOUNT_HOME_URL = IS_LOCAL_PREVIEW
 const ACCOUNT_URL = IS_LOCAL_PREVIEW
   ? ACCOUNT_HOME_URL
   : `${ACCOUNT_HOME_URL}?returnTo=primoVolo`;
-const STUDENT_LOGIN_URL = IS_LOCAL_PREVIEW
+const STUDENT_HOME_URL = IS_LOCAL_PREVIEW
   ? `${ACCOUNT_HOME_URL}student-login.html`
+  : `${ACCOUNT_HOME_URL}student-login.html`;
+const STUDENT_LOGIN_URL = IS_LOCAL_PREVIEW
+  ? `${STUDENT_HOME_URL}?returnTo=primoVolo`
   : `${ACCOUNT_HOME_URL}student-login.html?returnTo=primoVolo`;
 const AUTH_EVENTS_TO_VERIFY = new Set([
   "INITIAL_SESSION",
@@ -425,9 +428,22 @@ function mountSharedStudentIdentity(studentContext, mode) {
   } else {
     const returnLink = document.createElement("a");
     returnLink.className = "pv-access-link";
-    returnLink.href = STUDENT_LOGIN_URL;
+    returnLink.href = STUDENT_HOME_URL;
     returnLink.textContent = "Return to First Volo";
-    bar.append(returnLink);
+    const signOut = document.createElement("button");
+    signOut.type = "button";
+    signOut.className = "pv-access-link";
+    signOut.textContent = "Sign out";
+    signOut.addEventListener("click", async () => {
+      signOut.disabled = true;
+      const { error } = await supabase.auth.signOut();
+      if (error) {
+        signOut.disabled = false;
+        return;
+      }
+      window.location.replace(STUDENT_HOME_URL);
+    });
+    bar.append(returnLink, signOut);
   }
   document.querySelector("main.page")?.before(bar);
 }
