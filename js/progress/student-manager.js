@@ -180,7 +180,7 @@
     const emptyOption = document.createElement("option");
     emptyOption.value = "";
     emptyOption.textContent =
-      "Scegli il tuo nome · Choose your name";
+      "Scegli la tua etichetta · Choose your label";
     selectEl.appendChild(emptyOption);
 
     students.forEach((student) => {
@@ -248,7 +248,7 @@
       "aria-label",
       hasStudent
         ? "Current student"
-        : "Choose your name, optional"
+        : "Choose your label, optional"
     );
   }
 
@@ -296,7 +296,7 @@
 
       renameButton.addEventListener("click", () => {
         const nextName = window.prompt(
-          "Student name:",
+          "Made-up student nickname or label (no real names or initials):",
           student.name
         );
 
@@ -715,7 +715,7 @@
     addButton.type = "button";
     addButton.className =
       "pv-student-button pv-student-add";
-    addButton.textContent = "＋ Add Student";
+    addButton.textContent = "＋ Add Student with Label";
     addButton.addEventListener("click", openModal);
 
     const manageButton = document.createElement("button");
@@ -767,7 +767,10 @@
     subtitle.textContent =
       "Choose a student when you want practice and progress connected to an individual learner.";
 
-    titleWrap.append(title, subtitle);
+    const privacyNote = document.createElement("p");
+    privacyNote.id = "pvStudentPrivacyNote";
+    privacyNote.textContent = "Use a made-up nickname or label. Do not enter real names, initials, school student IDs, email addresses, or birth dates. Keep any list linking labels to students securely outside First Volo.";
+    titleWrap.append(title, subtitle, privacyNote);
 
     const closeButton = document.createElement("button");
     closeButton.type = "button";
@@ -783,12 +786,13 @@
 
     nameInput = document.createElement("input");
     nameInput.type = "text";
-    nameInput.placeholder = "Student name or initials";
+    nameInput.placeholder = "Made-up nickname or label (e.g., Owl 7)";
     nameInput.setAttribute(
       "aria-label",
-      "Student name or initials"
+      "Made-up nickname or label (e.g., Owl 7)"
     );
     nameInput.autocomplete = "off";
+    nameInput.setAttribute("aria-describedby", "pvStudentPrivacyNote");
 
     const createButton = document.createElement("button");
     createButton.type = "submit";

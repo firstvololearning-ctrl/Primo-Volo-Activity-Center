@@ -699,6 +699,7 @@ let answerLocked = false;
 
   function renderAgeScreen() {
     introductionsActivity.innerHTML = `
+      <p class="activity-instructions">Practice with made-up names, ages, and places. Do not use real student details.</p>
       <div class="introductions-card">
 
         <div class="introductions-heading">
@@ -834,6 +835,7 @@ let answerLocked = false;
     answerLocked = false;
 
     introductionsActivity.innerHTML = `
+      <p class="activity-instructions">Practice with made-up names, ages, and places. Do not use real student details.</p>
       <div class="introductions-card">
 
         <div class="introductions-heading">
@@ -1064,6 +1066,7 @@ let answerLocked = false;
     ];
 
     introductionsActivity.innerHTML = `
+      <p class="activity-instructions">Practice with made-up names, ages, and places. Do not use real student details.</p>
       <div class="introductions-card">
 
         <div class="introductions-heading">
